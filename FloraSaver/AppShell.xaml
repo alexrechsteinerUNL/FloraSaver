@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="FloraSaver.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:FloraSaver"
+    Shell.FlyoutBehavior="Disabled">
+
+    <TabBar x:Name="Tab_Options" >
+        <Tab Title="Home">
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage"/>
+        </Tab>
+        <Tab Title="Plants">
+            <ShellContent ContentTemplate="{DataTemplate local:TablePage}" Route="TablePage"/>
+        </Tab>
+        <Tab Title="Settings">
+            <ShellContent ContentTemplate="{DataTemplate local:TablePage}" Route="TablePage"/>
+        </Tab>
+        <Tab Title="IoT Integration">
+            <ShellContent ContentTemplate="{DataTemplate local:TablePage}" Route="TablePage"/>
+        </Tab>
+    </TabBar>
+</Shell>
