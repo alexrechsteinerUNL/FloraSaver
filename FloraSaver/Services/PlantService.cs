@@ -31,7 +31,7 @@ namespace FloraSaver.Services
             _dbPath = dbPath;
         }
 
-        public async Task AddNewPlantAsync(string givenName)
+        public async Task AddUpdateNewPlantAsync(Plant plant)
         {
             int result = 0;
             try
@@ -39,19 +39,62 @@ namespace FloraSaver.Services
                 // TODO: Call Init()
                 await InitAsync();
                 // basic validation to ensure a name was entered
-                if (string.IsNullOrEmpty(givenName))
+                if (string.IsNullOrEmpty(plant.GivenName))
                     throw new Exception("Valid name required");
 
                 // TODO: Insert the new person into the database
-                result = await conn.InsertAsync(new Plant { GivenName = givenName });
+                result = await conn.InsertOrReplaceAsync(plant);
 
-                StatusMessage = string.Format("{0} record(s) added (Name: {1})", result, givenName);
+                StatusMessage = string.Format("{0} record(s) added (Name: {1})", result, plant.GivenName);
             }
             catch (Exception ex)
             {
-                StatusMessage = string.Format("Failed to add {0}. Error: {1}", givenName, ex.Message);
+                StatusMessage = string.Format("Failed to add {0}. Error: {1}", plant.GivenName, ex.Message);
             }
+        }
 
+        public async Task UpdatePlantAsync(Plant plant)
+        {
+            int result = 0;
+            try
+            {
+                // TODO: Call Init()
+                await InitAsync();
+                // basic validation to ensure a name was entered
+                if (string.IsNullOrEmpty(plant.GivenName))
+                    throw new Exception("Valid name required");
+
+                // TODO: Insert the new person into the database
+                result = await conn.UpdateAsync(plant);
+
+                StatusMessage = string.Format("{0} record(s) updated (Name: {1})", result, plant.GivenName);
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Failed to update {0}. Error: {1}", plant.GivenName, ex.Message);
+            }
+        }
+
+        public async Task DeletePlantAsync(Plant plant)
+        {
+            int result = 0;
+            try
+            {
+                // TODO: Call Init()
+                await InitAsync();
+                // basic validation to ensure a name was entered
+                if (string.IsNullOrEmpty(plant.GivenName))
+                    throw new Exception("Valid name required");
+
+                // TODO: Insert the new person into the database
+                result = await conn.DeleteAsync(plant);
+
+                StatusMessage = string.Format("{0} record(s) deleted (Name: {1})", result, plant.GivenName);
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Failed to delete {0}. Error: {1}", plant.GivenName, ex.Message);
+            }
         }
 
         public async Task<List<Plant>> GetAllPlantAsync()

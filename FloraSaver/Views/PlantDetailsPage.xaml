@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    x:Class="FloraSaver.PlantDetailsPage"
+    xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
+    x:DataType="viewmodel:PlantDetailsViewModel"
+    Title="{Binding Plant.GivenName}">
+
+    <ScrollView>
+        <VerticalStackLayout>
+            <Grid ColumnDefinitions="*,Auto,*" RowDefinitions="160, Auto">
+
+                <BoxView
+                    Grid.ColumnSpan="3"
+                    Background="{StaticResource Primary}"
+                    HeightRequest="160"
+                    HorizontalOptions="FillAndExpand" />
+                <Frame
+                    Grid.RowSpan="2"
+                    Grid.Column="1"
+                    Margin="0,80,0,0"
+                    HeightRequest="160"
+                    WidthRequest="160"
+                    HorizontalOptions="Center" 
+                    Padding="0"
+                    IsClippedToBounds="True"
+                    CornerRadius="80">
+                    <Image
+                        Aspect="AspectFill"
+                        HeightRequest="160"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Source="{Binding Plant.ImageLocation}"
+                        WidthRequest="160"/>
+                </Frame>
+            </Grid>
+
+            <VerticalStackLayout Padding="10" Spacing="10">
+                <HorizontalStackLayout Spacing="10">
+                    <Label Style="{StaticResource MicroLabel}" Text="{Binding Plant.PlantSpecies, StringFormat='Plant Species: '}" />
+                    <Entry x:Name="_PlantSpecies" Text="{Binding Plant.PlantSpecies, StringFormat='{0}'}"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="10">
+                    <Label Style="{StaticResource MicroLabel}" Text="Date Of Birth: " />
+                    <DatePicker x:Name="_DateOfBirth" Date="{Binding Plant.DateOfBirth}" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="10">
+                    <Label Style="{StaticResource MicroLabel}" Text="{Binding Plant.GivenName, StringFormat='Given Name: '}" />
+                    <Entry x:Name="_GivenName" Text="{Binding Plant.GivenName, StringFormat='{0}'}"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="10">
+                    <Label Style="{StaticResource MicroLabel}" Text="Water On: " />
+                    <DatePicker x:Name="_DateOfNextWatering" Date="{Binding Plant.DateOfNextWatering}"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="10">
+                    <Label Style="{StaticResource MicroLabel}" Text="Last Watered On: " />
+                    <DatePicker x:Name="_DateOfLastWatering" Date="{Binding Plant.DateOfLastWatering}"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="10">
+                <Button Text="Go Back" 
+                    x:Name="goBack"
+                    IsEnabled="{Binding IsNotBusy}"
+                    Style="{StaticResource ButtonOutline}"/>
+                <Button Text="Bloop It" 
+                    x:Name="addUpdate"
+                    IsEnabled="{Binding IsNotBusy}"
+                    Style="{StaticResource ButtonOutline}"/>
+                    <Button Text="Clear Changes" 
+                    x:Name="getPlants"
+                    IsEnabled="{Binding IsNotBusy}"
+                    Style="{StaticResource ButtonOutline}"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

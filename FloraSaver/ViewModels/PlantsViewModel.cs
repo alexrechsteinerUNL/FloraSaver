@@ -18,10 +18,13 @@ namespace FloraSaver.ViewModels
         PlantService plantService;
         public PlantsViewModel(PlantService plantService)
         {
-            Title = "Plant Finder";
+            Title = "Plant Saver";
             this.plantService = plantService;
         }
-        
+
+        [ObservableProperty]
+        bool isRefreshing;
+
         [RelayCommand]
         async Task GetPlantsAsync()
         {
@@ -48,8 +51,32 @@ namespace FloraSaver.ViewModels
             finally
             {
                 IsBusy = false;
+                IsRefreshing = false;
+            }
+        }
+
+        [RelayCommand]
+        async Task GoToDetailsAsync(Plant plant)
+        {
+            if (plant == null)
+                await Shell.Current.GoToAsync(nameof(PlantDetailsPage), true, new Dictionary<string, object>
+                {
+                    {"Plant", new Plant { 
+                        DateOfBirth = DateTime.Now, 
+                        DateOfLastWatering = DateTime.Now, 
+                        DateOfNextWatering = DateTime.Now } }
+                });
+            else
+            {
+                await Shell.Current.GoToAsync(nameof(PlantDetailsPage), true, new Dictionary<string, object>
+                {
+                    {"Plant", plant }
+                });
             }
 
+
         }
+
+
     }
 }
