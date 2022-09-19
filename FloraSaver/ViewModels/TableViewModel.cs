@@ -12,11 +12,11 @@ using FloraSaver.Services;
 
 namespace FloraSaver.ViewModels
 {
-    public partial class PlantsViewModel : BaseViewModel
+    public partial class TableViewModel : BaseViewModel
     {
         public ObservableCollection<Plant> Plants { get; } = new();
         PlantService plantService;
-        public PlantsViewModel(PlantService plantService)
+        public TableViewModel(PlantService plantService)
         {
             Title = "Plant Saver";
             this.plantService = plantService;
@@ -73,10 +73,6 @@ namespace FloraSaver.ViewModels
                     {"Plant", plant }
                 });
             }
-
-
         }
-
-
     }
 }

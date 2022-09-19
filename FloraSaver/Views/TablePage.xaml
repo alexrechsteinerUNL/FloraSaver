@@ -5,14 +5,32 @@
              x:Class="FloraSaver.TablePage"
              xmlns:model="clr-namespace:FloraSaver.Models"
              xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
-             x:DataType="viewmodel:PlantsViewModel"
+             x:DataType="viewmodel:TableViewModel"
              Title="Plant Table">
+    <!--<Shell.SearchHandler>
+        <SearchHandlers:PlantSearchHandler
+            Placeholder="Enter search term"
+            ShowsResults="true"
+            DisplayMemberName="Name"
+            ItemsSource="{Binding Plants}">
+            <SearchHandlers:PlantSearchHandler.ItemTemplate>
+                <DataTemplate>
+                    <HorizontalStackLayout Padding="10">
+                        <Label Text="{Binding GivenName}"
+                           Margin="0,0,10,0" />
+                        <Label Text="Test" />
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </SearchHandlers:PlantSearchHandler.ItemTemplate>
+        </SearchHandlers:PlantSearchHandler>
+    </Shell.SearchHandler>-->
 
     <Grid
         ColumnDefinitions="*,*"
         ColumnSpacing="5"
         RowDefinitions="*,Auto"
         RowSpacing="0">
+
         <RefreshView
             Grid.ColumnSpan="2"
             Command="{Binding GetPlantsCommand}"
@@ -22,22 +40,25 @@
             SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Plant">
-                        <Grid Padding="10">
-                            <Frame HeightRequest="125" Style="{StaticResource CardView}">
+                        <Grid Padding="10" >
+                            <Frame HeightRequest="250" BackgroundColor="Black">
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantsViewModel}}, Path=GoToDetailsCommand}"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}"
                                     CommandParameter="{Binding .}"/>
                                 </Frame.GestureRecognizers>
-                                <Grid Padding="0" ColumnDefinitions="125,*">
+                                <Grid Padding="0" ColumnDefinitions="125,*" >
                                     <Image Aspect="AspectFill" Source="{Binding ImageLocation}"
                                        WidthRequest="125"
                                        HeightRequest="125"/>
                                     <VerticalStackLayout
                                     Grid.Column="1"
                                     Padding="10">
-                                        <Label Style="{StaticResource LargeLabel}" Text="{Binding GivenName}" />
-                                        <Label Style="{StaticResource MediumLabel}" Text="{Binding Id}" />
+                                        <Label FontSize="36" Text="{Binding GivenName, StringFormat='{0}'}" />
+                                        <Label FontAttributes="Italic" Text="{Binding PlantSpecies}" />
+                                        <Label Text="{Binding DateOfLastWatering, StringFormat='Last Watered: {0}'}" />
+                                        <Label Text="{Binding DateOfBirth, StringFormat='Birthday: {0}'}" />
+                                        <Label FontSize="24" Text="{Binding DateOfNextWatering, StringFormat='Next Watering: {0}'}" />
                                     </VerticalStackLayout>
                                 </Grid>
                             </Frame>
@@ -56,7 +77,7 @@
                 Margin="8"/>
         <Button Text="Add New Plant" 
                 x:Name="addPlants"
-                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantsViewModel}}, Path=GoToDetailsCommand}"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}"
                 IsEnabled="{Binding IsNotBusy}"
                 Grid.Row="1"
                 Grid.Column="1"

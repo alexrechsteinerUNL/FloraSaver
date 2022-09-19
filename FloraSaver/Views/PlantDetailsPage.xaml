@@ -9,8 +9,8 @@
     Title="{Binding Plant.GivenName}">
 
     <ScrollView>
-        <VerticalStackLayout>
-            <Grid ColumnDefinitions="*,Auto,*" RowDefinitions="160, Auto">
+        <VerticalStackLayout Padding="10">
+            <!--<Grid ColumnDefinitions="*,Auto,*" RowDefinitions="160, Auto">
 
                 <BoxView
                     Grid.ColumnSpan="3"
@@ -35,44 +35,55 @@
                         Source="{Binding Plant.ImageLocation}"
                         WidthRequest="160"/>
                 </Frame>
-            </Grid>
-
-            <VerticalStackLayout Padding="10" Spacing="10">
-                <HorizontalStackLayout Spacing="10">
+            </Grid>-->
+            <Frame BackgroundColor="Black" Padding="10">
+                <VerticalStackLayout Padding="10" Spacing="10">
+                    <HorizontalStackLayout Spacing="10">
                     <Label Style="{StaticResource MicroLabel}" Text="{Binding Plant.PlantSpecies, StringFormat='Plant Species: '}" />
-                    <Entry x:Name="_PlantSpecies" Text="{Binding Plant.PlantSpecies, StringFormat='{0}'}"/>
+                    <Entry x:Name="_PlantSpecies" Text="{Binding Plant.PlantSpecies, StringFormat='{0}', Mode=TwoWay}"/>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Spacing="10">
                     <Label Style="{StaticResource MicroLabel}" Text="Date Of Birth: " />
-                    <DatePicker x:Name="_DateOfBirth" Date="{Binding Plant.DateOfBirth}" />
+                    <DatePicker x:Name="_DateOfBirth" Date="{Binding Plant.DateOfBirth, Mode=TwoWay}" BackgroundColor="White" />
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Spacing="10">
                     <Label Style="{StaticResource MicroLabel}" Text="{Binding Plant.GivenName, StringFormat='Given Name: '}" />
-                    <Entry x:Name="_GivenName" Text="{Binding Plant.GivenName, StringFormat='{0}'}"/>
+                    <Entry x:Name="_GivenName" Text="{Binding Plant.GivenName, StringFormat='{0}', Mode=TwoWay}"/>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Spacing="10">
                     <Label Style="{StaticResource MicroLabel}" Text="Water On: " />
-                    <DatePicker x:Name="_DateOfNextWatering" Date="{Binding Plant.DateOfNextWatering}"/>
+                        <DatePicker x:Name="_DateOfNextWatering" Date="{Binding Plant.DateOfNextWatering, Mode=TwoWay}" BackgroundColor="White" />
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Spacing="10">
                     <Label Style="{StaticResource MicroLabel}" Text="Last Watered On: " />
-                    <DatePicker x:Name="_DateOfLastWatering" Date="{Binding Plant.DateOfLastWatering}"/>
+                        <DatePicker x:Name="_DateOfLastWatering" Date="{Binding Plant.DateOfLastWatering, Mode=TwoWay}" BackgroundColor="White" />
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Spacing="10">
                 <Button Text="Go Back" 
                     x:Name="goBack"
                     IsEnabled="{Binding IsNotBusy}"
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=GoToTableCommand}"
                     Style="{StaticResource ButtonOutline}"/>
-                <Button Text="Bloop It" 
+                <Button Text="Add Update Plant" 
                     x:Name="addUpdate"
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=AddUpdateCommand}"
+                    CommandParameter= "{Binding Plant}"
                     IsEnabled="{Binding IsNotBusy}"
                     Style="{StaticResource ButtonOutline}"/>
                     <Button Text="Clear Changes" 
-                    x:Name="getPlants"
+                    x:Name="addUpdatePlants"
+                    IsEnabled="{Binding IsNotBusy}"
+                    Style="{StaticResource ButtonOutline}"/>
+                    <Button Text="Delete Plant" 
+                    x:Name="DeletePlants"
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=DeleteCommand}"
+                    CommandParameter= "{Binding Plant}"
                     IsEnabled="{Binding IsNotBusy}"
                     Style="{StaticResource ButtonOutline}"/>
                 </HorizontalStackLayout>
             </VerticalStackLayout>
-        </VerticalStackLayout>
+        </Frame>
+    </VerticalStackLayout>
+        
     </ScrollView>
 </ContentPage>

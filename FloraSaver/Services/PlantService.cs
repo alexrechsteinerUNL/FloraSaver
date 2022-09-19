@@ -53,28 +53,6 @@ namespace FloraSaver.Services
             }
         }
 
-        public async Task UpdatePlantAsync(Plant plant)
-        {
-            int result = 0;
-            try
-            {
-                // TODO: Call Init()
-                await InitAsync();
-                // basic validation to ensure a name was entered
-                if (string.IsNullOrEmpty(plant.GivenName))
-                    throw new Exception("Valid name required");
-
-                // TODO: Insert the new person into the database
-                result = await conn.UpdateAsync(plant);
-
-                StatusMessage = string.Format("{0} record(s) updated (Name: {1})", result, plant.GivenName);
-            }
-            catch (Exception ex)
-            {
-                StatusMessage = string.Format("Failed to update {0}. Error: {1}", plant.GivenName, ex.Message);
-            }
-        }
-
         public async Task DeletePlantAsync(Plant plant)
         {
             int result = 0;

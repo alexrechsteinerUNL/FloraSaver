@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             x:Class="FloraSaver.SettingPage"
+             Title="Settings Page">
+
+
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="15" Padding="20" >
+            <Button Text="Notification Settings" 
+                x:Name="notificationSettings"
+                Grid.Row="1"
+                Grid.Column="0"
+                Style="{StaticResource ButtonOutline}"
+                Margin="8"/>
+            <Button Text="Iot Integration" 
+                x:Name="iotIntegration"
+                Grid.Row="1"
+                Grid.Column="0"
+                Style="{StaticResource ButtonOutline}"
+                Margin="8"/>
+            <Button Text="Backup Plants" 
+                x:Name="backupPlants"
+                Grid.Row="1"
+                Grid.Column="0"
+                Style="{StaticResource ButtonOutline}"
+                Margin="8"/>
+            <Button Text="Clear ALL Data" 
+                x:Name="clearAllData"
+                Grid.Row="1"
+                Grid.Column="0"
+                Style="{StaticResource ButtonOutline}"
+                Margin="8"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
