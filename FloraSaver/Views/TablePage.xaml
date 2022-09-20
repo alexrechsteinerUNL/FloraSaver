@@ -28,25 +28,33 @@
     <Grid
         ColumnDefinitions="*,*"
         ColumnSpacing="5"
-        RowDefinitions="*,Auto"
-        RowSpacing="0">
-
+        RowSpacing="1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="75" />
+        </Grid.RowDefinitions>
+        <SearchBar Grid.Row="0" Grid.ColumnSpan="2" Placeholder="Search items..." />
         <RefreshView
+            Grid.Row="1"
             Grid.ColumnSpan="2"
             Command="{Binding GetPlantsCommand}"
             IsRefreshing="{Binding IsRefreshing}">
             <CollectionView 
             ItemsSource="{Binding Plants}"
-            SelectionMode="None">
+            SelectionMode="None"
+                >
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Plant">
                         <Grid Padding="10" >
+                            
                             <Frame HeightRequest="250" BackgroundColor="Black">
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}"
                                     CommandParameter="{Binding .}"/>
                                 </Frame.GestureRecognizers>
+                                
                                 <Grid Padding="0" ColumnDefinitions="125,*" >
                                     <Image Aspect="AspectFill" Source="{Binding ImageLocation}"
                                        WidthRequest="125"
@@ -71,7 +79,7 @@
                 x:Name="getPlants"
                 Command="{Binding GetPlantsCommand}"
                 IsEnabled="{Binding IsNotBusy}"
-                Grid.Row="1"
+                Grid.Row="2"
                 Grid.Column="0"
                 Style="{StaticResource ButtonOutline}"
                 Margin="8"/>
@@ -79,7 +87,7 @@
                 x:Name="addPlants"
                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}"
                 IsEnabled="{Binding IsNotBusy}"
-                Grid.Row="1"
+                Grid.Row="2"
                 Grid.Column="1"
                 Style="{StaticResource ButtonOutline}"
                 Margin="8"/>
