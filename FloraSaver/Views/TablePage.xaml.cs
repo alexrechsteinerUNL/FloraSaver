@@ -5,7 +5,6 @@ namespace FloraSaver;
 
 public partial class TablePage : ContentPage
 {
-
     public TablePage(TableViewModel viewModel)
 	{
 		InitializeComponent();
@@ -17,7 +16,5 @@ public partial class TablePage : ContentPage
         base.OnAppearing();
         getPlants.Command.Execute("GetPlantsCommand");
     }
-
-
 }
 

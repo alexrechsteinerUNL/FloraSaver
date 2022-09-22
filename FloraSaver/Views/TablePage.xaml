@@ -34,13 +34,20 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="75" />
         </Grid.RowDefinitions>
-        <SearchBar Grid.Row="0" Grid.ColumnSpan="2" Placeholder="Search items..." />
+        <SearchBar 
+            x:Name="searchBar" 
+            Grid.Row="0" 
+            Grid.ColumnSpan="2" 
+            Placeholder="Search Plants..." 
+            SearchCommand="{Binding SearchPlantsCommand}" 
+            SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}" />
         <RefreshView
             Grid.Row="1"
             Grid.ColumnSpan="2"
             Command="{Binding GetPlantsCommand}"
             IsRefreshing="{Binding IsRefreshing}">
-            <CollectionView 
+            <CollectionView
+            x:Name="plantDeck"
             ItemsSource="{Binding Plants}"
             SelectionMode="None"
                 >
