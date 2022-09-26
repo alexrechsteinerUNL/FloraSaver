@@ -17,8 +17,8 @@ namespace FloraSaver.ViewModels
 {
     public partial class TableViewModel : BaseViewModel
     {
-        public List<Plant> DataPlants { get; } = new();
-        public ObservableCollection<Plant> Plants { get; } = new();
+        public ObservableCollection<Plant> DataPlants { get; set; } = new();
+        public ObservableCollection<Plant> Plants { get; set; } = new();
         PlantService plantService;
         public TableViewModel(PlantService plantService)
         {
@@ -34,12 +34,15 @@ namespace FloraSaver.ViewModels
         {
             try
             {
-                await GetPlantsAsync();
-                for (int i = Plants.Count - 1; i >= 0; i--)
+                Plants.Replace(DataPlants);
+                if (!String.IsNullOrWhiteSpace(inputString))
                 {
-                    if (Plants[i].GivenName.IndexOf(inputString) < 0)
+                    for (int i = Plants.Count - 1; i >= 0; i--)
                     {
-                        Plants.RemoveAt(i);
+                        if (Plants[i].GivenName.IndexOf(inputString) < 0)
+                        {
+                            Plants.RemoveAt(i);
+                        }
                     }
                 }
             }
@@ -64,11 +67,12 @@ namespace FloraSaver.ViewModels
                 if (Plants.Count != 0)
                 {
                     Plants.Clear();
-                }
+                } 
                 foreach (var plant in plants)
                 {
                     Plants.Add(plant);
                 }
+                DataPlants = new ObservableCollection<Plant>(Plants);
             }
             catch (Exception ex)
             {

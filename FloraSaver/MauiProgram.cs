@@ -1,5 +1,6 @@
 ﻿using FloraSaver.Services;
 using FloraSaver.ViewModels;
+using System.Collections.ObjectModel;
 
 namespace FloraSaver;
 
@@ -27,4 +28,16 @@ public static class MauiProgram
         builder.Services.AddTransient<PlantDetailsPage>();
         return builder.Build();
 	}
+}
+
+public static class ObservableCollectionExtensionMethods
+{
+    public static void Replace<T>(this ObservableCollection<T> current, ObservableCollection<T> @new)
+    {
+        current.Clear();
+        foreach (var item in @new)
+        {
+            current.Add(item);
+        }
+    }
 }
