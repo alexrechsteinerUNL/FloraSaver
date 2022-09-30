@@ -64,7 +64,7 @@
                     IsEnabled="{Binding IsNotBusy}"
                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=GoToTableCommand}"
                     Style="{StaticResource ButtonOutline}"/>
-                <Button Text="Add Update Plant" 
+                <Button Text="Update"
                     x:Name="addUpdate"
                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=AddUpdateCommand}"
                     CommandParameter= "{Binding Plant}"

@@ -1,30 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              x:Class="FloraSaver.TablePage"
              xmlns:model="clr-namespace:FloraSaver.Models"
              xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
              x:DataType="viewmodel:TableViewModel"
              Title="Plant Table">
-    <!--<Shell.SearchHandler>
-        <SearchHandlers:PlantSearchHandler
-            Placeholder="Enter search term"
-            ShowsResults="true"
-            DisplayMemberName="Name"
-            ItemsSource="{Binding Plants}">
-            <SearchHandlers:PlantSearchHandler.ItemTemplate>
-                <DataTemplate>
-                    <HorizontalStackLayout Padding="10">
-                        <Label Text="{Binding GivenName}"
-                           Margin="0,0,10,0" />
-                        <Label Text="Test" />
-                    </HorizontalStackLayout>
-                </DataTemplate>
-            </SearchHandlers:PlantSearchHandler.ItemTemplate>
-        </SearchHandlers:PlantSearchHandler>
-    </Shell.SearchHandler>-->
-
     <Grid
         ColumnDefinitions="*,*"
         ColumnSpacing="5"
@@ -34,13 +17,18 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="75" />
         </Grid.RowDefinitions>
-        <SearchBar 
+        <SearchBar
             x:Name="searchBar" 
             Grid.Row="0" 
             Grid.ColumnSpan="2" 
-            Placeholder="Search Plants..." 
-            SearchCommand="{Binding SearchPlantsCommand}" 
-            SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}" />
+            Placeholder="Search Plants..." >
+            <SearchBar.Behaviors>
+                <toolkit:EventToCommandBehavior
+                EventName="TextChanged" 
+                Command="{Binding SearchPlantsCommand}" 
+                CommandParameter="{Binding Text, Source={x:Reference searchBar}}" />
+            </SearchBar.Behaviors>
+        </SearchBar>
         <RefreshView
             Grid.Row="1"
             Grid.ColumnSpan="2"
@@ -54,7 +42,6 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Plant">
                         <Grid Padding="10" >
-                            
                             <Frame HeightRequest="250" BackgroundColor="Black">
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer

@@ -56,6 +56,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="CommunityToolkit.Common" Version="8.0.0" />
+	  <PackageReference Include="CommunityToolkit.Maui" Version="1.3.0" />
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
 	  <PackageReference Include="Microsoft.VisualStudio.Utilities" Version="17.2.32505.113" />
 	  <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />

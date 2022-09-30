@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -9,22 +10,37 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FloraSaver.Models;
 using FloraSaver.Services;
+using Microsoft.VisualStudio.RpcContracts.Commands;
 
 namespace FloraSaver.ViewModels
 {
 
-    
+
     [QueryProperty(nameof(Plant), "Plant")]
-    public partial class PlantDetailsViewModel : BaseViewModel
+    public partial class PlantDetailsViewModel : BaseViewModel, INotifyPropertyChanged
     {
         PlantService plantService;
+
         public PlantDetailsViewModel(PlantService plantService)
         {
             this.plantService = plantService;
         }
 
+        Plant currentPlant;
+        public Plant CurrentPlant
+        {
+            get => currentPlant;
+            set
+            {
+                currentPlant = value;
+                OnPropertyChanged();
+            }
+        }
+
         [ObservableProperty]
         bool isRefreshing;
+
+       
 
         [RelayCommand]
         async Task AddUpdateAsync(Plant plant)
@@ -45,7 +61,6 @@ namespace FloraSaver.ViewModels
             finally
             {
                 IsBusy = false;
-                IsRefreshing = false;
             }
         }
 
@@ -68,7 +83,6 @@ namespace FloraSaver.ViewModels
             finally
             {
                 IsBusy = false;
-                IsRefreshing = false;
             }
         }
 
