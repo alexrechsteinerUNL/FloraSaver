@@ -13,7 +13,7 @@ namespace FloraSaver.ViewModels
     {
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsNotBusy))]
-        bool isBusy;
+        public bool isBusy;
 
         [ObservableProperty]
         string title;

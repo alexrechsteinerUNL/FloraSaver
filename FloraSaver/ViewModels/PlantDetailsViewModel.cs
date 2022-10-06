@@ -17,30 +17,22 @@ namespace FloraSaver.ViewModels
 
 
     [QueryProperty(nameof(Plant), "Plant")]
-    public partial class PlantDetailsViewModel : BaseViewModel, INotifyPropertyChanged
+    public partial class PlantDetailsViewModel : BaseViewModel, IQueryAttributable
     {
         PlantService plantService;
+
+        public Plant InitialPlant { get; set; }
+
+        public void ApplyQueryAttributes(IDictionary<string, object> query)
+        {
+            InitialPlant = query["Plant"] as Plant;
+            OnPropertyChanged("Plant");
+        }
 
         public PlantDetailsViewModel(PlantService plantService)
         {
             this.plantService = plantService;
         }
-
-        Plant currentPlant;
-        public Plant CurrentPlant
-        {
-            get => currentPlant;
-            set
-            {
-                currentPlant = value;
-                OnPropertyChanged();
-            }
-        }
-
-        [ObservableProperty]
-        bool isRefreshing;
-
-       
 
         [RelayCommand]
         async Task AddUpdateAsync(Plant plant)
@@ -56,6 +48,28 @@ namespace FloraSaver.ViewModels
             catch (Exception ex)
             {
                 Debug.WriteLine($"Unable to add or update plants: {ex.Message}");
+                await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        [RelayCommand]
+        async Task ClearChangesAsync(Plant plant)
+        {
+            if (IsBusy)
+                return;
+
+            try
+            {
+                IsBusy = true;
+                Plant = InitialPlant;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Unable to clear plants: {ex.Message}");
                 await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
             }
             finally
@@ -91,6 +105,8 @@ namespace FloraSaver.ViewModels
         {
             await Shell.Current.GoToAsync("..");
         }
+
+
 
         [ObservableProperty]
         Plant plant;

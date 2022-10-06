@@ -16,7 +16,7 @@ using Microsoft.VisualBasic;
 
 namespace FloraSaver.ViewModels
 {
-    public partial class TableViewModel : BaseViewModel
+    public partial class TableViewModel : BaseViewModel, INotifyPropertyChanged
     {
         public ObservableCollection<Plant> DataPlants { get; set; } = new();
         public ObservableCollection<Plant> Plants { get; set; } = new();
@@ -36,7 +36,7 @@ namespace FloraSaver.ViewModels
             try
             {
                 Plants.Replace(DataPlants);
-                if (!String.IsNullOrWhiteSpace(inputString))
+                if (!string.IsNullOrWhiteSpace(inputString))
                 {
                     for (int i = Plants.Count - 1; i >= 0; i--)
                     {
@@ -85,19 +85,23 @@ namespace FloraSaver.ViewModels
                 IsBusy = false;
                 IsRefreshing = false;
             }
+            return;
         }
 
         [RelayCommand]
         async Task GoToDetailsAsync(Plant plant)
         {
             if (plant == null)
+            {
                 await Shell.Current.GoToAsync(nameof(PlantDetailsPage), true, new Dictionary<string, object>
                 {
-                    {"Plant", new Plant { 
-                        DateOfBirth = DateTime.Now, 
-                        DateOfLastWatering = DateTime.Now, 
+                    {"Plant", new Plant {
+                        Id = DataPlants.Any() ? DataPlants.Max(x => x.Id) + 1 : 0,
+                        DateOfBirth = DateTime.Now,
+                        DateOfLastWatering = DateTime.Now,
                         DateOfNextWatering = DateTime.Now } }
                 });
+            }
             else
             {
                 await Shell.Current.GoToAsync(nameof(PlantDetailsPage), true, new Dictionary<string, object>
@@ -105,6 +109,7 @@ namespace FloraSaver.ViewModels
                     {"Plant", plant }
                 });
             }
+            return;
         }
     }
 }

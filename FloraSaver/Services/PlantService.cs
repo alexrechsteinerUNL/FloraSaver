@@ -38,11 +38,8 @@ namespace FloraSaver.Services
             {
                 // TODO: Call Init()
                 await InitAsync();
-                // basic validation to ensure a name was entered
-                if (string.IsNullOrEmpty(plant.GivenName))
+                if (string.IsNullOrEmpty(plant.GivenName) || string.IsNullOrEmpty(plant.PlantSpecies))
                     throw new Exception("Valid name required");
-
-                // TODO: Insert the new person into the database
                 result = await conn.InsertOrReplaceAsync(plant);
 
                 StatusMessage = string.Format("{0} record(s) added (Name: {1})", result, plant.GivenName);

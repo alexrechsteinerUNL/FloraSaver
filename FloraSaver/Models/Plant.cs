@@ -12,9 +12,21 @@ namespace FloraSaver.Models
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-        public string PlantSpecies { get; set; }
+
+        private string plantSpecies;
+        public string PlantSpecies 
+        { 
+            get { return plantSpecies; } 
+            set { plantSpecies = value?.Trim() ?? string.Empty; } 
+        }
+        
+        private string givenName;
         [MaxLength(250), Unique]
-        public string GivenName { get; set; }
+        public string GivenName
+        {
+            get { return givenName; }
+            set { givenName = value?.Trim() ?? string.Empty; }
+        }
         public DateTime DateOfBirth { get; set; }
         public DateTime DateOfLastWatering { get; set; }
         public DateTime DateOfNextWatering { get; set; }

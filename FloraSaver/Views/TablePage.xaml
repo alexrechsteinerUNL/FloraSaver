@@ -6,16 +6,15 @@
              x:Class="FloraSaver.TablePage"
              xmlns:model="clr-namespace:FloraSaver.Models"
              xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
-             x:DataType="viewmodel:TableViewModel"
-             Title="Plant Table">
+             x:DataType="viewmodel:TableViewModel">
     <Grid
         ColumnDefinitions="*,*"
         ColumnSpacing="5"
         RowSpacing="1">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <RowDefinition Height="30" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="75" />
+            <RowDefinition Height="70" />
         </Grid.RowDefinitions>
         <SearchBar
             x:Name="searchBar" 
@@ -42,7 +41,7 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Plant">
                         <Grid Padding="10" >
-                            <Frame HeightRequest="250" BackgroundColor="Black">
+                            <Frame HeightRequest="300" BackgroundColor="Black">
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}"
@@ -50,11 +49,11 @@
                                 </Frame.GestureRecognizers>
                                 
                                 <Grid Padding="0" ColumnDefinitions="125,*" >
-                                    <Image Aspect="AspectFill" Source="{Binding ImageLocation}"
+                                    <!--<Image Aspect="AspectFill" Source="{Binding ImageLocation}"
                                        WidthRequest="125"
-                                       HeightRequest="125"/>
+                                       HeightRequest="125"/>-->
                                     <VerticalStackLayout
-                                    Grid.Column="1"
+                                    Grid.ColumnSpan="2"
                                     Padding="10">
                                         <Label FontSize="36" Text="{Binding GivenName, StringFormat='{0}'}" />
                                         <Label FontAttributes="Italic" Text="{Binding PlantSpecies}" />
@@ -75,7 +74,6 @@
                 IsEnabled="{Binding IsNotBusy}"
                 Grid.Row="2"
                 Grid.Column="0"
-                Style="{StaticResource ButtonOutline}"
                 Margin="8"/>
         <Button Text="Add New Plant" 
                 x:Name="addPlants"
@@ -83,8 +81,8 @@
                 IsEnabled="{Binding IsNotBusy}"
                 Grid.Row="2"
                 Grid.Column="1"
-                Style="{StaticResource ButtonOutline}"
                 Margin="8"/>
+
 
         <ActivityIndicator IsVisible="{Binding IsBusy}"
                            IsRunning="{Binding IsBusy}"
