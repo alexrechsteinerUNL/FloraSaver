@@ -29,7 +29,9 @@ namespace FloraSaver.Models
         }
         public DateTime DateOfBirth { get; set; }
         public DateTime DateOfLastWatering { get; set; }
+        public TimeSpan TimeOfLastWatering { get; set; }
         public DateTime DateOfNextWatering { get; set; }
+        public TimeSpan TimeOfNextWatering { get; set; }
         public string ImageLocation { get; set; }
 
     }

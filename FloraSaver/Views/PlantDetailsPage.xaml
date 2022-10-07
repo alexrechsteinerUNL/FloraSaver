@@ -33,19 +33,25 @@
                 <HorizontalStackLayout Spacing="10">
                     <Label Text="Water On: " />
                         <Border>
-                        <DatePicker x:Name="_DateOfNextWatering" Date="{Binding Plant.DateOfNextWatering, Mode=TwoWay}" BackgroundColor="White" />
+                            <DatePicker x:Name="_DateOfNextWatering" Date="{Binding Plant.DateOfNextWatering, Mode=TwoWay}" BackgroundColor="White" />
+                        </Border>
+                    <Label Text=" at " />
+                        <Border>
+                            <TimePicker x:Name="_TimeOfNextWatering" Time="{Binding Plant.TimeOfNextWatering, Mode=TwoWay}" BackgroundColor="White" />
                         </Border>
                     </HorizontalStackLayout>
                 <HorizontalStackLayout Spacing="10">
                     <Label Text="Last Watered On: " />
                         <Border>
-                        <DatePicker x:Name="_DateOfLastWatering" Date="{Binding Plant.DateOfLastWatering, Mode=TwoWay}" BackgroundColor="White" />
+                            <DatePicker x:Name="_DateOfLastWatering" Date="{Binding Plant.DateOfLastWatering, Mode=TwoWay}" BackgroundColor="White" />
+                        </Border>
+                        <Label Text=" at " />
+                        <Border>
+                            <TimePicker x:Name="_TimeOfLastWatering" Time="{Binding Plant.TimeOfLastWatering, Mode=TwoWay}" BackgroundColor="White" />
                         </Border>
                     </HorizontalStackLayout>
                 <HorizontalStackLayout Spacing="10">
                 
-                    
-                    
                     
                 <Button Text="Go Back" 
                     x:Name="goBack"

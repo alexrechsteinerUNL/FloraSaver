@@ -12,7 +12,7 @@
         ColumnSpacing="5"
         RowSpacing="1">
         <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="*" />
             <RowDefinition Height="70" />
         </Grid.RowDefinitions>
@@ -57,9 +57,27 @@
                                     Padding="10">
                                         <Label FontSize="36" Text="{Binding GivenName, StringFormat='{0}'}" />
                                         <Label FontAttributes="Italic" Text="{Binding PlantSpecies}" />
-                                        <Label Text="{Binding DateOfLastWatering, StringFormat='Last Watered: {0}'}" />
+                                        <!--<Label Text="{Binding DateOfLastWatering, StringFormat='Last Watered: {0}'}" />-->
+
+                                        <Label>
+                                            <Label.Text>
+                                                <MultiBinding StringFormat="{}Last Watered: {0} at {1}">
+                                                    <Binding Path="DateOfLastWatering" />
+                                                    <Binding Path="TimeOfLastWatering" />
+                                                </MultiBinding>
+                                            </Label.Text>
+                                        </Label>
+
                                         <Label Text="{Binding DateOfBirth, StringFormat='Birthday: {0}'}" />
-                                        <Label FontSize="24" Text="{Binding DateOfNextWatering, StringFormat='Next Watering: {0}'}" />
+                                        
+                                        <Label FontSize="24">
+                                            <Label.Text>
+                                                <MultiBinding StringFormat="{}NextWatering {0} at {1}">
+                                                    <Binding Path="DateOfNextWatering" />
+                                                    <Binding Path="TimeOfNextWatering" />
+                                                </MultiBinding>
+                                            </Label.Text>
+                                        </Label>
                                     </VerticalStackLayout>
                                 </Grid>
                             </Frame>
