@@ -10,72 +10,75 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="10">
-            <Frame BackgroundColor="Black" Padding="10">
+            <Frame BackgroundColor="Black" Padding="30">
                 <VerticalStackLayout Padding="10" Spacing="10">
-                    <HorizontalStackLayout Spacing="10">
+                    <VerticalStackLayout Spacing="10">
                         <Label Text="{Binding Plant.PlantSpecies, StringFormat='Plant Species: '}" />
-                        <Border>
+                        <HorizontalStackLayout>
+                            <Border>
                             <Entry x:Name="_PlantSpecies" Placeholder="Enter plant species"  Text="{Binding Plant.PlantSpecies, StringFormat='{0}', Mode=TwoWay}"/>
                         </Border>
-                    </HorizontalStackLayout>
-                <HorizontalStackLayout Spacing="10">
-                    <Label Text="Date Of Birth: " />
+                            </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Date Of Birth: " />
+                        <HorizontalStackLayout>
                         <Border>
                             <DatePicker x:Name="_DateOfBirth" Date="{Binding Plant.DateOfBirth, Mode=TwoWay}" BackgroundColor="White" />
                         </Border>
-                </HorizontalStackLayout>
-                <HorizontalStackLayout Spacing="10">
-                    <Label Text="{Binding Plant.GivenName, StringFormat='Given Name: '}" />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="{Binding Plant.GivenName, StringFormat='Given Name: '}" />
+                        <HorizontalStackLayout>
                         <Border>
                             <Entry x:Name="_GivenName" Placeholder="Give your plant a name!" Text="{Binding Plant.GivenName, StringFormat='{0}', Mode=TwoWay}"/>
                         </Border>
-                </HorizontalStackLayout>
-                <HorizontalStackLayout Spacing="10">
-                    <Label Text="Water On: " />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Water On: " />
+                        <HorizontalStackLayout>
                         <Border>
-                            <DatePicker x:Name="_DateOfNextWatering" Date="{Binding Plant.DateOfNextWatering, Mode=TwoWay}" BackgroundColor="White" />
-                        </Border>
-                    <Label Text=" at " />
-                        <Border>
-                            <TimePicker x:Name="_TimeOfNextWatering" Time="{Binding Plant.TimeOfNextWatering, Mode=TwoWay}" BackgroundColor="White" />
-                        </Border>
-                    </HorizontalStackLayout>
-                <HorizontalStackLayout Spacing="10">
-                    <Label Text="Last Watered On: " />
-                        <Border>
-                            <DatePicker x:Name="_DateOfLastWatering" Date="{Binding Plant.DateOfLastWatering, Mode=TwoWay}" BackgroundColor="White" />
+                            <DatePicker x:Name="_DateOfNextWatering" Date="{Binding Plant.DateOfNextWatering, Mode=TwoWay}" Format="d" BackgroundColor="White" />
                         </Border>
                         <Label Text=" at " />
                         <Border>
-                            <TimePicker x:Name="_TimeOfLastWatering" Time="{Binding Plant.TimeOfLastWatering, Mode=TwoWay}" BackgroundColor="White" />
+                                <TimePicker x:Name="_TimeOfNextWatering" Time="{Binding Plant.TimeOfNextWatering, Mode=TwoWay}" Format="t" BackgroundColor="White" />
                         </Border>
-                    </HorizontalStackLayout>
-                <HorizontalStackLayout Spacing="10">
-                
-                    
-                <Button Text="Go Back" 
-                    x:Name="goBack"
-                    IsEnabled="{Binding IsNotBusy}"
-                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=GoToTableCommand}"/>
-                <Button Text="Update"
-                    x:Name="addUpdate"
-                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=AddUpdateCommand}"
-                    CommandParameter= "{Binding Plant}"
-                    IsEnabled="{Binding IsNotBusy}"/>
-                <Button Text="Clear Changes" 
-                    x:Name="clearChanges"
-                    IsEnabled="{Binding IsNotBusy}"
-                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=ClearChangesCommand}"
-                    CommandParameter= "{Binding Plant}"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Last Watered On: " />
+                        <HorizontalStackLayout>
+                            <Border>
+                            <DatePicker x:Name="_DateOfLastWatering" Date="{Binding Plant.DateOfLastWatering, Mode=TwoWay}" Format="d" BackgroundColor="White" />
+                            </Border>
+                            <Label Text=" at " />
+                            <Border>
+                                <TimePicker x:Name="_TimeOfLastWatering" Time="{Binding Plant.TimeOfLastWatering, Mode=TwoWay}" Format="t" BackgroundColor="White" />
+                            </Border>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+
+                    <HorizontalStackLayout Spacing="10">
+                        <Button Text="Go Back" 
+                            x:Name="goBack"
+                            IsEnabled="{Binding IsNotBusy}"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=GoToTableCommand}"/>
+                        <Button Text="Update"
+                            x:Name="addUpdate"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=AddUpdateCommand}"
+                            CommandParameter= "{Binding Plant}"
+                            IsEnabled="{Binding IsNotBusy}"/>
                         <Button Text="Delete" 
-                    x:Name="DeletePlants"
-                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=DeleteCommand}"
-                    CommandParameter= "{Binding Plant}"
-                    IsEnabled="{Binding IsNotBusy}"/>
-                </HorizontalStackLayout>
-            </VerticalStackLayout>
-        </Frame>
-    </VerticalStackLayout>
-        
+                            x:Name="deletePlants"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=DeleteCommand}"
+                            CommandParameter= "{Binding Plant}"
+                            IsEnabled="{Binding IsNotBusy}"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

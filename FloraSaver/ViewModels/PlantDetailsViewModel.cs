@@ -57,28 +57,6 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        async Task ClearChangesAsync(Plant plant)
-        {
-            if (IsBusy)
-                return;
-
-            try
-            {
-                IsBusy = true;
-                Plant = InitialPlant;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Unable to clear plants: {ex.Message}");
-                await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
-        [RelayCommand]
         async Task DeleteAsync(Plant plant)
         {
             if (IsBusy)

@@ -61,18 +61,18 @@
 
                                         <Label>
                                             <Label.Text>
-                                                <MultiBinding StringFormat="{}Last Watered: {0} at {1}">
+                                                <MultiBinding StringFormat="{}Last Watered: {0:d} at {1:hh\:mm}">
                                                     <Binding Path="DateOfLastWatering" />
                                                     <Binding Path="TimeOfLastWatering" />
                                                 </MultiBinding>
                                             </Label.Text>
                                         </Label>
 
-                                        <Label Text="{Binding DateOfBirth, StringFormat='Birthday: {0}'}" />
+                                        <Label Text="{Binding DateOfBirth, StringFormat='Birthday: {0:d}'}" />
                                         
                                         <Label FontSize="24">
                                             <Label.Text>
-                                                <MultiBinding StringFormat="{}NextWatering {0} at {1}">
+                                                <MultiBinding StringFormat="{}Next Watering {0:d} at {1:hh\:mm}">
                                                     <Binding Path="DateOfNextWatering" />
                                                     <Binding Path="TimeOfNextWatering" />
                                                 </MultiBinding>
