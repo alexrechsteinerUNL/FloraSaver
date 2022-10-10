@@ -13,6 +13,7 @@
         RowSpacing="1">
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
+            <RowDefinition Height="52" />
             <RowDefinition Height="*" />
             <RowDefinition Height="70" />
         </Grid.RowDefinitions>
@@ -28,8 +29,15 @@
                 CommandParameter="{Binding Text, Source={x:Reference searchBar}}" />
             </SearchBar.Behaviors>
         </SearchBar>
+        <Grid Padding="5" Grid.Row="1"  Grid.ColumnSpan="2">
+            <Frame BackgroundColor="Black" >
+                <HorizontalStackLayout>
+
+                </HorizontalStackLayout>
+            </Frame>
+        </Grid>
         <RefreshView
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.ColumnSpan="2"
             Command="{Binding GetPlantsCommand}"
             IsRefreshing="{Binding IsRefreshing}">
@@ -90,14 +98,14 @@
                 x:Name="getPlants"
                 Command="{Binding GetPlantsCommand}"
                 IsEnabled="{Binding IsNotBusy}"
-                Grid.Row="2"
+                Grid.Row="3"
                 Grid.Column="0"
                 Margin="8"/>
         <Button Text="Add New Plant" 
                 x:Name="addPlants"
                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}"
                 IsEnabled="{Binding IsNotBusy}"
-                Grid.Row="2"
+                Grid.Row="3"
                 Grid.Column="1"
                 Margin="8"/>
 
