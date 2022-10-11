@@ -79,6 +79,11 @@
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
             </Frame>
+            <Label
+                x:Name="friendlyNotification"
+                Text="{Binding FriendlyLabel}"
+                >
+            </Label>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

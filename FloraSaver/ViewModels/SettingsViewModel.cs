@@ -14,7 +14,5 @@ namespace FloraSaver.ViewModels
         {
             this.plantService = plantService;
         }
-
-
     }
 }

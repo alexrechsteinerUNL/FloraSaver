@@ -22,12 +22,24 @@ namespace FloraSaver.ViewModels
         PlantService plantService;
 
         public Plant InitialPlant { get; set; }
+        string friendlyLabel;
+        public string FriendlyLabel { 
+            get => friendlyLabel;
+            set 
+            {
+                friendlyLabel = value;
+                OnPropertyChanged();
+            } 
+        }
+
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             InitialPlant = query["Plant"] as Plant;
             OnPropertyChanged("Plant");
         }
+
+        
 
         public PlantDetailsViewModel(PlantService plantService)
         {
@@ -53,6 +65,7 @@ namespace FloraSaver.ViewModels
             finally
             {
                 IsBusy = false;
+                FriendlyLabel = plantService.StatusMessage;
             }
         }
 
