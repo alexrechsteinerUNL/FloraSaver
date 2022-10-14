@@ -2,6 +2,7 @@
 using FloraSaver.Services;
 using FloraSaver.ViewModels;
 using System.Collections.ObjectModel;
+using Plugin.LocalNotification;
 
 namespace FloraSaver;
 
@@ -19,7 +20,8 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 fonts.AddFont("CALIFR.TTF", "CaliforniaFR");
                 fonts.AddFont("PRISMA.TTF", "Prisma");
-            });
+            })
+            .UseLocalNotification();
 
         string dbPath = FileAccessHelper.GetLocalFilePath("plant.db3");
         builder.Services.AddSingleton<TableViewModel>();
