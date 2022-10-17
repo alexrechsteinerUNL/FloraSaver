@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SQLite;
 using FloraSaver.Models;
+using Plugin.LocalNotification;
 
 namespace FloraSaver.Services
 {
@@ -78,7 +79,9 @@ namespace FloraSaver.Services
             try
             {
                 await InitAsync();
-                return await conn.Table<Plant>().ToListAsync();
+                var allPlants = await conn.Table<Plant>().ToListAsync();
+                await SetAllNotificationsAsync(allPlants);
+                return allPlants;
             }
             catch (Exception ex)
             {
@@ -87,5 +90,55 @@ namespace FloraSaver.Services
 
             return new List<Plant>();
         }
+
+        public async Task SetAllNotificationsAsync(List<Plant> plants)
+        {
+            foreach (var plant in plants)
+            {
+                // could maybe set a flag instead of 2 methods that both run a notification.
+                if (plant.DateOfNextWatering > DateTime.Now)
+                {
+                    await FutureNotificationAsync(plant);
+                }
+                else
+                {
+                    await WarnOverdueAsync(plant);
+                }
+            }
+        }
+
+        private async Task WarnOverdueAsync(Plant plant)
+        {
+            var notification = new NotificationRequest
+            {
+                NotificationId = plant.Id,
+                Title = $"Overdue watering on your '{plant.PlantSpecies}', {plant.GivenName}",
+                Description = "You really should water this guy",
+                ReturningData = "Dummy data", // Returning data when tapped on notification.
+                Schedule =
+                {
+                    NotifyTime = DateTime.Now // Used for Scheduling local notification, if not specified notification will show immediately.
+                }
+            };
+            await LocalNotificationCenter.Current.Show(notification);
+        }
+
+        private async Task FutureNotificationAsync(Plant plant)
+        {
+            var notification = new NotificationRequest
+            {
+                NotificationId = plant.Id,
+                Title = $"It's tiem to water your '{plant.PlantSpecies}', {plant.GivenName}",
+                Description = "You really should water this guy",
+                ReturningData = "Dummy data", // Returning data when tapped on notification.
+                Schedule =
+                {
+                    NotifyTime = plant.DateOfNextWatering // Used for Scheduling local notification, if not specified notification will show immediately.
+                }
+            };
+            await LocalNotificationCenter.Current.Show(notification);
+        }
+
+
     }
 }
