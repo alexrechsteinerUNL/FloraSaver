@@ -5,7 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using SQLite;
 using FloraSaver.Models;
+#if (ANDROID || IOS)
 using Plugin.LocalNotification;
+#endif
+
 
 namespace FloraSaver.Services
 {
@@ -75,12 +78,13 @@ namespace FloraSaver.Services
 
         public async Task<List<Plant>> GetAllPlantAsync()
         {
-            // TODO: Init then retrieve a list of Person objects from the database into a list
             try
             {
                 await InitAsync();
                 var allPlants = await conn.Table<Plant>().ToListAsync();
+#if (ANDROID || IOS)
                 await SetAllNotificationsAsync(allPlants);
+#endif
                 return allPlants;
             }
             catch (Exception ex)
@@ -128,7 +132,7 @@ namespace FloraSaver.Services
             var notification = new NotificationRequest
             {
                 NotificationId = plant.Id,
-                Title = $"It's tiem to water your '{plant.PlantSpecies}', {plant.GivenName}",
+                Title = $"It's time to water your '{plant.PlantSpecies}', {plant.GivenName}",
                 Description = "You really should water this guy",
                 ReturningData = "Dummy data", // Returning data when tapped on notification.
                 Schedule =

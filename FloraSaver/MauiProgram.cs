@@ -20,8 +20,14 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 fonts.AddFont("CALIFR.TTF", "CaliforniaFR");
                 fonts.AddFont("PRISMA.TTF", "Prisma");
-            })
-            .UseLocalNotification();
+            });
+
+        #if ANDROID
+            //builder.Services.AddTransient<IServiceTest, DemoServices>();
+            builder.UseLocalNotification();
+        #elif IOS
+            builder.UseLocalNotification();
+        #endif
 
         string dbPath = FileAccessHelper.GetLocalFilePath("plant.db3");
         builder.Services.AddSingleton<TableViewModel>();
