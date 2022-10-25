@@ -22,12 +22,13 @@ public static class MauiProgram
                 fonts.AddFont("PRISMA.TTF", "Prisma");
             });
 
-        #if ANDROID
-            //builder.Services.AddTransient<IServiceTest, DemoServices>();
+#if ANDROID
             builder.UseLocalNotification();
-        #elif IOS
-            builder.UseLocalNotification();
-        #endif
+            builder.Services.AddTransient<IServiceNotification, NotificationServices>();
+            
+#elif IOS
+        builder.UseLocalNotification();
+#endif
 
         string dbPath = FileAccessHelper.GetLocalFilePath("plant.db3");
         builder.Services.AddSingleton<TableViewModel>();
