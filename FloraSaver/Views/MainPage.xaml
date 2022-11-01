@@ -15,7 +15,15 @@
             SemanticProperties.Description="Title for app"
             HeightRequest="360"
             HorizontalOptions="Center" />
-        
+
+        <Button
+                x:Name="CounterBtn"
+                Text="start Services"
+                Clicked="OnServiceStartClicked"
+                HorizontalOptions="Center" />
+
+        <Button Text="Stop Service" Clicked="Button_Clicked"></Button>
+
         <!--Testing Grid--><!--
         <Grid>
             <Grid.RowDefinitions>
