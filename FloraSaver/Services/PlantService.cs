@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SQLite;
 using FloraSaver.Models;
+using Plugin.LocalNotification;
 #if (ANDROID || IOS)
 using Plugin.LocalNotification;
 #endif
@@ -100,7 +101,7 @@ namespace FloraSaver.Services
             foreach (var plant in plants)
             {
                 // could maybe set a flag instead of 2 methods that both run a notification.
-                if (plant.DateOfNextWatering > DateTime.Now)
+                if (plant.DateOfNextWatering.Date + plant.TimeOfNextWatering > DateTime.Now)
                 {
                     await FutureNotificationAsync(plant);
                 }
@@ -137,7 +138,7 @@ namespace FloraSaver.Services
                 ReturningData = "Dummy data", // Returning data when tapped on notification.
                 Schedule =
                 {
-                    NotifyTime = plant.DateOfNextWatering // Used for Scheduling local notification, if not specified notification will show immediately.
+                    NotifyTime = plant.DateOfNextWatering.Date + plant.TimeOfNextWatering  // Used for Scheduling local notification, if not specified notification will show immediately.
                 }
             };
             await LocalNotificationCenter.Current.Show(notification);
