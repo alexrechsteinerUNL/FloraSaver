@@ -12,10 +12,10 @@ public partial class TablePage : ContentPage
         BindingContext = viewModel;
 	}
 
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
-        getPlants.Command.Execute("GetPlantsCommand");
-    }
+    //protected override void OnAppearing()
+    //{
+    //    base.OnAppearing();
+    //    getPlants.Command.Execute("GetPlantsCommand");
+    //}
 }
 

@@ -17,12 +17,13 @@
             HorizontalOptions="Center" />
 
         <Button
-                x:Name="CounterBtn"
+                x:Name="startPlantService"
                 Text="start Services"
-                Clicked="OnServiceStartClicked"
-                HorizontalOptions="Center" />
+                Command="{Binding GetPlantsCommand}"
+                HorizontalOptions="Center"
+                IsVisible="false"/>
 
-        <Button Text="Stop Service" Clicked="Button_Clicked"></Button>
+        <!--<Button Text="Stop Service" Clicked="Button_Clicked"></Button>-->
 
         <!--Testing Grid--><!--
         <Grid>

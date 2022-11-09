@@ -1,24 +1,19 @@
-﻿namespace FloraSaver;
+﻿using FloraSaver.ViewModels;
+
+namespace FloraSaver;
 
 public partial class MainPage : ContentPage
 {
-	IServiceNotification NotificationServices;
-	public MainPage(IServiceNotification _NotificationServices)
+	public MainPage(TableViewModel viewModel)
 	{
 		InitializeComponent();
-		NotificationServices = _NotificationServices;
-
-
+        BindingContext = viewModel;
     }
 
-    private void OnServiceStartClicked(object sender, EventArgs e)
+    protected override void OnAppearing()
     {
-        NotificationServices.Start();
-    }
-    //method to stop manually foreground service
-    private void Button_Clicked(object sender, EventArgs e)
-    {
-        NotificationServices.Stop();
+        base.OnAppearing();
+        startPlantService.Command.Execute("GetPlantsCommand");
     }
 }
 
