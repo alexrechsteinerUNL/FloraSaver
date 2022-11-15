@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using SQLite;
 using FloraSaver.Models;
-using Plugin.LocalNotification;
 #if (ANDROID || IOS)
 using Plugin.LocalNotification;
 #endif
