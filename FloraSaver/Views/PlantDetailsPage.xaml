@@ -18,7 +18,7 @@
                         <VerticalStackLayout Spacing="10">
                             <Label Text="{Binding Plant.PlantSpecies, StringFormat='Plant Species: '}" />
                             <HorizontalStackLayout>
-                                <Border StrokeThickness="1" Stroke="White">
+                                <Border>
                                     <Entry MaximumWidthRequest="200" x:Name="_PlantSpecies" Placeholder="Enter plant species"  Text="{Binding Plant.PlantSpecies, StringFormat='{0}', Mode=TwoWay}"/>
                                 </Border>
                             </HorizontalStackLayout>
@@ -86,7 +86,7 @@
                         </VerticalStackLayout>
                         
                         <VerticalStackLayout Spacing="10">
-                            <Label Text="Water On: " />
+                            <Label Text="Refresh On: " />
                             <HorizontalStackLayout>
                                 <Border>
                                     <DatePicker x:Name="_DateOfNextRefreshing" Date="{Binding Plant.DateOfNextRefreshing, Mode=TwoWay}" Format="d" BackgroundColor="White" />
