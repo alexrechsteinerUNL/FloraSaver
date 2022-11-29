@@ -18,7 +18,7 @@
                         <VerticalStackLayout Spacing="10">
                             <Label Text="{Binding Plant.PlantSpecies, StringFormat='Plant Species: '}" />
                             <HorizontalStackLayout>
-                                <Border>
+                                <Border StrokeThickness="1" Stroke="White">
                                     <Entry MaximumWidthRequest="200" x:Name="_PlantSpecies" Placeholder="Enter plant species"  Text="{Binding Plant.PlantSpecies, StringFormat='{0}', Mode=TwoWay}"/>
                                 </Border>
                             </HorizontalStackLayout>
@@ -68,6 +68,10 @@
                             </HorizontalStackLayout>
                         </VerticalStackLayout>
                         
+                        
+                        
+                        <!--This section should be collapsable-->
+                        
                         <VerticalStackLayout Spacing="10">
                             <Label Text="Last Refreshed On: " />
                             <HorizontalStackLayout>
@@ -114,6 +118,8 @@
                 </HorizontalStackLayout>
             </VerticalStackLayout>
         </Frame>
+        
+        
         <Label
                 x:Name="friendlyNotification"
                 Text="{Binding FriendlyLabel}"

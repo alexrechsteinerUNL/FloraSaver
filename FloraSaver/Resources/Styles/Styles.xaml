@@ -18,7 +18,7 @@
         <Setter Property="Padding" Value="5" />
         <Setter Property="StrokeShape">
             <RoundRectangle CornerRadius="5" />
-        </Setter> 
+        </Setter>
         <Setter Property="StrokeThickness" Value=".5"/>
     </Style>
 

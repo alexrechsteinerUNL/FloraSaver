@@ -24,7 +24,6 @@ public static class MauiProgram
 
 #if ANDROID
             builder.UseLocalNotification();
-            builder.Services.AddTransient<IServiceNotification, NotificationServices>();
             
 #elif IOS
         builder.UseLocalNotification();
