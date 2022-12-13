@@ -99,7 +99,10 @@ namespace FloraSaver.ViewModels
                         Id = DataPlants.Any() ? DataPlants.Max(x => x.Id) + 1 : 0,
                         DateOfBirth = DateTime.Now,
                         DateOfLastWatering = DateTime.Now,
-                        DateOfNextWatering = DateTime.Now } 
+                        DateOfNextWatering = DateTime.Now,
+                        DateOfLastRefreshing = DateTime.Now,
+                        DateOfNextRefreshing = DateTime.Now
+                        }
                     }
                 });
             }
