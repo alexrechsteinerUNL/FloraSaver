@@ -2,7 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
-             x:Class="FloraSaver.SettingPage">
+             xmlns:model="clr-namespace:FloraSaver.Models"
+             xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
+             x:DataType="viewmodel:SettingsViewModel"
+             x:Class="FloraSaver.SettingsPage">
 
 
 
@@ -24,7 +27,9 @@
                 Grid.Column="0"
                 Margin="8"/>
             <Button Text="Clear ALL Data" 
-                x:Name="clearAllData"
+                x:Name="clearAllPlantDataCommand"
+                Command="{Binding ClearAllPlantDataCommand}"
+                IsEnabled="{Binding IsNotBusy}"
                 Grid.Row="1"
                 Grid.Column="0"
                 Margin="8"/>

@@ -14,7 +14,7 @@
             <ShellContent ContentTemplate="{DataTemplate local:TablePage}" Route="TablePage"/>
         </Tab>
         <Tab Title="Settings">
-            <ShellContent ContentTemplate="{DataTemplate local:SettingPage}" Route="SettingPage"/>
+            <ShellContent ContentTemplate="{DataTemplate local:SettingsPage}" Route="SettingsPage"/>
         </Tab>
         <Tab Title="IoT Integration">
             <ShellContent ContentTemplate="{DataTemplate local:TablePage}" Route="TablePage"/>
