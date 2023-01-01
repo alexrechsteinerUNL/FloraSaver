@@ -23,7 +23,7 @@ namespace FloraSaver.ViewModels
             try
             {
                 IsBusy = true;
-                bool reallyDelete = await Application.Current.MainPage.DisplayAlert("OH HOLD ON!", "Are you sure you want to delete all of your plants?", "Yes", "No");
+                bool reallyDelete = await Application.Current.MainPage.DisplayAlert("OH HOLD ON!", "Are you sure you want to delete all of your plants?", "Delete Them", "Please Don't");
                 if (reallyDelete)
                 {
                     await plantService.DeleteAllAsync();

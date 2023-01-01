@@ -11,9 +11,9 @@
 
     <VerticalStackLayout Padding="10">
         <Frame BackgroundColor="Black" Padding="20" HeightRequest="660">
-            <Grid>
+            <Grid RowSpacing="10">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="570" />
+                    <RowDefinition Height="560" />
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
                 <ScrollView Grid.Row="0">
@@ -40,6 +40,33 @@
                                 <Entry MaximumWidthRequest="200"  x:Name="_GivenName" Placeholder="Give your plant a name!" Text="{Binding Plant.GivenName, StringFormat='{0}', Mode=TwoWay}"/>
                             </Border>
                         </HorizontalStackLayout>
+
+                        <Label Text="Watering Interval: " />
+                        <Border>
+                            <Picker x:Name="waterIntervalPicker"
+                            Title="Water in _ days">
+                                <Picker.ItemsSource>
+                                    <x:Array Type="{x:Type x:String}">
+                                        <x:String>None</x:String>
+                                        <x:String>Every Day</x:String>
+                                        <x:String>Every 2 Days</x:String>
+                                        <x:String>Every 3 Days</x:String>
+                                        <x:String>Every 7 Days</x:String>
+                                        <x:String>Every 14 Days</x:String>
+                                        <x:String>Every 28 Days</x:String>
+                                        <x:String>Custom!!!</x:String>
+                                    </x:Array>
+                                </Picker.ItemsSource>
+                            </Picker>
+                        </Border>
+
+                        <Label Text="Custom Interval: " />
+                        <HorizontalStackLayout>
+                            <Border>
+                                <Entry WidthRequest="200"  x:Name="_CustomInterval" Placeholder="Days" Keyboard="Numeric"/>
+                            </Border>
+                        </HorizontalStackLayout>
+
 
                         <Label Text="Water On: " />
                         <HorizontalStackLayout>

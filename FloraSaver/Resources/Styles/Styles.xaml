@@ -175,7 +175,7 @@
     <Style TargetType="Picker">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}" />
         <Setter Property="TitleColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}" />
-        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="BackgroundColor" Value="Black" />
         <Setter Property="FontFamily" Value="CaliforniaFR"/>
         <Setter Property="FontSize" Value="18"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
