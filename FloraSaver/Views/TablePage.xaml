@@ -55,18 +55,13 @@
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}"
                                     CommandParameter="{Binding .}"/>
                                 </Frame.GestureRecognizers>
-                                
+
                                 <Grid Padding="0" ColumnDefinitions="125,*" >
-                                    <!--<Image Aspect="AspectFill" Source="{Binding ImageLocation}"
-                                       WidthRequest="125"
-                                       HeightRequest="125"/>-->
                                     <VerticalStackLayout
                                     Grid.ColumnSpan="2"
                                     Padding="10">
                                         <Label FontSize="36" Text="{Binding GivenName, StringFormat='{0}'}" />
                                         <Label FontAttributes="Italic" Text="{Binding PlantSpecies}" />
-                                        <!--<Label Text="{Binding DateOfLastWatering, StringFormat='Last Watered: {0}'}" />-->
-
                                         <Label>
                                             <Label.Text>
                                                 <MultiBinding StringFormat="{}Last Watered: {0:d} at {1:hh\:mm}">

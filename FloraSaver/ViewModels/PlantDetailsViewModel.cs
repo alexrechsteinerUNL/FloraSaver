@@ -22,16 +22,43 @@ namespace FloraSaver.ViewModels
         PlantService plantService;
 
         public Plant InitialPlant { get; set; }
+
         string friendlyLabel;
-        public string FriendlyLabel { 
+        public string FriendlyLabel {
             get => friendlyLabel;
-            set 
+            set
             {
                 friendlyLabel = value;
                 OnPropertyChanged();
-            } 
+            }
         }
 
+        [ObservableProperty]
+        public bool customGridVisible = false;
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(CustomGridVisible))]
+        private string waterIntervalPickerText = string.Empty;
+
+        partial void OnWaterIntervalPickerTextChanged(string value)
+        {
+            if (value == "7")
+            {
+                waterIntervalPickerText = "Custom";
+                Console.WriteLine("Bloop");
+                waterIntervalPickerText = "";
+                CustomGridVisible = true;
+            }
+            else
+            {
+                Console.WriteLine("Zoup");
+                waterIntervalPickerText = "zoup";
+                CustomGridVisible = false;
+            }
+        }
+
+
+        
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {

@@ -44,7 +44,8 @@
                         <Label Text="Watering Interval: " />
                         <Border>
                             <Picker x:Name="waterIntervalPicker"
-                            Title="Water in _ days">
+                            Title="Water in _ days"
+                            SelectedIndex="{Binding WaterIntervalPickerText, Mode=TwoWay}">
                                 <Picker.ItemsSource>
                                     <x:Array Type="{x:Type x:String}">
                                         <x:String>None</x:String>
@@ -54,18 +55,22 @@
                                         <x:String>Every 7 Days</x:String>
                                         <x:String>Every 14 Days</x:String>
                                         <x:String>Every 28 Days</x:String>
-                                        <x:String>Custom!!!</x:String>
+                                        <x:String>Custom</x:String>
                                     </x:Array>
                                 </Picker.ItemsSource>
+                                
                             </Picker>
                         </Border>
 
-                        <Label Text="Custom Interval: " />
-                        <HorizontalStackLayout>
-                            <Border>
-                                <Entry WidthRequest="200"  x:Name="_CustomInterval" Placeholder="Days" Keyboard="Numeric"/>
-                            </Border>
-                        </HorizontalStackLayout>
+                        <Grid x:Name="customGrid" IsVisible="{Binding CustomGridVisible}">
+                            <Label Text="Custom Interval: " />
+                            <HorizontalStackLayout>
+                                <Border>
+                                    <Entry WidthRequest="200"  x:Name="_CustomInterval" Placeholder="Days" Keyboard="Numeric"/>
+                                </Border>
+                            </HorizontalStackLayout>
+                        </Grid>
+                        
 
 
                         <Label Text="Water On: " />
