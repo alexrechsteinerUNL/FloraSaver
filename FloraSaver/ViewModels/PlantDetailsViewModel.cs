@@ -23,6 +23,10 @@ namespace FloraSaver.ViewModels
 
         public Plant InitialPlant { get; set; }
 
+
+        // I think the code below is equivalent to
+        // [ObservableProperty]
+        // string friendlyLabel;
         string friendlyLabel;
         public string FriendlyLabel {
             get => friendlyLabel;
@@ -34,26 +38,24 @@ namespace FloraSaver.ViewModels
         }
 
         [ObservableProperty]
-        public bool customGridVisible = false;
+        public bool customWaterInteravlGridVisible = false;
 
         [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(CustomGridVisible))]
-        private string waterIntervalPickerText = string.Empty;
+        public bool showRefreshing = false;
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(CustomWaterInteravlGridVisible))]
+        private string waterIntervalPickerText;
 
         partial void OnWaterIntervalPickerTextChanged(string value)
         {
             if (value == "7")
             {
-                waterIntervalPickerText = "Custom";
-                Console.WriteLine("Bloop");
-                waterIntervalPickerText = "";
-                CustomGridVisible = true;
+                customWaterInteravlGridVisible = true;
             }
             else
             {
-                Console.WriteLine("Zoup");
-                waterIntervalPickerText = "zoup";
-                CustomGridVisible = false;
+                customWaterInteravlGridVisible = false;
             }
         }
 
@@ -71,6 +73,12 @@ namespace FloraSaver.ViewModels
         public PlantDetailsViewModel(PlantService plantService)
         {
             this.plantService = plantService;
+        }
+
+        [RelayCommand]
+        public void UseRefreshingPressed(bool refreshStatus)
+        {
+            showRefreshing = refreshStatus ? false : true;
         }
 
         [RelayCommand]

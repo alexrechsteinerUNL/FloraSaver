@@ -58,17 +58,18 @@
                                         <x:String>Custom</x:String>
                                     </x:Array>
                                 </Picker.ItemsSource>
-                                
                             </Picker>
                         </Border>
 
-                        <Grid x:Name="customGrid" IsVisible="{Binding CustomGridVisible}">
-                            <Label Text="Custom Interval: " />
-                            <HorizontalStackLayout>
-                                <Border>
-                                    <Entry WidthRequest="200"  x:Name="_CustomInterval" Placeholder="Days" Keyboard="Numeric"/>
-                                </Border>
-                            </HorizontalStackLayout>
+                        <Grid x:Name="customWaterInteravlGrid" IsVisible="{Binding CustomWaterInteravlGridVisible}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="50" />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Text="Custom Interval: " />
+                            <Border Grid.Row="1">
+                                <Entry MaximumWidthRequest="200" x:Name="_CustomInterval" Placeholder="Days" Keyboard="Numeric"/>
+                            </Border>
                         </Grid>
                         
 
@@ -95,7 +96,45 @@
                             </Border>
                         </HorizontalStackLayout>
 
-                        <Label Text="Last Refreshed On: " />
+                        <Button Text="Use Refreshing" 
+                            x:Name="useRefreshing"
+                            Command="{Binding UseRefreshingPressedCommand}"
+                            CommandParameter="{Binding ShowRefreshing}"/>
+
+                        <Grid x:Name="refreshGrid" IsVisible="{Binding ShowRefreshing}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="50" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="25" />
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.ColumnSpan="3" Text="Last Refreshed On: " />
+                            <Border Grid.Row="1" Grid.Column="0">
+                                <DatePicker x:Name="_DateOfLastRefreshing" Date="{Binding Plant.DateOfLastRefreshing, Mode=TwoWay}" Format="d" BackgroundColor="White" />
+                            </Border>
+                            <Label Text=" at " Grid.Row="1" Grid.Column="1" />
+                            <Border Grid.Row="1" Grid.Column="2" >
+                                <TimePicker x:Name="_TimeOfLastRefreshing" Time="{Binding Plant.TimeOfLastRefreshing, Mode=TwoWay}" Format="t" BackgroundColor="White" />
+                            </Border>
+
+                            <Label Grid.Row="2" Grid.ColumnSpan="3" Text="Refresh On: " />
+                            <Border Grid.Row="3" Grid.Column="0">
+                                <DatePicker x:Name="_DateOfNextRefreshing" Date="{Binding Plant.DateOfNextRefreshing, Mode=TwoWay}" Format="d" BackgroundColor="White" />
+                            </Border>
+                            <Label Text=" at " Grid.Row="3" Grid.Column="1" />
+                            <Border Grid.Row="3" Grid.Column="2">
+                                <TimePicker x:Name="_TimeOfNextRefreshing" Time="{Binding Plant.TimeOfNextRefreshing, Mode=TwoWay}" Format="t" BackgroundColor="White" />
+                            </Border>
+                        </Grid>
+                        
+                        
+                        
+                        <!--<Label Text="Last Refreshed On: " />
                         <HorizontalStackLayout>
                             <Border>
                                 <DatePicker x:Name="_DateOfLastRefreshing" Date="{Binding Plant.DateOfLastRefreshing, Mode=TwoWay}" Format="d" BackgroundColor="White" />
@@ -115,11 +154,7 @@
                             <Border>
                                 <TimePicker x:Name="_TimeOfNextRefreshing" Time="{Binding Plant.TimeOfNextRefreshing, Mode=TwoWay}" Format="t" BackgroundColor="White" />
                             </Border>
-                        </HorizontalStackLayout>
-
-                        <Button Text="Use Refreshing" 
-                            x:Name="showRefresh"/>
-
+                        </HorizontalStackLayout>-->
                     </VerticalStackLayout>
 
                 </ScrollView>
