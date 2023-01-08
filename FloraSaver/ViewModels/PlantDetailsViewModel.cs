@@ -20,8 +20,19 @@ namespace FloraSaver.ViewModels
     public partial class PlantDetailsViewModel : BaseViewModel, IQueryAttributable
     {
         PlantService plantService;
+        PickerService pickerService;
 
         public Plant InitialPlant { get; set; }
+
+        public PlantDetailsViewModel(PlantService PlantService, PickerService PickerService)
+        {
+            this.plantService = PlantService;
+            this.pickerService = PickerService;
+            wateringInterval = pickerService.GetIntervals();
+
+        }
+        [ObservableProperty]
+        List<Interval> wateringInterval;
 
 
         // I think the code below is equivalent to
@@ -41,26 +52,24 @@ namespace FloraSaver.ViewModels
         public bool customWaterInteravlGridVisible = false;
 
         [ObservableProperty]
-        public bool showRefreshing = false;
+        public bool refreshGridVisible = false;
 
         [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(CustomWaterInteravlGridVisible))]
-        private string waterIntervalPickerText;
+        public Interval waterIntervalPickerValue;
 
-        partial void OnWaterIntervalPickerTextChanged(string value)
+        partial void OnWaterIntervalPickerValueChanged(Interval value)
         {
-            if (value == "7")
+            if (value.DaysFromNow == -1)
             {
-                customWaterInteravlGridVisible = true;
-            }
-            else
+                CustomWaterInteravlGridVisible = true;
+            } else
             {
-                customWaterInteravlGridVisible = false;
+                CustomWaterInteravlGridVisible = false;
             }
         }
 
 
-        
+
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
@@ -70,15 +79,12 @@ namespace FloraSaver.ViewModels
 
         
 
-        public PlantDetailsViewModel(PlantService plantService)
-        {
-            this.plantService = plantService;
-        }
+
 
         [RelayCommand]
-        public void UseRefreshingPressed(bool refreshStatus)
+        void UseRefreshingPressed(bool value)
         {
-            showRefreshing = refreshStatus ? false : true;
+            RefreshGridVisible = value ? false : true;
         }
 
         [RelayCommand]

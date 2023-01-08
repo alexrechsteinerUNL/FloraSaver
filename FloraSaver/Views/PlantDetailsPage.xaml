@@ -45,19 +45,9 @@
                         <Border>
                             <Picker x:Name="waterIntervalPicker"
                             Title="Water in _ days"
-                            SelectedIndex="{Binding WaterIntervalPickerText, Mode=TwoWay}">
-                                <Picker.ItemsSource>
-                                    <x:Array Type="{x:Type x:String}">
-                                        <x:String>None</x:String>
-                                        <x:String>Every Day</x:String>
-                                        <x:String>Every 2 Days</x:String>
-                                        <x:String>Every 3 Days</x:String>
-                                        <x:String>Every 7 Days</x:String>
-                                        <x:String>Every 14 Days</x:String>
-                                        <x:String>Every 28 Days</x:String>
-                                        <x:String>Custom</x:String>
-                                    </x:Array>
-                                </Picker.ItemsSource>
+                            SelectedItem="{Binding WaterIntervalPickerValue, Mode=TwoWay}"
+                            ItemsSource="{Binding WateringInterval, Mode=TwoWay}"
+                            ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}">
                             </Picker>
                         </Border>
 
@@ -67,8 +57,8 @@
                                 <RowDefinition Height="50" />
                             </Grid.RowDefinitions>
                             <Label Grid.Row="0" Text="Custom Interval: " />
-                            <Border Grid.Row="1">
-                                <Entry MaximumWidthRequest="200" x:Name="_CustomInterval" Placeholder="Days" Keyboard="Numeric"/>
+                            <Border Grid.Row="1" WidthRequest="150"  HorizontalOptions="Start">
+                                <Entry x:Name="_CustomInterval" Placeholder="Enter an Interval" Keyboard="Numeric"/>
                             </Border>
                         </Grid>
                         
@@ -99,9 +89,9 @@
                         <Button Text="Use Refreshing" 
                             x:Name="useRefreshing"
                             Command="{Binding UseRefreshingPressedCommand}"
-                            CommandParameter="{Binding ShowRefreshing}"/>
+                            CommandParameter="{Binding RefreshGridVisible}"/>
 
-                        <Grid x:Name="refreshGrid" IsVisible="{Binding ShowRefreshing}">
+                        <Grid x:Name="refreshGrid" IsVisible="{Binding RefreshGridVisible}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="30" />
                                 <RowDefinition Height="50" />
