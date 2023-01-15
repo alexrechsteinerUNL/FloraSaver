@@ -27,6 +27,7 @@ namespace FloraSaver.Models
             get { return givenName; }
             set { givenName = value?.Trim() ?? string.Empty; }
         }
+
         public DateTime DateOfBirth { get; set; }
         public DateTime DateOfLastWatering { get; set; }
         public TimeSpan TimeOfLastWatering { get; set; }
@@ -37,9 +38,7 @@ namespace FloraSaver.Models
         public DateTime DateOfNextRefreshing { get; set; }
         public TimeSpan TimeOfNextRefreshing { get; set; }
         public DateTime WaterInterval { get; set; }
+        public DateTime RefresInterval { get; set; }
         public string ImageLocation { get; set; }
-
-
-
     }
 }

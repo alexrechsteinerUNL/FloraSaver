@@ -20,28 +20,80 @@
 
                     <VerticalStackLayout Spacing="10">
 
-                        <Label Text="{Binding Plant.PlantSpecies, StringFormat='Plant Species: '}" />
+                        <!--<Label Text="{Binding Plant.PlantSpecies, StringFormat='Plant Species: '}" />
                         <HorizontalStackLayout>
                             <Border>
                                 <Entry MaximumWidthRequest="200" x:Name="_PlantSpecies" Placeholder="Enter plant species"  Text="{Binding Plant.PlantSpecies, StringFormat='{0}', Mode=TwoWay}"/>
                             </Border>
-                        </HorizontalStackLayout>
+                        </HorizontalStackLayout>-->
 
-                        <Label Text="Date Of Birth: " />
+
+                        <Grid x:Name="plantSpeciesGrid">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="50" />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Text="Plant Species: " />
+                            <Border Grid.Row="1" WidthRequest="330"  HorizontalOptions="Start">
+                                <Entry WidthRequest="320" x:Name="_PlantSpecies" Placeholder="Enter plant species" Text="{Binding Plant.PlantSpecies, StringFormat='{0}', Mode=TwoWay}"/>
+                            </Border>
+                        </Grid>
+
+                        <Grid x:Name="givenNameGrid">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="50" />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Text="Given Name: " />
+                            <Border Grid.Row="1" WidthRequest="330"  HorizontalOptions="Start">
+                                <Entry WidthRequest="320" x:Name="_GivenName" Placeholder="Give your plant a name!" Text="{Binding Plant.GivenName, StringFormat='{0}', Mode=TwoWay}"/>
+                            </Border>
+                        </Grid>
+
+                        <!--<Label Text="Date Of Birth: " />
                         <HorizontalStackLayout>
                             <Border>
                                 <DatePicker x:Name="_DateOfBirth" Date="{Binding Plant.DateOfBirth, Mode=TwoWay}" BackgroundColor="White" />
                             </Border>
-                        </HorizontalStackLayout>
+                        </HorizontalStackLayout>-->
 
-                        <Label Text="{Binding Plant.GivenName, StringFormat='Given Name: '}" />
+                        <Grid x:Name="dobGrid">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="50" />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Text="Date Of Birth: " />
+                            <Border Grid.Row="1" WidthRequest="90"  HorizontalOptions="Start">
+                                <DatePicker x:Name="_DateOfBirth" WidthRequest="80" Date="{Binding Plant.DateOfBirth, Mode=TwoWay}" BackgroundColor="White" />
+                            </Border>
+                        </Grid>
+
+                        <!--<Label Text="{Binding Plant.GivenName, StringFormat='Given Name: '}" />
                         <HorizontalStackLayout>
                             <Border>
                                 <Entry MaximumWidthRequest="200"  x:Name="_GivenName" Placeholder="Give your plant a name!" Text="{Binding Plant.GivenName, StringFormat='{0}', Mode=TwoWay}"/>
                             </Border>
-                        </HorizontalStackLayout>
+                        </HorizontalStackLayout>-->
 
-                        <Label Text="Watering Interval: " />
+                        <Grid x:Name="wateringIntervalGrid">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="50" />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Text="Watering Interval: " />
+                            <Border Grid.Row="1" WidthRequest="330"  HorizontalOptions="Start">
+                                <Picker x:Name="waterIntervalPicker"
+                                    Title="Water in _ days"
+                                    SelectedItem="{Binding WaterIntervalPickerValue, Mode=TwoWay}"
+                                    ItemsSource="{Binding WateringInterval, Mode=TwoWay}"
+                                    ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}">
+                                </Picker>
+                            </Border>
+                        </Grid>
+                        
+                        
+                        
+                        <!--<Label Text="Watering Interval: " />
                         <Border>
                             <Picker x:Name="waterIntervalPicker"
                             Title="Water in _ days"
@@ -49,17 +101,24 @@
                             ItemsSource="{Binding WateringInterval, Mode=TwoWay}"
                             ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}">
                             </Picker>
-                        </Border>
+                        </Border>-->
 
                         <Grid x:Name="customWaterInteravlGrid" IsVisible="{Binding CustomWaterInteravlGridVisible}">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="50" />
+                                <RowDefinition Height="30" />
                                 <RowDefinition Height="50" />
                             </Grid.RowDefinitions>
-                            <Label Grid.Row="0" Text="Custom Interval: " />
-                            <Border Grid.Row="1" WidthRequest="150"  HorizontalOptions="Start">
-                                <Entry x:Name="_CustomInterval" Placeholder="Enter an Interval" Keyboard="Numeric"/>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60" />
+                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition Width="70" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.ColumnSpan="3" Text="Custom Interval: " />
+                            <Label Grid.Row="1" Grid.Column="0" VerticalOptions="Center">Every</Label>
+                            <Border Grid.Row="1" Grid.Column="1"  HorizontalOptions="Start">
+                                <Entry x:Name="_CustomInterval" WidthRequest="30" Placeholder="0" Keyboard="Numeric" HorizontalTextAlignment="Center" Text="{Binding WaterIntervalPickerValue.DaysFromNow, Mode=TwoWay}"/>
                             </Border>
+                            <Label Grid.Row="1" Grid.Column="2" VerticalOptions="Center">Days</Label>
                         </Grid>
                         
 
@@ -86,7 +145,7 @@
                             </Border>
                         </HorizontalStackLayout>
 
-                        <Button Text="Use Refreshing" 
+                        <Button Text="{Binding RefreshGridText}" 
                             x:Name="useRefreshing"
                             Command="{Binding UseRefreshingPressedCommand}"
                             CommandParameter="{Binding RefreshGridVisible}"/>
@@ -107,7 +166,7 @@
                             <Border Grid.Row="1" Grid.Column="0">
                                 <DatePicker x:Name="_DateOfLastRefreshing" Date="{Binding Plant.DateOfLastRefreshing, Mode=TwoWay}" Format="d" BackgroundColor="White" />
                             </Border>
-                            <Label Text=" at " Grid.Row="1" Grid.Column="1" />
+                            <Label Text="at" VerticalOptions="Center" HorizontalOptions="Center" Grid.Row="1" Grid.Column="1" />
                             <Border Grid.Row="1" Grid.Column="2" >
                                 <TimePicker x:Name="_TimeOfLastRefreshing" Time="{Binding Plant.TimeOfLastRefreshing, Mode=TwoWay}" Format="t" BackgroundColor="White" />
                             </Border>
@@ -116,7 +175,7 @@
                             <Border Grid.Row="3" Grid.Column="0">
                                 <DatePicker x:Name="_DateOfNextRefreshing" Date="{Binding Plant.DateOfNextRefreshing, Mode=TwoWay}" Format="d" BackgroundColor="White" />
                             </Border>
-                            <Label Text=" at " Grid.Row="3" Grid.Column="1" />
+                            <Label Text="at" VerticalOptions="Center" HorizontalOptions="Center" Grid.Row="3" Grid.Column="1" />
                             <Border Grid.Row="3" Grid.Column="2">
                                 <TimePicker x:Name="_TimeOfNextRefreshing" Time="{Binding Plant.TimeOfNextRefreshing, Mode=TwoWay}" Format="t" BackgroundColor="White" />
                             </Border>

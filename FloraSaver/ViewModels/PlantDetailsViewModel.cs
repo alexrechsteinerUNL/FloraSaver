@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FloraSaver.Models;
 using FloraSaver.Services;
-using Microsoft.VisualStudio.RpcContracts.Commands;
 
 namespace FloraSaver.ViewModels
 {
@@ -55,6 +47,9 @@ namespace FloraSaver.ViewModels
         public bool refreshGridVisible = false;
 
         [ObservableProperty]
+        public string refreshGridText = "Use Refreshing";
+
+        [ObservableProperty]
         public Interval waterIntervalPickerValue;
 
         partial void OnWaterIntervalPickerValueChanged(Interval value)
@@ -62,6 +57,7 @@ namespace FloraSaver.ViewModels
             if (value.DaysFromNow == -1)
             {
                 CustomWaterInteravlGridVisible = true;
+                value.DaysFromNow = 0;
             } else
             {
                 CustomWaterInteravlGridVisible = false;
@@ -85,6 +81,7 @@ namespace FloraSaver.ViewModels
         void UseRefreshingPressed(bool value)
         {
             RefreshGridVisible = value ? false : true;
+            RefreshGridText = value ? "Needs Refreshing" : "Remove Refreshing";
         }
 
         [RelayCommand]
