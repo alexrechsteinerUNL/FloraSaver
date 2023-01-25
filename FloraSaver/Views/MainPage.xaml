@@ -1,31 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
-             xmlns:model="clr-namespace:FloraSaver.Models"
-             xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
-             x:DataType="viewmodel:TableViewModel"
-             x:Class="FloraSaver.MainPage">
+<ContentPage
+    x:Class="FloraSaver.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    xmlns:model="clr-namespace:FloraSaver.Models"
+    xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
+    x:DataType="viewmodel:TableViewModel">
 
 
+    <Grid>
+        <Image Aspect="AspectFill" Source="home_background.png" />
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Image
+                HeightRequest="360"
+                HorizontalOptions="Center"
+                SemanticProperties.Description="Title for app"
+                Source="plant_saver_title.png" />
 
-    <VerticalStackLayout Spacing="15" Padding="20" >
-        <Image
-            Source="plant_saver_title.png"
-            SemanticProperties.Description="Title for app"
-            HeightRequest="360"
-            HorizontalOptions="Center" />
-
-        <Button
+            <Button
                 x:Name="startPlantService"
-                Text="start Services"
                 Command="{Binding GetPlantsCommand}"
                 HorizontalOptions="Center"
-                IsVisible="false"/>
+                IsVisible="false"
+                Text="start Services" />
 
-        <!--<Button Text="Stop Service" Clicked="Button_Clicked"></Button>-->
+            <!--<Button Text="Stop Service" Clicked="Button_Clicked"></Button>-->
 
-        <!--Testing Grid--><!--
+            <!--  Testing Grid  -->
+            <!--
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="100" />
@@ -69,5 +72,6 @@
                HorizontalOptions="Center"
                VerticalOptions="Center" />
         </Grid>-->
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+    </Grid>
 </ContentPage>

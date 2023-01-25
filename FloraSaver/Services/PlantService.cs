@@ -46,7 +46,7 @@ namespace FloraSaver.Services
                     throw new Exception("Valid name required");
                 result = await conn.InsertOrReplaceAsync(plant);
 
-                StatusMessage = string.Format("{0} record(s) added (Name: {1})", result, plant.GivenName);
+                StatusMessage = string.Format("{0} record saved (Name: {1})", result, plant.GivenName);
             }
             catch (Exception ex)
             {

@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
-             x:Class="FloraSaver.TablePage"
-             xmlns:model="clr-namespace:FloraSaver.Models"
-             xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
-             x:DataType="viewmodel:TableViewModel">
+<ContentPage
+    x:Class="FloraSaver.TablePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    xmlns:model="clr-namespace:FloraSaver.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
+    x:DataType="viewmodel:TableViewModel">
     <Grid
         ColumnDefinitions="*,*"
         ColumnSpacing="5"
@@ -18,22 +19,23 @@
             <RowDefinition Height="70" />
         </Grid.RowDefinitions>
         <SearchBar
-            x:Name="searchBar" 
-            Grid.Row="0" 
-            Grid.ColumnSpan="2" 
-            Placeholder="Search Plants..." >
+            x:Name="searchBar"
+            Grid.Row="0"
+            Grid.ColumnSpan="2"
+            Placeholder="Search Plants...">
             <SearchBar.Behaviors>
                 <toolkit:EventToCommandBehavior
-                EventName="TextChanged" 
-                Command="{Binding SearchPlantsCommand}" 
-                CommandParameter="{Binding Text, Source={x:Reference searchBar}}" />
+                    Command="{Binding SearchPlantsCommand}"
+                    CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
+                    EventName="TextChanged" />
             </SearchBar.Behaviors>
         </SearchBar>
-        <Grid Padding="5" Grid.Row="1"  Grid.ColumnSpan="2">
-            <Frame BackgroundColor="Black" >
-                <HorizontalStackLayout>
-
-                </HorizontalStackLayout>
+        <Grid
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Padding="5">
+            <Frame BackgroundColor="Black">
+                <HorizontalStackLayout />
             </Frame>
         </Grid>
         <RefreshView
@@ -42,24 +44,19 @@
             Command="{Binding GetPlantsCommand}"
             IsRefreshing="{Binding IsRefreshing}">
             <CollectionView
-            x:Name="plantDeck"
-            ItemsSource="{Binding Plants}"
-            SelectionMode="None"
-                >
+                x:Name="plantDeck"
+                ItemsSource="{Binding Plants}"
+                SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Plant">
-                        <Grid Padding="10" >
-                            <Frame HeightRequest="300" BackgroundColor="Black">
+                        <Grid Padding="10">
+                            <Frame BackgroundColor="Black" HeightRequest="300">
                                 <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}"
-                                    CommandParameter="{Binding .}"/>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}" CommandParameter="{Binding .}" />
                                 </Frame.GestureRecognizers>
 
-                                <Grid Padding="0" ColumnDefinitions="125,*" >
-                                    <VerticalStackLayout
-                                    Grid.ColumnSpan="2"
-                                    Padding="10">
+                                <Grid Padding="0" ColumnDefinitions="125,*">
+                                    <VerticalStackLayout Grid.ColumnSpan="2" Padding="10">
                                         <Label FontSize="36" Text="{Binding GivenName, StringFormat='{0}'}" />
                                         <Label FontAttributes="Italic" Text="{Binding PlantSpecies}" />
                                         <Label>
@@ -72,7 +69,7 @@
                                         </Label>
 
                                         <Label Text="{Binding DateOfBirth, StringFormat='Birthday: {0:d}'}" />
-                                        
+
                                         <Label FontSize="24">
                                             <Label.Text>
                                                 <MultiBinding StringFormat="{}Next Watering {0:d} at {1:hh\:mm}">
@@ -89,27 +86,30 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </RefreshView>
-        <Button Text="Get Plants" 
-                x:Name="getPlants"
-                Command="{Binding GetPlantsCommand}"
-                IsEnabled="{Binding IsNotBusy}"
-                Grid.Row="3"
-                Grid.Column="0"
-                Margin="8"/>
-        <Button Text="Add New Plant" 
-                x:Name="addPlants"
-                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}"
-                IsEnabled="{Binding IsNotBusy}"
-                Grid.Row="3"
-                Grid.Column="1"
-                Margin="8"/>
+        <Button
+            x:Name="getPlants"
+            Grid.Row="3"
+            Grid.Column="0"
+            Margin="8"
+            Command="{Binding GetPlantsCommand}"
+            IsEnabled="{Binding IsNotBusy}"
+            Text="Get Plants" />
+        <Button
+            x:Name="addPlants"
+            Grid.Row="3"
+            Grid.Column="1"
+            Margin="8"
+            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}"
+            IsEnabled="{Binding IsNotBusy}"
+            Text="Add New Plant" />
 
 
-        <ActivityIndicator IsVisible="{Binding IsBusy}"
-                           IsRunning="{Binding IsBusy}"
-                           HorizontalOptions="FillAndExpand"
-                           VerticalOptions="CenterAndExpand"
-                           Grid.RowSpan="2"
-                           Grid.ColumnSpan="2"/>
+        <ActivityIndicator
+            Grid.RowSpan="2"
+            Grid.ColumnSpan="2"
+            HorizontalOptions="FillAndExpand"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="CenterAndExpand" />
     </Grid>
 </ContentPage>

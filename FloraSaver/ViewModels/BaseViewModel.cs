@@ -18,6 +18,25 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         string title;
 
+
+
+        // I think the code below is equivalent to
+        // [ObservableProperty]
+        // string friendlyLabel;
+        string friendlyLabel;
+        public string FriendlyLabel
+        {
+            get => friendlyLabel;
+            set
+            {
+                friendlyLabel = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         public bool IsNotBusy => !IsBusy;
+
+
     }
 }
