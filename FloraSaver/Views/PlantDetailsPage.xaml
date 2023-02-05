@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
     Title="{Binding Plant.GivenName}"
     x:DataType="viewmodel:PlantDetailsViewModel">
@@ -35,8 +36,8 @@
                                 WidthRequest="330">
                                 <Entry
                                     x:Name="_PlantSpecies"
+                                    Completed="Entry_Completed"
                                     Placeholder="Enter plant species"
-                                    ReturnType="Next"
                                     Text="{Binding Plant.PlantSpecies, StringFormat='{0}', Mode=TwoWay}"
                                     WidthRequest="320" />
                             </Border>
@@ -54,8 +55,8 @@
                                 WidthRequest="330">
                                 <Entry
                                     x:Name="_GivenName"
+                                    Completed="Entry_Completed"
                                     Placeholder="Give your plant a name!"
-                                    ReturnType="Next"
                                     Text="{Binding Plant.GivenName, StringFormat='{0}', Mode=TwoWay}"
                                     WidthRequest="320" />
                             </Border>
@@ -125,6 +126,7 @@
                                 HorizontalOptions="Start">
                                 <Entry
                                     x:Name="_CustomInterval"
+                                    Completed="Entry_Completed"
                                     HorizontalTextAlignment="Center"
                                     Keyboard="Numeric"
                                     Placeholder="0"

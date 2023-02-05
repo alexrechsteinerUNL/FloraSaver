@@ -12,10 +12,13 @@ public partial class TablePage : ContentPage
         BindingContext = viewModel;
 	}
 
-    //protected override void OnAppearing()
-    //{
-    //    base.OnAppearing();
-    //    getPlants.Command.Execute("GetPlantsCommand");
-    //}
+    private void SearchBar_Completed(object sender, EventArgs e)
+    {
+        var searchElement = sender as SearchBar;
+
+        searchElement.Unfocus();
+        searchElement.IsEnabled = false;
+        searchElement.IsEnabled = true;
+    }
 }
 

@@ -22,7 +22,8 @@
             x:Name="searchBar"
             Grid.Row="0"
             Grid.ColumnSpan="2"
-            Placeholder="Search Plants...">
+            Placeholder="Search Plants..."
+            SearchButtonPressed="SearchBar_Completed">
             <SearchBar.Behaviors>
                 <toolkit:EventToCommandBehavior
                     Command="{Binding SearchPlantsCommand}"
@@ -50,13 +51,19 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Plant">
                         <Grid Padding="10">
-                            <Frame BackgroundColor="Black" HeightRequest="300">
+                            <Frame BackgroundColor="Black" HeightRequest="500">
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}" CommandParameter="{Binding .}" />
                                 </Frame.GestureRecognizers>
 
-                                <Grid Padding="0" ColumnDefinitions="125,*">
-                                    <VerticalStackLayout Grid.ColumnSpan="2" Padding="10">
+                                <Grid
+                                    Padding="0"
+                                    ColumnDefinitions="125,*"
+                                    RowDefinitions="300,110">
+                                    <VerticalStackLayout
+                                        Grid.Row="0"
+                                        Grid.ColumnSpan="2"
+                                        Padding="10">
                                         <Label FontSize="36" Text="{Binding GivenName, StringFormat='{0}'}" />
                                         <Label FontAttributes="Italic" Text="{Binding PlantSpecies}" />
                                         <Label>
@@ -79,6 +86,20 @@
                                             </Label.Text>
                                         </Label>
                                     </VerticalStackLayout>
+                                    <HorizontalStackLayout Grid.Row="1" Grid.ColumnSpan="2">
+                                        <ImageButton
+                                            HeightRequest="105"
+                                            Source="sun_timer_visual.png"
+                                            WidthRequest="105" />
+                                        <ImageButton
+                                            HeightRequest="105"
+                                            Source="refresh_timer_visual.png"
+                                            WidthRequest="105" />
+                                        <ImageButton
+                                            HeightRequest="105"
+                                            Source="water_timer_visual.png"
+                                            WidthRequest="105" />
+                                    </HorizontalStackLayout>
                                 </Grid>
                             </Frame>
                         </Grid>

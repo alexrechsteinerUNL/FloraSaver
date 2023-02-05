@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FloraSaver.Models;
 using FloraSaver.Services;
+using Plugin.LocalNotification;
 
 namespace FloraSaver.ViewModels
 {
@@ -13,13 +14,15 @@ namespace FloraSaver.ViewModels
     {
         PlantService plantService;
         PickerService pickerService;
+        NotificationService notificationService;
 
         public Plant InitialPlant { get; set; }
 
-        public PlantDetailsViewModel(PlantService PlantService, PickerService PickerService)
+        public PlantDetailsViewModel(PlantService PlantService, PickerService PickerService, NotificationService NotificationService)
         {
-            this.plantService = PlantService;
-            this.pickerService = PickerService;
+            plantService = PlantService;
+            pickerService = PickerService;
+            notificationService = NotificationService;
             wateringInterval = pickerService.GetIntervals();
 
         }

@@ -33,6 +33,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<TableViewModel>();
         builder.Services.AddSingleton<PlantService>(s => ActivatorUtilities.CreateInstance<PlantService>(s, dbPath));
         builder.Services.AddSingleton<PickerService>();
+        builder.Services.AddSingleton<NotificationService>();
         builder.Services.AddSingleton<MainPage>();
         builder.Services.AddSingleton<TablePage>();
         builder.Services.AddSingleton<SettingsPage>();
