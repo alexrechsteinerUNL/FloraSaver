@@ -24,8 +24,6 @@ public partial class PlantDetailsPage : ContentPage
     private void Entry_Completed(object sender, EventArgs e)
     {
         var entry = sender as Entry;
-        
-        entry.Unfocus();
         entry.IsEnabled = false;
         entry.IsEnabled = true;
     }

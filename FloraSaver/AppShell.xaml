@@ -6,18 +6,18 @@
     xmlns:local="clr-namespace:FloraSaver"
     Shell.FlyoutBehavior="Disabled">
 
-    <TabBar x:Name="Tab_Options" >
+    <TabBar x:Name="Tab_Options">
         <Tab Title="Home">
-            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage"/>
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage" />
         </Tab>
         <Tab Title="Plants">
-            <ShellContent ContentTemplate="{DataTemplate local:TablePage}" Route="TablePage"/>
+            <ShellContent ContentTemplate="{DataTemplate local:TablePage}" Route="TablePage" />
         </Tab>
         <Tab Title="Settings">
-            <ShellContent ContentTemplate="{DataTemplate local:SettingsPage}" Route="SettingsPage"/>
+            <ShellContent ContentTemplate="{DataTemplate local:SettingsPage}" Route="SettingsPage" />
         </Tab>
         <Tab Title="IoT Integration">
-            <ShellContent ContentTemplate="{DataTemplate local:TablePage}" Route="TablePage"/>
+            <ShellContent ContentTemplate="{DataTemplate local:TablePage}" Route="TablePage" />
         </Tab>
     </TabBar>
 </Shell>

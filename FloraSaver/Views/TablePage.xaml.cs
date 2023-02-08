@@ -12,13 +12,11 @@ public partial class TablePage : ContentPage
         BindingContext = viewModel;
 	}
 
-    private void SearchBar_Completed(object sender, EventArgs e)
+    private static void Entry_Completed(object sender, EventArgs e)
     {
-        var searchElement = sender as SearchBar;
-
-        searchElement.Unfocus();
-        searchElement.IsEnabled = false;
-        searchElement.IsEnabled = true;
+        var entry = sender as Entry;
+        entry.IsEnabled = false;
+        entry.IsEnabled = true;
     }
 }
 

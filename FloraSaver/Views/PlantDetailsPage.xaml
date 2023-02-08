@@ -11,6 +11,7 @@
 
 
     <VerticalStackLayout Padding="10">
+
         <Frame
             Padding="20"
             BackgroundColor="Black"

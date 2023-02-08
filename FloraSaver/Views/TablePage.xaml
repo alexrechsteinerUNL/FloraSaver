@@ -13,24 +13,27 @@
         ColumnSpacing="5"
         RowSpacing="1">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
+            <RowDefinition Height="60" />
             <RowDefinition Height="52" />
             <RowDefinition Height="*" />
             <RowDefinition Height="70" />
         </Grid.RowDefinitions>
-        <SearchBar
+        <Entry
             x:Name="searchBar"
             Grid.Row="0"
             Grid.ColumnSpan="2"
+            Completed="Entry_Completed"
+            FontSize="25"
+            HorizontalTextAlignment="Start"
             Placeholder="Search Plants..."
-            SearchButtonPressed="SearchBar_Completed">
-            <SearchBar.Behaviors>
+            VerticalTextAlignment="Center">
+            <Entry.Behaviors>
                 <toolkit:EventToCommandBehavior
                     Command="{Binding SearchPlantsCommand}"
                     CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
                     EventName="TextChanged" />
-            </SearchBar.Behaviors>
-        </SearchBar>
+            </Entry.Behaviors>
+        </Entry>
         <Grid
             Grid.Row="1"
             Grid.ColumnSpan="2"
