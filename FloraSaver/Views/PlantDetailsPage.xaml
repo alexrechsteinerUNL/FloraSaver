@@ -71,147 +71,166 @@
                             <Label Grid.Row="0" Text="Date Of Birth: " />
                             <Border
                                 Grid.Row="1"
-                                HorizontalOptions="Start"
-                                WidthRequest="90">
-                                <DatePicker
-                                    x:Name="_DateOfBirth"
-                                    BackgroundColor="White"
-                                    Date="{Binding Plant.DateOfBirth, Mode=TwoWay}"
-                                    HorizontalOptions="Center"
-                                    WidthRequest="80" />
-                            </Border>
-                        </Grid>
-
-                        <Grid x:Name="wateringIntervalGrid">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="30" />
-                                <RowDefinition Height="50" />
-                            </Grid.RowDefinitions>
-                            <Label Grid.Row="0" Text="Watering Interval: " />
-                            <Border
-                                Grid.Row="1"
-                                HorizontalOptions="Start"
-                                WidthRequest="330">
-                                <Picker
-                                    x:Name="waterIntervalPicker"
-                                    Title="Water in _ days"
-                                    ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
-                                    ItemsSource="{Binding WateringInterval, Mode=TwoWay}"
-                                    SelectedItem="{Binding WaterIntervalPickerValue, Mode=TwoWay}" />
-                            </Border>
-                        </Grid>
-
-                        <Grid x:Name="customWaterInteravlGrid" IsVisible="{Binding CustomWaterInteravlGridVisible}">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="30" />
-                                <RowDefinition Height="50" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="60" />
-                                <ColumnDefinition Width="40" />
-                                <ColumnDefinition Width="70" />
-                            </Grid.ColumnDefinitions>
-                            <Label
-                                Grid.Row="0"
-                                Grid.ColumnSpan="3"
-                                Text="Custom Interval: " />
-                            <Label
-                                Grid.Row="1"
-                                Grid.Column="0"
-                                VerticalOptions="Center">
-                                Every
-                            </Label>
-                            <Border
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                HorizontalOptions="Start">
-                                <Entry
-                                    x:Name="_CustomInterval"
-                                    Completed="Entry_Completed"
-                                    HorizontalTextAlignment="Center"
-                                    Keyboard="Numeric"
-                                    Placeholder="0"
-                                    Text="{Binding WaterIntervalPickerValue.DaysFromNow, Mode=TwoWay}"
-                                    WidthRequest="30" />
-                            </Border>
-                            <Label
-                                Grid.Row="1"
-                                Grid.Column="2"
-                                VerticalOptions="Center">
-                                Days
-                            </Label>
-                        </Grid>
-
-                        <Grid x:Name="WaterGrid">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="30" />
-                                <RowDefinition Height="50" />
-                                <RowDefinition Height="30" />
-                                <RowDefinition Height="50" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100" />
-                                <ColumnDefinition Width="25" />
-                                <ColumnDefinition Width="100" />
-                            </Grid.ColumnDefinitions>
-                            <Label
-                                Grid.Row="0"
-                                Grid.ColumnSpan="3"
-                                Text="Last Watered On: " />
-                            <Border Grid.Row="1" Grid.Column="0">
-                                <DatePicker
-                                    x:Name="_DateOfLastWatering"
-                                    BackgroundColor="White"
-                                    Date="{Binding Plant.DateOfLastWatering, Mode=TwoWay}"
-                                    Format="d" />
-                            </Border>
-                            <Label
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                HorizontalOptions="Center"
-                                Text="at"
-                                VerticalOptions="Center" />
-                            <Border Grid.Row="1" Grid.Column="2">
-                                <TimePicker
-                                    x:Name="_TimeOfLastWatering"
-                                    BackgroundColor="White"
-                                    Format="t"
-                                    Time="{Binding Plant.TimeOfLastWatering, Mode=TwoWay}" />
-                            </Border>
-
-                            <Label
-                                Grid.Row="2"
-                                Grid.ColumnSpan="3"
-                                Text="Water On: " />
-                            <Border Grid.Row="3" Grid.Column="0">
-                                <DatePicker
-                                    x:Name="_DateOfNextWatering"
-                                    BackgroundColor="White"
-                                    Date="{Binding Plant.DateOfNextWatering, Mode=TwoWay}"
-                                    Format="d" />
-                            </Border>
-                            <Label
-                                Grid.Row="3"
-                                Grid.Column="1"
-                                HorizontalOptions="Center"
-                                Text="at"
-                                VerticalOptions="Center" />
-                            <Border Grid.Row="3" Grid.Column="2">
-                                <TimePicker
-                                    x:Name="_TimeOfNextWatering"
-                                    BackgroundColor="White"
-                                    Format="t"
-                                    Time="{Binding Plant.TimeOfNextWatering, Mode=TwoWay}" />
+                                HorizontalOptions="StartAndExpand"
+                                WidthRequest="100">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="10" />
+                                        <ColumnDefinition Width="80" />
+                                        <ColumnDefinition Width="10" />
+                                    </Grid.ColumnDefinitions>
+                                    <Rectangle Grid.Column="0" Background="Black" />
+                                    <DatePicker
+                                        x:Name="_DateOfBirth"
+                                        Grid.Column="1"
+                                        Date="{Binding Plant.DateOfBirth, Mode=TwoWay}"
+                                        HorizontalOptions="FillAndExpand" />
+                                    <Rectangle Grid.Column="2" BackgroundColor="Black" />
+                                </Grid>
                             </Border>
                         </Grid>
 
                         <Button
-                            x:Name="useRefreshing"
-                            Command="{Binding UseRefreshingPressedCommand}"
-                            CommandParameter="{Binding RefreshGridVisible}"
-                            Text="{Binding RefreshGridText}" />
+                            x:Name="useWater"
+                            BorderColor="MediumPurple"
+                            Command="{Binding UseWateringPressedCommand}"
+                            CommandParameter="{Binding WaterGridVisible}"
+                            Text="{Binding WaterGridText}" />
 
-                        <Grid x:Name="refreshGrid" IsVisible="{Binding RefreshGridVisible}">
+                        <VerticalStackLayout x:Name="WateringGrids" IsVisible="{Binding WaterGridVisible}">
+                            <Grid x:Name="wateringIntervalGrid">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="50" />
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" Text="Watering Interval: " />
+                                <Border
+                                    Grid.Row="1"
+                                    HorizontalOptions="Start"
+                                    WidthRequest="330">
+                                    <Picker
+                                        x:Name="waterIntervalPicker"
+                                        Title="Water in _ days"
+                                        ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
+                                        ItemsSource="{Binding WateringInterval, Mode=TwoWay}"
+                                        SelectedItem="{Binding WaterIntervalPickerValue, Mode=TwoWay}" />
+                                </Border>
+                            </Grid>
+
+                            <Grid x:Name="customWaterInteravlGrid" IsVisible="{Binding CustomWaterInteravlGridVisible}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="50" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition Width="70" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.ColumnSpan="3"
+                                    Text="Custom Interval: " />
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    VerticalOptions="Center">
+                                    Every
+                                </Label>
+                                <Border
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    HorizontalOptions="Start">
+                                    <Entry
+                                        x:Name="_CustomInterval"
+                                        Completed="Entry_Completed"
+                                        HorizontalTextAlignment="Center"
+                                        Keyboard="Numeric"
+                                        Placeholder="0"
+                                        Text="{Binding WaterIntervalPickerValue.DaysFromNow, Mode=TwoWay}"
+                                        WidthRequest="30" />
+                                </Border>
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    VerticalOptions="Center">
+                                    Days
+                                </Label>
+                            </Grid>
+
+                            <Grid x:Name="WaterGrid">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="50" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="50" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="25" />
+                                    <ColumnDefinition Width="100" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.ColumnSpan="3"
+                                    Text="Last Watered On: " />
+                                <Border Grid.Row="1" Grid.Column="0">
+                                    <DatePicker
+                                        x:Name="_DateOfLastWatering"
+                                        BackgroundColor="White"
+                                        Date="{Binding Plant.DateOfLastWatering, Mode=TwoWay}"
+                                        Format="d"
+                                        HorizontalOptions="Fill" />
+                                </Border>
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    HorizontalOptions="Center"
+                                    Text="at"
+                                    VerticalOptions="Center" />
+                                <Border Grid.Row="1" Grid.Column="2">
+                                    <TimePicker
+                                        x:Name="_TimeOfLastWatering"
+                                        BackgroundColor="White"
+                                        Format="t"
+                                        Time="{Binding Plant.TimeOfLastWatering, Mode=TwoWay}" />
+                                </Border>
+
+                                <Label
+                                    Grid.Row="2"
+                                    Grid.ColumnSpan="3"
+                                    Text="Water On: " />
+                                <Border Grid.Row="3" Grid.Column="0">
+                                    <DatePicker
+                                        x:Name="_DateOfNextWatering"
+                                        BackgroundColor="White"
+                                        Date="{Binding Plant.DateOfNextWatering, Mode=TwoWay}"
+                                        Format="d" />
+                                </Border>
+                                <Label
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    HorizontalOptions="Center"
+                                    Text="at"
+                                    VerticalOptions="Center" />
+                                <Border Grid.Row="3" Grid.Column="2">
+                                    <TimePicker
+                                        x:Name="_TimeOfNextWatering"
+                                        BackgroundColor="White"
+                                        Format="t"
+                                        Time="{Binding Plant.TimeOfNextWatering, Mode=TwoWay}" />
+                                </Border>
+                            </Grid>
+                        </VerticalStackLayout>
+
+                        <Button
+                            x:Name="useMisting"
+                            BorderColor="Cyan"
+                            Command="{Binding UseMistingPressedCommand}"
+                            CommandParameter="{Binding MistGridVisible}"
+                            Text="{Binding MistGridText}" />
+
+                        <Grid x:Name="mistGrid" IsVisible="{Binding MistGridVisible}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="30" />
                                 <RowDefinition Height="50" />
@@ -226,12 +245,12 @@
                             <Label
                                 Grid.Row="0"
                                 Grid.ColumnSpan="3"
-                                Text="Last Refreshed On: " />
+                                Text="Last Misted On: " />
                             <Border Grid.Row="1" Grid.Column="0">
                                 <DatePicker
-                                    x:Name="_DateOfLastRefreshing"
+                                    x:Name="_DateOfLastMisting"
                                     BackgroundColor="White"
-                                    Date="{Binding Plant.DateOfLastRefreshing, Mode=TwoWay}"
+                                    Date="{Binding Plant.DateOfLastMisting, Mode=TwoWay}"
                                     Format="d" />
                             </Border>
                             <Label
@@ -242,21 +261,21 @@
                                 VerticalOptions="Center" />
                             <Border Grid.Row="1" Grid.Column="2">
                                 <TimePicker
-                                    x:Name="_TimeOfLastRefreshing"
+                                    x:Name="_TimeOfLastMisting"
                                     BackgroundColor="White"
                                     Format="t"
-                                    Time="{Binding Plant.TimeOfLastRefreshing, Mode=TwoWay}" />
+                                    Time="{Binding Plant.TimeOfLastMisting, Mode=TwoWay}" />
                             </Border>
 
                             <Label
                                 Grid.Row="2"
                                 Grid.ColumnSpan="3"
-                                Text="Refresh On: " />
+                                Text="Mist On: " />
                             <Border Grid.Row="3" Grid.Column="0">
                                 <DatePicker
-                                    x:Name="_DateOfNextRefreshing"
+                                    x:Name="_DateOfNextMisting"
                                     BackgroundColor="White"
-                                    Date="{Binding Plant.DateOfNextRefreshing, Mode=TwoWay}"
+                                    Date="{Binding Plant.DateOfNextMisting, Mode=TwoWay}"
                                     Format="d" />
                             </Border>
                             <Label
@@ -267,12 +286,88 @@
                                 VerticalOptions="Center" />
                             <Border Grid.Row="3" Grid.Column="2">
                                 <TimePicker
-                                    x:Name="_TimeOfNextRefreshing"
+                                    x:Name="_TimeOfNextMisting"
                                     BackgroundColor="White"
                                     Format="t"
-                                    Time="{Binding Plant.TimeOfNextRefreshing, Mode=TwoWay}" />
+                                    Time="{Binding Plant.TimeOfNextMisting, Mode=TwoWay}" />
                             </Border>
                         </Grid>
+
+                        <Button
+                            x:Name="useSun"
+                            BorderColor="Orange"
+                            Command="{Binding UseSunPressedCommand}"
+                            CommandParameter="{Binding SunGridVisible}"
+                            Text="{Binding SunGridText}" />
+
+                        <!--<Button
+                            x:Name="useSun"
+                            Command="{Binding UseSunPressedCommand}"
+                            CommandParameter="{Binding SunGridVisible}"
+                            Text="{Binding SunGridText}" />
+
+                        <Grid x:Name="sunGrid" IsVisible="{Binding SunGridVisible}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="50" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="25" />
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Grid.Row="0"
+                                Grid.ColumnSpan="3"
+                                Text="Last Suned On: " />
+                            <Border Grid.Row="1" Grid.Column="0">
+                                <DatePicker
+                                    x:Name="_DateOfLastSuning"
+                                    BackgroundColor="White"
+                                    Date="{Binding Plant.DateOfLastSuning, Mode=TwoWay}"
+                                    Format="d" />
+                            </Border>
+                            <Label
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                HorizontalOptions="Center"
+                                Text="at"
+                                VerticalOptions="Center" />
+                            <Border Grid.Row="1" Grid.Column="2">
+                                <TimePicker
+                                    x:Name="_TimeOfLastSuning"
+                                    BackgroundColor="White"
+                                    Format="t"
+                                    Time="{Binding Plant.TimeOfLastSuning, Mode=TwoWay}" />
+                            </Border>
+
+                            <Label
+                                Grid.Row="2"
+                                Grid.ColumnSpan="3"
+                                Text="Sun On: " />
+                            <Border Grid.Row="3" Grid.Column="0">
+                                <DatePicker
+                                    x:Name="_DateOfNextSuning"
+                                    BackgroundColor="White"
+                                    Date="{Binding Plant.DateOfNextSuning, Mode=TwoWay}"
+                                    Format="d" />
+                            </Border>
+                            <Label
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                HorizontalOptions="Center"
+                                Text="at"
+                                VerticalOptions="Center" />
+                            <Border Grid.Row="3" Grid.Column="2">
+                                <TimePicker
+                                    x:Name="_TimeOfNextSuning"
+                                    BackgroundColor="White"
+                                    Format="t"
+                                    Time="{Binding Plant.TimeOfNextSuning, Mode=TwoWay}" />
+                            </Border>
+                        </Grid>-->
 
                     </VerticalStackLayout>
                 </ScrollView>

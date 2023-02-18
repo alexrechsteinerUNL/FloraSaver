@@ -13,6 +13,7 @@ using CommunityToolkit.Mvvm.Input;
 using FloraSaver.Models;
 using FloraSaver.Services;
 using Microsoft.VisualBasic;
+using Newtonsoft.Json.Linq;
 
 namespace FloraSaver.ViewModels
 {
@@ -29,6 +30,20 @@ namespace FloraSaver.ViewModels
 
         [ObservableProperty]
         bool isRefreshing;
+
+        [ObservableProperty]
+        double percentageToNeedsWatering;
+        [ObservableProperty]
+        double percentageToNeedsRefreshing;
+        [ObservableProperty]
+        double percentageToNeedsSunning;
+
+        [RelayCommand]
+        void CurrentPlantNeeds(Plant plant)
+        {
+            //Eh this needs a little work
+            PercentageToNeedsWatering = DateTime.Now.Subtract(plant.DateOfNextWatering).TotalDays < 0 ? 0 : DateTime.Now.Subtract(plant.DateOfNextWatering).TotalDays;
+        }
 
         [RelayCommand]
         async Task SearchPlantsAsync(string inputString)
@@ -100,8 +115,8 @@ namespace FloraSaver.ViewModels
                         DateOfBirth = DateTime.Now,
                         DateOfLastWatering = DateTime.Now,
                         DateOfNextWatering = DateTime.Now,
-                        DateOfLastRefreshing = DateTime.Now,
-                        DateOfNextRefreshing = DateTime.Now
+                        DateOfLastMisting = DateTime.Now,
+                        DateOfNextMisting = DateTime.Now
                         }
                     }
                 });

@@ -33,12 +33,12 @@ namespace FloraSaver.Models
         public TimeSpan TimeOfLastWatering { get; set; }
         public DateTime DateOfNextWatering { get; set; }
         public TimeSpan TimeOfNextWatering { get; set; }
-        public DateTime DateOfLastRefreshing { get; set; }
-        public TimeSpan TimeOfLastRefreshing { get; set; }
-        public DateTime DateOfNextRefreshing { get; set; }
-        public TimeSpan TimeOfNextRefreshing { get; set; }
+        public DateTime DateOfLastMisting { get; set; }
+        public TimeSpan TimeOfLastMisting { get; set; }
+        public DateTime DateOfNextMisting { get; set; }
+        public TimeSpan TimeOfNextMisting { get; set; }
         public DateTime WaterInterval { get; set; }
-        public DateTime RefresInterval { get; set; }
+        public DateTime MistInterval { get; set; }
         public string ImageLocation { get; set; }
     }
 }

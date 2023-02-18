@@ -1,38 +1,49 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
-             xmlns:model="clr-namespace:FloraSaver.Models"
-             xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
-             x:DataType="viewmodel:SettingsViewModel"
-             x:Class="FloraSaver.SettingsPage">
+<ContentPage
+    x:Class="FloraSaver.SettingsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    xmlns:model="clr-namespace:FloraSaver.Models"
+    xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
+    x:DataType="viewmodel:SettingsViewModel">
 
 
 
     <ScrollView>
-        <VerticalStackLayout Spacing="15" Padding="20" >
-            <Button Text="Notification Settings" 
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Button
                 x:Name="notificationSettings"
                 Grid.Row="1"
                 Grid.Column="0"
-                Margin="8"/>
-            <Button Text="Iot Integration" 
+                Margin="8"
+                Text="Notification Settings" />
+            <Button
                 x:Name="iotIntegration"
                 Grid.Row="1"
                 Grid.Column="0"
-                Margin="8"/>
-            <Button Text="Backup Plants" 
+                Margin="8"
+                Text="Iot Integration" />
+            <Button
+                x:Name="forceTimezone"
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="8"
+                Text="Force Timezone" />
+            <Button
                 x:Name="backupPlants"
                 Grid.Row="1"
                 Grid.Column="0"
-                Margin="8"/>
-            <Button Text="Clear ALL Data" 
+                Margin="8"
+                Text="Backup Plants" />
+            <Button
                 x:Name="clearAllPlantDataCommand"
-                Command="{Binding ClearAllPlantDataCommand}"
-                IsEnabled="{Binding IsNotBusy}"
                 Grid.Row="1"
                 Grid.Column="0"
-                Margin="8"/>
+                Margin="8"
+                Command="{Binding ClearAllPlantDataCommand}"
+                IsEnabled="{Binding IsNotBusy}"
+                Text="Clear ALL Data" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

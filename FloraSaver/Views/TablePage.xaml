@@ -54,7 +54,7 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Plant">
                         <Grid Padding="10">
-                            <Frame BackgroundColor="Black" HeightRequest="500">
+                            <Frame BackgroundColor="Black" HeightRequest="400">
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}" CommandParameter="{Binding .}" />
                                 </Frame.GestureRecognizers>
@@ -62,7 +62,7 @@
                                 <Grid
                                     Padding="0"
                                     ColumnDefinitions="125,*"
-                                    RowDefinitions="300,110">
+                                    RowDefinitions="250,*">
                                     <VerticalStackLayout
                                         Grid.Row="0"
                                         Grid.ColumnSpan="2"
@@ -90,18 +90,63 @@
                                         </Label>
                                     </VerticalStackLayout>
                                     <HorizontalStackLayout Grid.Row="1" Grid.ColumnSpan="2">
-                                        <ImageButton
-                                            HeightRequest="105"
-                                            Source="sun_timer_visual.png"
-                                            WidthRequest="105" />
-                                        <ImageButton
-                                            HeightRequest="105"
-                                            Source="refresh_timer_visual.png"
-                                            WidthRequest="105" />
-                                        <ImageButton
-                                            HeightRequest="105"
-                                            Source="water_timer_visual.png"
-                                            WidthRequest="105" />
+                                        <Grid Padding="0" ColumnSpacing="0">
+                                            <ImageButton
+                                                Aspect="AspectFill"
+                                                HeightRequest="105"
+                                                Source="water_timer_visual.png"
+                                                WidthRequest="105" />
+                                            <AbsoluteLayout Padding="0,2,0,0">
+                                                <ImageButton
+                                                    Aspect="AspectFill"
+                                                    HeightRequest="105"
+                                                    Source="water_timer_visual_inverted.png"
+                                                    WidthRequest="105">
+                                                    <ImageButton.Clip>
+                                                        <RectangleGeometry Rect="0,80,105,105" />
+                                                        <!--  The second one above overides the correct amount  -->
+                                                    </ImageButton.Clip>
+                                                </ImageButton>
+                                            </AbsoluteLayout>
+                                        </Grid>
+                                        <Grid Padding="0" ColumnSpacing="0">
+                                            <ImageButton
+                                                Aspect="AspectFill"
+                                                HeightRequest="105"
+                                                Source="refresh_timer_visual.png"
+                                                WidthRequest="105" />
+                                            <AbsoluteLayout Padding="0,2,0,0">
+                                                <ImageButton
+                                                    Aspect="AspectFill"
+                                                    HeightRequest="105"
+                                                    Source="refresh_timer_visual_inverted.png"
+                                                    WidthRequest="105">
+                                                    <ImageButton.Clip>
+                                                        <RectangleGeometry Rect="0,90,105,105" />
+                                                        <!--  The second one above overides the correct amount  -->
+                                                    </ImageButton.Clip>
+                                                </ImageButton>
+                                            </AbsoluteLayout>
+                                        </Grid>
+                                        <Grid Padding="0" ColumnSpacing="0">
+                                            <ImageButton
+                                                Aspect="AspectFill"
+                                                HeightRequest="105"
+                                                Source="sun_timer_visual.png"
+                                                WidthRequest="105" />
+                                            <AbsoluteLayout Padding="0,2,0,0">
+                                                <ImageButton
+                                                    Aspect="AspectFill"
+                                                    HeightRequest="105"
+                                                    Source="sun_timer_visual_inverted.png"
+                                                    WidthRequest="105">
+                                                    <ImageButton.Clip>
+                                                        <RectangleGeometry Rect="0,40,105,105" />
+                                                        <!--  The second one above overides the correct amount  -->
+                                                    </ImageButton.Clip>
+                                                </ImageButton>
+                                            </AbsoluteLayout>
+                                        </Grid>
                                     </HorizontalStackLayout>
                                 </Grid>
                             </Frame>

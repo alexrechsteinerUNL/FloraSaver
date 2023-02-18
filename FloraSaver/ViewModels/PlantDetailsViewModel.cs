@@ -33,10 +33,22 @@ namespace FloraSaver.ViewModels
         public bool customWaterInteravlGridVisible = false;
 
         [ObservableProperty]
-        public bool refreshGridVisible = false;
+        public bool waterGridVisible = false;
 
         [ObservableProperty]
-        public string refreshGridText = "Use Refreshing";
+        public string waterGridText = "Use Watering";
+
+        [ObservableProperty]
+        public bool mistGridVisible = false;
+
+        [ObservableProperty]
+        public string mistGridText = "Use Misting";
+
+        [ObservableProperty]
+        public bool sunGridVisible = false;
+
+        [ObservableProperty]
+        public string sunGridText = "Use Sunlight Move";
 
         [ObservableProperty]
         public Interval waterIntervalPickerValue;
@@ -62,15 +74,28 @@ namespace FloraSaver.ViewModels
             OnPropertyChanged("Plant");
         }
 
-        
 
 
 
         [RelayCommand]
-        void UseRefreshingPressed(bool value)
+        void UseWateringPressed(bool value)
         {
-            RefreshGridVisible = value ? false : true;
-            RefreshGridText = value ? "Needs Refreshing" : "Remove Refreshing";
+            WaterGridVisible = value ? false : true;
+            WaterGridText = value ? "Use Watering" : "Do Not Use Watering";
+        }
+
+        [RelayCommand]
+        void UseMistingPressed(bool value)
+        {
+            MistGridVisible = value ? false : true;
+            MistGridText = value ? "Use Misting" : "Do Not Use Misting";
+        }
+
+        [RelayCommand]
+        void UseSunPressed(bool value)
+        {
+            SunGridVisible = value ? false : true;
+            SunGridText = value ? "Use Sunlight Move" : "Do Not Use Sunlight Move";
         }
 
         [RelayCommand]
