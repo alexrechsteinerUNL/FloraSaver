@@ -80,14 +80,7 @@
 
                                         <Label Text="{Binding DateOfBirth, StringFormat='Birthday: {0:d}'}" />
 
-                                        <Label FontSize="24">
-                                            <Label.Text>
-                                                <MultiBinding StringFormat="{}Next Watering {0:d} at {1:hh\:mm}">
-                                                    <Binding Path="DateOfNextWatering" />
-                                                    <Binding Path="TimeOfNextWatering" />
-                                                </MultiBinding>
-                                            </Label.Text>
-                                        </Label>
+                                        <Label Text="{Binding DateOfNextWatering, StringFormat='Next Watering {0:d} at {0:h\:mm}'}" />
                                     </VerticalStackLayout>
                                     <HorizontalStackLayout Grid.Row="1" Grid.ColumnSpan="2">
                                         <Grid Padding="0" ColumnSpacing="0">
@@ -103,7 +96,7 @@
                                                     Source="water_timer_visual_inverted.png"
                                                     WidthRequest="105">
                                                     <ImageButton.Clip>
-                                                        <RectangleGeometry Rect="0,80,105,105" />
+                                                        <RectangleGeometry Rect="0,1,105,105" />
                                                         <!--  The second one above overides the correct amount  -->
                                                     </ImageButton.Clip>
                                                 </ImageButton>

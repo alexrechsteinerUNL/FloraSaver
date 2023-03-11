@@ -44,6 +44,7 @@ namespace FloraSaver.Services
                 await InitAsync();
                 if (string.IsNullOrEmpty(plant.GivenName) || string.IsNullOrEmpty(plant.PlantSpecies))
                     throw new Exception("Valid name required");
+
                 result = await conn.InsertOrReplaceAsync(plant);
 
                 StatusMessage = string.Format("{0} record saved (Name: {1})", result, plant.GivenName);
@@ -157,12 +158,15 @@ namespace FloraSaver.Services
                 ReturningData = "Dummy data", // Returning data when tapped on notification.
                 Schedule =
                 {
-                    NotifyTime = plant.DateOfNextWatering.Date + plant.TimeOfNextWatering  // Used for Scheduling local notification, if not specified notification will show immediately.
+                    NotifyTime = plant.DateOfNextWatering  // Used for Scheduling local notification, if not specified notification will show immediately.
                 }
             };
             await LocalNotificationCenter.Current.Show(notification);
         }
 
-
+        private DateTime DateTimeCombo(DateTime plantDate, TimeSpan plantTime)
+        {
+            return (plantDate + plantTime);
+        }
     }
 }

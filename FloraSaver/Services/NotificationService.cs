@@ -55,7 +55,7 @@ namespace FloraSaver.Services
                 ReturningData = "Dummy data", // Returning data when tapped on notification.
                 Schedule =
                 {
-                    NotifyTime = plant.DateOfNextWatering.Date + plant.TimeOfNextWatering  // Used for Scheduling local notification, if not specified notification will show immediately.
+                    NotifyTime = plant.DateOfNextWatering  // Used for Scheduling local notification, if not specified notification will show immediately.
                 }
             };
             await LocalNotificationCenter.Current.Show(notification);

@@ -19,6 +19,7 @@ namespace FloraSaver.ViewModels
 {
     public partial class TableViewModel : BaseViewModel, INotifyPropertyChanged
     {
+        private readonly int percentageButtonSize = 105;
         public ObservableCollection<Plant> DataPlants { get; set; } = new();
         public ObservableCollection<Plant> Plants { get; set; } = new();
         PlantService plantService;
@@ -41,8 +42,10 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         void CurrentPlantNeeds(Plant plant)
         {
-            //Eh this needs a little work
-            PercentageToNeedsWatering = DateTime.Now.Subtract(plant.DateOfNextWatering).TotalDays < 0 ? 0 : DateTime.Now.Subtract(plant.DateOfNextWatering).TotalDays;
+            //Eh this needs a little work. Gotta account for times
+            PercentageToNeedsWatering = (DateTime.Now - plant.DateOfLastWatering).TotalSeconds /
+                (plant.DateOfNextWatering - plant.DateOfLastWatering).TotalSeconds * 105;
+            
         }
 
         [RelayCommand]
@@ -123,6 +126,7 @@ namespace FloraSaver.ViewModels
             }
             else
             {
+                CurrentPlantNeeds(plant);
                 await Shell.Current.GoToAsync(nameof(PlantDetailsPage), true, new Dictionary<string, object>
                 {
                     {"Plant", plant }
