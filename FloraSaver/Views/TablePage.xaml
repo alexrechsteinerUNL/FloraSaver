@@ -69,18 +69,9 @@
                                         Padding="10">
                                         <Label FontSize="36" Text="{Binding GivenName, StringFormat='{0}'}" />
                                         <Label FontAttributes="Italic" Text="{Binding PlantSpecies}" />
-                                        <Label>
-                                            <Label.Text>
-                                                <MultiBinding StringFormat="{}Last Watered: {0:d} at {1:hh\:mm}">
-                                                    <Binding Path="DateOfLastWatering" />
-                                                    <Binding Path="TimeOfLastWatering" />
-                                                </MultiBinding>
-                                            </Label.Text>
-                                        </Label>
-
+                                        <Label Text="{Binding DateOfLastWatering, StringFormat='Last Watered: {0:d} at {0:h\:mm tt}'}" />
                                         <Label Text="{Binding DateOfBirth, StringFormat='Birthday: {0:d}'}" />
-
-                                        <Label Text="{Binding DateOfNextWatering, StringFormat='Next Watering {0:d} at {0:h\:mm}'}" />
+                                        <Label Text="{Binding DateOfNextWatering, StringFormat='Next Watering {0:d} at {0:h\:mm tt}'}" />
                                     </VerticalStackLayout>
                                     <HorizontalStackLayout Grid.Row="1" Grid.ColumnSpan="2">
                                         <Grid Padding="0" ColumnSpacing="0">
@@ -96,8 +87,8 @@
                                                     Source="water_timer_visual_inverted.png"
                                                     WidthRequest="105">
                                                     <ImageButton.Clip>
-                                                        <RectangleGeometry Rect="0,1,105,105" />
-                                                        <!--  The second one above overides the correct amount  -->
+                                                        <RectangleGeometry Rect="0, 20, 105, 105" />
+                                                        <!--  The second one above overides the correct amount You should handle them in the Plant class!!!  -->
                                                     </ImageButton.Clip>
                                                 </ImageButton>
                                             </AbsoluteLayout>

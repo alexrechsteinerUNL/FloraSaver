@@ -66,6 +66,8 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         public TimeSpan nextSunTime;
 
+        private int daysFromNow = 0;
+
         partial void OnWaterIntervalPickerValueChanged(Interval value)
         {
             if (value.DaysFromNow == -1)
@@ -87,12 +89,14 @@ namespace FloraSaver.ViewModels
             OnPropertyChanged("Plant");
         }
 
-        public Plant SetPlantTimes(Plant plant)
+        public Plant SetPlantValues(Plant plant)
         {
             plant.DateOfLastWatering = plant.DateOfLastWatering.Date + plant.TimeOfLastWatering;
             plant.DateOfNextWatering = plant.DateOfNextWatering.Date + plant.TimeOfNextWatering;
             plant.DateOfLastMisting = plant.DateOfLastMisting.Date + plant.TimeOfLastMisting;
             plant.DateOfNextMisting = plant.DateOfNextMisting.Date + plant.TimeOfNextMisting;
+
+            plant.WaterInterval = WaterIntervalPickerValue.DaysFromNow;
             return plant;
         }
 
@@ -126,7 +130,8 @@ namespace FloraSaver.ViewModels
 
             try
             {
-                plant = SetPlantTimes(plant);
+                plant = SetPlantValues(plant);
+
                 IsBusy = true;
                 await plantService.AddUpdateNewPlantAsync(plant);
             }

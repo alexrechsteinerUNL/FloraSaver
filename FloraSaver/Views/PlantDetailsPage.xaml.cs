@@ -18,6 +18,8 @@ public partial class PlantDetailsPage : ContentPage
         base.OnAppearing();
         addUpdate.Text = string.IsNullOrWhiteSpace(_GivenName.Text) ? "Add" : "Update";
         deletePlants.IsVisible = string.IsNullOrWhiteSpace(_GivenName.Text) ? false : true;
+    
+    
     }
 
     // This is a workaround to resolve a .NET MAUI bug regarding keyboards not disappearing on completion

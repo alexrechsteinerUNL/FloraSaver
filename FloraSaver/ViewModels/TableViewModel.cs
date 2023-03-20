@@ -33,7 +33,7 @@ namespace FloraSaver.ViewModels
         bool isRefreshing;
 
         [ObservableProperty]
-        double percentageToNeedsWatering;
+        Rect rectNeedsWatering;
         [ObservableProperty]
         double percentageToNeedsRefreshing;
         [ObservableProperty]
@@ -43,9 +43,10 @@ namespace FloraSaver.ViewModels
         void CurrentPlantNeeds(Plant plant)
         {
             //Eh this needs a little work. Gotta account for times
-            PercentageToNeedsWatering = (DateTime.Now - plant.DateOfLastWatering).TotalSeconds /
+            var percentageToNeedsWatering = (DateTime.Now - plant.DateOfLastWatering).TotalSeconds /
                 (plant.DateOfNextWatering - plant.DateOfLastWatering).TotalSeconds * 105;
-            
+            RectNeedsWatering = new Rect(0, percentageToNeedsWatering, 105, 105);
+        
         }
 
         [RelayCommand]

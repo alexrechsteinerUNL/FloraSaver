@@ -37,8 +37,14 @@ namespace FloraSaver.Models
         public TimeSpan TimeOfLastMisting { get; set; }
         public DateTime DateOfNextMisting { get; set; }
         public TimeSpan TimeOfNextMisting { get; set; }
-        public DateTime WaterInterval { get; set; }
+        public int WaterInterval { get; set; }
         public DateTime MistInterval { get; set; }
         public string ImageLocation { get; set; }
+
+        public double TimeToNextAction(DateTime lastTime, DateTime nextTime)
+        {
+            return (DateTime.Now - lastTime).TotalSeconds /
+                (nextTime - lastTime).TotalSeconds;
+        }
     }
 }
