@@ -117,7 +117,7 @@
                                 </Border>
                             </Grid>
 
-                            <Grid x:Name="customWaterInteravlGrid" IsVisible="{Binding CustomWaterInteravlGridVisible}">
+                            <Grid x:Name="customWaterIntervalGrid" IsVisible="{Binding CustomWaterIntervalGridVisible}">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="30" />
                                     <RowDefinition Height="50" />
@@ -147,7 +147,7 @@
                                         HorizontalTextAlignment="Center"
                                         Keyboard="Numeric"
                                         Placeholder="0"
-                                        Text="{Binding WaterIntervalPickerValue.DaysFromNow, Mode=TwoWay}"
+                                        Text="{Binding Plant.WaterInterval, Mode=TwoWay}"
                                         WidthRequest="30" />
                                 </Border>
                                 <Label

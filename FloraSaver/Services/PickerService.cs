@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace FloraSaver.Services
 {
-    public class PickerService
+    public  class PickerService
     {
-        public List<Interval> GetIntervals()
+        public static List<Interval> GetIntervals()
         {
             return new List<Interval>() 
             {

@@ -11,4 +11,5 @@ namespace FloraSaver.Models
         public int DaysFromNow { get; set; }
         public string IntervalText { get; set;}
     }
+
 }

@@ -13,24 +13,23 @@ namespace FloraSaver.ViewModels
     public partial class PlantDetailsViewModel : BaseViewModel, IQueryAttributable
     {
         PlantService plantService;
-        PickerService pickerService;
         NotificationService notificationService;
 
         public Plant InitialPlant { get; set; }
 
-        public PlantDetailsViewModel(PlantService PlantService, PickerService PickerService, NotificationService NotificationService)
+        public PlantDetailsViewModel(PlantService PlantService, NotificationService NotificationService)
         {
             plantService = PlantService;
-            pickerService = PickerService;
             notificationService = NotificationService;
-            wateringInterval = pickerService.GetIntervals();
+            wateringInterval = PickerService.GetIntervals();
+            //plant.GivenName = "boop";
 
         }
         [ObservableProperty]
         List<Interval> wateringInterval;
 
         [ObservableProperty]
-        public bool customWaterInteravlGridVisible = false;
+        public bool customWaterIntervalGridVisible = false;
 
         [ObservableProperty]
         public bool waterGridVisible = false;
@@ -65,19 +64,19 @@ namespace FloraSaver.ViewModels
         public TimeSpan lastSunTime;
         [ObservableProperty]
         public TimeSpan nextSunTime;
-
+        [ObservableProperty]
         private int daysFromNow = 0;
 
         partial void OnWaterIntervalPickerValueChanged(Interval value)
         {
             if (value.DaysFromNow == -1)
             {
-                CustomWaterInteravlGridVisible = true;
-                value.DaysFromNow = 0;
+                CustomWaterIntervalGridVisible = true;
             } else
             {
-                CustomWaterInteravlGridVisible = false;
+                CustomWaterIntervalGridVisible = false;
             }
+            DaysFromNow = value.DaysFromNow;
         }
 
 
@@ -95,8 +94,10 @@ namespace FloraSaver.ViewModels
             plant.DateOfNextWatering = plant.DateOfNextWatering.Date + plant.TimeOfNextWatering;
             plant.DateOfLastMisting = plant.DateOfLastMisting.Date + plant.TimeOfLastMisting;
             plant.DateOfNextMisting = plant.DateOfNextMisting.Date + plant.TimeOfNextMisting;
-
-            plant.WaterInterval = WaterIntervalPickerValue.DaysFromNow;
+            if (DaysFromNow != -1)
+            {
+                plant.WaterInterval = DaysFromNow;
+            }
             return plant;
         }
 
