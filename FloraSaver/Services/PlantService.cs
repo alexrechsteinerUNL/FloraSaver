@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SQLite;
+﻿using SQLite;
 using FloraSaver.Models;
 #if (ANDROID || IOS)
 using Plugin.LocalNotification;
@@ -12,7 +7,7 @@ using Plugin.LocalNotification;
 
 namespace FloraSaver.Services
 {
-    public class PlantService
+    public class PlantService : IPlantService
     {
         string _dbPath;
 
@@ -87,7 +82,7 @@ namespace FloraSaver.Services
                 result = await conn.DeleteAllAsync<Plant>();
 
                 // TODO: Insert the new person into the database
-                
+
 
                 StatusMessage = string.Format("{0} record(s) deleted. Plant database is now empty", result);
             }

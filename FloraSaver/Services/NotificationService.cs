@@ -11,7 +11,7 @@ using Plugin.LocalNotification;
 
 namespace FloraSaver.Services
 {
-    public class NotificationService
+    public class NotificationService : INotificationService
     {
         public async Task SetAllNotificationsAsync(List<Plant> plants)
         {

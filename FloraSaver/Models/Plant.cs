@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,20 +9,20 @@ using SQLite;
 namespace FloraSaver.Models
 {
     [Table("plant")]
-    public class Plant
+    public class Plant : IPlant
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
         private string plantSpecies;
-        public string PlantSpecies 
-        { 
-            get { return plantSpecies; } 
-            set { plantSpecies = value?.Trim() ?? string.Empty; } 
+        public string PlantSpecies
+        {
+            get { return plantSpecies; }
+            set { plantSpecies = value?.Trim() ?? string.Empty; }
         }
-        
+
         private string givenName;
-        [MaxLength(250), Unique]
+        [SQLite.MaxLength(250), Unique]
         public string GivenName
         {
             get { return givenName; }
@@ -37,8 +38,16 @@ namespace FloraSaver.Models
         public TimeSpan TimeOfLastMisting { get; set; }
         public DateTime DateOfNextMisting { get; set; }
         public TimeSpan TimeOfNextMisting { get; set; }
-        public int WaterInterval { get; set; }
-        public DateTime MistInterval { get; set; }
+        public DateTime DateOfLastSunMove { get; set; }
+        public TimeSpan TimeOfLastSunMove { get; set; }
+        public DateTime DateOfNextSunMove { get; set; }
+        public TimeSpan TimeOfNextSunMove { get; set; }
+        [Range(0, 365)]
+        public int? WaterInterval { get; set; }
+        [Range(0, 365)]
+        public int? MistInterval { get; set; }
+        [Range(0, 365)]
+        public int? SunInterval { get; set; }
         public string ImageLocation { get; set; }
 
         public double TimeToNextAction(DateTime lastTime, DateTime nextTime)

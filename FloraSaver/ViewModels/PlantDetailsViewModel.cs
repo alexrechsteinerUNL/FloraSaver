@@ -22,7 +22,6 @@ namespace FloraSaver.ViewModels
             plantService = PlantService;
             notificationService = NotificationService;
             wateringInterval = PickerService.GetIntervals();
-            //plant.GivenName = "boop";
 
         }
         [ObservableProperty]
