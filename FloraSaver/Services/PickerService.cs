@@ -9,7 +9,7 @@ namespace FloraSaver.Services
 {
     public  class PickerService
     {
-        public static List<Interval> GetIntervals()
+        public static List<Interval> GetWaterIntervals()
         {
             return new List<Interval>() 
             {

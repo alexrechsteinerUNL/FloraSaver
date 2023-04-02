@@ -23,7 +23,7 @@ public partial class PlantDetailsPage : ContentPage
         // Required to use index here due to *possible* bug in MAUI that won't allow assigning by interval
         if (!string.IsNullOrWhiteSpace(_CustomInterval.Text))
         {
-            var intervals = PickerService.GetIntervals();
+            var intervals = PickerService.GetWaterIntervals();
             var waterIndex = intervals.Select(x => x.DaysFromNow).ToList().IndexOf(Int32.Parse(_CustomInterval.Text));
             waterIntervalPicker.SelectedIndex = waterIndex != -1 ? waterIndex : intervals.Count;
         }

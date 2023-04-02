@@ -30,6 +30,9 @@ namespace FloraSaver.Models
         }
 
         public DateTime DateOfBirth { get; set; }
+        public bool UseWatering { get; set; }
+        public bool UseMisting { get; set; }
+        public bool UseSunMove { get; set; }
         public DateTime DateOfLastWatering { get; set; }
         public TimeSpan TimeOfLastWatering { get; set; }
         public DateTime DateOfNextWatering { get; set; }
@@ -38,16 +41,16 @@ namespace FloraSaver.Models
         public TimeSpan TimeOfLastMisting { get; set; }
         public DateTime DateOfNextMisting { get; set; }
         public TimeSpan TimeOfNextMisting { get; set; }
-        public DateTime DateOfLastSunMove { get; set; }
-        public TimeSpan TimeOfLastSunMove { get; set; }
-        public DateTime DateOfNextSunMove { get; set; }
-        public TimeSpan TimeOfNextSunMove { get; set; }
+        public DateTime DateOfLastMove { get; set; }
+        public TimeSpan TimeOfLastMove { get; set; }
+        public DateTime DateOfNextMove { get; set; }
+        public TimeSpan TimeOfNextMove { get; set; }
         [Range(0, 365)]
-        public int? WaterInterval { get; set; }
+        public double? WaterInterval { get; set; }
         [Range(0, 365)]
-        public int? MistInterval { get; set; }
+        public double? MistInterval { get; set; }
         [Range(0, 365)]
-        public int? SunInterval { get; set; }
+        public double? SunInterval { get; set; }
         public string ImageLocation { get; set; }
 
         public double TimeToNextAction(DateTime lastTime, DateTime nextTime)

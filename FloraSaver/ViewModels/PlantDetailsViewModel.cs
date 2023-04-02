@@ -15,15 +15,20 @@ namespace FloraSaver.ViewModels
         PlantService plantService;
         NotificationService notificationService;
 
-        public Plant InitialPlant { get; set; }
+        [ObservableProperty]
+        public Plant initialPlant;
+        
+        [ObservableProperty]
+        public Plant alterPlant;
 
-        public PlantDetailsViewModel(PlantService PlantService, NotificationService NotificationService)
+        public PlantDetailsViewModel(PlantService _PlantService, NotificationService _NotificationService)
         {
-            plantService = PlantService;
-            notificationService = NotificationService;
-            wateringInterval = PickerService.GetIntervals();
+            plantService = _PlantService;
+            notificationService = _NotificationService;
+            wateringInterval = PickerService.GetWaterIntervals();
 
         }
+
         [ObservableProperty]
         List<Interval> wateringInterval;
 
@@ -78,25 +83,19 @@ namespace FloraSaver.ViewModels
             DaysFromNow = value.DaysFromNow;
         }
 
-
-
-
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            InitialPlant = query["Plant"] as Plant;
+            InitialPlant = AlterPlant = query["Plant"] as Plant;
             OnPropertyChanged("Plant");
         }
 
         public Plant SetPlantValues(Plant plant)
         {
-            plant.DateOfLastWatering = plant.DateOfLastWatering.Date + plant.TimeOfLastWatering;
-            plant.DateOfNextWatering = plant.DateOfNextWatering.Date + plant.TimeOfNextWatering;
-            plant.DateOfLastMisting = plant.DateOfLastMisting.Date + plant.TimeOfLastMisting;
-            plant.DateOfNextMisting = plant.DateOfNextMisting.Date + plant.TimeOfNextMisting;
             if (DaysFromNow != -1)
             {
                 plant.WaterInterval = DaysFromNow;
             }
+
             return plant;
         }
 

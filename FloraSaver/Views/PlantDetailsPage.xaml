@@ -6,7 +6,7 @@
     xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
-    Title="{Binding Plant.GivenName}"
+    Title="{Binding AlterPlant.GivenName}"
     x:DataType="viewmodel:PlantDetailsViewModel">
 
 
@@ -39,7 +39,7 @@
                                     x:Name="_PlantSpecies"
                                     Completed="Entry_Completed"
                                     Placeholder="Enter plant species"
-                                    Text="{Binding Plant.PlantSpecies, StringFormat='{0}', Mode=TwoWay}"
+                                    Text="{Binding AlterPlant.PlantSpecies, StringFormat='{0}', Mode=TwoWay}"
                                     WidthRequest="320" />
                             </Border>
                         </Grid>
@@ -58,7 +58,7 @@
                                     x:Name="_GivenName"
                                     Completed="Entry_Completed"
                                     Placeholder="Give your plant a name!"
-                                    Text="{Binding Plant.GivenName, StringFormat='{0}', Mode=TwoWay}"
+                                    Text="{Binding AlterPlant.GivenName, StringFormat='{0}', Mode=TwoWay}"
                                     WidthRequest="320" />
                             </Border>
                         </Grid>
@@ -83,7 +83,7 @@
                                     <DatePicker
                                         x:Name="_DateOfBirth"
                                         Grid.Column="1"
-                                        Date="{Binding Plant.DateOfBirth, Mode=TwoWay}"
+                                        Date="{Binding AlterPlant.DateOfBirth, Mode=TwoWay}"
                                         HorizontalOptions="FillAndExpand" />
                                     <Rectangle Grid.Column="2" BackgroundColor="Black" />
                                 </Grid>
@@ -147,7 +147,7 @@
                                         HorizontalTextAlignment="Center"
                                         Keyboard="Numeric"
                                         Placeholder="0"
-                                        Text="{Binding Plant.WaterInterval, Mode=TwoWay}"
+                                        Text="{Binding AlterPlant.WaterInterval, Mode=TwoWay}"
                                         WidthRequest="30" />
                                 </Border>
                                 <Label
@@ -178,7 +178,7 @@
                                     <DatePicker
                                         x:Name="_DateOfLastWatering"
                                         BackgroundColor="White"
-                                        Date="{Binding Plant.DateOfLastWatering, Mode=TwoWay}"
+                                        Date="{Binding AlterPlant.DateOfLastWatering, Mode=TwoWay}"
                                         Format="d"
                                         HorizontalOptions="Fill" />
                                 </Border>
@@ -193,7 +193,7 @@
                                         x:Name="_TimeOfLastWatering"
                                         BackgroundColor="White"
                                         Format="t"
-                                        Time="{Binding Plant.TimeOfLastWatering, Mode=TwoWay}" />
+                                        Time="{Binding AlterPlant.TimeOfLastWatering, Mode=TwoWay}" />
                                 </Border>
 
                                 <Label
@@ -204,7 +204,7 @@
                                     <DatePicker
                                         x:Name="_DateOfNextWatering"
                                         BackgroundColor="White"
-                                        Date="{Binding Plant.DateOfNextWatering, Mode=TwoWay}"
+                                        Date="{Binding AlterPlant.DateOfNextWatering, Mode=TwoWay}"
                                         Format="d" />
                                 </Border>
                                 <Label
@@ -218,7 +218,7 @@
                                         x:Name="_TimeOfNextWatering"
                                         BackgroundColor="White"
                                         Format="t"
-                                        Time="{Binding Plant.TimeOfNextWatering, Mode=TwoWay}" />
+                                        Time="{Binding AlterPlant.TimeOfNextWatering, Mode=TwoWay}" />
                                 </Border>
                             </Grid>
                         </VerticalStackLayout>
@@ -250,7 +250,7 @@
                                 <DatePicker
                                     x:Name="_DateOfLastMisting"
                                     BackgroundColor="White"
-                                    Date="{Binding Plant.DateOfLastMisting, Mode=TwoWay}"
+                                    Date="{Binding AlterPlant.DateOfLastMisting, Mode=TwoWay}"
                                     Format="d" />
                             </Border>
                             <Label
@@ -264,7 +264,7 @@
                                     x:Name="_TimeOfLastMisting"
                                     BackgroundColor="White"
                                     Format="t"
-                                    Time="{Binding Plant.TimeOfLastMisting, Mode=TwoWay}" />
+                                    Time="{Binding AlterPlant.TimeOfLastMisting, Mode=TwoWay}" />
                             </Border>
 
                             <Label
@@ -275,7 +275,7 @@
                                 <DatePicker
                                     x:Name="_DateOfNextMisting"
                                     BackgroundColor="White"
-                                    Date="{Binding Plant.DateOfNextMisting, Mode=TwoWay}"
+                                    Date="{Binding AlterPlant.DateOfNextMisting, Mode=TwoWay}"
                                     Format="d" />
                             </Border>
                             <Label
@@ -289,19 +289,13 @@
                                     x:Name="_TimeOfNextMisting"
                                     BackgroundColor="White"
                                     Format="t"
-                                    Time="{Binding Plant.TimeOfNextMisting, Mode=TwoWay}" />
+                                    Time="{Binding AlterPlant.TimeOfNextMisting, Mode=TwoWay}" />
                             </Border>
                         </Grid>
 
                         <Button
                             x:Name="useSun"
                             BorderColor="Orange"
-                            Command="{Binding UseSunPressedCommand}"
-                            CommandParameter="{Binding SunGridVisible}"
-                            Text="{Binding SunGridText}" />
-
-                        <!--<Button
-                            x:Name="useSun"
                             Command="{Binding UseSunPressedCommand}"
                             CommandParameter="{Binding SunGridVisible}"
                             Text="{Binding SunGridText}" />
@@ -321,12 +315,12 @@
                             <Label
                                 Grid.Row="0"
                                 Grid.ColumnSpan="3"
-                                Text="Last Suned On: " />
+                                Text="Last Moved: " />
                             <Border Grid.Row="1" Grid.Column="0">
                                 <DatePicker
-                                    x:Name="_DateOfLastSuning"
+                                    x:Name="_DateOfLastMove"
                                     BackgroundColor="White"
-                                    Date="{Binding Plant.DateOfLastSuning, Mode=TwoWay}"
+                                    Date="{Binding AlterPlant.DateOfLastMove, Mode=TwoWay}"
                                     Format="d" />
                             </Border>
                             <Label
@@ -337,21 +331,21 @@
                                 VerticalOptions="Center" />
                             <Border Grid.Row="1" Grid.Column="2">
                                 <TimePicker
-                                    x:Name="_TimeOfLastSuning"
+                                    x:Name="_TimeOfLastMove"
                                     BackgroundColor="White"
                                     Format="t"
-                                    Time="{Binding Plant.TimeOfLastSuning, Mode=TwoWay}" />
+                                    Time="{Binding AlterPlant.TimeOfLastMove, Mode=TwoWay}" />
                             </Border>
 
                             <Label
                                 Grid.Row="2"
                                 Grid.ColumnSpan="3"
-                                Text="Sun On: " />
+                                Text="Next Move: " />
                             <Border Grid.Row="3" Grid.Column="0">
                                 <DatePicker
-                                    x:Name="_DateOfNextSuning"
+                                    x:Name="_DateOfNextMove"
                                     BackgroundColor="White"
-                                    Date="{Binding Plant.DateOfNextSuning, Mode=TwoWay}"
+                                    Date="{Binding AlterPlant.DateOfNextMove, Mode=TwoWay}"
                                     Format="d" />
                             </Border>
                             <Label
@@ -365,9 +359,9 @@
                                     x:Name="_TimeOfNextSuning"
                                     BackgroundColor="White"
                                     Format="t"
-                                    Time="{Binding Plant.TimeOfNextSuning, Mode=TwoWay}" />
+                                    Time="{Binding AlterPlant.TimeOfNextMove, Mode=TwoWay}" />
                             </Border>
-                        </Grid>-->
+                        </Grid>
 
                     </VerticalStackLayout>
                 </ScrollView>
