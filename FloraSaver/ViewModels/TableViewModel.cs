@@ -120,7 +120,9 @@ namespace FloraSaver.ViewModels
                         DateOfLastWatering = DateTime.Now,
                         DateOfNextWatering = DateTime.Now,
                         DateOfLastMisting = DateTime.Now,
-                        DateOfNextMisting = DateTime.Now
+                        DateOfNextMisting = DateTime.Now,
+                        DateOfLastMove = DateTime.Now,
+                        DateOfNextMove = DateTime.Now
                         }
                     }
                 });

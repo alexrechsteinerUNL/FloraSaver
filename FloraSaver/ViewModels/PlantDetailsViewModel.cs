@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel;
+using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FloraSaver.Models;
@@ -10,7 +11,7 @@ namespace FloraSaver.ViewModels
 
 
     [QueryProperty(nameof(Plant), "Plant")]
-    public partial class PlantDetailsViewModel : BaseViewModel, IQueryAttributable
+    public partial class PlantDetailsViewModel : BaseViewModel, IQueryAttributable, INotifyPropertyChanged
     {
         PlantService plantService;
         NotificationService notificationService;
@@ -26,50 +27,91 @@ namespace FloraSaver.ViewModels
             plantService = _PlantService;
             notificationService = _NotificationService;
             wateringInterval = PickerService.GetWaterIntervals();
+            mistingInterval = PickerService.GetWaterIntervals();
+            sunInterval = PickerService.GetWaterIntervals();
+           
+        }
 
+        [RelayCommand]
+        void Appearing()
+        {
+            // extract to its own reusable method DRY!
+            WaterDaysFromNow = (initialPlant.DateOfNextWatering.Date - initialPlant.DateOfLastWatering.Date).Days;
+            WaterIntervalPickerValue = WateringInterval.FirstOrDefault(x => x.DaysFromNow == WaterDaysFromNow);
+            if (WaterIntervalPickerValue == null)
+            {
+                WaterIntervalPickerValue = WateringInterval.First(x => x.DaysFromNow == -1);
+            }
+
+            MistDaysFromNow = (initialPlant.DateOfNextMisting.Date - initialPlant.DateOfLastMisting.Date).Days;
+            MistIntervalPickerValue = MistingInterval.FirstOrDefault(x => x.DaysFromNow == MistDaysFromNow);
+            if (MistIntervalPickerValue == null)
+            {
+                MistIntervalPickerValue = MistingInterval.First(x => x.DaysFromNow == -1);
+            }
+
+            SunDaysFromNow = (initialPlant.DateOfNextMove.Date - initialPlant.DateOfLastMove.Date).Days;
+            SunIntervalPickerValue = SunInterval.FirstOrDefault(x => x.DaysFromNow == SunDaysFromNow);
+            if (SunIntervalPickerValue == null)
+            {
+                SunIntervalPickerValue = SunInterval.First(x => x.DaysFromNow == -1);
+            }
+
+            WaterGridText = InitialPlant.UseWatering ? "Do Not Use Watering" : "Use Watering";
+            MistGridText = InitialPlant.UseMisting ? "Do Not Use Misting" : "Use Misting";
+            SunGridText = InitialPlant.UseMoving ? "Do Not Use Sunlight Move" : "Use Sunlight Move";
         }
 
         [ObservableProperty]
         List<Interval> wateringInterval;
+        [ObservableProperty]
+        List<Interval> mistingInterval;
+        [ObservableProperty]
+        List<Interval> sunInterval;
 
         [ObservableProperty]
         public bool customWaterIntervalGridVisible = false;
+        [ObservableProperty]
+        public bool customMistIntervalGridVisible = false;
+        [ObservableProperty]
+        public bool customSunIntervalGridVisible = false;
+
+
 
         [ObservableProperty]
         public bool waterGridVisible = false;
-
         [ObservableProperty]
         public string waterGridText = "Use Watering";
 
         [ObservableProperty]
         public bool mistGridVisible = false;
-
         [ObservableProperty]
         public string mistGridText = "Use Misting";
 
         [ObservableProperty]
         public bool sunGridVisible = false;
-
         [ObservableProperty]
         public string sunGridText = "Use Sunlight Move";
 
         [ObservableProperty]
         public Interval waterIntervalPickerValue;
+        [ObservableProperty]
+        public Interval mistIntervalPickerValue;
+        [ObservableProperty]
+        public Interval sunIntervalPickerValue;
 
         [ObservableProperty]
-        public TimeSpan lastWaterTime;
+        public int waterDaysFromNow;
         [ObservableProperty]
-        public TimeSpan nextWaterTime;
+        public int mistDaysFromNow;
         [ObservableProperty]
-        public TimeSpan lastMistTime;
-        [ObservableProperty]
-        public TimeSpan nextMistTime;
-        [ObservableProperty]
-        public TimeSpan lastSunTime;
-        [ObservableProperty]
-        public TimeSpan nextSunTime;
-        [ObservableProperty]
-        private int daysFromNow = 0;
+        public int sunDaysFromNow;
+
+        partial void OnWaterDaysFromNowChanged(int value)
+        {
+            AlterPlant.DateOfNextWatering = AlterPlant.DateOfLastWatering.AddDays(value);
+            OnPropertyChanged("AlterPlant");
+        }
 
         partial void OnWaterIntervalPickerValueChanged(Interval value)
         {
@@ -79,8 +121,46 @@ namespace FloraSaver.ViewModels
             } else
             {
                 CustomWaterIntervalGridVisible = false;
+                WaterDaysFromNow = value.DaysFromNow; //you gotta fix the case where it turns out to be a custom interval!!!
             }
-            DaysFromNow = value.DaysFromNow;
+        }
+
+        partial void OnMistDaysFromNowChanged(int value)
+        {
+            AlterPlant.DateOfNextMisting = AlterPlant.DateOfLastMisting.AddDays(value);
+            OnPropertyChanged("AlterPlant");
+        }
+
+        partial void OnMistIntervalPickerValueChanged(Interval value)
+        {
+            if (value.DaysFromNow == -1)
+            {
+                CustomMistIntervalGridVisible = true;
+            }
+            else
+            {
+                CustomMistIntervalGridVisible = false;
+                MistDaysFromNow = value.DaysFromNow; //you gotta fix the case where it turns out to be a custom interval!!!
+            }
+        }
+
+        partial void OnSunDaysFromNowChanged(int value)
+        {
+            AlterPlant.DateOfNextMove = AlterPlant.DateOfLastMove.AddDays(value);
+            OnPropertyChanged("AlterPlant");
+        }
+
+        partial void OnSunIntervalPickerValueChanged(Interval value)
+        {
+            if (value.DaysFromNow == -1)
+            {
+                CustomSunIntervalGridVisible = true;
+            }
+            else
+            {
+                CustomSunIntervalGridVisible = false;
+                SunDaysFromNow = value.DaysFromNow; //you gotta fix the case where it turns out to be a custom interval!!!
+            }
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -91,9 +171,9 @@ namespace FloraSaver.ViewModels
 
         public Plant SetPlantValues(Plant plant)
         {
-            if (DaysFromNow != -1)
+            if (WaterDaysFromNow != -1)
             {
-                plant.WaterInterval = DaysFromNow;
+                plant.WaterInterval = WaterDaysFromNow;
             }
 
             return plant;
@@ -103,22 +183,25 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         void UseWateringPressed(bool value)
         {
-            WaterGridVisible = value ? false : true;
-            WaterGridText = value ? "Use Watering" : "Do Not Use Watering";
+            AlterPlant.UseWatering = !AlterPlant.UseWatering;
+            WaterGridText = AlterPlant.UseWatering ? "Do Not Use Watering" : "Use Watering";
+            OnPropertyChanged("AlterPlant");
         }
 
         [RelayCommand]
         void UseMistingPressed(bool value)
         {
-            MistGridVisible = value ? false : true;
-            MistGridText = value ? "Use Misting" : "Do Not Use Misting";
+            AlterPlant.UseMisting = !AlterPlant.UseMisting;
+            MistGridText = AlterPlant.UseMisting ? "Do Not Use Misting" : "Use Misting";
+            OnPropertyChanged("AlterPlant");
         }
 
         [RelayCommand]
         void UseSunPressed(bool value)
         {
-            SunGridVisible = value ? false : true;
-            SunGridText = value ? "Use Sunlight Move" : "Do Not Use Sunlight Move";
+            AlterPlant.UseMoving = !AlterPlant.UseMoving;
+            SunGridText = AlterPlant.UseMoving ? "Do Not Use Sunlight Move" : "Use Sunlight Move";
+            OnPropertyChanged("AlterPlant");
         }
 
         [RelayCommand]
@@ -129,7 +212,7 @@ namespace FloraSaver.ViewModels
 
             try
             {
-                plant = SetPlantValues(plant);
+                //plant = SetPlantValues(plant);
 
                 IsBusy = true;
                 await plantService.AddUpdateNewPlantAsync(plant);
