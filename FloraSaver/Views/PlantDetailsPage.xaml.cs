@@ -19,14 +19,6 @@ public partial class PlantDetailsPage : ContentPage
         base.OnAppearing();
         addUpdate.Text = string.IsNullOrWhiteSpace(_GivenName.Text) ? "Add" : "Update";
         deletePlants.IsVisible = string.IsNullOrWhiteSpace(_GivenName.Text) ? false : true;
-
-        // Required to use index here due to *possible* bug in MAUI that won't allow assigning by interval
-        //if (!string.IsNullOrWhiteSpace(_CustomWaterInterval.Text))
-        //{
-        //    var intervals = PickerService.GetWaterIntervals();
-        //    var waterIndex = intervals.Select(x => x.DaysFromNow).ToList().IndexOf(Int32.Parse(_CustomWaterInterval.Text));
-        //    waterIntervalPicker.SelectedIndex = waterIndex != -1 ? waterIndex : intervals.Count; //fix this!!!
-        //}
     }
 
     // This is a workaround to resolve a .NET MAUI bug regarding keyboards not disappearing on completion

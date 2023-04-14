@@ -13,7 +13,7 @@ namespace FloraSaver.ViewModels
     [QueryProperty(nameof(Plant), "Plant")]
     public partial class PlantDetailsViewModel : BaseViewModel, IQueryAttributable, INotifyPropertyChanged
     {
-        PlantService plantService;
+        // I moved the plantService to the base viewmodel because just about every page was going to use it.
         NotificationService notificationService;
 
         [ObservableProperty]
@@ -76,8 +76,6 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         public bool customSunIntervalGridVisible = false;
 
-
-
         [ObservableProperty]
         public bool waterGridVisible = false;
         [ObservableProperty]
@@ -121,7 +119,7 @@ namespace FloraSaver.ViewModels
             } else
             {
                 CustomWaterIntervalGridVisible = false;
-                WaterDaysFromNow = value.DaysFromNow; //you gotta fix the case where it turns out to be a custom interval!!!
+                WaterDaysFromNow = value.DaysFromNow;
             }
         }
 
@@ -140,7 +138,7 @@ namespace FloraSaver.ViewModels
             else
             {
                 CustomMistIntervalGridVisible = false;
-                MistDaysFromNow = value.DaysFromNow; //you gotta fix the case where it turns out to be a custom interval!!!
+                MistDaysFromNow = value.DaysFromNow;
             }
         }
 
@@ -159,7 +157,7 @@ namespace FloraSaver.ViewModels
             else
             {
                 CustomSunIntervalGridVisible = false;
-                SunDaysFromNow = value.DaysFromNow; //you gotta fix the case where it turns out to be a custom interval!!!
+                SunDaysFromNow = value.DaysFromNow;
             }
         }
 

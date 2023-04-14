@@ -11,35 +11,68 @@
     <Grid
         ColumnDefinitions="*,*"
         ColumnSpacing="5"
-        RowSpacing="1">
+        RowSpacing="2">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
-            <RowDefinition Height="52" />
+            <RowDefinition Height="50" />
             <RowDefinition Height="*" />
             <RowDefinition Height="70" />
         </Grid.RowDefinitions>
-        <Entry
-            x:Name="searchBar"
-            Grid.Row="0"
-            Grid.ColumnSpan="2"
-            Completed="Entry_Completed"
-            FontSize="25"
-            HorizontalTextAlignment="Start"
-            Placeholder="Search Plants..."
-            VerticalTextAlignment="Center">
-            <Entry.Behaviors>
-                <toolkit:EventToCommandBehavior
-                    Command="{Binding SearchPlantsCommand}"
-                    CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
-                    EventName="TextChanged" />
-            </Entry.Behaviors>
-        </Entry>
-        <Grid
-            Grid.Row="1"
-            Grid.ColumnSpan="2"
-            Padding="5">
-            <Frame BackgroundColor="Black">
-                <HorizontalStackLayout />
+        <Grid Grid.Row="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+            </Grid.ColumnDefinitions>
+            <Rectangle Grid.Column="0" Background="Black" />
+            <Entry
+                x:Name="searchBar"
+                Grid.Column="1"
+                Completed="Entry_Completed"
+                FontSize="25"
+                HorizontalTextAlignment="Start"
+                Placeholder="Search Plants..."
+                VerticalTextAlignment="Center">
+                <Entry.Behaviors>
+                    <toolkit:EventToCommandBehavior
+                        Command="{Binding SearchPlantsCommand}"
+                        CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
+                        EventName="TextChanged" />
+                </Entry.Behaviors>
+            </Entry>
+            <Rectangle Grid.Column="2" Background="Black" />
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+            <Frame Padding="5" BackgroundColor="Black">
+                <Grid ColumnSpacing="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        Grid.Column="0"
+                        BackgroundColor="Orange"
+                        Text="Pot"
+                        TextColor="Black" />
+                    <Button
+                        Grid.Column="1"
+                        BackgroundColor="Orange"
+                        Text="Vase"
+                        TextColor="Black" />
+                    <Button
+                        Grid.Column="2"
+                        BackgroundColor="Orange"
+                        Text="Garden"
+                        TextColor="Black" />
+                    <Button
+                        Grid.Column="3"
+                        BackgroundColor="Orange"
+                        Text="Auto"
+                        TextColor="Black" />
+                </Grid>
             </Frame>
         </Grid>
         <RefreshView

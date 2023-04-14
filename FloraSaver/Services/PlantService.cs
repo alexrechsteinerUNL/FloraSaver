@@ -1,8 +1,7 @@
 ﻿using SQLite;
 using FloraSaver.Models;
-#if (ANDROID || IOS)
+
 using Plugin.LocalNotification;
-#endif
 
 
 namespace FloraSaver.Services
@@ -99,7 +98,7 @@ namespace FloraSaver.Services
                 await InitAsync();
                 var allPlants = await conn.Table<Plant>().ToListAsync();
 #if (ANDROID || IOS)
-                await SetAllNotificationsAsync(allPlants);
+                await SetAllNotificationsAsync(allPlants); //Ideally the notifications would be decoupled into its own service
 #endif
                 return allPlants;
             }

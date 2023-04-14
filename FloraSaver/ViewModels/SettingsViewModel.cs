@@ -8,7 +8,6 @@ namespace FloraSaver.ViewModels
 {
     public partial class SettingsViewModel : BaseViewModel
     {
-        PlantService plantService;
         public SettingsViewModel(PlantService plantService)
         {
             this.plantService = plantService;

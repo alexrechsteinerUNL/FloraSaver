@@ -1,16 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using FloraSaver.Services;
 
 namespace FloraSaver.ViewModels
 {
     public partial class BaseViewModel : ObservableObject
     {
+
+
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsNotBusy))]
         public bool isBusy;
@@ -18,7 +14,7 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         string title;
 
-
+        public PlantService plantService;
 
         // I think the code below is equivalent to
         // [ObservableProperty]
