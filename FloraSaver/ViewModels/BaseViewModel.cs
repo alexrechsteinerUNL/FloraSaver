@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using FloraSaver.Models;
 using FloraSaver.Services;
 
 namespace FloraSaver.ViewModels
@@ -32,6 +34,12 @@ namespace FloraSaver.ViewModels
 
 
         public bool IsNotBusy => !IsBusy;
+        
+        [RelayCommand]
+        public async Task UpdateNotifications(List<Plant> Plants)
+        {
+            await plantService.GetAllPlantAsync();
+        }
 
 
     }

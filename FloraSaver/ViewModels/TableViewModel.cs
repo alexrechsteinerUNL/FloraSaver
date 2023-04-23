@@ -12,7 +12,7 @@ namespace FloraSaver.ViewModels
 {
     public partial class TableViewModel : BaseViewModel, INotifyPropertyChanged
     {
-        //private readonly int percentageButtonSize = 105;
+        private readonly int percentageButtonSize = 105;
         public ObservableCollection<Plant> DataPlants { get; set; } = new();
         public ObservableCollection<Plant> Plants { get; set; } = new();
 
@@ -21,6 +21,8 @@ namespace FloraSaver.ViewModels
         {
             Title = "Plant Saver";
             this.plantService = plantService;
+            IsPlantTypeIncluded = true;
+            WaterRectangle = new Rect(0,20,105,105);
         }
 
         [ObservableProperty]
@@ -32,6 +34,16 @@ namespace FloraSaver.ViewModels
         double percentageToNeedsRefreshing;
         [ObservableProperty]
         double percentageToNeedsSunning;
+
+        [ObservableProperty]
+        bool isPlantTypeIncluded;
+        [ObservableProperty]
+        string toggleButtonTextColor;
+        [ObservableProperty]
+        bool toggleButtonBackgroundColor;
+
+        [ObservableProperty]
+        Rect waterRectangle;
 
         [RelayCommand]
         void CurrentPlantNeeds(Plant plant)
@@ -85,6 +97,7 @@ namespace FloraSaver.ViewModels
                 foreach (var plant in plants)
                 {
                     Plants.Add(plant);
+                    OnPropertyChanged(nameof(Plants));
                 }
                 DataPlants = new ObservableCollection<Plant>(Plants);
             }

@@ -23,6 +23,5 @@
         TimeSpan TimeOfNextWatering { get; set; }
         public int? WaterInterval { get; set; }
 
-        double TimeToNextAction(DateTime lastTime, DateTime nextTime);
     }
 }

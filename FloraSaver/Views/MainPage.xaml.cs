@@ -13,7 +13,6 @@ public partial class MainPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        startPlantService.Command.Execute("GetPlantsCommand");
     }
 }
 
