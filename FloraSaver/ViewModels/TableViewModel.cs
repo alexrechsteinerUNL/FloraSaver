@@ -45,6 +45,40 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         Rect waterRectangle;
 
+
+        [RelayCommand]
+        async Task ResetWateringAsync(Plant plant)
+        {
+            plant.DateOfNextWatering = plant.DateOfNextWatering.AddDays(plant.WaterInterval != null ? (int)plant.WaterInterval :
+                (plant.DateOfNextWatering.Date - plant.DateOfLastWatering.Date).Days);
+            plant.DateOfLastWatering = DateTime.Now;
+            plantService.PlantNotificationEnder(plant, "water");
+            await plantService.AddUpdateNewPlantAsync(plant);
+            OnPropertyChanged("Plant");
+        }
+
+        [RelayCommand]
+        async Task ResetMistingAsync(Plant plant)
+        {
+            plant.DateOfLastMisting = DateTime.Now;
+            plant.DateOfNextMisting = plant.DateOfNextMisting.AddDays(plant.MistInterval != null ? (int)plant.MistInterval :
+                (plant.DateOfNextMisting.Date - plant.DateOfLastMisting.Date).Days);
+            plantService.PlantNotificationEnder(plant, "mist");
+            await plantService.AddUpdateNewPlantAsync(plant);
+            OnPropertyChanged("Plant");
+        }
+
+        [RelayCommand]
+        async Task ResetMovingAsync(Plant plant)
+        {
+            plant.DateOfLastMove = DateTime.Now;
+            plant.DateOfNextMove = plant.DateOfNextMove.AddDays(plant.SunInterval != null ? (int)plant.SunInterval :
+                (plant.DateOfNextMove.Date - plant.DateOfLastMove.Date).Days);
+            plantService.PlantNotificationEnder(plant, "move");
+            await plantService.AddUpdateNewPlantAsync(plant);
+            OnPropertyChanged("Plant");
+        }
+
         [RelayCommand]
         void CurrentPlantNeeds(Plant plant)
         {

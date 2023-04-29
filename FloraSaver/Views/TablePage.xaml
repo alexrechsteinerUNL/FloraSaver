@@ -124,6 +124,8 @@
                                             <ImageButton
                                                 Grid.Row="1"
                                                 Aspect="AspectFill"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=ResetWateringCommand}"
+                                                CommandParameter="{Binding .}"
                                                 HeightRequest="105"
                                                 Source="water_timer_visual.png"
                                                 WidthRequest="105" />
@@ -143,6 +145,8 @@
                                             <ImageButton
                                                 Grid.Row="1"
                                                 Aspect="AspectFill"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=ResetMistingCommand}"
+                                                CommandParameter="{Binding .}"
                                                 HeightRequest="105"
                                                 Source="refresh_timer_visual.png"
                                                 WidthRequest="105" />
@@ -185,6 +189,8 @@
                                             <ImageButton
                                                 Grid.Row="1"
                                                 Aspect="AspectFill"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=ResetMovingCommand}"
+                                                CommandParameter="{Binding .}"
                                                 HeightRequest="105"
                                                 Source="sun_timer_visual.png"
                                                 WidthRequest="105" />

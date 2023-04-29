@@ -199,7 +199,7 @@ namespace FloraSaver.Services
             };
             await LocalNotificationCenter.Current.Show(notification);
         }
-        public void PlantActionCompleter(Plant plant, string plantAction)
+        public void PlantNotificationEnder(Plant plant, string plantAction)
         {
             var notificationId = GenerateNotificationId(plant, plantAction);
             LocalNotificationCenter.Current.Cancel(notificationId);
