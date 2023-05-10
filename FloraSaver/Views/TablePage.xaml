@@ -14,6 +14,10 @@
             <converter:ConvertToRectangle x:Key="RectConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
+        <toolkit:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
+    </ContentPage.Behaviors>
     <Grid
         ColumnDefinitions="*,*"
         ColumnSpacing="5"
@@ -124,9 +128,12 @@
                                             <ImageButton
                                                 Grid.Row="1"
                                                 Aspect="AspectFill"
+                                                BackgroundColor="Black"
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=ResetWateringCommand}"
                                                 CommandParameter="{Binding .}"
                                                 HeightRequest="105"
+                                                IsEnabled="{Binding UseWatering}"
+                                                Opacity="{Binding WaterOpacity}"
                                                 Source="water_timer_visual.png"
                                                 WidthRequest="105" />
 
@@ -148,6 +155,8 @@
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=ResetMistingCommand}"
                                                 CommandParameter="{Binding .}"
                                                 HeightRequest="105"
+                                                IsEnabled="{Binding UseMisting}"
+                                                Opacity="{Binding MistOpacity}"
                                                 Source="refresh_timer_visual.png"
                                                 WidthRequest="105" />
                                         </Grid>
@@ -192,6 +201,8 @@
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=ResetMovingCommand}"
                                                 CommandParameter="{Binding .}"
                                                 HeightRequest="105"
+                                                IsEnabled="{Binding UseMoving}"
+                                                Opacity="{Binding MoveOpacity}"
                                                 Source="sun_timer_visual.png"
                                                 WidthRequest="105" />
                                         </Grid>

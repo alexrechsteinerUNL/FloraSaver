@@ -18,12 +18,16 @@
                 SemanticProperties.Description="Title for app"
                 Source="plant_saver_title.png" />
 
-            <Button
+            <!--<Button
                 x:Name="startPlantService"
                 Command="{Binding GetPlantsCommand}"
                 HorizontalOptions="Center"
-                IsVisible="false"
-                Text="start Services" />
+                IsVisible="true"
+                Text="start Services" />-->
+            <Image
+                HeightRequest="360"
+                HorizontalOptions="Center"
+                Source="clipet_no_flowers_standing.png" />
         </VerticalStackLayout>
     </Grid>
 </ContentPage>

@@ -25,6 +25,12 @@ namespace FloraSaver.ViewModels
             WaterRectangle = new Rect(0,20,105,105);
         }
 
+        [RelayCommand]
+        void Appearing()
+        {
+
+        }
+
         [ObservableProperty]
         bool isRefreshing;
 
@@ -45,38 +51,60 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         Rect waterRectangle;
 
+        [ObservableProperty]
+        bool waterEnabled;
+        [ObservableProperty]
+        bool mistEnabled;
+        [ObservableProperty]
+        bool moveEnabled;
+
+        [ObservableProperty]
+        int waterOpacity;
+        [ObservableProperty]
+        int mistOpacity;
+        [ObservableProperty]
+        int moveOpacity;
 
         [RelayCommand]
         async Task ResetWateringAsync(Plant plant)
         {
-            plant.DateOfNextWatering = plant.DateOfNextWatering.AddDays(plant.WaterInterval != null ? (int)plant.WaterInterval :
+            if (plant.UseWatering)
+            {
+                plant.DateOfNextWatering = plant.DateOfNextWatering.AddDays(plant.WaterInterval != null ? (int)plant.WaterInterval :
                 (plant.DateOfNextWatering.Date - plant.DateOfLastWatering.Date).Days);
-            plant.DateOfLastWatering = DateTime.Now;
-            plantService.PlantNotificationEnder(plant, "water");
-            await plantService.AddUpdateNewPlantAsync(plant);
-            OnPropertyChanged("Plant");
+                plant.DateOfLastWatering = DateTime.Now;
+                plantService.PlantNotificationEnder(plant, "water");
+                await plantService.AddUpdateNewPlantAsync(plant);
+                OnPropertyChanged("Plant");
+            }
         }
 
         [RelayCommand]
         async Task ResetMistingAsync(Plant plant)
         {
-            plant.DateOfLastMisting = DateTime.Now;
-            plant.DateOfNextMisting = plant.DateOfNextMisting.AddDays(plant.MistInterval != null ? (int)plant.MistInterval :
-                (plant.DateOfNextMisting.Date - plant.DateOfLastMisting.Date).Days);
-            plantService.PlantNotificationEnder(plant, "mist");
-            await plantService.AddUpdateNewPlantAsync(plant);
-            OnPropertyChanged("Plant");
+            if (plant.UseMisting)
+            {
+                plant.DateOfLastMisting = DateTime.Now;
+                plant.DateOfNextMisting = plant.DateOfNextMisting.AddDays(plant.MistInterval != null ? (int)plant.MistInterval :
+                    (plant.DateOfNextMisting.Date - plant.DateOfLastMisting.Date).Days);
+                plantService.PlantNotificationEnder(plant, "mist");
+                await plantService.AddUpdateNewPlantAsync(plant);
+                OnPropertyChanged("Plant");
+            }
         }
 
         [RelayCommand]
         async Task ResetMovingAsync(Plant plant)
         {
-            plant.DateOfLastMove = DateTime.Now;
-            plant.DateOfNextMove = plant.DateOfNextMove.AddDays(plant.SunInterval != null ? (int)plant.SunInterval :
-                (plant.DateOfNextMove.Date - plant.DateOfLastMove.Date).Days);
-            plantService.PlantNotificationEnder(plant, "move");
-            await plantService.AddUpdateNewPlantAsync(plant);
-            OnPropertyChanged("Plant");
+            if (plant.UseMoving)
+            {
+                plant.DateOfLastMove = DateTime.Now;
+                plant.DateOfNextMove = plant.DateOfNextMove.AddDays(plant.SunInterval != null ? (int)plant.SunInterval :
+                    (plant.DateOfNextMove.Date - plant.DateOfLastMove.Date).Days);
+                plantService.PlantNotificationEnder(plant, "move");
+                await plantService.AddUpdateNewPlantAsync(plant);
+                OnPropertyChanged("Plant");
+            }
         }
 
         [RelayCommand]
@@ -134,6 +162,7 @@ namespace FloraSaver.ViewModels
                     OnPropertyChanged(nameof(Plants));
                 }
                 DataPlants = new ObservableCollection<Plant>(Plants);
+
             }
             catch (Exception ex)
             {

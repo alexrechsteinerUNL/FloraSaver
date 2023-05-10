@@ -36,9 +36,58 @@ namespace FloraSaver.Models
         public bool IsOverdueWater { get; set; } = false;
         public bool IsOverdueMist { get; set; } = false;
         public bool IsOverdueSun { get; set; } = false;
-        public bool UseWatering { get; set; }
-        public bool UseMisting { get; set; }
-        public bool UseMoving { get; set; }
+        
+        private bool _useWatering;
+        private bool _useMisting;
+        private bool _useMoving;
+
+        public bool UseWatering 
+        {
+            get { return _useWatering; }
+            set 
+            {
+                _useWatering = value;
+                if (value)
+                {
+                    _waterOpacity = 1;
+                } else
+                {
+                    _waterOpacity = .3;
+                }
+            }
+        }
+        public bool UseMisting
+        {
+            get { return _useMisting; }
+            set
+            {
+                _useMisting = value;
+                if (value)
+                {
+                    _mistOpacity = 1;
+                }
+                else
+                {
+                    _mistOpacity = .3;
+                }
+            }
+        }
+        public bool UseMoving
+        {
+            get { return _useMoving; }
+            set
+            {
+                _useMoving = value;
+                if (value)
+                {
+                    _moveOpacity = 1;
+                }
+                else
+                {
+                    _moveOpacity = .3;
+                }
+            }
+        }
         public DateTime DateOfLastWatering { get; set; }
         
         private TimeSpan _timeOfLastWatering;
@@ -187,6 +236,42 @@ namespace FloraSaver.Models
             }
             
         }
+
+        private double _waterOpacity;
+        private double _mistOpacity;
+        private double _moveOpacity;
+        [Ignore]
+        public double WaterOpacity 
+        { 
+            get { return _waterOpacity; }
+            set
+            {
+                _waterOpacity = value;
+            } 
+        }
+        [Ignore]
+        public double MistOpacity
+        {
+            get { return _mistOpacity; }
+            set
+            {
+                _mistOpacity = value;
+            }
+        }
+
+        [Ignore]
+        public double MoveOpacity
+        {
+            get { return _moveOpacity; }
+            set
+            {
+                _moveOpacity = value;
+            }
+        }
+
+
+
+
 
         [Ignore]
         public double Width { get; set; } = 105;
