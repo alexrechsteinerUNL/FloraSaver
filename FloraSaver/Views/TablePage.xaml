@@ -123,6 +123,7 @@
                                             RowSpacing="0">
                                             <ProgressBar
                                                 Grid.Row="0"
+                                                IsVisible="{Binding UseWatering}"
                                                 Progress="{Binding WaterPercent}"
                                                 ScaleY="2" />
                                             <ImageButton
@@ -146,6 +147,7 @@
                                             RowSpacing="0">
                                             <ProgressBar
                                                 Grid.Row="0"
+                                                IsVisible="{Binding UseMisting}"
                                                 Progress="{Binding MistPercent}"
                                                 ProgressColor="LightBlue"
                                                 ScaleY="2" />
@@ -192,6 +194,7 @@
                                             RowSpacing="0">
                                             <ProgressBar
                                                 Grid.Row="0"
+                                                IsVisible="{Binding UseMoving}"
                                                 Progress="{Binding SunPercent}"
                                                 ProgressColor="Orange"
                                                 ScaleY="2" />

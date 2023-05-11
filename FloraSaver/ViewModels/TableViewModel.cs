@@ -26,9 +26,9 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        void Appearing()
+        async Task AppearingAsync()
         {
-
+            await GetPlantsAsync();
         }
 
         [ObservableProperty]
@@ -76,6 +76,7 @@ namespace FloraSaver.ViewModels
                 plantService.PlantNotificationEnder(plant, "water");
                 await plantService.AddUpdateNewPlantAsync(plant);
                 OnPropertyChanged("Plant");
+                await GetPlantsAsync();
             }
         }
 
@@ -90,6 +91,7 @@ namespace FloraSaver.ViewModels
                 plantService.PlantNotificationEnder(plant, "mist");
                 await plantService.AddUpdateNewPlantAsync(plant);
                 OnPropertyChanged("Plant");
+                await GetPlantsAsync();
             }
         }
 
@@ -104,6 +106,7 @@ namespace FloraSaver.ViewModels
                 plantService.PlantNotificationEnder(plant, "move");
                 await plantService.AddUpdateNewPlantAsync(plant);
                 OnPropertyChanged("Plant");
+                await GetPlantsAsync();
             }
         }
 
