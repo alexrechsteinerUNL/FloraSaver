@@ -146,6 +146,7 @@
                                             RowDefinitions="1,*"
                                             RowSpacing="0">
                                             <ProgressBar
+                                                x:Name="MistProgress"
                                                 Grid.Row="0"
                                                 IsVisible="{Binding UseMisting}"
                                                 Progress="{Binding MistPercent}"
@@ -162,32 +163,28 @@
                                                 Source="refresh_timer_visual.png"
                                                 WidthRequest="105" />
                                         </Grid>
+                                        <!--  testing  -->
                                         <!--<Grid Padding="0" ColumnSpacing="0">
                                             <ImageButton
                                                 Aspect="AspectFill"
                                                 HeightRequest="105"
                                                 Source="refresh_timer_visual.png"
                                                 WidthRequest="105" />
-                                            <AbsoluteLayout Padding="0,2,0,0">
+                                            <AbsoluteLayout Padding="0,13,0,0">
                                                 <ImageButton
                                                     Grid.Row="1"
                                                     Aspect="AspectFill"
                                                     HeightRequest="105"
                                                     Source="refresh_timer_visual_inverted.png"
-                                                    VerticalOptions="FillAndExpand"
                                                     WidthRequest="105">
                                                     <ImageButton.Clip>
-                                                        <RectangleGeometry Rect="0,30,105,105" />
-
-                                        -->
-                                        <!--  The second one above overides the correct amount  -->
-                                        <!--
-
+                                                        <RectangleGeometry Rect="{Binding Converter = "{StaticResource }"}" />
                                                     </ImageButton.Clip>
                                                 </ImageButton>
 
                                             </AbsoluteLayout>
                                         </Grid>-->
+                                        <!--  endtesting  -->
                                         <Grid
                                             Padding="0"
                                             RowDefinitions="1,*"

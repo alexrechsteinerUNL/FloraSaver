@@ -9,7 +9,6 @@ namespace FloraSaver.ViewModels
     {
         public SettingsViewModel(PlantService plantService)
         {
-            Preferences.Clear();
             this.plantService = plantService;
             DateTime morningDate = DateTime.FromBinary(Preferences.Default.Get("morning_time_date", new DateTime(1,1,1,8,0,0).ToBinary()));
             morningTime = morningDate.TimeOfDay;
