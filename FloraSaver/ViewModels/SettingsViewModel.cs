@@ -9,6 +9,7 @@ namespace FloraSaver.ViewModels
     {
         public SettingsViewModel(PlantService plantService)
         {
+            Preferences.Clear();
             this.plantService = plantService;
             DateTime morningDate = DateTime.FromBinary(Preferences.Default.Get("morning_time_date", new DateTime(1,1,1,8,0,0).ToBinary()));
             morningTime = morningDate.TimeOfDay;
@@ -28,22 +29,23 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         partial void OnMorningTimeChanged(TimeSpan value)
         {
-            var morningTimeDate = new DateTime().Add(value);
+            var morningTimeDate = new DateTime().Add(value).ToBinary();
             Preferences.Default.Set("morning_time_date", morningTimeDate);
         }
 
         [RelayCommand]
         partial void OnMiddayTimeChanged(TimeSpan value)
         {
-            var middayTimeDate = new DateTime().Add(value);
+            var middayTimeDate = new DateTime().Add(value).ToBinary();
             Preferences.Default.Set("midday_time_date", middayTimeDate);
         }
 
         [RelayCommand]
         partial void OnNightTimeChanged(TimeSpan value)
         {
-            var nightTimeDate = new DateTime().Add(value);
+            var nightTimeDate = new DateTime().Add(value).ToBinary();
             Preferences.Default.Set("night_time_date", nightTimeDate);
+            NightTime = DateTime.FromBinary(Preferences.Default.Get("night_time_date", new DateTime(1, 1, 1, 16, 0, 0).ToBinary())).TimeOfDay;
         }
 
 

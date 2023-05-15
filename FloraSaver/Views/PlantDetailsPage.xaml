@@ -605,6 +605,9 @@
                                     <ColumnDefinition Width="100" />
                                     <ColumnDefinition Width="25" />
                                     <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="35" />
+                                    <ColumnDefinition Width="35" />
+                                    <ColumnDefinition Width="35" />
                                 </Grid.ColumnDefinitions>
                                 <Label
                                     Grid.Row="0"
@@ -651,6 +654,50 @@
                                         <Rectangle Grid.Column="2" Background="Black" />
                                     </Grid>
                                 </Border>
+                                <ImageButton
+                                    Grid.Row="1"
+                                    Grid.Column="3"
+                                    Padding="2"
+                                    Aspect="AspectFill"
+                                    BackgroundColor="Black"
+                                    BorderColor="White"
+                                    BorderWidth="1"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMorningTimeCommand}"
+                                    CommandParameter="TimeOfLastMove"
+                                    CornerRadius="8"
+                                    HeightRequest="25"
+                                    Source="morning.png"
+                                    WidthRequest="25" />
+                                <ImageButton
+                                    Grid.Row="1"
+                                    Grid.Column="4"
+                                    Padding="2"
+                                    Aspect="AspectFill"
+                                    BackgroundColor="Black"
+                                    BorderColor="White"
+                                    BorderWidth="1"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMiddayTimeCommand}"
+                                    CommandParameter="TimeOfLastMove"
+                                    CornerRadius="8"
+                                    HeightRequest="25"
+                                    Source="midday.png"
+                                    WidthRequest="25" />
+                                <ImageButton
+                                    Grid.Row="1"
+                                    Grid.Column="5"
+                                    Padding="2"
+                                    Aspect="AspectFill"
+                                    BackgroundColor="Black"
+                                    BorderColor="White"
+                                    BorderWidth="1"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultNightTimeCommand}"
+                                    CommandParameter="TimeOfLastMove"
+                                    CornerRadius="8"
+                                    HeightRequest="25"
+                                    Source="night.png"
+                                    WidthRequest="25" />
+
+
 
                                 <Label
                                     Grid.Row="2"
@@ -696,6 +743,48 @@
                                         <Rectangle Grid.Column="2" Background="Black" />
                                     </Grid>
                                 </Border>
+                                <ImageButton
+                                    Grid.Row="3"
+                                    Grid.Column="3"
+                                    Padding="2"
+                                    Aspect="AspectFill"
+                                    BackgroundColor="Black"
+                                    BorderColor="White"
+                                    BorderWidth="1"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMorningTimeCommand}"
+                                    CommandParameter="TimeOfNextMove"
+                                    CornerRadius="8"
+                                    HeightRequest="25"
+                                    Source="morning.png"
+                                    WidthRequest="25" />
+                                <ImageButton
+                                    Grid.Row="3"
+                                    Grid.Column="4"
+                                    Padding="2"
+                                    Aspect="AspectFill"
+                                    BackgroundColor="Black"
+                                    BorderColor="White"
+                                    BorderWidth="1"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMiddayTimeCommand}"
+                                    CommandParameter="TimeOfNextMove"
+                                    CornerRadius="8"
+                                    HeightRequest="25"
+                                    Source="midday.png"
+                                    WidthRequest="25" />
+                                <ImageButton
+                                    Grid.Row="3"
+                                    Grid.Column="5"
+                                    Padding="2"
+                                    Aspect="AspectFill"
+                                    BackgroundColor="Black"
+                                    BorderColor="White"
+                                    BorderWidth="1"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultNightTimeCommand}"
+                                    CommandParameter="TimeOfNextMove"
+                                    CornerRadius="8"
+                                    HeightRequest="25"
+                                    Source="night.png"
+                                    WidthRequest="25" />
                             </Grid>
                         </VerticalStackLayout>
                     </VerticalStackLayout>

@@ -255,6 +255,27 @@ namespace FloraSaver.ViewModels
             await Shell.Current.GoToAsync("..");
         }
 
+        [RelayCommand]
+        private void SetToDefaultMorningTime(string timeValue)
+        {
+            alterPlant.GetType().GetProperty(timeValue).SetValue(alterPlant, DateTime.FromBinary(Preferences.Default.Get("morning_time_date", new DateTime(1, 1, 1, 8, 0, 0).ToBinary())).TimeOfDay);
+            OnPropertyChanged("AlterPlant");
+        }
+
+        [RelayCommand]
+        private void SetToDefaultMiddayTime(string timeValue)
+        {
+            alterPlant.GetType().GetProperty(timeValue).SetValue(alterPlant, DateTime.FromBinary(Preferences.Default.Get("midday_time_date", new DateTime(1, 1, 1, 12, 0, 0).ToBinary())).TimeOfDay);
+            OnPropertyChanged("AlterPlant");
+        }
+
+        [RelayCommand]
+        private void SetToDefaultNightTime(string timeValue)
+        {
+            alterPlant.GetType().GetProperty(timeValue).SetValue(alterPlant, DateTime.FromBinary(Preferences.Default.Get("night_time_date", new DateTime(1, 1, 1, 16, 0, 0).ToBinary())).TimeOfDay);
+            OnPropertyChanged("AlterPlant");
+        }
+
         [ObservableProperty]
         Plant plant;
     }
