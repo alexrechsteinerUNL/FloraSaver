@@ -35,22 +35,23 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         void Appearing()
         {
+            IsInitialization = true;
             // extract to its own reusable method DRY!
-            WaterDaysFromNow = (initialPlant.DateOfNextWatering.Date - initialPlant.DateOfLastWatering.Date).Days;
+            WaterDaysFromNow = initialPlant.WaterInterval != null ? (int)initialPlant.WaterInterval : (initialPlant.DateOfNextWatering.Date - initialPlant.DateOfLastWatering.Date).Days;
             WaterIntervalPickerValue = WateringInterval.FirstOrDefault(x => x.DaysFromNow == WaterDaysFromNow);
             if (WaterIntervalPickerValue == null)
             {
                 WaterIntervalPickerValue = WateringInterval.First(x => x.DaysFromNow == -1);
             }
 
-            MistDaysFromNow = (initialPlant.DateOfNextMisting.Date - initialPlant.DateOfLastMisting.Date).Days;
+            MistDaysFromNow = initialPlant.MistInterval != null ? (int)initialPlant.MistInterval : (initialPlant.DateOfNextMisting.Date - initialPlant.DateOfLastMisting.Date).Days;
             MistIntervalPickerValue = MistingInterval.FirstOrDefault(x => x.DaysFromNow == MistDaysFromNow);
             if (MistIntervalPickerValue == null)
             {
                 MistIntervalPickerValue = MistingInterval.First(x => x.DaysFromNow == -1);
             }
 
-            SunDaysFromNow = (initialPlant.DateOfNextMove.Date - initialPlant.DateOfLastMove.Date).Days;
+            SunDaysFromNow = initialPlant.SunInterval != null ? (int)initialPlant.SunInterval : (initialPlant.DateOfNextMove.Date - initialPlant.DateOfLastMove.Date).Days;
             SunIntervalPickerValue = SunInterval.FirstOrDefault(x => x.DaysFromNow == SunDaysFromNow);
             if (SunIntervalPickerValue == null)
             {
@@ -60,7 +61,11 @@ namespace FloraSaver.ViewModels
             WaterGridText = InitialPlant.UseWatering ? "Do Not Use Watering" : "Use Watering";
             MistGridText = InitialPlant.UseMisting ? "Do Not Use Misting" : "Use Misting";
             SunGridText = InitialPlant.UseMoving ? "Do Not Use Sunlight Move" : "Use Sunlight Move";
+            IsInitialization = false;
         }
+
+        [ObservableProperty]
+        bool isInitialization;
 
         [ObservableProperty]
         List<Interval> wateringInterval;
@@ -107,7 +112,12 @@ namespace FloraSaver.ViewModels
 
         partial void OnWaterDaysFromNowChanged(int value)
         {
-            AlterPlant.DateOfNextWatering = AlterPlant.DateOfLastWatering.AddDays(value);
+            if (!IsInitialization)
+            {
+                AlterPlant.DateOfNextWatering = AlterPlant.DateOfLastWatering.AddDays(value);
+            }
+            
+            AlterPlant.WaterInterval = value;
             OnPropertyChanged("AlterPlant");
         }
 
@@ -125,7 +135,12 @@ namespace FloraSaver.ViewModels
 
         partial void OnMistDaysFromNowChanged(int value)
         {
-            AlterPlant.DateOfNextMisting = AlterPlant.DateOfLastMisting.AddDays(value);
+            if (!IsInitialization)
+            {
+                AlterPlant.DateOfNextMisting = AlterPlant.DateOfLastMisting.AddDays(value);
+            }
+            
+            AlterPlant.MistInterval = value;
             OnPropertyChanged("AlterPlant");
         }
 
@@ -144,7 +159,12 @@ namespace FloraSaver.ViewModels
 
         partial void OnSunDaysFromNowChanged(int value)
         {
-            AlterPlant.DateOfNextMove = AlterPlant.DateOfLastMove.AddDays(value);
+            if (!IsInitialization)
+            {
+                AlterPlant.DateOfNextMove = AlterPlant.DateOfLastMove.AddDays(value);
+            }
+            
+            AlterPlant.SunInterval = value;
             OnPropertyChanged("AlterPlant");
         }
 
@@ -163,8 +183,10 @@ namespace FloraSaver.ViewModels
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
+            IsInitialization = true;
             InitialPlant = AlterPlant = query["Plant"] as Plant;
             OnPropertyChanged("Plant");
+            IsInitialization = false;
         }
 
         public Plant SetPlantValues(Plant plant)

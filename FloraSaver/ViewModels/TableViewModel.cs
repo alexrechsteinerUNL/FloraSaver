@@ -70,9 +70,17 @@ namespace FloraSaver.ViewModels
         {
             if (plant.UseWatering)
             {
-                plant.DateOfNextWatering = plant.DateOfNextWatering.AddDays(plant.WaterInterval != null ? (int)plant.WaterInterval :
-                (plant.DateOfNextWatering.Date - plant.DateOfLastWatering.Date).Days);
+                if (plant.WaterInterval != 0)
+                {
+                    plant.DateOfNextWatering = plant.DateOfNextWatering.AddDays(plant.WaterInterval != null ? (int)plant.WaterInterval :
+(plant.DateOfNextWatering.Date - plant.DateOfLastWatering.Date).Days);
+                } else
+                {
+                    plant.UseWatering = false;
+                }
+
                 plant.DateOfLastWatering = DateTime.Now;
+                plant.TimeOfLastWatering = DateTime.Now.TimeOfDay;
                 plantService.PlantNotificationEnder(plant, "water");
                 await plantService.AddUpdateNewPlantAsync(plant);
                 OnPropertyChanged("Plant");
@@ -85,9 +93,19 @@ namespace FloraSaver.ViewModels
         {
             if (plant.UseMisting)
             {
+                if (plant.MistInterval != 0)
+                {
+                    plant.DateOfNextMisting = plant.DateOfNextMisting.AddDays(plant.MistInterval != null ? (int)plant.MistInterval :
+    (plant.DateOfNextMisting.Date - plant.DateOfLastMisting.Date).Days);
+                }
+                else
+                {
+                    plant.UseMisting = false;
+                }
+
                 plant.DateOfLastMisting = DateTime.Now;
-                plant.DateOfNextMisting = plant.DateOfNextMisting.AddDays(plant.MistInterval != null ? (int)plant.MistInterval :
-                    (plant.DateOfNextMisting.Date - plant.DateOfLastMisting.Date).Days);
+                plant.TimeOfLastMisting = DateTime.Now.TimeOfDay;
+
                 plantService.PlantNotificationEnder(plant, "mist");
                 await plantService.AddUpdateNewPlantAsync(plant);
                 OnPropertyChanged("Plant");
@@ -100,9 +118,18 @@ namespace FloraSaver.ViewModels
         {
             if (plant.UseMoving)
             {
-                plant.DateOfLastMove = DateTime.Now;
-                plant.DateOfNextMove = plant.DateOfNextMove.AddDays(plant.SunInterval != null ? (int)plant.SunInterval :
+                if (plant.SunInterval != 0)
+                {
+                    plant.DateOfNextMove = plant.DateOfNextMove.AddDays(plant.SunInterval != null ? (int)plant.SunInterval :
                     (plant.DateOfNextMove.Date - plant.DateOfLastMove.Date).Days);
+                }
+                else
+                {
+                    plant.UseMoving = false;
+                }
+
+                plant.DateOfLastMove = DateTime.Now;
+                plant.TimeOfLastMove = DateTime.Now.TimeOfDay;
                 plantService.PlantNotificationEnder(plant, "move");
                 await plantService.AddUpdateNewPlantAsync(plant);
                 OnPropertyChanged("Plant");
