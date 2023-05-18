@@ -13,11 +13,11 @@
         <Tab Title="Plants">
             <ShellContent ContentTemplate="{DataTemplate local:TablePage}" Route="TablePage" />
         </Tab>
+        <Tab Title="Handling">
+            <ShellContent ContentTemplate="{DataTemplate local:TablePage}" Route="TablePage" />
+        </Tab>
         <Tab Title="Settings">
             <ShellContent ContentTemplate="{DataTemplate local:SettingsPage}" Route="SettingsPage" />
-        </Tab>
-        <Tab Title="IoT Integration">
-            <ShellContent ContentTemplate="{DataTemplate local:TablePage}" Route="TablePage" />
         </Tab>
     </TabBar>
 </Shell>
