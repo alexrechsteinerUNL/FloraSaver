@@ -370,7 +370,7 @@
         <Setter Property="Shell.TabBarBackgroundColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource Black}}" />
         <Setter Property="Shell.TabBarForegroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}" />
         <Setter Property="Shell.TabBarTitleColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}" />
-        <Setter Property="Shell.TabBarUnselectedColor" Value="{AppThemeBinding Light='#E34234', Dark='#E34234'}" />
+        <Setter Property="Shell.TabBarUnselectedColor" Value="{AppThemeBinding Light='#e1ad01', Dark='#e1ad01'}" />
     </Style>
 
     <Style TargetType="NavigationPage">
@@ -383,7 +383,7 @@
         <Setter Property="BarBackgroundColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource Black}}" />
         <Setter Property="BarTextColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}" />
         <Setter Property="UnselectedTabColor" Value="{AppThemeBinding Light='#800020', Dark='#800020'}" />
-        <Setter Property="SelectedTabColor" Value="{AppThemeBinding Light='#E34234', Dark='#E34234'}" />
+        <Setter Property="SelectedTabColor" Value="{AppThemeBinding Light='#e1ad01', Dark='#e1ad01'}" />
     </Style>
 
 </ResourceDictionary>

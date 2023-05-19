@@ -12,7 +12,7 @@
 
     <Grid>
         <Image Aspect="AspectFill" Source="home_background.png" />
-        <VerticalStackLayout Padding="20" Spacing="15">
+        <VerticalStackLayout Padding="10" Spacing="15">
             <Image
                 HeightRequest="360"
                 HorizontalOptions="Center"
@@ -28,8 +28,8 @@
             <Image
                 HeightRequest="300"
                 HorizontalOptions="Center"
-                Source="clipet_no_flowers_standing.png" />
-            <custom_components:ClipetOverlay />
+                Source="clipet_flowers_standing_color.png" />
+            <custom_components:ClipetOverlay x:Name="Clipet" isClipetEnabled="False" />
         </VerticalStackLayout>
     </Grid>
 </ContentPage>

@@ -159,7 +159,7 @@
                 Command="{Binding ClearAllPlantDataCommand}"
                 IsEnabled="{Binding IsNotBusy}"
                 Text="Clear ALL Data"
-                TextColor="OrangeRed" />
+                TextColor="#e1ad01" />
 
         </VerticalStackLayout>
     </ScrollView>

@@ -64,6 +64,15 @@ namespace FloraSaver.ViewModels
             IsInitialization = false;
         }
 
+        public void ApplyQueryAttributes(IDictionary<string, object> query)
+        {
+            IsInitialization = true;
+            InitialPlant = AlterPlant = query["Plant"] as Plant;
+            OnPropertyChanged("Plant");
+            IsInitialization = false;
+        }
+
+
         [ObservableProperty]
         bool isInitialization;
 
@@ -181,13 +190,6 @@ namespace FloraSaver.ViewModels
             }
         }
 
-        public void ApplyQueryAttributes(IDictionary<string, object> query)
-        {
-            IsInitialization = true;
-            InitialPlant = AlterPlant = query["Plant"] as Plant;
-            OnPropertyChanged("Plant");
-            IsInitialization = false;
-        }
 
         public Plant SetPlantValues(Plant plant)
         {

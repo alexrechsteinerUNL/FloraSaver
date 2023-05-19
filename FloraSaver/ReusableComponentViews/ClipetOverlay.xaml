@@ -3,8 +3,12 @@
     x:Class="FloraSaver.ClipetOverlay"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="ClipetOverlay">
-    <VerticalStackLayout>
+    xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
+    Title="ClipetOverlay"
+    x:DataType="viewmodel:ClipetOverlayViewModel">
+
+
+    <VerticalStackLayout x:Name="bloop">
         <Label
             HorizontalOptions="Center"
             Text="Passed to another page"
