@@ -32,6 +32,8 @@ namespace FloraSaver.Models
             set { givenName = value?.Trim() ?? string.Empty; }
         }
 
+        public string PlantGroup { get; set; } = "Ungrouped";
+
         public DateTime DateOfBirth { get; set; }
         public bool IsOverdueWater { get; set; } = false;
         public bool IsOverdueMist { get; set; } = false;

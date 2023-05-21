@@ -22,6 +22,7 @@ namespace FloraSaver.Services
             conn = new SQLiteAsyncConnection(_dbPath);
 
             await conn.CreateTableAsync<Plant>();
+            await conn.CreateTableAsync<PlantGroup>();
         }
 
         public PlantService(string dbPath)
@@ -88,6 +89,64 @@ namespace FloraSaver.Services
             catch (Exception ex)
             {
                 StatusMessage = string.Format("Failed to delete all plants. Error: {0}", ex.Message);
+            }
+        }
+
+        public async Task<List<PlantGroup>> GetAllPlantGroupAsync()
+        {
+            try
+            {
+                await InitAsync();
+                var allGroups = await conn.Table<PlantGroup>().ToListAsync();
+                return allGroups;
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Failed to retrieve data. {0}", ex.Message);
+            }
+
+            return new List<PlantGroup>();
+        }
+
+        public async Task AddUpdateNewPlantGroupAsync(PlantGroup plantGroup)
+        {
+            int result = 0;
+            try
+            {
+                // TODO: Call Init()
+                await InitAsync();
+                if (string.IsNullOrEmpty(plantGroup.GroupName))
+                    throw new Exception("Valid group name required");
+
+                result = await conn.InsertOrReplaceAsync(plantGroup);
+
+                StatusMessage = string.Format("{0} group saved (Name: {1})", result, plantGroup.GroupName);
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Failed to add group {0}. Error: {1}", plantGroup.GroupName, ex.Message);
+            }
+        }
+
+        public async Task DeletePlantGroupAsync(PlantGroup plantGroup)
+        {
+            int result = 0;
+            try
+            {
+                // TODO: Call Init()
+                await InitAsync();
+                // basic validation to ensure a name was entered
+                if (string.IsNullOrEmpty(plantGroup.GroupName))
+                    throw new Exception("Valid name required");
+
+                // TODO: Insert the new person into the database
+                result = await conn.DeleteAsync(plantGroup);
+
+                StatusMessage = string.Format("{0} group(s) deleted (Name: {1})", result, plantGroup.GroupName);
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Failed to delete {0}. Error: {1}", plantGroup.GroupName, ex.Message);
             }
         }
 

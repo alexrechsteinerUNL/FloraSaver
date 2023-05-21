@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FloraSaver.Models;
 using FloraSaver.Services;
+using Microsoft.Extensions.Logging.Abstractions;
 using Plugin.LocalNotification;
 
 namespace FloraSaver.ViewModels
@@ -11,6 +12,7 @@ namespace FloraSaver.ViewModels
 
 
     [QueryProperty(nameof(Plant), "Plant")]
+    [QueryProperty(nameof(PlantGroup), "PlantGroup")]
     public partial class PlantDetailsViewModel : BaseViewModel, IQueryAttributable, INotifyPropertyChanged
     {
         // I moved the plantService to the base viewmodel because just about every page was going to use it.
@@ -29,7 +31,6 @@ namespace FloraSaver.ViewModels
             wateringInterval = PickerService.GetWaterIntervals();
             mistingInterval = PickerService.GetWaterIntervals();
             sunInterval = PickerService.GetWaterIntervals();
-           
         }
 
         [RelayCommand]
@@ -70,11 +71,20 @@ namespace FloraSaver.ViewModels
             InitialPlant = AlterPlant = query["Plant"] as Plant;
             OnPropertyChanged("Plant");
             IsInitialization = false;
+            GroupPlants = query["PlantGroup"] as List<PlantGroup>;
         }
 
 
         [ObservableProperty]
         bool isInitialization;
+
+        [ObservableProperty]
+        List<PlantGroup> groupPlants;
+        [ObservableProperty]
+        public bool addNewGroupGridVisible = false;
+        [ObservableProperty]
+        public string groupPickerValue;
+
 
         [ObservableProperty]
         List<Interval> wateringInterval;

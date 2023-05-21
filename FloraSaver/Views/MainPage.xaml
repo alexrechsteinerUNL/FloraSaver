@@ -11,10 +11,11 @@
 
 
     <Grid>
-        <Image Aspect="AspectFill" Source="home_background.png" />
+        <Image Aspect="Fill" Source="homepagebackgroundfirstpass.png" />
         <VerticalStackLayout Padding="10" Spacing="15">
+            <Label Text="" />
             <Image
-                HeightRequest="360"
+                HeightRequest="300"
                 HorizontalOptions="Center"
                 SemanticProperties.Description="Title for app"
                 Source="plant_saver_title.png" />
@@ -26,7 +27,7 @@
                 IsVisible="true"
                 Text="start Services" />-->
             <Image
-                HeightRequest="300"
+                HeightRequest="200"
                 HorizontalOptions="Center"
                 Source="clipet_flowers_standing_color.png" />
             <custom_components:ClipetOverlay x:Name="Clipet" isClipetEnabled="False" />

@@ -28,7 +28,48 @@
                 <ScrollView Grid.Row="0">
 
                     <VerticalStackLayout Spacing="10">
-
+                        <Grid x:Name="groupGrid">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="50" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="300" />
+                                <ColumnDefinition Width="30" />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Grid.Row="0"
+                                Grid.ColumnSpan="2"
+                                Text="Plant Group: " />
+                            <Border
+                                Grid.Row="1"
+                                HorizontalOptions="StartAndExpand"
+                                WidthRequest="300">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="280" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Rectangle Grid.Column="0" Background="Black" />
+                                    <Picker
+                                        x:Name="groupPicker"
+                                        Title="Select Plant Group"
+                                        Grid.Column="1"
+                                        ItemDisplayBinding="{Binding GroupText, Mode=TwoWay}"
+                                        ItemsSource="{Binding GroupPlants, Mode=TwoWay}"
+                                        SelectedItem="{Binding GroupPickerValue, Mode=TwoWay}" />
+                                    <Rectangle Grid.Column="2" BackgroundColor="Black" />
+                                </Grid>
+                            </Border>
+                            <Button
+                                x:Name="addGroup"
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Padding="0"
+                                HeightRequest="45"
+                                Text="+" />
+                        </Grid>
                         <Grid x:Name="plantSpeciesGrid">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="30" />
@@ -128,9 +169,9 @@
                                     <RowDefinition Height="50" />
                                 </Grid.RowDefinitions>
                                 <Label Grid.Row="0" Text="Watering Interval: " />
-
                                 <Border
                                     Grid.Row="1"
+                                    Grid.Column="0"
                                     HorizontalOptions="Start"
                                     WidthRequest="330">
                                     <Grid>

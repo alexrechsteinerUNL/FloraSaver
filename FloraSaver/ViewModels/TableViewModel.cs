@@ -182,6 +182,19 @@ namespace FloraSaver.ViewModels
                 IsBusy = true;
                 var plants = await plantService.GetAllPlantAsync();
 
+                // checking if there are really 0 plants or if an issue occured.
+                if (plants.Count == 0)
+                {
+                    plants = await plantService.GetAllPlantAsync();
+                    for (var i = 0; i < 2; i++)
+                    {
+                        if (plants.Count != 0)
+                        {
+                            break;
+                        }
+                    }
+                }
+
                 if (Plants.Count != 0)
                 {
                     Plants.Clear();
@@ -224,7 +237,8 @@ namespace FloraSaver.ViewModels
                         DateOfLastMove = DateTime.Now,
                         DateOfNextMove = DateTime.Now
                         }
-                    }
+                    },
+                    {"PlantGroup", await plantService.GetAllPlantGroupAsync() }
                 });
             }
             else
@@ -232,7 +246,8 @@ namespace FloraSaver.ViewModels
                 CurrentPlantNeeds(plant);
                 await Shell.Current.GoToAsync(nameof(PlantDetailsPage), true, new Dictionary<string, object>
                 {
-                    {"Plant", plant }
+                    {"Plant", plant },
+                    {"PlantGroup", await plantService.GetAllPlantGroupAsync() }
                 });
             }
             return;

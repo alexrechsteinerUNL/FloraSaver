@@ -7,16 +7,16 @@
     Shell.FlyoutBehavior="Disabled">
 
     <TabBar x:Name="Tab_Options">
-        <Tab Title="Home">
+        <Tab Title="Home" Icon="homeicon.png">
             <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage" />
         </Tab>
-        <Tab Title="Plants">
+        <Tab Title="Plants" Icon="planticon.png">
             <ShellContent ContentTemplate="{DataTemplate local:TablePage}" Route="TablePage" />
         </Tab>
-        <Tab Title="Handling">
+        <Tab Title="Handling" Icon="handlingicon.png">
             <ShellContent ContentTemplate="{DataTemplate local:TablePage}" Route="TablePage" />
         </Tab>
-        <Tab Title="Settings">
+        <Tab Title="Settings" Icon="settingsicon.png">
             <ShellContent ContentTemplate="{DataTemplate local:SettingsPage}" Route="SettingsPage" />
         </Tab>
     </TabBar>
