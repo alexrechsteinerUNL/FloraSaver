@@ -22,7 +22,8 @@ namespace FloraSaver.Services
             conn = new SQLiteAsyncConnection(_dbPath);
 
             await conn.CreateTableAsync<Plant>();
-            await conn.CreateTableAsync<PlantGroup>();
+            var bloop = await conn.CreateTableAsync<PlantGroup>();
+            Console.WriteLine(bloop);
         }
 
         public PlantService(string dbPath)
@@ -98,6 +99,16 @@ namespace FloraSaver.Services
             {
                 await InitAsync();
                 var allGroups = await conn.Table<PlantGroup>().ToListAsync();
+                if (allGroups.Count == 0)
+                {
+                    await AddUpdateNewPlantGroupAsync(new
+                        PlantGroup()
+                    {
+                        GroupName = "UnGrouped",
+                        GroupColorHex = "#A9A9A9"
+                    });
+                    allGroups = await conn.Table<PlantGroup>().ToListAsync();
+                }
                 return allGroups;
             }
             catch (Exception ex)

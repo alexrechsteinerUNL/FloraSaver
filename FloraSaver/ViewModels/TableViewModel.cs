@@ -29,6 +29,7 @@ namespace FloraSaver.ViewModels
         async Task AppearingAsync()
         {
             await GetPlantsAsync();
+            
         }
 
         [ObservableProperty]

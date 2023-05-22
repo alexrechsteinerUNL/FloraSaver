@@ -62,6 +62,7 @@ namespace FloraSaver.ViewModels
             WaterGridText = InitialPlant.UseWatering ? "Do Not Use Watering" : "Use Watering";
             MistGridText = InitialPlant.UseMisting ? "Do Not Use Misting" : "Use Misting";
             SunGridText = InitialPlant.UseMoving ? "Do Not Use Sunlight Move" : "Use Sunlight Move";
+
             IsInitialization = false;
         }
 
@@ -70,8 +71,10 @@ namespace FloraSaver.ViewModels
             IsInitialization = true;
             InitialPlant = AlterPlant = query["Plant"] as Plant;
             OnPropertyChanged("Plant");
+            PlantGroups = query["PlantGroup"] as List<PlantGroup>;
+            OnPropertyChanged("PlantGroups");
             IsInitialization = false;
-            GroupPlants = query["PlantGroup"] as List<PlantGroup>;
+            
         }
 
 
@@ -79,11 +82,11 @@ namespace FloraSaver.ViewModels
         bool isInitialization;
 
         [ObservableProperty]
-        List<PlantGroup> groupPlants;
+        List<PlantGroup> plantGroups;
         [ObservableProperty]
         public bool addNewGroupGridVisible = false;
         [ObservableProperty]
-        public string groupPickerValue;
+        public PlantGroup groupPickerValue;
 
 
         [ObservableProperty]

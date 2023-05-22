@@ -1,11 +1,13 @@
-﻿namespace FloraSaver;
+﻿using FloraSaver.Services;
+using Microsoft.VisualStudio.Threading;
+
+namespace FloraSaver;
 
 public partial class App : Application
 {
-	public App()
+    public App()
 	{
 		InitializeComponent();
-
-		MainPage = new AppShell();
+        MainPage = new AppShell();
 	}
 }

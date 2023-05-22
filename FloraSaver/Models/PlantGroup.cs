@@ -3,15 +3,13 @@ using SQLite;
 
 namespace FloraSaver.Models
 {
-    [Table("plantGroup")]
+    [Table("plantgroup")]
     public class PlantGroup : ObservableObject
     {
         [PrimaryKey, AutoIncrement]
         public int GroupId { get; set; }
-
+        [SQLite.MaxLength(250), Unique]
         public string GroupName { get; set; }
-
-        public List<int> Plants { get; set; }
         public string GroupColorHex { get; set; }
     }
 }

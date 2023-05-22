@@ -56,8 +56,8 @@
                                         x:Name="groupPicker"
                                         Title="Select Plant Group"
                                         Grid.Column="1"
-                                        ItemDisplayBinding="{Binding GroupText, Mode=TwoWay}"
-                                        ItemsSource="{Binding GroupPlants, Mode=TwoWay}"
+                                        ItemDisplayBinding="{Binding GroupName, Mode=TwoWay}"
+                                        ItemsSource="{Binding PlantGroups, Mode=TwoWay}"
                                         SelectedItem="{Binding GroupPickerValue, Mode=TwoWay}" />
                                     <Rectangle Grid.Column="2" BackgroundColor="Black" />
                                 </Grid>
