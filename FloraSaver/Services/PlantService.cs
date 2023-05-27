@@ -22,8 +22,7 @@ namespace FloraSaver.Services
             conn = new SQLiteAsyncConnection(_dbPath);
 
             await conn.CreateTableAsync<Plant>();
-            var bloop = await conn.CreateTableAsync<PlantGroup>();
-            Console.WriteLine(bloop);
+            await conn.CreateTableAsync<PlantGroup>();
         }
 
         public PlantService(string dbPath)
@@ -93,6 +92,26 @@ namespace FloraSaver.Services
             }
         }
 
+        public async Task DeleteAllPlantGroupsAsync()
+        {
+            int result = 0;
+            try
+            {
+                // TODO: Call Init()
+                await InitAsync();
+                result = await conn.DeleteAllAsync<PlantGroup>();
+
+                // TODO: Insert the new person into the database
+
+
+                StatusMessage = string.Format("{0} record(s) deleted. PlantGroup database is now empty", result);
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Failed to delete all PlantGroups. Error: {0}", ex.Message);
+            }
+        }
+
         public async Task<List<PlantGroup>> GetAllPlantGroupAsync()
         {
             try
@@ -104,7 +123,7 @@ namespace FloraSaver.Services
                     await AddUpdateNewPlantGroupAsync(new
                         PlantGroup()
                     {
-                        GroupName = "UnGrouped",
+                        GroupName = "Ungrouped",
                         GroupColorHex = "#A9A9A9"
                     });
                     allGroups = await conn.Table<PlantGroup>().ToListAsync();

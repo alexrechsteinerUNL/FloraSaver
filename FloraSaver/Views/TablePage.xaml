@@ -55,7 +55,7 @@
                 <Rectangle Grid.Column="2" Background="Black" />
             </Grid>
 
-            <Grid Grid.Row="1" Grid.ColumnSpan="2">
+            <!--<Grid Grid.Row="1" Grid.ColumnSpan="2">
                 <Frame Padding="5" BackgroundColor="Black">
                     <Grid ColumnSpacing="5">
                         <Grid.ColumnDefinitions>
@@ -86,7 +86,32 @@
                             TextColor="Black" />
                     </Grid>
                 </Frame>
+            </Grid>-->
+
+            <Grid Grid.Row="1" Grid.ColumnSpan="2">
+                <Frame Padding="5" BackgroundColor="Black">
+                    <CollectionView
+                        x:Name="groupdeck"
+                        ItemsLayout="HorizontalList"
+                        ItemsSource="{Binding PlantGroups}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:Name="groups" x:DataType="model:PlantGroup">
+                                <Button
+                                    Padding="1"
+                                    BackgroundColor="Black"
+                                    BorderColor="{Binding GroupColor}"
+                                    HeightRequest="40"
+                                    Text="{Binding GroupName}"
+                                    WidthRequest="200" />
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+
+
+                </Frame>
             </Grid>
+
             <RefreshView
                 Grid.Row="2"
                 Grid.ColumnSpan="2"
@@ -99,7 +124,10 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:Name="bloop" x:DataType="model:Plant">
                             <Grid Padding="10">
-                                <Frame BackgroundColor="Black" HeightRequest="420">
+                                <Frame
+                                    BackgroundColor="Black"
+                                    BorderColor="{Binding GroupColor}"
+                                    HeightRequest="420">
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}" CommandParameter="{Binding .}" />
                                     </Frame.GestureRecognizers>

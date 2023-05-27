@@ -15,6 +15,7 @@ namespace FloraSaver.ViewModels
         private readonly int percentageButtonSize = 105;
         public ObservableCollection<Plant> DataPlants { get; set; } = new();
         public ObservableCollection<Plant> Plants { get; set; } = new();
+        public ObservableCollection<PlantGroup> PlantGroups { get; set; } = new();
 
         // I moved the plantService to the base viewmodel because just about every page was going to use it.
         public TableViewModel(PlantService plantService)
@@ -28,8 +29,8 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         async Task AppearingAsync()
         {
+            await GetPlantGroupsAsync();
             await GetPlantsAsync();
-            
         }
 
         [ObservableProperty]
@@ -206,11 +207,57 @@ namespace FloraSaver.ViewModels
                     OnPropertyChanged(nameof(Plants));
                 }
                 DataPlants = new ObservableCollection<Plant>(Plants);
-
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Unable to get plants: {ex.Message}");
+                await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+                IsRefreshing = false;
+            }
+            return;
+        }
+
+        [RelayCommand]
+        async Task GetPlantGroupsAsync()
+        {
+            if (IsBusy)
+                return;
+
+            try
+            {
+                IsBusy = true;
+                var plantGroups = await plantService.GetAllPlantGroupAsync();
+
+                // checking if there are really 0 plantGroups or if an issue occured.
+                if (plantGroups.Count == 0)
+                {
+                    plantGroups = await plantService.GetAllPlantGroupAsync();
+                    for (var i = 0; i < 2; i++)
+                    {
+                        if (plantGroups.Count != 0)
+                        {
+                            break;
+                        }
+                    }
+                }
+
+                if (PlantGroups.Count != 0)
+                {
+                    PlantGroups.Clear();
+                }
+                foreach (var plantGroup in plantGroups)
+                {
+                    PlantGroups.Add(plantGroup);
+                    OnPropertyChanged(nameof(PlantGroups));
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Unable to get plant groups: {ex.Message}");
                 await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
             }
             finally

@@ -153,6 +153,15 @@
                     Text="Backup Plants" />
 
                 <Button
+                    x:Name="clearAllPlantGroupDataCommand"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="8"
+                    Command="{Binding ClearAllPlantGroupDataCommand}"
+                    IsEnabled="{Binding IsNotBusy}"
+                    Text="Clear ALL Groups"
+                    TextColor="#e1ad01" />
+                <Button
                     x:Name="clearAllPlantDataCommand"
                     Grid.Row="1"
                     Grid.Column="0"

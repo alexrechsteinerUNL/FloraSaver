@@ -47,6 +47,33 @@ namespace FloraSaver.ViewModels
             NightTime = DateTime.FromBinary(Preferences.Default.Get("night_time_date", new DateTime(1, 1, 1, 16, 0, 0).ToBinary())).TimeOfDay;
         }
 
+        [RelayCommand]
+        async Task ClearAllPlantGroupDataAsync()
+        {
+            if (IsBusy)
+                return;
+
+            try
+            {
+                IsBusy = true;
+                bool reallyDelete = await Application.Current.MainPage.DisplayAlert("OH HOLD ON!", "Are you sure you want to delete all of your plant groups?", "Delete Them", "Please Don't");
+                if (reallyDelete)
+                {
+                    await plantService.DeleteAllPlantGroupsAsync();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Unable to delete all plants: {ex.Message}");
+                await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
 
         [RelayCommand]
         async Task ClearAllPlantDataAsync()

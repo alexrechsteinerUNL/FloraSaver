@@ -32,7 +32,11 @@ namespace FloraSaver.Models
             set { givenName = value?.Trim() ?? string.Empty; }
         }
 
-        public string PlantGroup { get; set; } = "Ungrouped";
+        public string PlantGroupName { get; set; } = "Ungrouped";
+        public string GroupColorHexString { get; set; } = "#A9A9A9";
+
+        [Ignore]
+        public Color GroupColor => Color.FromArgb(GroupColorHexString);
 
         public DateTime DateOfBirth { get; set; }
         public bool IsOverdueWater { get; set; } = false;

@@ -1,5 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FloraSaver.Models;
@@ -20,9 +23,13 @@ namespace FloraSaver.ViewModels
 
         [ObservableProperty]
         public Plant initialPlant;
+
+        private Random rand = new Random();
         
         [ObservableProperty]
         public Plant alterPlant;
+
+        public ObservableCollection<PlantGroup> PlantGroups { get; set; } = new();
 
         public PlantDetailsViewModel(PlantService _PlantService, NotificationService _NotificationService)
         {
@@ -37,7 +44,10 @@ namespace FloraSaver.ViewModels
         void Appearing()
         {
             IsInitialization = true;
-            // extract to its own reusable method DRY!
+            // extract to its own reusable method with reflection DRY!
+
+            GroupPickerValue = initialPlant.PlantGroupName != null ? PlantGroups.FirstOrDefault(_ => _.GroupName == initialPlant.PlantGroupName) : PlantGroups.FirstOrDefault(_ => _.GroupName == "Ungrouped");
+
             WaterDaysFromNow = initialPlant.WaterInterval != null ? (int)initialPlant.WaterInterval : (initialPlant.DateOfNextWatering.Date - initialPlant.DateOfLastWatering.Date).Days;
             WaterIntervalPickerValue = WateringInterval.FirstOrDefault(x => x.DaysFromNow == WaterDaysFromNow);
             if (WaterIntervalPickerValue == null)
@@ -71,23 +81,24 @@ namespace FloraSaver.ViewModels
             IsInitialization = true;
             InitialPlant = AlterPlant = query["Plant"] as Plant;
             OnPropertyChanged("Plant");
-            PlantGroups = query["PlantGroup"] as List<PlantGroup>;
+            var groups = query["PlantGroup"] as List<PlantGroup>;
+            PlantGroups = new ObservableCollection<PlantGroup>(groups);
             OnPropertyChanged("PlantGroups");
             IsInitialization = false;
-            
         }
 
 
         [ObservableProperty]
         bool isInitialization;
 
-        [ObservableProperty]
-        List<PlantGroup> plantGroups;
+
         [ObservableProperty]
         public bool addNewGroupGridVisible = false;
         [ObservableProperty]
-        public PlantGroup groupPickerValue;
+        public string addGroupButtonText = "+";
 
+        [ObservableProperty]
+        public PlantGroup groupPickerValue;
 
         [ObservableProperty]
         List<Interval> wateringInterval;
@@ -131,6 +142,16 @@ namespace FloraSaver.ViewModels
         public int mistDaysFromNow;
         [ObservableProperty]
         public int sunDaysFromNow;
+
+        partial void OnGroupPickerValueChanged(PlantGroup value)
+        {
+            if (!IsInitialization)
+            {
+                AlterPlant.PlantGroupName = value.GroupName;
+                AlterPlant.GroupColorHexString = value.GroupColorHex;
+                OnPropertyChanged("AlterPlant");
+            }
+        }
 
         partial void OnWaterDaysFromNowChanged(int value)
         {
@@ -214,6 +235,33 @@ namespace FloraSaver.ViewModels
             return plant;
         }
 
+        [RelayCommand]
+        void AddGroupShowPressed()
+        {
+            AddNewGroupGridVisible = !AddNewGroupGridVisible;
+            AddGroupButtonText = AddNewGroupGridVisible ? "-" : "+";
+        }
+
+        [RelayCommand]
+        async Task AddNewGroupAsync(string newPlantGroupName)
+        {
+            var newPlantGroup = new PlantGroup()
+            {
+                GroupId = PlantGroups.Any() ? PlantGroups.Max(x => x.GroupId) + 1 : 0,
+                GroupName = newPlantGroupName,
+                GroupColorHex = string.Format("#{0:X6}", rand.Next(0x1000000)),
+            };
+            var result = await AddUpdateGroupAsync(newPlantGroup);
+            if (result)
+            {
+                PlantGroups.Add(newPlantGroup);
+                OnPropertyChanged("PlantGroups");
+                AddGroupShowPressed();
+                GroupPickerValue = newPlantGroup;
+            }
+            
+        }
+
 
         [RelayCommand]
         void UseWateringPressed(bool value)
@@ -237,6 +285,36 @@ namespace FloraSaver.ViewModels
             AlterPlant.UseMoving = !AlterPlant.UseMoving;
             SunGridText = AlterPlant.UseMoving ? "Do Not Use Sunlight Move" : "Use Sunlight Move";
             OnPropertyChanged("AlterPlant");
+        }
+
+        [RelayCommand]
+        async Task<bool> AddUpdateGroupAsync(PlantGroup plantGroup)
+        {
+            var result = false;
+            if (IsBusy)
+                return result;
+
+            try
+            {
+                //plant = SetPlantValues(plant);
+
+                IsBusy = true;
+                await plantService.AddUpdateNewPlantGroupAsync(plantGroup);
+                result = true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Unable to add or update plant group: {ex.Message}");
+                await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
+                result = false;
+            }
+            finally
+            {
+                IsBusy = false;
+                FriendlyLabel = plantService.StatusMessage;
+                
+            }
+            return result;
         }
 
         [RelayCommand]
