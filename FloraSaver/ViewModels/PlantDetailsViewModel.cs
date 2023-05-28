@@ -151,7 +151,7 @@ namespace FloraSaver.ViewModels
                 AlterPlant.GroupColorHexString = value.GroupColorHex;
                 OnPropertyChanged("AlterPlant");
             }
-        }
+         }
 
         partial void OnWaterDaysFromNowChanged(int value)
         {

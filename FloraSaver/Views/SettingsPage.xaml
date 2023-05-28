@@ -134,18 +134,6 @@
                     Margin="8"
                     Text="Notification Settings" />
                 <Button
-                    x:Name="iotIntegration"
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    Margin="8"
-                    Text="Iot Integration" />
-                <Button
-                    x:Name="forceTimezone"
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    Margin="8"
-                    Text="Force Timezone" />
-                <Button
                     x:Name="backupPlants"
                     Grid.Row="1"
                     Grid.Column="0"

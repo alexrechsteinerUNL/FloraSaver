@@ -35,7 +35,8 @@ namespace FloraSaver.ViewModels
 
         [ObservableProperty]
         bool isRefreshing;
-
+        [ObservableProperty]
+        string searchQuery = string.Empty;
         [ObservableProperty]
         Rect rectNeedsWatering;
         [ObservableProperty]
@@ -154,17 +155,23 @@ namespace FloraSaver.ViewModels
         {
             try
             {
+                SearchQuery = inputString;
                 Plants.Replace(DataPlants);
-                if (!string.IsNullOrWhiteSpace(inputString))
+                foreach (var group in PlantGroups)
+                {
+                    await ShowHidePlantGroupsAsync(group, false);
+                }
+                if (!string.IsNullOrWhiteSpace(SearchQuery))
                 {
                     for (int i = Plants.Count - 1; i >= 0; i--)
                     {
-                        if (Plants[i].GivenName.IndexOf(inputString) < 0)
+                        if (Plants[i].GivenName.IndexOf(SearchQuery) < 0)
                         {
                             Plants.RemoveAt(i);
                         }
                     }
                 }
+
             }
             catch (Exception ex)
             {
@@ -217,6 +224,10 @@ namespace FloraSaver.ViewModels
             {
                 IsBusy = false;
                 IsRefreshing = false;
+                foreach (var group in PlantGroups)
+                {
+                    await ShowHidePlantGroupsAsync(group);
+                }
             }
             return;
         }
@@ -266,6 +277,35 @@ namespace FloraSaver.ViewModels
                 IsRefreshing = false;
             }
             return;
+        }
+
+        [RelayCommand]
+        async Task GroupSelectionAsync(PlantGroup plantGroup)
+        {
+            var specificGroup = PlantGroups.FirstOrDefault(_ => _.GroupId == plantGroup.GroupId);
+            specificGroup.IsEnabled = plantGroup.IsEnabled ? false : true;
+            OnPropertyChanged("PlantGroups");
+            await ShowHidePlantGroupsAsync(specificGroup);
+        }
+
+        async Task ShowHidePlantGroupsAsync(PlantGroup specificGroup, bool awaitSearch = true)
+        {
+            foreach (var plant in DataPlants.Where(_ => _.PlantGroupName == specificGroup.GroupName))
+            {
+                if (!Plants.Contains(plant) && specificGroup.IsEnabled)
+                {
+                    Plants.Add(plant);
+                }
+                else if (Plants.Contains(plant) && !specificGroup.IsEnabled)
+                {
+                    Plants.Remove(plant);
+                }
+            }
+            if (awaitSearch)
+            {
+                await SearchPlantsAsync(SearchQuery);
+            }
+            
         }
 
         [RelayCommand]
