@@ -14,7 +14,7 @@
             <ShellContent ContentTemplate="{DataTemplate local:TablePage}" Route="TablePage" />
         </Tab>
         <Tab Title="Handling" Icon="handlingicon.png">
-            <ShellContent ContentTemplate="{DataTemplate local:TablePage}" Route="TablePage" />
+            <ShellContent ContentTemplate="{DataTemplate local:HandlingPage}" Route="HandlingPage" />
         </Tab>
         <Tab Title="Settings" Icon="settingsicon.png">
             <ShellContent ContentTemplate="{DataTemplate local:SettingsPage}" Route="SettingsPage" />

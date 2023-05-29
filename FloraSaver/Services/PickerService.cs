@@ -23,5 +23,17 @@ namespace FloraSaver.Services
                 new Interval() { DaysFromNow = -1, IntervalText = "Custom" }
             };
         }
+
+        public static List<string> GetOrderByValues()
+        {
+            return new List<string>()
+            {
+                "Next Action",
+                "Next Watering",
+                "Next Misting",
+                "Next Moving",
+                "Alphabetical"
+            };
+        }
     }
 }

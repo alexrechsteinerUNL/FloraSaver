@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="FloraSaver.TablePage"
+    x:Class="FloraSaver.HandlingPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converter="clr-namespace:FloraSaver.Converters"
@@ -8,7 +8,7 @@
     xmlns:model="clr-namespace:FloraSaver.Models"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
-    x:DataType="viewmodel:TableViewModel">
+    x:DataType="viewmodel:HandlingViewModel">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converter:ConvertToRectangle x:Key="RectConverter" />

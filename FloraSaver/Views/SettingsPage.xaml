@@ -127,6 +127,93 @@
                         </Border>
                     </Grid>
                 </Frame>
+                <!--  Fix Up and allow users to edit groups here  -->
+                <!--<Frame Padding="20" BackgroundColor="Black">
+                    <Grid RowSpacing="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="150" />
+                            <RowDefinition Height="50" />
+                        </Grid.RowDefinitions>
+                        <ScrollView Grid.Row="0">
+                            <Grid x:Name="groupGrid">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="250" />
+                                    <ColumnDefinition Width="30" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.ColumnSpan="2"
+                                    Text="Edit Groups: " />
+                                <Border
+                                    Grid.Row="1"
+                                    HorizontalOptions="StartAndExpand"
+                                    WidthRequest="250">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="280" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Rectangle Grid.Column="0" Background="Black" />
+                                        <Picker
+                                            x:Name="groupPicker"
+                                            Title="Select Plant Group"
+                                            Grid.Column="1"
+                                            ItemDisplayBinding="{Binding GroupName, Mode=TwoWay}"
+                                            ItemsSource="{Binding PlantGroups, Mode=TwoWay}"
+                                            SelectedItem="{Binding GroupPickerValue, Mode=TwoWay}" />
+                                        <Rectangle Grid.Column="2" BackgroundColor="Black" />
+                                    </Grid>
+                                </Border>
+                                <Button
+                                    x:Name="addGroupButton"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Padding="0"
+                                    Command="{Binding AddGroupShowPressedCommand}"
+                                    HeightRequest="45"
+                                    Text="{Binding AddGroupButtonText}" />
+                                <Border
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    HorizontalOptions="Start"
+                                    IsVisible="{Binding AddNewGroupGridVisible}"
+                                    WidthRequest="250">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="280" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Rectangle Grid.Column="0" Background="Black" />
+                                        <Entry
+                                            x:Name="_groupAdd"
+                                            Grid.Column="1"
+                                            Completed="Entry_Completed"
+                                            Placeholder="Enter new plant group"
+                                            WidthRequest="280" />
+                                        <Rectangle Grid.Column="2" Background="Black" />
+                                    </Grid>
+                                </Border>
+                                <Button
+                                    x:Name="addNewGroupButton"
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Padding="0"
+                                    Command="{Binding AddNewGroupCommand}"
+                                    CommandParameter="{Binding Source={x:Reference _groupAdd}, Path=Text}"
+                                    HeightRequest="45"
+                                    IsVisible="{Binding AddNewGroupGridVisible}"
+                                    Text="✓" />
+                            </Grid>
+                        </ScrollView>
+                    </Grid>
+                </Frame>-->
                 <Button
                     x:Name="notificationSettings"
                     Grid.Row="1"
