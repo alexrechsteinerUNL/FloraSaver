@@ -33,6 +33,11 @@ namespace FloraSaver.ViewModels
             await GetPlantsAsync();
         }
 
+
+        [ObservableProperty]
+        List<string> orderByValues = PickerService.GetOrderByValues();
+        [ObservableProperty]
+        string currentOrderByValue = "Next Action";
         [ObservableProperty]
         bool isRefreshing;
         [ObservableProperty]
@@ -67,6 +72,39 @@ namespace FloraSaver.ViewModels
         int mistOpacity;
         [ObservableProperty]
         int moveOpacity;
+
+        partial void OnCurrentOrderByValueChanged(string value)
+        {
+            setPlantOrder(value);
+        }
+
+        private void setPlantOrder(string order)
+        {
+            //this is gross. There has to be a better way.
+            switch (order)
+            {
+                case "Next Action":
+                    Plants = new ObservableCollection<Plant>(Plants.OrderByDescending(_ => new[] { _.UseWatering, _.UseMisting, _.UseMoving }.Max()).ThenByDescending(_ => new[] { _.WaterPercent, _.MistPercent, _.SunPercent }.Max()));
+                    break;
+                case "Next Watering":
+                    Plants = new ObservableCollection<Plant>(Plants.OrderByDescending(_ => _.UseWatering).ThenByDescending(_ => _.WaterPercent));
+                    break;
+                case "Next Misting":
+                    Plants = new ObservableCollection<Plant>(Plants.OrderByDescending(_ => _.UseMisting).ThenByDescending(_ => _.MistPercent));
+                    break;
+                case "Next Moving":
+                    Plants = new ObservableCollection<Plant>(Plants.OrderByDescending(_ => _.UseMoving).ThenByDescending(_ => _.SunPercent));
+                    break;
+                case "Alphabetical":
+                    Plants = new ObservableCollection<Plant>(Plants.OrderBy(_ => _.GivenName));
+                    break;
+                default:
+                    Plants = new ObservableCollection<Plant>(Plants.OrderByDescending(_ => _.UseWatering).ThenByDescending(_ => _.WaterPercent));
+                    break;
+            }
+            OnPropertyChanged("Plants");
+        }
+
 
         [RelayCommand]
         async Task ResetWateringAsync(Plant plant)
@@ -171,6 +209,7 @@ namespace FloraSaver.ViewModels
                         }
                     }
                 }
+                setPlantOrder(CurrentOrderByValue);
 
             }
             catch (Exception ex)
@@ -228,6 +267,7 @@ namespace FloraSaver.ViewModels
                 {
                     await ShowHidePlantGroupsAsync(group);
                 }
+                setPlantOrder(CurrentOrderByValue);
             }
             return;
         }
@@ -286,6 +326,7 @@ namespace FloraSaver.ViewModels
             specificGroup.IsEnabled = plantGroup.IsEnabled ? false : true;
             OnPropertyChanged("PlantGroups");
             await ShowHidePlantGroupsAsync(specificGroup);
+            setPlantOrder(CurrentOrderByValue);
         }
 
         async Task ShowHidePlantGroupsAsync(PlantGroup specificGroup, bool awaitSearch = true)

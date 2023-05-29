@@ -27,6 +27,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="60" />
                 <RowDefinition Height="50" />
+                <RowDefinition Height="60" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="70" />
             </Grid.RowDefinitions>
@@ -55,38 +56,42 @@
                 <Rectangle Grid.Column="2" Background="Black" />
             </Grid>
 
-            <!--<Grid Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid Grid.Row="2" Grid.ColumnSpan="2">
                 <Frame Padding="5" BackgroundColor="Black">
                     <Grid ColumnSpacing="5">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="100" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Button
+                        <Label
                             Grid.Column="0"
-                            BackgroundColor="Orange"
-                            Text="Pot"
-                            TextColor="Black" />
-                        <Button
-                            Grid.Column="1"
-                            BackgroundColor="Orange"
-                            Text="Vase"
-                            TextColor="Black" />
-                        <Button
-                            Grid.Column="2"
-                            BackgroundColor="Orange"
-                            Text="Garden"
-                            TextColor="Black" />
-                        <Button
-                            Grid.Column="3"
-                            BackgroundColor="Orange"
-                            Text="Auto"
-                            TextColor="Black" />
+                            HorizontalOptions="Start"
+                            Text="Order By:"
+                            VerticalOptions="Center" />
+                        <Border Grid.Column="1" HorizontalOptions="CenterAndExpand">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Rectangle Grid.Column="0" Background="Black" />
+                                <Picker
+                                    x:Name="orderByPicker"
+                                    Title="Choose Order By"
+                                    Grid.Column="1"
+                                    HorizontalOptions="Center"
+                                    HorizontalTextAlignment="Center"
+                                    ItemsSource="{Binding OrderByValues, Mode=TwoWay}"
+                                    SelectedItem="{Binding CurrentOrderByValue, Mode=TwoWay}"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center" />
+                                <Rectangle Grid.Column="2" BackgroundColor="Black" />
+                            </Grid>
+                        </Border>
                     </Grid>
                 </Frame>
-            </Grid>-->
+            </Grid>
 
             <Grid Grid.Row="1" Grid.ColumnSpan="2">
                 <Frame Padding="5" BackgroundColor="Black">
@@ -110,14 +115,11 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
-
-
-
                 </Frame>
             </Grid>
 
             <RefreshView
-                Grid.Row="2"
+                Grid.Row="3"
                 Grid.ColumnSpan="2"
                 Command="{Binding GetPlantsCommand}"
                 IsRefreshing="{Binding IsRefreshing}">
@@ -327,7 +329,7 @@
             </RefreshView>
             <Button
                 x:Name="getPlants"
-                Grid.Row="3"
+                Grid.Row="4"
                 Grid.Column="0"
                 Margin="8"
                 Command="{Binding GetPlantsCommand}"
@@ -335,7 +337,7 @@
                 Text="Get Plants" />
             <Button
                 x:Name="addPlants"
-                Grid.Row="3"
+                Grid.Row="4"
                 Grid.Column="1"
                 Margin="8"
                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}"
