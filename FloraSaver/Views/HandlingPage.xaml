@@ -28,6 +28,7 @@
                 <RowDefinition Height="60" />
                 <RowDefinition Height="50" />
                 <RowDefinition Height="60" />
+                <RowDefinition Height="125" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="70" />
             </Grid.RowDefinitions>
@@ -120,8 +121,43 @@
                 </Frame>
             </Grid>
 
-            <RefreshView
+            <Frame
                 Grid.Row="3"
+                Grid.ColumnSpan="2"
+                Padding="10"
+                BackgroundColor="Black">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <ImageButton
+                        Grid.Column="0"
+                        Aspect="AspectFill"
+                        BackgroundColor="Black"
+                        HeightRequest="105"
+                        Source="water_timer_visual.png"
+                        WidthRequest="105" />
+                    <ImageButton
+                        Grid.Column="1"
+                        Aspect="AspectFill"
+                        BackgroundColor="Black"
+                        HeightRequest="105"
+                        Source="refresh_timer_visual.png"
+                        WidthRequest="105" />
+                    <ImageButton
+                        Grid.Column="2"
+                        Aspect="AspectFill"
+                        BackgroundColor="Black"
+                        HeightRequest="105"
+                        Source="sun_timer_visual.png"
+                        WidthRequest="105" />
+                </Grid>
+            </Frame>
+
+            <RefreshView
+                Grid.Row="4"
                 Grid.ColumnSpan="2"
                 Command="{Binding GetPlantsCommand}"
                 IsRefreshing="{Binding IsRefreshing}">
@@ -331,7 +367,7 @@
             </RefreshView>
             <Button
                 x:Name="getPlants"
-                Grid.Row="4"
+                Grid.Row="5"
                 Grid.Column="0"
                 Margin="8"
                 Command="{Binding GetPlantsCommand}"
@@ -339,7 +375,7 @@
                 Text="Get Plants" />
             <Button
                 x:Name="addPlants"
-                Grid.Row="4"
+                Grid.Row="5"
                 Grid.Column="1"
                 Margin="8"
                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}"

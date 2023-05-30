@@ -138,7 +138,6 @@
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}" CommandParameter="{Binding .}" />
                                     </Frame.GestureRecognizers>
-
                                     <Grid
                                         Padding="0"
                                         ColumnDefinitions="125,*"
@@ -148,7 +147,10 @@
                                             Grid.Row="0"
                                             Grid.ColumnSpan="2"
                                             Padding="10">
-                                            <Label FontSize="36" Text="{Binding GivenName, StringFormat='{0}'}" />
+                                            <Label
+                                                FontSize="36"
+                                                Text="{Binding GivenName, StringFormat='{0}'}"
+                                                TextColor="{Binding GroupColor}" />
                                             <Label FontAttributes="Italic" Text="{Binding PlantSpecies}" />
                                             <Label
                                                 Padding="2"
