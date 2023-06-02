@@ -249,7 +249,7 @@ namespace FloraSaver.ViewModels
             {
                 GroupId = PlantGroups.Any() ? PlantGroups.Max(x => x.GroupId) + 1 : 0,
                 GroupName = newPlantGroupName,
-                GroupColorHex = string.Format("#{0:X6}", rand.Next(0x1000000)),
+                GroupColorHex = $"#{rand.Next(0x1000000):X6}",
             };
             var result = await AddUpdateGroupAsync(newPlantGroup);
             if (result)

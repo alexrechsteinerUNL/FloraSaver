@@ -189,7 +189,7 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        async Task SearchPlantsAsync(string inputString)
+        public async Task SearchPlantsAsync(string inputString)
         {
             try
             {
@@ -329,7 +329,7 @@ namespace FloraSaver.ViewModels
             setPlantOrder(CurrentOrderByValue);
         }
 
-        async Task ShowHidePlantGroupsAsync(PlantGroup specificGroup, bool awaitSearch = true)
+        public virtual async Task ShowHidePlantGroupsAsync(PlantGroup specificGroup, bool awaitSearch = true)
         {
             foreach (var plant in DataPlants.Where(_ => _.PlantGroupName == specificGroup.GroupName))
             {
@@ -346,7 +346,6 @@ namespace FloraSaver.ViewModels
             {
                 await SearchPlantsAsync(SearchQuery);
             }
-            
         }
 
         [RelayCommand]

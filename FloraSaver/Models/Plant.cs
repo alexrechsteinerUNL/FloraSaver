@@ -275,8 +275,27 @@ namespace FloraSaver.Models
             }
         }
 
+        private bool _isEnabled;
+        [Ignore]
+        public bool IsEnabled
+        {
+            get
+            {
+                return _isEnabled;
+            }
+            set
+            {
+                _isEnabled = value;
+                OnPropertyChanged(nameof(SelectedColor));
+                OnPropertyChanged(nameof(SelectedTextColor));
+            }
+        }
 
 
+        [Ignore]
+        public Color SelectedColor => IsEnabled ? Color.FromArgb("#e1ad01") : Color.FromArgb("#000000");
+        [Ignore]
+        public Color SelectedTextColor => IsEnabled ? Color.FromArgb("#000000") : Color.FromArgb("#FFFFFF");
 
 
         [Ignore]

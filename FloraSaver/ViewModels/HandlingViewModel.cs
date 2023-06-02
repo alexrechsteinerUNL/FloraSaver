@@ -16,5 +16,22 @@ namespace FloraSaver.ViewModels
         {
             this.plantService = plantService;
         }
+
+        [RelayCommand]
+        void PlantSelection(Plant plant)
+        {
+            var specificPlant = Plants.FirstOrDefault(_ => _.Id == plant.Id);
+            specificPlant.IsEnabled = plant.IsEnabled ? false : true;
+            OnPropertyChanged("Plants");
+        }
+
+        [RelayCommand]
+        void AllPlantSelection()
+        {
+            foreach (var plant in Plants)
+            {
+                PlantSelection(plant);
+            }
+        }
     }
 }
