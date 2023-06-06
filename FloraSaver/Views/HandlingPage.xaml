@@ -21,7 +21,7 @@
     <Grid>
         <Image Aspect="Fill" Source="plantpagebackgroundfirstpass.png" />
         <Grid
-            ColumnDefinitions="*,*"
+            ColumnDefinitions="70,*,*"
             ColumnSpacing="5"
             RowSpacing="2">
             <Grid.RowDefinitions>
@@ -32,7 +32,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="70" />
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Grid.ColumnSpan="2">
+            <Grid Grid.Row="0" Grid.ColumnSpan="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="10" />
                     <ColumnDefinition Width="*" />
@@ -57,7 +57,7 @@
                 <Rectangle Grid.Column="2" Background="Black" />
             </Grid>
 
-            <Grid Grid.Row="2" Grid.ColumnSpan="2">
+            <Grid Grid.Row="2" Grid.ColumnSpan="3">
                 <Frame Padding="5" BackgroundColor="Black">
                     <Grid ColumnSpacing="5">
                         <Grid.ColumnDefinitions>
@@ -93,7 +93,7 @@
                     </Grid>
                 </Frame>
             </Grid>
-            <Grid Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid Grid.Row="1" Grid.ColumnSpan="3">
                 <Frame Padding="5" BackgroundColor="Black">
                     <CollectionView
                         x:Name="groupdeck"
@@ -123,7 +123,7 @@
 
             <Frame
                 Grid.Row="3"
-                Grid.ColumnSpan="2"
+                Grid.ColumnSpan="3"
                 Padding="10"
                 BackgroundColor="Black">
                 <Grid>
@@ -157,11 +157,11 @@
             </Frame>
             <Frame
                 Grid.Row="4"
-                Grid.ColumnSpan="2"
+                Grid.ColumnSpan="3"
                 BackgroundColor="Black">
                 <RefreshView
                     Grid.Row="4"
-                    Grid.ColumnSpan="2"
+                    Grid.ColumnSpan="3"
                     Command="{Binding GetPlantsCommand}"
                     IsRefreshing="{Binding IsRefreshing}"
                     VerticalOptions="CenterAndExpand">
@@ -196,27 +196,46 @@
                 </RefreshView>
             </Frame>
 
-            <Button
-                x:Name="getPlants"
+            <Frame
                 Grid.Row="5"
                 Grid.Column="0"
                 Margin="8"
-                Command="{Binding GetPlantsCommand}"
-                IsEnabled="{Binding IsNotBusy}"
-                Text="Get Plants" />
+                BackgroundColor="Black"
+                HeightRequest="60"
+                WidthRequest="60">
+                <ImageButton
+                    x:Name="getPlants"
+                    Command="{Binding GetPlantsCommand}"
+                    HeightRequest="40"
+                    IsEnabled="{Binding IsNotBusy}"
+                    Source="reload_icon.png"
+                    WidthRequest="40" />
+            </Frame>
             <Button
-                x:Name="selectAll"
+                x:Name="selectNone"
                 Grid.Row="5"
                 Grid.Column="1"
                 Margin="8"
                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=AllPlantSelectionCommand}"
+                HeightRequest="60"
                 IsEnabled="{Binding IsNotBusy}"
-                Text="Select All" />
+                Text="Unselect All"
+                WidthRequest="150" />
+            <Button
+                x:Name="selectAll"
+                Grid.Row="5"
+                Grid.Column="2"
+                Margin="8"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=AllPlantSelectionCommand}"
+                HeightRequest="60"
+                IsEnabled="{Binding IsNotBusy}"
+                Text="Select All"
+                WidthRequest="150" />
 
 
             <ActivityIndicator
                 Grid.RowSpan="2"
-                Grid.ColumnSpan="2"
+                Grid.ColumnSpan="3"
                 HorizontalOptions="FillAndExpand"
                 IsRunning="{Binding IsBusy}"
                 IsVisible="{Binding IsBusy}"
