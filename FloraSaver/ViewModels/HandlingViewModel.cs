@@ -33,5 +33,34 @@ namespace FloraSaver.ViewModels
                 PlantSelection(plant);
             }
         }
+
+        [RelayCommand]
+        async Task CheckAllSelectedWaterAsync()
+        {
+            var changingPlants = Plants.ToList();
+            foreach (var plant in changingPlants.Where(_ => _.IsEnabled && _.UseWatering)) {
+                await ResetWateringAsync(plant);
+            }
+        }
+
+        [RelayCommand]
+        async Task CheckAllSelectedMistAsync()
+        {
+            var changingPlants = Plants.ToList();
+            foreach (var plant in changingPlants.Where(_ => _.IsEnabled && _.UseMisting))
+            {
+                await ResetMistingAsync(plant);
+            }
+        }
+
+        [RelayCommand]
+        async Task CheckAllSelectedMoveAsync()
+        {
+            var changingPlants = Plants.ToList();
+            foreach (var plant in changingPlants.Where(_ => _.IsEnabled && _.UseMoving))
+            {
+                await ResetMovingAsync(plant);
+            }
+        }
     }
 }

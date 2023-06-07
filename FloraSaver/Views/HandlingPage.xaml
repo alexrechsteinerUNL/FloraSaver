@@ -136,6 +136,7 @@
                         Grid.Column="0"
                         Aspect="AspectFill"
                         BackgroundColor="Black"
+                        Command="{Binding CheckAllSelectedWaterCommand}"
                         HeightRequest="105"
                         Source="water_timer_visual.png"
                         WidthRequest="105" />
@@ -143,6 +144,7 @@
                         Grid.Column="1"
                         Aspect="AspectFill"
                         BackgroundColor="Black"
+                        Command="{Binding CheckAllSelectedMistCommand}"
                         HeightRequest="105"
                         Source="refresh_timer_visual.png"
                         WidthRequest="105" />
@@ -150,6 +152,7 @@
                         Grid.Column="2"
                         Aspect="AspectFill"
                         BackgroundColor="Black"
+                        Command="{Binding CheckAllSelectedMoveCommand}"
                         HeightRequest="105"
                         Source="sun_timer_visual.png"
                         WidthRequest="105" />
@@ -179,7 +182,7 @@
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:Name="singlePlant" x:DataType="model:Plant">
-                                <Button
+                                <!--<Button
                                     Padding="5"
                                     BackgroundColor="{Binding SelectedColor}"
                                     BorderColor="{Binding GroupColor}"
@@ -189,7 +192,41 @@
                                     HeightRequest="40"
                                     Text="{Binding GivenName}"
                                     TextColor="{Binding SelectedTextColor}"
-                                    WidthRequest="150" />
+                                    WidthRequest="150" />-->
+                                <Frame
+                                    Padding="10"
+                                    BackgroundColor="{Binding SelectedColor}"
+                                    BorderColor="{Binding GroupColor}"
+                                    HeightRequest="90"
+                                    WidthRequest="150">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=PlantSelectionCommand}" CommandParameter="{Binding .}" />
+                                    </Frame.GestureRecognizers>
+                                    <VerticalStackLayout>
+                                        <Label
+                                            HorizontalTextAlignment="Center"
+                                            Text="{Binding GivenName}"
+                                            TextColor="{Binding SelectedTextColor}" />
+                                        <ProgressBar
+                                            Grid.Row="0"
+                                            IsVisible="{Binding UseWatering}"
+                                            Progress="{Binding WaterPercent}"
+                                            ScaleY="2" />
+                                        <ProgressBar
+                                            x:Name="MistProgress"
+                                            Grid.Row="0"
+                                            IsVisible="{Binding UseMisting}"
+                                            Progress="{Binding MistPercent}"
+                                            ProgressColor="LightBlue"
+                                            ScaleY="2" />
+                                        <ProgressBar
+                                            Grid.Row="0"
+                                            IsVisible="{Binding UseMoving}"
+                                            Progress="{Binding SunPercent}"
+                                            ProgressColor="OrangeRed"
+                                            ScaleY="2" />
+                                    </VerticalStackLayout>
+                                </Frame>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>

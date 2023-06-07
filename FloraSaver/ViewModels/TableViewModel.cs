@@ -107,7 +107,7 @@ namespace FloraSaver.ViewModels
 
 
         [RelayCommand]
-        async Task ResetWateringAsync(Plant plant)
+        protected async Task ResetWateringAsync(Plant plant)
         {
             if (plant.UseWatering)
             {
@@ -130,7 +130,7 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        async Task ResetMistingAsync(Plant plant)
+        protected async Task ResetMistingAsync(Plant plant)
         {
             if (plant.UseMisting)
             {
@@ -155,7 +155,7 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        async Task ResetMovingAsync(Plant plant)
+        protected async Task ResetMovingAsync(Plant plant)
         {
             if (plant.UseMoving)
             {

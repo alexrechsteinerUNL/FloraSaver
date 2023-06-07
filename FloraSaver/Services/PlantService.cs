@@ -2,6 +2,7 @@
 using FloraSaver.Models;
 
 using Plugin.LocalNotification;
+using System.Numerics;
 
 
 namespace FloraSaver.Services
@@ -77,8 +78,10 @@ namespace FloraSaver.Services
             int result = 0;
             try
             {
+                await DeleteAllPlantGroupsAsync();
                 // TODO: Call Init()
                 await InitAsync();
+                
                 result = await conn.DeleteAllAsync<Plant>();
 
                 // TODO: Insert the new person into the database
@@ -100,7 +103,13 @@ namespace FloraSaver.Services
                 // TODO: Call Init()
                 await InitAsync();
                 result = await conn.DeleteAllAsync<PlantGroup>();
-
+                var plants = await GetAllPlantAsync();
+                foreach (var plant in plants.Where(_ => _.PlantGroupName != "Ungrouped"))
+                {
+                    plant.PlantGroupName = "Ungrouped";
+                    plant.GroupColorHexString = "#A9A9A9";
+                    await AddUpdateNewPlantAsync(plant);
+                }
                 // TODO: Insert the new person into the database
 
 
@@ -171,8 +180,16 @@ namespace FloraSaver.Services
 
                 // TODO: Insert the new person into the database
                 result = await conn.DeleteAsync(plantGroup);
-
+                
+                var plants = await GetAllPlantAsync();
+                foreach (var plant in plants.Where(_ => _.PlantGroupName == plantGroup.GroupName))
+                {
+                    plant.PlantGroupName = "Ungrouped";
+                    plant.GroupColorHexString = "#A9A9A9";
+                    await AddUpdateNewPlantAsync(plant);
+                }
                 StatusMessage = string.Format("{0} group(s) deleted (Name: {1})", result, plantGroup.GroupName);
+
             }
             catch (Exception ex)
             {
