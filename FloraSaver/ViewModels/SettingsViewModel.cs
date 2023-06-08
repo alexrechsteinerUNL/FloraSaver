@@ -7,9 +7,9 @@ namespace FloraSaver.ViewModels
 {
     public partial class SettingsViewModel : BaseViewModel
     {
-        public SettingsViewModel(PlantService plantService)
+        public SettingsViewModel(IDatabaseService databaseService)
         {
-            this.plantService = plantService;
+            _databaseService = databaseService;
             DateTime morningDate = DateTime.FromBinary(Preferences.Default.Get("morning_time_date", new DateTime(1,1,1,8,0,0).ToBinary()));
             morningTime = morningDate.TimeOfDay;
             var middayDate = DateTime.FromBinary(Preferences.Default.Get("midday_time_date", new DateTime(1, 1, 1, 12, 0, 0).ToBinary()));
@@ -59,7 +59,7 @@ namespace FloraSaver.ViewModels
                 bool reallyDelete = await Application.Current.MainPage.DisplayAlert("OH HOLD ON!", "Are you sure you want to delete all of your plant groups?", "Delete Them", "Please Don't");
                 if (reallyDelete)
                 {
-                    await plantService.DeleteAllPlantGroupsAsync();
+                    await _databaseService.DeleteAllPlantGroupsAsync();
                 }
 
             }
@@ -87,7 +87,7 @@ namespace FloraSaver.ViewModels
                 bool reallyDelete = await Application.Current.MainPage.DisplayAlert("OH HOLD ON!", "Are you sure you want to delete all of your plants?", "Delete Them", "Please Don't");
                 if (reallyDelete)
                 {
-                    await plantService.DeleteAllAsync();
+                    await _databaseService.DeleteAllAsync();
                 }
                 
             }

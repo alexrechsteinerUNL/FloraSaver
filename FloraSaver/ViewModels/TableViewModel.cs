@@ -17,11 +17,11 @@ namespace FloraSaver.ViewModels
         public ObservableCollection<Plant> Plants { get; set; } = new();
         public ObservableCollection<PlantGroup> PlantGroups { get; set; } = new();
 
-        // I moved the plantService to the base viewmodel because just about every page was going to use it.
-        public TableViewModel(PlantService plantService)
+        // I moved the _databaseService to the base viewmodel because just about every page was going to use it.
+        public TableViewModel(IDatabaseService databaseService)
         {
             Title = "Plant Saver";
-            this.plantService = plantService;
+            _databaseService = databaseService;
             IsPlantTypeIncluded = true;
             WaterRectangle = new Rect(0,20,105,105);
         }
@@ -122,8 +122,8 @@ namespace FloraSaver.ViewModels
 
                 plant.DateOfLastWatering = DateTime.Now;
                 plant.TimeOfLastWatering = DateTime.Now.TimeOfDay;
-                plantService.PlantNotificationEnder(plant, "water");
-                await plantService.AddUpdateNewPlantAsync(plant);
+                _databaseService.PlantNotificationEnder(plant, "water");
+                await _databaseService.AddUpdateNewPlantAsync(plant);
                 OnPropertyChanged("Plant");
                 await GetPlantsAsync();
             }
@@ -147,8 +147,8 @@ namespace FloraSaver.ViewModels
                 plant.DateOfLastMisting = DateTime.Now;
                 plant.TimeOfLastMisting = DateTime.Now.TimeOfDay;
 
-                plantService.PlantNotificationEnder(plant, "mist");
-                await plantService.AddUpdateNewPlantAsync(plant);
+                _databaseService.PlantNotificationEnder(plant, "mist");
+                await _databaseService.AddUpdateNewPlantAsync(plant);
                 OnPropertyChanged("Plant");
                 await GetPlantsAsync();
             }
@@ -171,8 +171,8 @@ namespace FloraSaver.ViewModels
 
                 plant.DateOfLastMove = DateTime.Now;
                 plant.TimeOfLastMove = DateTime.Now.TimeOfDay;
-                plantService.PlantNotificationEnder(plant, "move");
-                await plantService.AddUpdateNewPlantAsync(plant);
+                _databaseService.PlantNotificationEnder(plant, "move");
+                await _databaseService.AddUpdateNewPlantAsync(plant);
                 OnPropertyChanged("Plant");
                 await GetPlantsAsync();
             }
@@ -228,12 +228,12 @@ namespace FloraSaver.ViewModels
             try
             {
                 IsBusy = true;
-                var plants = await plantService.GetAllPlantAsync();
+                var plants = await _databaseService.GetAllPlantAsync();
 
                 // checking if there are really 0 plants or if an issue occured.
                 if (plants.Count == 0)
                 {
-                    plants = await plantService.GetAllPlantAsync();
+                    plants = await _databaseService.GetAllPlantAsync();
                     for (var i = 0; i < 2; i++)
                     {
                         if (plants.Count != 0)
@@ -281,12 +281,12 @@ namespace FloraSaver.ViewModels
             try
             {
                 IsBusy = true;
-                var plantGroups = await plantService.GetAllPlantGroupAsync();
+                var plantGroups = await _databaseService.GetAllPlantGroupAsync();
 
                 // checking if there are really 0 plantGroups or if an issue occured.
                 if (plantGroups.Count == 0)
                 {
-                    plantGroups = await plantService.GetAllPlantGroupAsync();
+                    plantGroups = await _databaseService.GetAllPlantGroupAsync();
                     for (var i = 0; i < 2; i++)
                     {
                         if (plantGroups.Count != 0)
@@ -366,7 +366,7 @@ namespace FloraSaver.ViewModels
                         DateOfNextMove = DateTime.Now
                         }
                     },
-                    {"PlantGroup", await plantService.GetAllPlantGroupAsync() }
+                    {"PlantGroup", await _databaseService.GetAllPlantGroupAsync() }
                 });
             }
             else
@@ -375,7 +375,7 @@ namespace FloraSaver.ViewModels
                 await Shell.Current.GoToAsync(nameof(PlantDetailsPage), true, new Dictionary<string, object>
                 {
                     {"Plant", plant },
-                    {"PlantGroup", await plantService.GetAllPlantGroupAsync() }
+                    {"PlantGroup", await _databaseService.GetAllPlantGroupAsync() }
                 });
             }
             return;

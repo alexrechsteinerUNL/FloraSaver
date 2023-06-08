@@ -16,7 +16,7 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         string title;
 
-        public PlantService plantService;
+        public IDatabaseService _databaseService;
 
         // I think the code below is equivalent to
         // [ObservableProperty]
@@ -38,7 +38,7 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         public async Task UpdateNotifications(List<Plant> Plants)
         {
-            await plantService.GetAllPlantAsync();
+            await _databaseService.GetAllPlantAsync();
         }
 
 

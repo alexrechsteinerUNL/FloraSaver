@@ -18,7 +18,7 @@ namespace FloraSaver.ViewModels
     [QueryProperty(nameof(PlantGroup), "PlantGroup")]
     public partial class PlantDetailsViewModel : BaseViewModel, IQueryAttributable, INotifyPropertyChanged
     {
-        // I moved the plantService to the base viewmodel because just about every page was going to use it.
+        // I moved the _databaseService to the base viewmodel because just about every page was going to use it.
         NotificationService notificationService;
 
         [ObservableProperty]
@@ -31,9 +31,9 @@ namespace FloraSaver.ViewModels
 
         public ObservableCollection<PlantGroup> PlantGroups { get; set; } = new();
 
-        public PlantDetailsViewModel(PlantService _PlantService, NotificationService _NotificationService)
+        public PlantDetailsViewModel(IDatabaseService databaseService, NotificationService _NotificationService)
         {
-            plantService = _PlantService;
+            _databaseService = databaseService;
             notificationService = _NotificationService;
             wateringInterval = PickerService.GetWaterIntervals();
             mistingInterval = PickerService.GetWaterIntervals();
@@ -299,7 +299,7 @@ namespace FloraSaver.ViewModels
                 //plant = SetPlantValues(plant);
 
                 IsBusy = true;
-                await plantService.AddUpdateNewPlantGroupAsync(plantGroup);
+                await _databaseService.AddUpdateNewPlantGroupAsync(plantGroup);
                 result = true;
             }
             catch (Exception ex)
@@ -311,7 +311,7 @@ namespace FloraSaver.ViewModels
             finally
             {
                 IsBusy = false;
-                FriendlyLabel = plantService.StatusMessage;
+                FriendlyLabel = _databaseService.StatusMessage;
                 
             }
             return result;
@@ -328,7 +328,7 @@ namespace FloraSaver.ViewModels
                 //plant = SetPlantValues(plant);
 
                 IsBusy = true;
-                await plantService.AddUpdateNewPlantAsync(plant);
+                await _databaseService.AddUpdateNewPlantAsync(plant);
             }
             catch (Exception ex)
             {
@@ -338,7 +338,7 @@ namespace FloraSaver.ViewModels
             finally
             {
                 IsBusy = false;
-                FriendlyLabel = plantService.StatusMessage;
+                FriendlyLabel = _databaseService.StatusMessage;
             }
         }
 
@@ -351,7 +351,7 @@ namespace FloraSaver.ViewModels
             try
             {
                 IsBusy = true;
-                await plantService.DeletePlantAsync(plant);
+                await _databaseService.DeletePlantAsync(plant);
             }
             catch (Exception ex)
             {

@@ -7,7 +7,7 @@ using System.Numerics;
 
 namespace FloraSaver.Services
 {
-    public class PlantService : IPlantService
+    public class DatabaseService : IDatabaseService
     {
         string _dbPath;
 
@@ -26,7 +26,7 @@ namespace FloraSaver.Services
             await conn.CreateTableAsync<PlantGroup>();
         }
 
-        public PlantService(string dbPath)
+        public DatabaseService(string dbPath)
         {
             _dbPath = dbPath;
         }
@@ -81,7 +81,7 @@ namespace FloraSaver.Services
                 await DeleteAllPlantGroupsAsync();
                 // TODO: Call Init()
                 await InitAsync();
-                
+
                 result = await conn.DeleteAllAsync<Plant>();
 
                 // TODO: Insert the new person into the database
@@ -180,7 +180,7 @@ namespace FloraSaver.Services
 
                 // TODO: Insert the new person into the database
                 result = await conn.DeleteAsync(plantGroup);
-                
+
                 var plants = await GetAllPlantAsync();
                 foreach (var plant in plants.Where(_ => _.PlantGroupName == plantGroup.GroupName))
                 {
@@ -268,7 +268,7 @@ namespace FloraSaver.Services
                     plant.IsOverdueWater = true;
                     //this is gross. Fix it!
                     await WarnOverdueAsync(plant, "move", plants
-                        .FirstOrDefault(plant => plantDateWithExtraTime > DateTime.Now) ?
+                        .FirstOrDefault(plant => plantDateWithExtraTime > DateTime.Now)?
                         .DateOfNextMove.AddDays(plant.ExtraMoveTime) ?? DateTime.Now);
                 }
             }
@@ -279,7 +279,7 @@ namespace FloraSaver.Services
             var notification = new NotificationRequest
             {
                 NotificationId = GenerateNotificationId(plant, plantAction),
-                Title = $"Overdue {(plantAction.EndsWith("e") ? plantAction.Remove(plantAction.Length -1, 1) : plantAction)}ing on your '{plant.PlantSpecies}', {plant.GivenName}",
+                Title = $"Overdue {(plantAction.EndsWith("e") ? plantAction.Remove(plantAction.Length - 1, 1) : plantAction)}ing on your '{plant.PlantSpecies}', {plant.GivenName}",
                 Description = $"You really should {plantAction} this guy",
                 ReturningData = "Dummy data", // Returning data when tapped on notification.
                 Schedule =
