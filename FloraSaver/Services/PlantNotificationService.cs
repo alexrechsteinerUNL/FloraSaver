@@ -4,8 +4,14 @@ using Plugin.LocalNotification;
 
 namespace FloraSaver.Services
 {
-    public class NotificationService : INotificationService
+    public class PlantNotificationService : IPlantNotificationService
     {
+        public void PlantNotificationEnder(Plant plant, string plantAction)
+        {
+            var notificationId = GenerateNotificationId(plant, plantAction);
+            LocalNotificationCenter.Current.Cancel(notificationId);
+        }
+
         public async Task SetAllNotificationsAsync(List<Plant> plants)
         {
             foreach (var plant in plants.Where(_ => _.DateOfNextWatering != _.DateOfLastWatering && _.UseWatering))
@@ -95,12 +101,6 @@ namespace FloraSaver.Services
             };
             await LocalNotificationCenter.Current.Show(notification);
         }
-        public void PlantNotificationEnder(Plant plant, string plantAction)
-        {
-            var notificationId = GenerateNotificationId(plant, plantAction);
-            LocalNotificationCenter.Current.Cancel(notificationId);
-        }
-
 
         private int GenerateNotificationId(Plant plant, string plantAction)
         {

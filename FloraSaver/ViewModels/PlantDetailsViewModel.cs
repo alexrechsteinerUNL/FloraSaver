@@ -19,7 +19,7 @@ namespace FloraSaver.ViewModels
     public partial class PlantDetailsViewModel : BaseViewModel, IQueryAttributable, INotifyPropertyChanged
     {
         // I moved the _databaseService to the base viewmodel because just about every page was going to use it.
-        NotificationService notificationService;
+        
 
         [ObservableProperty]
         public Plant initialPlant;
@@ -31,10 +31,9 @@ namespace FloraSaver.ViewModels
 
         public ObservableCollection<PlantGroup> PlantGroups { get; set; } = new();
 
-        public PlantDetailsViewModel(IDatabaseService databaseService, NotificationService _NotificationService)
+        public PlantDetailsViewModel(IDatabaseService databaseService)
         {
             _databaseService = databaseService;
-            notificationService = _NotificationService;
             wateringInterval = PickerService.GetWaterIntervals();
             mistingInterval = PickerService.GetWaterIntervals();
             sunInterval = PickerService.GetWaterIntervals();

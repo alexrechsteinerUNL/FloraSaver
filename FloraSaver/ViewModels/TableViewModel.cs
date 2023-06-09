@@ -13,14 +13,16 @@ namespace FloraSaver.ViewModels
     public partial class TableViewModel : BaseViewModel, INotifyPropertyChanged
     {
         private readonly int percentageButtonSize = 105;
+        protected readonly IPlantNotificationService _plantNotificationService;
         public ObservableCollection<Plant> DataPlants { get; set; } = new();
         public ObservableCollection<Plant> Plants { get; set; } = new();
         public ObservableCollection<PlantGroup> PlantGroups { get; set; } = new();
 
         // I moved the _databaseService to the base viewmodel because just about every page was going to use it.
-        public TableViewModel(IDatabaseService databaseService)
+        public TableViewModel(IDatabaseService databaseService, IPlantNotificationService plantNotificationService)
         {
             Title = "Plant Saver";
+            _plantNotificationService = plantNotificationService;
             _databaseService = databaseService;
             IsPlantTypeIncluded = true;
             WaterRectangle = new Rect(0,20,105,105);
@@ -122,7 +124,7 @@ namespace FloraSaver.ViewModels
 
                 plant.DateOfLastWatering = DateTime.Now;
                 plant.TimeOfLastWatering = DateTime.Now.TimeOfDay;
-                _databaseService.PlantNotificationEnder(plant, "water");
+                _plantNotificationService.PlantNotificationEnder(plant, "water");
                 await _databaseService.AddUpdateNewPlantAsync(plant);
                 OnPropertyChanged("Plant");
                 await GetPlantsAsync();
@@ -147,7 +149,7 @@ namespace FloraSaver.ViewModels
                 plant.DateOfLastMisting = DateTime.Now;
                 plant.TimeOfLastMisting = DateTime.Now.TimeOfDay;
 
-                _databaseService.PlantNotificationEnder(plant, "mist");
+                _plantNotificationService.PlantNotificationEnder(plant, "mist");
                 await _databaseService.AddUpdateNewPlantAsync(plant);
                 OnPropertyChanged("Plant");
                 await GetPlantsAsync();
@@ -171,7 +173,7 @@ namespace FloraSaver.ViewModels
 
                 plant.DateOfLastMove = DateTime.Now;
                 plant.TimeOfLastMove = DateTime.Now.TimeOfDay;
-                _databaseService.PlantNotificationEnder(plant, "move");
+                _plantNotificationService.PlantNotificationEnder(plant, "move");
                 await _databaseService.AddUpdateNewPlantAsync(plant);
                 OnPropertyChanged("Plant");
                 await GetPlantsAsync();

@@ -14,7 +14,5 @@ namespace FloraSaver.Services
         Task DeletePlantGroupAsync(PlantGroup plantGroup);
         Task<List<Plant>> GetAllPlantAsync();
         Task<List<PlantGroup>> GetAllPlantGroupAsync();
-        void PlantNotificationEnder(Plant plant, string plantAction);
-        Task SetAllNotificationsAsync(List<Plant> plants);
     }
 }

@@ -28,8 +28,8 @@
                 <RowDefinition Height="60" />
                 <RowDefinition Height="50" />
                 <RowDefinition Height="60" />
-                <RowDefinition Height="125" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="125" />
                 <RowDefinition Height="70" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Grid.ColumnSpan="3">
@@ -120,46 +120,8 @@
 
                 </Frame>
             </Grid>
-
             <Frame
                 Grid.Row="3"
-                Grid.ColumnSpan="3"
-                Padding="10"
-                BackgroundColor="Black">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <ImageButton
-                        Grid.Column="0"
-                        Aspect="AspectFill"
-                        BackgroundColor="Black"
-                        Command="{Binding CheckAllSelectedWaterCommand}"
-                        HeightRequest="105"
-                        Source="water_timer_visual.png"
-                        WidthRequest="105" />
-                    <ImageButton
-                        Grid.Column="1"
-                        Aspect="AspectFill"
-                        BackgroundColor="Black"
-                        Command="{Binding CheckAllSelectedMistCommand}"
-                        HeightRequest="105"
-                        Source="refresh_timer_visual.png"
-                        WidthRequest="105" />
-                    <ImageButton
-                        Grid.Column="2"
-                        Aspect="AspectFill"
-                        BackgroundColor="Black"
-                        Command="{Binding CheckAllSelectedMoveCommand}"
-                        HeightRequest="105"
-                        Source="sun_timer_visual.png"
-                        WidthRequest="105" />
-                </Grid>
-            </Frame>
-            <Frame
-                Grid.Row="4"
                 Grid.ColumnSpan="3"
                 BackgroundColor="Black">
                 <RefreshView
@@ -197,7 +159,7 @@
                                     Padding="10"
                                     BackgroundColor="{Binding SelectedColor}"
                                     BorderColor="{Binding GroupColor}"
-                                    HeightRequest="90"
+                                    HeightRequest="110"
                                     WidthRequest="150">
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=PlantSelectionCommand}" CommandParameter="{Binding .}" />
@@ -207,24 +169,29 @@
                                             HorizontalTextAlignment="Center"
                                             Text="{Binding GivenName}"
                                             TextColor="{Binding SelectedTextColor}" />
-                                        <ProgressBar
-                                            Grid.Row="0"
-                                            IsVisible="{Binding UseWatering}"
-                                            Progress="{Binding WaterPercent}"
-                                            ScaleY="2" />
-                                        <ProgressBar
-                                            x:Name="MistProgress"
-                                            Grid.Row="0"
-                                            IsVisible="{Binding UseMisting}"
-                                            Progress="{Binding MistPercent}"
-                                            ProgressColor="LightBlue"
-                                            ScaleY="2" />
-                                        <ProgressBar
-                                            Grid.Row="0"
-                                            IsVisible="{Binding UseMoving}"
-                                            Progress="{Binding SunPercent}"
-                                            ProgressColor="OrangeRed"
-                                            ScaleY="2" />
+                                        <Frame Padding="5" BackgroundColor="Black">
+                                            <VerticalStackLayout Padding="2">
+                                                <ProgressBar
+                                                    Grid.Row="0"
+                                                    IsVisible="{Binding UseWatering}"
+                                                    Progress="{Binding WaterPercent}"
+                                                    ScaleY="2" />
+                                                <ProgressBar
+                                                    x:Name="MistProgress"
+                                                    Grid.Row="0"
+                                                    IsVisible="{Binding UseMisting}"
+                                                    Progress="{Binding MistPercent}"
+                                                    ProgressColor="LightBlue"
+                                                    ScaleY="2" />
+                                                <ProgressBar
+                                                    Grid.Row="0"
+                                                    IsVisible="{Binding UseMoving}"
+                                                    Progress="{Binding SunPercent}"
+                                                    ProgressColor="Orange"
+                                                    ScaleY="2" />
+                                            </VerticalStackLayout>
+                                        </Frame>
+
                                     </VerticalStackLayout>
                                 </Frame>
                             </DataTemplate>
@@ -232,7 +199,43 @@
                     </CollectionView>
                 </RefreshView>
             </Frame>
-
+            <Frame
+                Grid.Row="4"
+                Grid.ColumnSpan="3"
+                Padding="10"
+                BackgroundColor="Black">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <ImageButton
+                        Grid.Column="0"
+                        Aspect="AspectFill"
+                        BackgroundColor="Black"
+                        Command="{Binding CheckAllSelectedWaterCommand}"
+                        HeightRequest="105"
+                        Source="water_timer_visual.png"
+                        WidthRequest="105" />
+                    <ImageButton
+                        Grid.Column="1"
+                        Aspect="AspectFill"
+                        BackgroundColor="Black"
+                        Command="{Binding CheckAllSelectedMistCommand}"
+                        HeightRequest="105"
+                        Source="refresh_timer_visual.png"
+                        WidthRequest="105" />
+                    <ImageButton
+                        Grid.Column="2"
+                        Aspect="AspectFill"
+                        BackgroundColor="Black"
+                        Command="{Binding CheckAllSelectedMoveCommand}"
+                        HeightRequest="105"
+                        Source="sun_timer_visual.png"
+                        WidthRequest="105" />
+                </Grid>
+            </Frame>
             <Frame
                 Grid.Row="5"
                 Grid.Column="0"
@@ -243,10 +246,10 @@
                 <ImageButton
                     x:Name="getPlants"
                     Command="{Binding GetPlantsCommand}"
-                    HeightRequest="40"
+                    HeightRequest="36"
                     IsEnabled="{Binding IsNotBusy}"
                     Source="reload_icon.png"
-                    WidthRequest="40" />
+                    WidthRequest="36" />
             </Frame>
             <Button
                 x:Name="selectNone"
@@ -271,12 +274,13 @@
 
 
             <ActivityIndicator
-                Grid.RowSpan="2"
+                Grid.RowSpan="6"
                 Grid.ColumnSpan="3"
                 HorizontalOptions="FillAndExpand"
                 IsRunning="{Binding IsBusy}"
                 IsVisible="{Binding IsBusy}"
-                VerticalOptions="CenterAndExpand" />
+                VerticalOptions="CenterAndExpand"
+                Color="#e1ad01" />
         </Grid>
     </Grid>
 </ContentPage>

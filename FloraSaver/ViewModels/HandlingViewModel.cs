@@ -12,9 +12,11 @@ namespace FloraSaver.ViewModels
 {
     public partial class HandlingViewModel : TableViewModel, INotifyPropertyChanged
     {
-        public HandlingViewModel(IDatabaseService databaseService) : base (databaseService)
+
+        public HandlingViewModel(IDatabaseService databaseService, IPlantNotificationService plantNotificationService) : base (databaseService, plantNotificationService)
         {
             databaseService = _databaseService;
+            plantNotificationService = _plantNotificationService;
         }
 
         [RelayCommand]
