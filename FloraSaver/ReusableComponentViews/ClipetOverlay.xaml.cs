@@ -32,10 +32,12 @@ public partial class ClipetOverlay : ContentPage
 
         control.speechSpace.IsVisible = (bool)newValue;
     });
-
+    public ClipetOverlayViewModel ClipetViewModel { get; private set; }
     public ClipetOverlay()
     {
         InitializeComponent();
+        ClipetViewModel = new ClipetOverlayViewModel();
+
     }
 
     public bool? isClipetEnabled 

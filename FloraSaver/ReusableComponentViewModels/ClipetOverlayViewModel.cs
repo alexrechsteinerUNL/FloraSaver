@@ -7,10 +7,7 @@ namespace FloraSaver.ViewModels
     {
         public ClipetOverlayViewModel() 
         {
-            IsClipetEnabled = false;
-        }
 
-        [ObservableProperty]
-        bool isClipetEnabled;
+        }
     }
 }

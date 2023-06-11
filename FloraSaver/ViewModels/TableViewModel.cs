@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FloraSaver.Models;
 using FloraSaver.Services;
+using FloraSaver.Utilities;
 
 namespace FloraSaver.ViewModels
 {
@@ -224,6 +225,9 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         async Task GetPlantsAsync()
         {
+
+            var bloop = new FormatDialogFromResource();
+            var zoom = bloop.SortTextBoxes("[emote.png]this is my first page. #$ It had an emotion on it {img.png}.#$ [ve.png]{good.png}This page has an image and an emotion #$");
             if (IsBusy)
                 return;
 
