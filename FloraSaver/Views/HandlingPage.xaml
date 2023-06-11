@@ -18,46 +18,47 @@
         <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
         <toolkit:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
-    <Grid>
-        <Image Aspect="Fill" Source="plantpagebackgroundfirstpass.png" />
+    <Grid Padding="0" RowDefinitions="60, 695">
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+            </Grid.ColumnDefinitions>
+            <Rectangle Grid.Column="0" Background="Black" />
+            <Entry
+                x:Name="searchBar"
+                Grid.Column="1"
+                Completed="Entry_Completed"
+                FontSize="25"
+                HorizontalTextAlignment="Start"
+                Placeholder="Search Plants..."
+                VerticalTextAlignment="Center">
+                <Entry.Behaviors>
+                    <toolkit:EventToCommandBehavior
+                        Command="{Binding SearchPlantsCommand}"
+                        CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
+                        EventName="TextChanged" />
+                </Entry.Behaviors>
+            </Entry>
+            <Rectangle Grid.Column="2" Background="Black" />
+        </Grid>
+        <Image Grid.Row="1" Source="plantpagebackgroundfirstpass.png" />
         <Grid
-            ColumnDefinitions="70,*,*"
-            ColumnSpacing="5"
+            Grid.Row="1"
+            Padding="2"
+            ColumnDefinitions="70,160,160"
             RowSpacing="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="60" />
-                <RowDefinition Height="50" />
                 <RowDefinition Height="60" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="125" />
+                <RowDefinition Height="130" />
                 <RowDefinition Height="70" />
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Grid.ColumnSpan="3">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="10" />
-                </Grid.ColumnDefinitions>
-                <Rectangle Grid.Column="0" Background="Black" />
-                <Entry
-                    x:Name="searchBar"
-                    Grid.Column="1"
-                    Completed="Entry_Completed"
-                    FontSize="25"
-                    HorizontalTextAlignment="Start"
-                    Placeholder="Search Plants..."
-                    VerticalTextAlignment="Center">
-                    <Entry.Behaviors>
-                        <toolkit:EventToCommandBehavior
-                            Command="{Binding SearchPlantsCommand}"
-                            CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
-                            EventName="TextChanged" />
-                    </Entry.Behaviors>
-                </Entry>
-                <Rectangle Grid.Column="2" Background="Black" />
-            </Grid>
 
-            <Grid Grid.Row="2" Grid.ColumnSpan="3">
+
+            <Grid Grid.Row="0" Grid.ColumnSpan="3">
                 <Frame Padding="5" BackgroundColor="Black">
                     <Grid ColumnSpacing="5">
                         <Grid.ColumnDefinitions>
@@ -93,6 +94,7 @@
                     </Grid>
                 </Frame>
             </Grid>
+
             <Grid Grid.Row="1" Grid.ColumnSpan="3">
                 <Frame Padding="5" BackgroundColor="Black">
                     <CollectionView
@@ -115,15 +117,14 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
-
-
-
                 </Frame>
             </Grid>
+
             <Frame
-                Grid.Row="3"
+                Grid.Row="2"
                 Grid.ColumnSpan="3"
-                BackgroundColor="Black">
+                BackgroundColor="Black"
+                WidthRequest="380">
                 <RefreshView
                     Grid.Row="4"
                     Grid.ColumnSpan="3"
@@ -165,31 +166,73 @@
                                         <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=PlantSelectionCommand}" CommandParameter="{Binding .}" />
                                     </Frame.GestureRecognizers>
                                     <VerticalStackLayout>
-                                        <Label
-                                            HorizontalTextAlignment="Center"
-                                            Text="{Binding GivenName}"
-                                            TextColor="{Binding SelectedTextColor}" />
-                                        <Frame Padding="5" BackgroundColor="Black">
-                                            <VerticalStackLayout Padding="2">
+                                        <Grid ColumnDefinitions="*, 10">
+                                            <Label
+                                                Grid.Column="0"
+                                                HorizontalTextAlignment="Center"
+                                                Text="{Binding GivenName}"
+                                                TextColor="{Binding SelectedTextColor}" />
+                                            <Polygon
+                                                Grid.Column="1"
+                                                HorizontalOptions="Center"
+                                                Points="0,5 10,5 10,20 0,5"
+                                                Stroke="{Binding GroupColor}"
+                                                StrokeThickness="2"
+                                                VerticalOptions="Center">
+                                                <Polygon.Fill>
+                                                    <SolidColorBrush Color="{Binding GroupColor}" />
+                                                </Polygon.Fill>
+                                            </Polygon>
+                                        </Grid>
+
+                                        <Frame
+                                            Padding="5"
+                                            BackgroundColor="Black"
+                                            HeightRequest="60">
+                                            <Frame.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=PlantSelectionCommand}" CommandParameter="{Binding .}" />
+                                            </Frame.GestureRecognizers>
+                                            <Grid ColumnDefinitions="*, 30" RowDefinitions="15,15,15">
                                                 <ProgressBar
                                                     Grid.Row="0"
+                                                    Grid.Column="0"
                                                     IsVisible="{Binding UseWatering}"
                                                     Progress="{Binding WaterPercent}"
                                                     ScaleY="2" />
-                                                <ProgressBar
-                                                    x:Name="MistProgress"
+                                                <Label
                                                     Grid.Row="0"
+                                                    Grid.Column="1"
+                                                    FontSize="14"
+                                                    IsVisible="{Binding UseWatering}"
+                                                    Text="{Binding WaterPercent, StringFormat='{0:P0}'}" />
+                                                <ProgressBar
+                                                    Grid.Row="1"
+                                                    Grid.Column="0"
                                                     IsVisible="{Binding UseMisting}"
                                                     Progress="{Binding MistPercent}"
                                                     ProgressColor="LightBlue"
                                                     ScaleY="2" />
+                                                <Label
+                                                    Grid.Row="1"
+                                                    Grid.Column="1"
+                                                    FontSize="14"
+                                                    IsVisible="{Binding UseMisting}"
+                                                    Text="{Binding MistPercent, StringFormat='{0:P0}'}" />
                                                 <ProgressBar
-                                                    Grid.Row="0"
+                                                    Grid.Row="2"
+                                                    Grid.Column="0"
                                                     IsVisible="{Binding UseMoving}"
                                                     Progress="{Binding SunPercent}"
                                                     ProgressColor="Orange"
                                                     ScaleY="2" />
-                                            </VerticalStackLayout>
+                                                <Label
+                                                    Grid.Row="2"
+                                                    Grid.Column="1"
+                                                    FontSize="14"
+                                                    IsVisible="{Binding UseMoving}"
+                                                    Text="{Binding SunPercent, StringFormat='{0:P0}'}" />
+                                            </Grid>
+
                                         </Frame>
 
                                     </VerticalStackLayout>
@@ -200,10 +243,11 @@
                 </RefreshView>
             </Frame>
             <Frame
-                Grid.Row="4"
+                Grid.Row="3"
                 Grid.ColumnSpan="3"
                 Padding="10"
-                BackgroundColor="Black">
+                BackgroundColor="Black"
+                WidthRequest="380">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -256,7 +300,7 @@
                 Grid.Row="5"
                 Grid.Column="1"
                 Margin="8"
-                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=AllPlantSelectionCommand}"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=AllPlantUnselectionCommand}"
                 HeightRequest="60"
                 IsEnabled="{Binding IsNotBusy}"
                 Text="Unselect All"

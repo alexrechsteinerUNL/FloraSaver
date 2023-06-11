@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converter="clr-namespace:FloraSaver.Converters"
+    xmlns:custom_components="clr-namespace:FloraSaver"
     xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
     xmlns:model="clr-namespace:FloraSaver.Models"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
@@ -18,45 +19,46 @@
         <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
         <toolkit:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
-    <Grid>
-        <Image Aspect="Fill" Source="plantpagebackgroundfirstpass.png" />
+    <Grid Padding="0" RowDefinitions="60, 695">
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+            </Grid.ColumnDefinitions>
+            <Rectangle Grid.Column="0" Background="Black" />
+            <Entry
+                x:Name="searchBar"
+                Grid.Column="1"
+                Completed="Entry_Completed"
+                FontSize="25"
+                HorizontalTextAlignment="Start"
+                Placeholder="Search Plants..."
+                VerticalTextAlignment="Center">
+                <Entry.Behaviors>
+                    <toolkit:EventToCommandBehavior
+                        Command="{Binding SearchPlantsCommand}"
+                        CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
+                        EventName="TextChanged" />
+                </Entry.Behaviors>
+            </Entry>
+            <Rectangle Grid.Column="2" Background="Black" />
+        </Grid>
+        <Image Grid.Row="1" Source="plantpagebackgroundfirstpass.png" />
         <Grid
-            ColumnDefinitions="70,*,*"
-            ColumnSpacing="5"
+            Grid.Row="1"
+            Padding="2"
+            ColumnDefinitions="70,160,160"
             RowSpacing="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="60" />
-                <RowDefinition Height="50" />
                 <RowDefinition Height="60" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="70" />
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Grid.ColumnSpan="3">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="10" />
-                </Grid.ColumnDefinitions>
-                <Rectangle Grid.Column="0" Background="Black" />
-                <Entry
-                    x:Name="searchBar"
-                    Grid.Column="1"
-                    Completed="Entry_Completed"
-                    FontSize="25"
-                    HorizontalTextAlignment="Start"
-                    Placeholder="Search Plants..."
-                    VerticalTextAlignment="Center">
-                    <Entry.Behaviors>
-                        <toolkit:EventToCommandBehavior
-                            Command="{Binding SearchPlantsCommand}"
-                            CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
-                            EventName="TextChanged" />
-                    </Entry.Behaviors>
-                </Entry>
-                <Rectangle Grid.Column="2" Background="Black" />
-            </Grid>
 
-            <Grid Grid.Row="2" Grid.ColumnSpan="3">
+
+            <Grid Grid.Row="0" Grid.ColumnSpan="3">
                 <Frame Padding="5" BackgroundColor="Black">
                     <Grid ColumnSpacing="5">
                         <Grid.ColumnDefinitions>
@@ -119,7 +121,7 @@
             </Grid>
 
             <RefreshView
-                Grid.Row="3"
+                Grid.Row="2"
                 Grid.ColumnSpan="3"
                 Command="{Binding GetPlantsCommand}"
                 IsRefreshing="{Binding IsRefreshing}">
@@ -568,7 +570,7 @@
                 </CollectionView>
             </RefreshView>
             <Frame
-                Grid.Row="4"
+                Grid.Row="3"
                 Grid.Column="0"
                 Margin="8"
                 BackgroundColor="Black"
@@ -604,9 +606,17 @@
                 Text="Add New Group"
                 WidthRequest="150" />
 
-
+            <custom_components:ClipetOverlay
+                x:Name="Clipet"
+                Grid.RowSpan="5"
+                Grid.ColumnSpan="3"
+                IsEnabled="{Binding IsBusy}"
+                isBlurEnabled="{Binding IsBusy}"
+                isClipetEnabled="False"
+                isDisplaySpaceEnabled="False"
+                isSpeechSpaceEnabled="False" />
             <ActivityIndicator
-                Grid.RowSpan="6"
+                Grid.RowSpan="5"
                 Grid.ColumnSpan="3"
                 HorizontalOptions="FillAndExpand"
                 IsRunning="{Binding IsBusy}"

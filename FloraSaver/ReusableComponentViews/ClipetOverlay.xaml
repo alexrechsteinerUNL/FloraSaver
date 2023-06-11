@@ -3,15 +3,56 @@
     x:Class="FloraSaver.ClipetOverlay"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
+    x:Name="overlay"
     Title="ClipetOverlay"
-    x:DataType="viewmodel:ClipetOverlayViewModel">
+    BackgroundColor="Transparent">
+
+    <Grid>
+        <Image
+            x:Name="blur"
+            Aspect="Fill"
+            Opacity=".9"
+            Source="background_shade_frosted.png" />
+        <Grid
+            Padding="0"
+            ColumnDefinitions="210,180"
+            RowDefinitions="*, 130"
+            RowSpacing="0">
+            <Image
+                x:Name="displaySpace"
+                Grid.Row="0"
+                Grid.Column="0"
+                Aspect="AspectFit"
+                Source="pointy_cactus_picture.png" />
+            <Image
+                x:Name="clipet"
+                Grid.Row="0"
+                Grid.Column="1"
+                Aspect="AspectFit"
+                Source="up_close_base_clipet.png"
+                VerticalOptions="End" />
+            <Grid
+                x:Name="speechSpace"
+                Grid.Row="1"
+                Grid.ColumnSpan="2">
+                <Image
+                    Aspect="Fill"
+                    HeightRequest="140"
+                    Source="speech_bubble.png"
+                    WidthRequest="400" />
+                <!--  162 characters allowed per box before it's gotta be split  -->
+                <Label
+                    x:Name="speech"
+                    FontSize="22"
+                    HeightRequest="120"
+                    Text="Hello I'm Clipet."
+                    TextColor="Orange"
+                    WidthRequest="375" />
+            </Grid>
 
 
-    <VerticalStackLayout x:Name="bloop">
-        <Label
-            HorizontalOptions="Center"
-            Text="Passed to another page"
-            VerticalOptions="Center" />
-    </VerticalStackLayout>
+        </Grid>
+    </Grid>
 </ContentPage>

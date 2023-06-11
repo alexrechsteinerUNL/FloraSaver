@@ -11,14 +11,14 @@
 
 
     <Grid>
-        <Image Aspect="Fill" Source="homepagebackgroundfirstpass.png" />
-        <VerticalStackLayout Padding="10" Spacing="15">
-            <Label Text="" />
+        <Image Aspect="Fill" Source="homepagebackgroundsecondpassnoflowers.png" />
+        <VerticalStackLayout Padding="10" Spacing="20">
+            <Label HeightRequest="60" Text="" />
             <Image
-                HeightRequest="300"
                 HorizontalOptions="Center"
                 SemanticProperties.Description="Title for app"
-                Source="plant_saver_title.png" />
+                Source="plant_saver_title.png"
+                WidthRequest="350" />
 
             <!--<Button
                 x:Name="startPlantService"
@@ -27,10 +27,13 @@
                 IsVisible="true"
                 Text="start Services" />-->
             <Image
-                HeightRequest="200"
+                HeightRequest="180"
                 HorizontalOptions="Center"
                 Source="clipet_flowers_standing_color.png" />
-            <custom_components:ClipetOverlay x:Name="Clipet" isClipetEnabled="False" />
         </VerticalStackLayout>
+        <custom_components:ClipetOverlay
+            x:Name="Clipet"
+            IsVisible="false"
+            isClipetEnabled="False" />
     </Grid>
 </ContentPage>

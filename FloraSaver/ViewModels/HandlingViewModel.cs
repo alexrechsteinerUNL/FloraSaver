@@ -32,8 +32,19 @@ namespace FloraSaver.ViewModels
         {
             foreach (var plant in Plants)
             {
-                PlantSelection(plant);
+                plant.IsEnabled = true;
             }
+            OnPropertyChanged("Plants");
+        }
+
+        [RelayCommand]
+        void AllPlantUnselection()
+        {
+            foreach (var plant in Plants)
+            {
+                plant.IsEnabled = false;
+            }
+            OnPropertyChanged("Plants");
         }
 
         [RelayCommand]

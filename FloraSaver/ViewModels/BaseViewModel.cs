@@ -16,6 +16,9 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         string title;
 
+        [ObservableProperty]
+        string clipetDialog;
+
         public IDatabaseService _databaseService;
 
         // I think the code below is equivalent to
