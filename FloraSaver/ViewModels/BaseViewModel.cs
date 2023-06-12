@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using FloraSaver.Models;
 using FloraSaver.Services;
+using FloraSaver.Utilities;
 
 namespace FloraSaver.ViewModels
 {
@@ -17,7 +18,7 @@ namespace FloraSaver.ViewModels
         string title;
 
         [ObservableProperty]
-        string clipetDialog;
+        List<ClipetSpeechBubble> clipetDialog;
 
         public IDatabaseService _databaseService;
 
@@ -42,6 +43,18 @@ namespace FloraSaver.ViewModels
         public async Task UpdateNotifications(List<Plant> Plants)
         {
             await _databaseService.GetAllPlantAsync();
+        }
+
+        [RelayCommand]
+        public async Task LoadClipetTextFileAsync(string filename)
+        {
+            using var stream = await FileSystem.OpenAppPackageFileAsync(filename);
+            using var reader = new StreamReader(stream);
+
+            var contents = await reader.ReadToEndAsync();
+            var formatDialogFromResourceUtility = new FormatDialogFromResourceUtility();
+            ClipetDialog = formatDialogFromResourceUtility.SortTextBoxes(contents);
+            OnPropertyChanged(nameof(List<ClipetSpeechBubble>));
         }
 
 

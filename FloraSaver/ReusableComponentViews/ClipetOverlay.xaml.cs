@@ -1,4 +1,5 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using FloraSaver.Models;
 using FloraSaver.ViewModels;
 
 namespace FloraSaver;
@@ -10,6 +11,13 @@ public partial class ClipetOverlay : ContentPage
         var control = (ClipetOverlay)bindable;
 
         control.clipet.IsVisible = (bool)newValue;
+    });
+
+    public static readonly BindableProperty ClipetDataProperty = BindableProperty.Create(nameof(ClipetData), typeof(List<ClipetSpeechBubble>), typeof(ClipetOverlay), propertyChanged: (bindable, oldValue, newValue) =>
+    {
+        var control = (ClipetOverlay)bindable;
+
+        //control.clipet.IsVisible = (List<ClipetSpeechBubble>)newValue;
     });
 
     public static readonly BindableProperty isBlurEnabledProperty = BindableProperty.Create(nameof(isBlurEnabled), typeof(bool?), typeof(ClipetOverlay), propertyChanged: (bindable, oldValue, newValue) =>
@@ -46,6 +54,12 @@ public partial class ClipetOverlay : ContentPage
         set => SetValue(isClipetEnabledProperty, value);
     }
 
+    public List<ClipetSpeechBubble> ClipetData
+    {
+        get => GetValue(ClipetDataProperty) as List<ClipetSpeechBubble>;
+        set => SetValue(ClipetDataProperty, value);
+    }
+
     public bool? isBlurEnabled
     {
         get => GetValue(isBlurEnabledProperty) as bool?;
@@ -63,13 +77,4 @@ public partial class ClipetOverlay : ContentPage
         get => GetValue(isSpeechSpaceEnabledProperty) as bool?;
         set => SetValue(isSpeechSpaceEnabledProperty, value);
     }
-
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
-        Console.WriteLine("Bloop");
-    }
-
-
-
 }

@@ -610,6 +610,7 @@
                 x:Name="Clipet"
                 Grid.RowSpan="5"
                 Grid.ColumnSpan="3"
+                ClipetData="{Binding ClipetDialog}"
                 IsEnabled="{Binding IsBusy}"
                 isBlurEnabled="{Binding IsBusy}"
                 isClipetEnabled="False"

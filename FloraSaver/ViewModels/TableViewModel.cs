@@ -228,6 +228,9 @@ namespace FloraSaver.ViewModels
             //This is a bad place for it, but this is testing for the Utility that separates elements into textboxes. This would be covered by something real software engineers call a UNIT TEST!
             //var bloop = new FormatDialogFromResourceUtility();
             //var zoom = bloop.SortTextBoxes("[emote.png]this is my first page. #$ It had an emotion on it {img.png}.#$ [ve.png]{good.png}This page has an image and an emotion #$");
+            await LoadClipetTextFileAsync("WelcomeMessage.txt");
+
+
             if (IsBusy)
                 return;
 

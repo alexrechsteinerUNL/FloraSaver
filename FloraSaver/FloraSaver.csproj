@@ -53,6 +53,7 @@
 	  <None Remove="Resources\Fonts\CALIFI.TTF" />
 	  <None Remove="Resources\Fonts\CALIFR.TTF" />
 	  <None Remove="Resources\Fonts\PRISMA.TTF" />
+	  <None Remove="Resources\Raw\WelcomeMessage.txt" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -100,6 +101,12 @@
 
 	<ItemGroup>
 	  <Folder Include="CustomElements\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiAsset Update="Resources\Raw\WelcomeMessage.txt">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </MauiAsset>
 	</ItemGroup>
 
 </Project>
