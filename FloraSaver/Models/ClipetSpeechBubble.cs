@@ -1,6 +1,8 @@
-﻿namespace FloraSaver.Models
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace FloraSaver.Models
 {
-    public class ClipetSpeechBubble
+    public class ClipetSpeechBubble : ObservableObject
     {
         public ClipetSpeechBubble(string dialogString, string displayImage, string clipetEmotion) 
         { 

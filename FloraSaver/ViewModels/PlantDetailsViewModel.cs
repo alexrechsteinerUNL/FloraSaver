@@ -29,6 +29,9 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         public Plant alterPlant;
 
+        [ObservableProperty]
+        public List<ClipetSpeechBubble> speechBubbles;
+
         public ObservableCollection<PlantGroup> PlantGroups { get; set; } = new();
 
         public PlantDetailsViewModel(IDatabaseService databaseService)

@@ -606,7 +606,7 @@
                 Text="Add New Group"
                 WidthRequest="150" />
 
-            <custom_components:ClipetOverlay
+            <!--<custom_components:ClipetOverlay
                 x:Name="Clipet"
                 Grid.RowSpan="5"
                 Grid.ColumnSpan="3"
@@ -615,7 +615,7 @@
                 isBlurEnabled="{Binding IsBusy}"
                 isClipetEnabled="False"
                 isDisplaySpaceEnabled="False"
-                isSpeechSpaceEnabled="False" />
+                isSpeechSpaceEnabled="False" />-->
             <ActivityIndicator
                 Grid.RowSpan="5"
                 Grid.ColumnSpan="3"

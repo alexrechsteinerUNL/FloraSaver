@@ -1,23 +1,34 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="FloraSaver.ClipetOverlay"
+    x:Class="FloraSaver.ClipetOverlayPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
     x:Name="overlay"
     Title="ClipetOverlay"
-    BackgroundColor="Transparent">
+    x:DataType="viewmodel:ClipetOverlayViewModel"
+    BackgroundColor="Transparent"
+    Shell.NavBarIsVisible="false"
+    Shell.PresentationMode="Modal">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
+        <toolkit:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
+    </ContentPage.Behaviors>
 
     <Grid>
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ClipetOverlayViewModel}}, Path=MoveToNextTextBoxCommand}" />
+        </Grid.GestureRecognizers>
         <Image
             x:Name="blur"
             Aspect="Fill"
-            Opacity=".9"
-            Source="background_shade_frosted.png" />
+            Opacity=".93"
+            Source="frosted_shade_green.png" />
         <Grid
             Padding="0"
-            ColumnDefinitions="210,180"
+            ColumnDefinitions="210,182"
             RowDefinitions="*, 130"
             RowSpacing="0">
             <Image
@@ -25,13 +36,14 @@
                 Grid.Row="0"
                 Grid.Column="0"
                 Aspect="AspectFit"
-                Source="pointy_cactus_picture.png" />
+                IsVisible="{Binding IsRefImageVisable}"
+                Source="{Binding CurrentClipetDialog.DisplayImage}" />
             <Image
                 x:Name="clipet"
                 Grid.Row="0"
                 Grid.Column="1"
                 Aspect="AspectFit"
-                Source="up_close_base_clipet.png"
+                Source="{Binding CurrentClipetDialog.ClipetEmotion}"
                 VerticalOptions="End" />
             <Grid
                 x:Name="speechSpace"
@@ -40,6 +52,7 @@
                 <Image
                     Aspect="Fill"
                     HeightRequest="140"
+                    IsVisible="{Binding IsSpeechBubbleVisible}"
                     Source="speech_bubble.png"
                     WidthRequest="400" />
                 <!--  162 characters allowed per box before it's gotta be split  -->
@@ -47,7 +60,7 @@
                     x:Name="speech"
                     FontSize="22"
                     HeightRequest="120"
-                    Text="Hello I'm Clipet."
+                    Text="{Binding CurrentClipetDialog.DialogString}"
                     TextColor="Orange"
                     WidthRequest="375" />
             </Grid>

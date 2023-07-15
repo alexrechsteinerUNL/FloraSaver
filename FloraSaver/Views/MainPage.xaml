@@ -26,14 +26,16 @@
                 HorizontalOptions="Center"
                 IsVisible="true"
                 Text="start Services" />-->
-            <Image
+            <ImageButton
+                Command="{Binding TalkToClipetCommand}"
+                CommandParameter="WelcomeMessage.txt"
                 HeightRequest="180"
                 HorizontalOptions="Center"
                 Source="clipet_flowers_standing_color.png" />
         </VerticalStackLayout>
-        <custom_components:ClipetOverlay
+        <!--<custom_components:ClipetOverlay
             x:Name="Clipet"
             IsVisible="false"
-            isClipetEnabled="False" />
+            isClipetEnabled="False" />-->
     </Grid>
 </ContentPage>

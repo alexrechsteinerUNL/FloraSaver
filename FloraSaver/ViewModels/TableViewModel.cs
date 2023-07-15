@@ -227,7 +227,7 @@ namespace FloraSaver.ViewModels
         {
             //This is a bad place for it, but this is testing for the Utility that separates elements into textboxes. This would be covered by something real software engineers call a UNIT TEST!
            //this is testing data for loading from a file.
-            await LoadClipetTextFileAsync("WelcomeMessage.txt");
+            //await LoadClipetTextFileAsync("WelcomeMessage.txt");
 
 
             if (IsBusy)

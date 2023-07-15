@@ -30,7 +30,7 @@ public static class MauiProgram
 #endif
 
         string dbPath = FileAccessHelper.GetLocalFilePath("plant.db3");
-        builder.Services.AddSingleton<ClipetOverlayViewModel>();
+        
         builder.Services.AddSingleton<TableViewModel>();
         builder.Services.AddSingleton<HandlingViewModel>();
         builder.Services.AddSingleton<IDatabaseService, DatabaseService>(s => ActivatorUtilities.CreateInstance<DatabaseService>(s, dbPath));
@@ -43,6 +43,8 @@ public static class MauiProgram
         builder.Services.AddSingleton<SettingsViewModel>();
         builder.Services.AddTransient<PlantDetailsViewModel>();
         builder.Services.AddTransient<PlantDetailsPage>();
+        builder.Services.AddTransient<ClipetOverlayViewModel>();
+        builder.Services.AddTransient<ClipetOverlayPage>();
         return builder.Build();
     }
 }

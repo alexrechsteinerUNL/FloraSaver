@@ -17,9 +17,6 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         string title;
 
-        [ObservableProperty]
-        List<ClipetSpeechBubble> clipetDialog;
-
         public IDatabaseService _databaseService;
 
         // I think the code below is equivalent to
@@ -46,17 +43,36 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        public async Task LoadClipetTextFileAsync(string filename)
+        public async Task TalkToClipetAsync(string filename)
+        {
+            var clipetDialog = await LoadClipetTextFileAsync(filename);
+            await GoToClipetOverlayAsync(clipetDialog);
+        }
+
+        [RelayCommand]
+        public async Task<List<ClipetSpeechBubble>> LoadClipetTextFileAsync(string filename)
         {
             using var stream = await FileSystem.OpenAppPackageFileAsync(filename);
             using var reader = new StreamReader(stream);
 
             var contents = await reader.ReadToEndAsync();
             var formatDialogFromResourceUtility = new FormatDialogFromResourceUtility();
-            ClipetDialog = formatDialogFromResourceUtility.SortTextBoxes(contents);
-            OnPropertyChanged(nameof(List<ClipetSpeechBubble>));
+            return formatDialogFromResourceUtility.SortTextBoxes(contents);
         }
 
+        [RelayCommand]
+        async Task GoToClipetOverlayAsync(List<ClipetSpeechBubble> speechBubbles)
+        {
+            if (speechBubbles == null)
+            {
+                await Shell.Current.GoToAsync(nameof(ClipetOverlayPage), true, new Dictionary<string, object>());
+            }
+            else
+            {
+                await Shell.Current.GoToAsync(nameof(ClipetOverlayPage), true, new Dictionary<string, object> { { "ClipetSpeechBubbles", speechBubbles } });
+            }
+            return;
+        }
 
     }
 }

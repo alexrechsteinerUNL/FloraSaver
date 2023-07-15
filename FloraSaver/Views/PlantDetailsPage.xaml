@@ -7,7 +7,10 @@
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
     Title="{Binding AlterPlant.GivenName}"
-    x:DataType="viewmodel:PlantDetailsViewModel">
+    x:DataType="viewmodel:PlantDetailsViewModel"
+    BackgroundColor="Transparent"
+    Shell.NavBarIsVisible="True"
+    Shell.PresentationMode="Modal">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
         <toolkit:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
