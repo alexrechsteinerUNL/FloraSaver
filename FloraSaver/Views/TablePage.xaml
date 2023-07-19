@@ -131,7 +131,7 @@
                     SelectionMode="None">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:Name="bloop" x:DataType="model:Plant">
-                            <Grid Padding="10">
+                            <Grid Padding="15,5">
                                 <Frame
                                     Padding="5"
                                     BackgroundColor="Black"

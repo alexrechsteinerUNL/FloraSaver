@@ -26,17 +26,24 @@ namespace FloraSaver.ViewModels
             _plantNotificationService = plantNotificationService;
             _databaseService = databaseService;
             IsPlantTypeIncluded = true;
-            WaterRectangle = new Rect(0,20,105,105);
+            WaterRectangle = new Rect(0, 20, 105, 105);
         }
 
         [RelayCommand]
         async Task AppearingAsync()
         {
+            timer = new PeriodicTimer(TimeSpan.FromSeconds(10));
             await GetPlantGroupsAsync();
             await GetPlantsAsync();
         }
 
+        [RelayCommand]
+        public void Disappearing()
+        {
+            timer.Dispose();
+        }
 
+        protected PeriodicTimer timer = new PeriodicTimer(TimeSpan.FromSeconds(10));
         [ObservableProperty]
         List<string> orderByValues = PickerService.GetOrderByValues();
         [ObservableProperty]
@@ -47,10 +54,6 @@ namespace FloraSaver.ViewModels
         string searchQuery = string.Empty;
         [ObservableProperty]
         Rect rectNeedsWatering;
-        [ObservableProperty]
-        double percentageToNeedsRefreshing;
-        [ObservableProperty]
-        double percentageToNeedsSunning;
 
         [ObservableProperty]
         bool isPlantTypeIncluded;
@@ -182,16 +185,6 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        void CurrentPlantNeeds(Plant plant)
-        {
-            //Eh this needs a little work. Gotta account for times
-            var percentageToNeedsWatering = (DateTime.Now - plant.DateOfLastWatering).TotalSeconds /
-                (plant.DateOfNextWatering - plant.DateOfLastWatering).TotalSeconds * 105;
-            RectNeedsWatering = new Rect(0, percentageToNeedsWatering, 105, 105);
-        
-        }
-
-        [RelayCommand]
         public async Task SearchPlantsAsync(string inputString)
         {
             try
@@ -223,13 +216,12 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        async Task GetPlantsAsync()
+        protected async Task GetPlantsAsync()
         {
             //This is a bad place for it, but this is testing for the Utility that separates elements into textboxes. This would be covered by something real software engineers call a UNIT TEST!
-           //this is testing data for loading from a file.
+            //this is testing data for loading from a file.
             //await LoadClipetTextFileAsync("WelcomeMessage.txt");
-
-
+            PeriodicTimerUpdaterBackgroundAsync(() => CheatUpdateAllPlantProgress());
             if (IsBusy)
                 return;
 
@@ -254,7 +246,7 @@ namespace FloraSaver.ViewModels
                 if (Plants.Count != 0)
                 {
                     Plants.Clear();
-                } 
+                }
                 foreach (var plant in plants)
                 {
                     Plants.Add(plant);
@@ -280,8 +272,32 @@ namespace FloraSaver.ViewModels
             return;
         }
 
+        protected void CheatUpdateAllPlantProgress()
+        {
+            if (Plants.Count > 0)
+            {
+                var tempPlants = new ObservableCollection<Plant>(Plants);
+                foreach (Plant plant in tempPlants)
+                {
+                    plant.WaterPercent = plant.WaterPercent;
+                    plant.MistPercent = plant.MistPercent;
+                    plant.SunPercent = plant.SunPercent;
+                }
+                Plants.Replace(tempPlants);
+                OnPropertyChanged(nameof(Plants));
+            }
+        }
+
+        protected async Task PeriodicTimerUpdaterBackgroundAsync(Action action)
+        {
+            while (await timer.WaitForNextTickAsync())
+            {
+                action();
+            }
+        }
+
         [RelayCommand]
-        async Task GetPlantGroupsAsync()
+        protected async Task GetPlantGroupsAsync()
         {
             if (IsBusy)
                 return;
@@ -379,7 +395,6 @@ namespace FloraSaver.ViewModels
             }
             else
             {
-                CurrentPlantNeeds(plant);
                 await Shell.Current.GoToAsync(nameof(PlantDetailsPage), true, new Dictionary<string, object>
                 {
                     {"Plant", plant },

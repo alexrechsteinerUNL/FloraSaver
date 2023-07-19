@@ -15,8 +15,8 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
-        <toolkit:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
+        <toolkit:EventToCommandBehavior Command="{Binding AppearingHandlingCommand}" EventName="Appearing" />
+        <toolkit:EventToCommandBehavior Command="{Binding DisappearingHandlingCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
     <Grid Padding="0" RowDefinitions="60, 695">
         <Grid Grid.Row="0">
@@ -232,49 +232,55 @@
                                             Grid.Column="2"
                                             Padding="5"
                                             BackgroundColor="Black"
-                                            HeightRequest="60">
+                                            HeightRequest="75">
                                             <Frame.GestureRecognizers>
                                                 <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=PlantSelectionCommand}" CommandParameter="{Binding .}" />
                                             </Frame.GestureRecognizers>
-                                            <Grid ColumnDefinitions="*, 30" RowDefinitions="15,15,15">
+                                            <Grid ColumnDefinitions="*, 30" RowDefinitions="25,25,25">
                                                 <ProgressBar
                                                     Grid.Row="0"
                                                     Grid.Column="0"
                                                     IsVisible="{Binding UseWatering}"
                                                     Progress="{Binding WaterPercent}"
-                                                    ScaleY="2" />
+                                                    ScaleY="2"
+                                                    VerticalOptions="Start" />
                                                 <Label
                                                     Grid.Row="0"
                                                     Grid.Column="1"
                                                     FontSize="14"
                                                     IsVisible="{Binding UseWatering}"
-                                                    Text="{Binding WaterPercent, StringFormat='{0:P0}'}" />
+                                                    Text="{Binding WaterPercent, StringFormat='{0:P0}'}"
+                                                    VerticalOptions="Start" />
                                                 <ProgressBar
                                                     Grid.Row="1"
                                                     Grid.Column="0"
                                                     IsVisible="{Binding UseMisting}"
                                                     Progress="{Binding MistPercent}"
                                                     ProgressColor="LightBlue"
-                                                    ScaleY="2" />
+                                                    ScaleY="2"
+                                                    VerticalOptions="Start" />
                                                 <Label
                                                     Grid.Row="1"
                                                     Grid.Column="1"
                                                     FontSize="14"
                                                     IsVisible="{Binding UseMisting}"
-                                                    Text="{Binding MistPercent, StringFormat='{0:P0}'}" />
+                                                    Text="{Binding MistPercent, StringFormat='{0:P0}'}"
+                                                    VerticalOptions="Start" />
                                                 <ProgressBar
                                                     Grid.Row="2"
                                                     Grid.Column="0"
                                                     IsVisible="{Binding UseMoving}"
                                                     Progress="{Binding SunPercent}"
                                                     ProgressColor="Orange"
-                                                    ScaleY="2" />
+                                                    ScaleY="2"
+                                                    VerticalOptions="Start" />
                                                 <Label
                                                     Grid.Row="2"
                                                     Grid.Column="1"
                                                     FontSize="14"
                                                     IsVisible="{Binding UseMoving}"
-                                                    Text="{Binding SunPercent, StringFormat='{0:P0}'}" />
+                                                    Text="{Binding SunPercent, StringFormat='{0:P0}'}"
+                                                    VerticalOptions="Start" />
                                             </Grid>
 
                                         </Frame>

@@ -20,6 +20,22 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
+        async Task AppearingHandlingAsync()
+        {
+            timer = new PeriodicTimer(TimeSpan.FromSeconds(10));
+            await GetPlantGroupsAsync();
+            await GetPlantsAsync();
+            PeriodicTimerUpdaterBackgroundAsync(() => CheatUpdateAllPlantProgress());
+
+        }
+
+        [RelayCommand]
+        public void DisappearingHandling()
+        {
+            timer.Dispose();
+        }
+
+        [RelayCommand]
         void PlantSelection(Plant plant)
         {
             var specificPlant = Plants.FirstOrDefault(_ => _.Id == plant.Id);
