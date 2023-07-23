@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,6 +35,15 @@ namespace FloraSaver.Services
                 "Next Moving",
                 "Alphabetical"
             };
+        }
+
+        public static List<GroupColors> GetSelectableColors()
+        {
+            var colorType = typeof(Colors);
+            var colorFields = colorType.GetFields()
+                .Where(_ => _.FieldType == typeof(Color))
+                .Select(_ => new GroupColors { ColorName = _.Name, Colors = (Color)_.GetValue(null), ColorsHex = _.GetValue(null).ToString() });
+            return colorFields.ToList();
         }
     }
 }

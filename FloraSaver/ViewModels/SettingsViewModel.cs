@@ -2,14 +2,19 @@
 using System.Diagnostics;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
+using System.Collections.ObjectModel;
+using FloraSaver.Models;
 
 namespace FloraSaver.ViewModels
 {
-    public partial class SettingsViewModel : BaseViewModel
+    public partial class SettingsViewModel : TableViewModel
     {
-        public SettingsViewModel(IDatabaseService databaseService)
+        public ObservableCollection<PlantGroup> VisiblePlantGroups { get; set; } = new();
+
+        public SettingsViewModel(IDatabaseService databaseService, IPlantNotificationService plantNotificationService) : base(databaseService, plantNotificationService)
         {
-            _databaseService = databaseService;
+            databaseService = _databaseService;
+            plantNotificationService = _plantNotificationService;
             DateTime morningDate = DateTime.FromBinary(Preferences.Default.Get("morning_time_date", new DateTime(1,1,1,8,0,0).ToBinary()));
             morningTime = morningDate.TimeOfDay;
             var middayDate = DateTime.FromBinary(Preferences.Default.Get("midday_time_date", new DateTime(1, 1, 1, 12, 0, 0).ToBinary()));
@@ -45,6 +50,14 @@ namespace FloraSaver.ViewModels
             var nightTimeDate = new DateTime().Add(value).ToBinary();
             Preferences.Default.Set("night_time_date", nightTimeDate);
             NightTime = DateTime.FromBinary(Preferences.Default.Get("night_time_date", new DateTime(1, 1, 1, 16, 0, 0).ToBinary())).TimeOfDay;
+        }
+
+        [RelayCommand]
+        protected async Task GetVisiblePlantGroupsAsync()
+        {
+            await GetPlantGroupsAsync();
+            VisiblePlantGroups = new ObservableCollection<PlantGroup>(PlantGroups);
+            OnPropertyChanged(nameof(VisiblePlantGroups));
         }
 
         [RelayCommand]

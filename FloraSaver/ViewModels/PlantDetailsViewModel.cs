@@ -40,6 +40,7 @@ namespace FloraSaver.ViewModels
             wateringInterval = PickerService.GetWaterIntervals();
             mistingInterval = PickerService.GetWaterIntervals();
             sunInterval = PickerService.GetWaterIntervals();
+            var bloop = PickerService.GetSelectableColors();
         }
 
         [RelayCommand]
