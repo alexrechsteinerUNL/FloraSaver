@@ -1,11 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using FloraSaver.Services;
 using SQLite;
 using System;
 
 namespace FloraSaver.Models
 {
     [Table("plantgroup")]
-    public class PlantGroup : ObservableObject
+    public partial class PlantGroup : ObservableObject
     {
         [PrimaryKey, AutoIncrement]
         public int GroupId { get; set; }
@@ -14,6 +16,22 @@ namespace FloraSaver.Models
         public string GroupColorHex { get; set; }
         [Ignore]
         public Color GroupColor => Color.FromArgb(GroupColorHex);
+
+        [Ignore]
+        public GroupColors GroupColorDetails => new GroupColors()
+        { ColorName = "Gray", Colors = Color.FromArgb(GroupColorHex), ColorsHex = GroupColorHex };
+
+        public List<GroupColors> PossibleGroupColors => PickerService.GetSelectableColors();
+        
+        [RelayCommand]
+        public void SetColor(GroupColors selectedGroup)
+        {
+            if (selectedGroup is not null)
+            {
+                GroupColorHex = selectedGroup.ColorsHex;
+            }
+        }
+
 
         private bool _isEnabled = true;
         [Ignore]

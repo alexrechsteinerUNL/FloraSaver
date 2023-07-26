@@ -4,17 +4,58 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
 using FloraSaver.Models;
+using SQLite;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace FloraSaver.ViewModels
 {
-    public partial class SettingsViewModel : TableViewModel
+    public partial class SettingsViewModel : TableViewModel, INotifyPropertyChanged
     {
-        public ObservableCollection<PlantGroup> VisiblePlantGroups { get; set; } = new();
+        private ObservableCollection<PlantGroup> visiblePlantGroups = new();
+        public ObservableCollection<PlantGroup> VisiblePlantGroups
+        {
+            get { return visiblePlantGroups; }
+            set 
+            { 
+                SetObservableProperty(ref visiblePlantGroups, value);
+            }
+        }
+
+        private List<PlantGroup> pickerPlantGroups;
+        public List<PlantGroup> PickerPlantGroups
+        {
+            get { return pickerPlantGroups; }
+            set
+            {
+                SetObservableProperty(ref pickerPlantGroups, value);
+                
+            }
+        }
+
+        [RelayCommand]
+        public void SetItem()
+        {
+            if (PickerPlantGroups is not null)
+            {
+                VisiblePlantGroups = new ObservableCollection<PlantGroup>(PickerPlantGroups);
+            }
+            
+        }
+
+        protected void SetObservableProperty<T>(ref T field, T value,
+        [CallerMemberName] string propertyName = "")
+        {
+            if (EqualityComparer<T>.Default.Equals(field, value)) return;
+            field = value;
+            OnPropertyChanged(propertyName);
+        }
 
         public SettingsViewModel(IDatabaseService databaseService, IPlantNotificationService plantNotificationService) : base(databaseService, plantNotificationService)
         {
             databaseService = _databaseService;
             plantNotificationService = _plantNotificationService;
+            
             DateTime morningDate = DateTime.FromBinary(Preferences.Default.Get("morning_time_date", new DateTime(1,1,1,8,0,0).ToBinary()));
             morningTime = morningDate.TimeOfDay;
             var middayDate = DateTime.FromBinary(Preferences.Default.Get("midday_time_date", new DateTime(1, 1, 1, 12, 0, 0).ToBinary()));
@@ -24,11 +65,47 @@ namespace FloraSaver.ViewModels
         }
 
         [ObservableProperty]
+        bool isInitialization;
+
+        [RelayCommand]
+        async Task AppearingSettingsAsync()
+        {
+            IsInitialization = true;
+            PickerPlantGroups = await _databaseService.GetAllPlantGroupAsync();
+            await GetVisiblePlantGroupsAsync();
+
+            IsInitialization = false;
+        }
+
+        //public void OnPlantGroupChanged()
+        //{
+        //    OnPropertyChanged(nameof(VisiblePlantGroups));
+        //}
+
+        [ObservableProperty]
         TimeSpan morningTime;
         [ObservableProperty]
         TimeSpan middayTime;
         [ObservableProperty]
         TimeSpan nightTime;
+
+
+        //private GroupColors groupSelection;
+        //public GroupColors GroupSelection
+        //{
+        //    get => groupSelection;
+        //    set
+        //    {
+        //        SetProperty(ref groupSelection, value);
+        //        VisiblePlantAttentionGetter();
+        //    }
+        //}
+
+        [RelayCommand]
+        public void FishSelection(PlantGroup group)
+        {
+            Console.WriteLine("");
+        }
 
         [RelayCommand]
         partial void OnMorningTimeChanged(TimeSpan value)
@@ -53,10 +130,33 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
+        public void UpdateColor(GroupColors value)
+        {
+            Console.WriteLine("bloop");
+        }
+
+        [RelayCommand]
+        public void SetColor(GroupColors value)
+        {
+            Console.WriteLine("bloop");
+        }
+
+        [RelayCommand]
+        protected void VisiblePlantAttentionGetter()
+        {
+            VisiblePlantGroups = new ObservableCollection<PlantGroup>(VisiblePlantGroups);
+        }
+
+        [RelayCommand]
         protected async Task GetVisiblePlantGroupsAsync()
         {
             await GetPlantGroupsAsync();
-            VisiblePlantGroups = new ObservableCollection<PlantGroup>(PlantGroups);
+            if (isInitialization)
+            {
+                VisiblePlantGroups = new ObservableCollection<PlantGroup>(PickerPlantGroups);
+            }
+            //this redundant call is due to a Bug in maui that makes observable collections not realized they've been altered
+            VisiblePlantGroups = new ObservableCollection<PlantGroup>(VisiblePlantGroups);
             OnPropertyChanged(nameof(VisiblePlantGroups));
         }
 

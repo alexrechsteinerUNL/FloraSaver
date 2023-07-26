@@ -25,6 +25,8 @@ namespace FloraSaver.ViewModels
         public Plant initialPlant;
 
         private Random rand = new Random();
+
+        private List<GroupColors> groupoColors = PickerService.GetSelectableColors();
         
         [ObservableProperty]
         public Plant alterPlant;

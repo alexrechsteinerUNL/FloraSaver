@@ -5,8 +5,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
     xmlns:model="clr-namespace:FloraSaver.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
     x:DataType="viewmodel:SettingsViewModel">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding AppearingSettingsCommand}" EventName="Appearing" />
+        <toolkit:EventToCommandBehavior Command="{Binding DisappearingSettingsCommand}" EventName="Disappearing" />
+    </ContentPage.Behaviors>
 
 
     <Grid>
@@ -136,6 +141,7 @@
                     BackgroundColor="Black"
                     HeightRequest="300">
                     <RefreshView
+                        x:Name="PlantGroupRefresh"
                         Padding="0,5"
                         Command="{Binding GetVisiblePlantGroupsCommand}"
                         IsRefreshing="{Binding IsRefreshing}">
@@ -146,10 +152,23 @@
                             <CollectionView.ItemTemplate>
                                 <DataTemplate x:Name="singleGroup" x:DataType="model:PlantGroup">
                                     <Grid Padding="0,5">
-                                        <Frame BackgroundColor="Black" BorderColor="{Binding GroupColor}">
-                                            <Grid ColumnDefinitions="150, 50, 50" HorizontalOptions="Start">
-                                                <Button
+                                        <Frame
+                                            Padding="5,5"
+                                            BackgroundColor="Black"
+                                            BorderColor="{Binding GroupColor}">
+                                            <Grid
+                                                ColumnDefinitions="65, 150, 50, 40"
+                                                HorizontalOptions="Start"
+                                                RowDefinitions="5,30, 40"
+                                                RowSpacing="10">
+                                                <Label
+                                                    Grid.Row="1"
                                                     Grid.Column="0"
+                                                    Text="Name: " />
+                                                <Button
+                                                    Grid.Row="1"
+                                                    Grid.Column="1"
+                                                    Grid.ColumnSpan="2"
                                                     Padding="5"
                                                     BackgroundColor="{Binding SelectedColor}"
                                                     BorderColor="{Binding GroupColor}"
@@ -159,28 +178,60 @@
                                                     HeightRequest="40"
                                                     Text="{Binding GroupName}"
                                                     TextColor="{Binding SelectedTextColor}" />
-                                                <Border
+                                                <!--<Border
                                                     Grid.Column="1"
                                                     HorizontalOptions="Start"
-                                                    WidthRequest="50">
-                                                    <Grid>
+                                                    WidthRequest="50">-->
+                                                <!--<Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="10" />
                                                             <ColumnDefinition Width="30" />
                                                             <ColumnDefinition Width="10" />
                                                         </Grid.ColumnDefinitions>
-                                                        <Rectangle Grid.Column="0" Background="Black" />
-                                                        <Picker
-                                                            x:Name="colorIntervalPicker"
-                                                            Title="Water in _ days"
-                                                            Grid.Column="1" />
-                                                        <Rectangle Grid.Column="2" Background="Black" />
-                                                    </Grid>
+                                                        <Rectangle Grid.Column="0" Background="Black" />-->
+                                                <Label
+                                                    Grid.Row="2"
+                                                    Grid.Column="0"
+                                                    Text="Color:" />
+                                                <Border
+                                                    Grid.Row="2"
+                                                    Grid.Column="1"
+                                                    BackgroundColor="Black"
+                                                    HeightRequest="40"
+                                                    HorizontalOptions="Start"
+                                                    VerticalOptions="Start"
+                                                    WidthRequest="50">
+                                                    <Picker
+                                                        x:Name="ColorIntervalPicker"
+                                                        Grid.Row="2"
+                                                        Grid.Column="1"
+                                                        Grid.ColumnSpan="2"
+                                                        BackgroundColor="{Binding GroupColorDetails.Colors, Mode=TwoWay}"
+                                                        ItemDisplayBinding="{Binding ColorName, Mode=TwoWay}"
+                                                        ItemsSource="{Binding PossibleGroupColors, Mode=TwoWay}"
+                                                        SelectedIndexChanged="ColorIntervalPicker_SelectedIndexChanged"
+                                                        SelectedItem="{Binding GroupColorDetails}"
+                                                        TextColor="{Binding GroupColorDetails.Colors, Mode=TwoWay}">
+                                                        <Picker.Behaviors>
+                                                            <toolkit:EventToCommandBehavior
+                                                                Command="{Binding SetColorCommand}"
+                                                                CommandParameter="{Binding SelectedItem, Source={x:Reference ColorIntervalPicker}}"
+                                                                EventName="SelectedIndexChanged" />
+                                                        </Picker.Behaviors>
+                                                    </Picker>
                                                 </Border>
+                                                <!--<Rectangle Grid.Column="2" Background="Black" />-->
+                                                <!--</Grid>
+                                                </Border>-->
                                                 <Button
-                                                    Grid.Column="2"
+                                                    Grid.Row="0"
+                                                    Grid.RowSpan="2"
+                                                    Grid.Column="3"
+                                                    Padding="10,5"
                                                     BackgroundColor="Black"
                                                     BorderColor="White"
+                                                    FontSize="20"
+                                                    HorizontalOptions="End"
                                                     Text="X" />
                                             </Grid>
 
@@ -477,5 +528,14 @@
 
             </VerticalStackLayout>
         </ScrollView>
+        <Label
+            x:Name="hiddenSpacerForPickerUpdate"
+            IsVisible="False"
+            Text="">
+            <Label.Behaviors>
+                <toolkit:EventToCommandBehavior Command="{Binding SetItemCommand}" EventName="PropertyChanged" />
+            </Label.Behaviors>
+        </Label>
     </Grid>
+
 </ContentPage>

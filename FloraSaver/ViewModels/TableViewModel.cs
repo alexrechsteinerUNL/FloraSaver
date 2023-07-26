@@ -42,7 +42,7 @@ namespace FloraSaver.ViewModels
         {
             timer.Dispose();
         }
-
+        
         protected PeriodicTimer timer = new PeriodicTimer(TimeSpan.FromSeconds(10));
         [ObservableProperty]
         List<string> orderByValues = PickerService.GetOrderByValues();
