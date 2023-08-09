@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Threading.Tasks.Dataflow;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FloraSaver.Models;
@@ -89,6 +90,36 @@ namespace FloraSaver.ViewModels
             foreach (var plant in changingPlants.Where(_ => _.IsEnabled && _.UseMoving))
             {
                 await ResetMovingAsync(plant);
+            }
+        }
+
+        //This also exists in the PlantDetailsPage you might want to genericize it
+        [RelayCommand]
+        async Task DeletePlantAsync(Plant plant)
+        {
+            if (IsBusy)
+                return;
+
+            try
+            {
+                IsBusy = true;
+                bool reallyDelete = await Application.Current.MainPage.DisplayAlert("OH HOLD ON!", $"Are you sure you want to delete your plant {plant.GivenName}?", "Delete It", "Please Don't");
+                if (reallyDelete)
+                {
+                    await _databaseService.DeletePlantAsync(plant);
+                    IsBusy = false;
+                    await GetPlantsAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Unable to add or update plants: {ex.Message}");
+                await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+                OnPropertyChanged("Plants");
             }
         }
     }

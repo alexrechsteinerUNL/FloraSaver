@@ -149,28 +149,33 @@
                                     Padding="10,5"
                                     BackgroundColor="{Binding SelectedColor}"
                                     BorderColor="{Binding GroupColor}"
-                                    HeightRequest="110">
+                                    HeightRequest="130">
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=PlantSelectionCommand}" CommandParameter="{Binding .}" />
                                     </Frame.GestureRecognizers>
-                                    <Grid ColumnDefinitions="*, *, *">
-                                        <Grid Grid.Column="0" RowDefinitions="26, 23, 23">
+                                    <Grid ColumnDefinitions="*, *, *, 30" RowDefinitions="35, *">
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.ColumnSpan="3"
+                                            FontAttributes="Bold"
+                                            FontSize="24"
+                                            HorizontalTextAlignment="Start"
+                                            Text="{Binding GivenName}"
+                                            TextColor="{Binding SelectedTextColor}" />
+                                        <Grid
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            RowDefinitions="26, 23, 23">
+
                                             <Label
                                                 Grid.Row="0"
-                                                FontAttributes="Bold"
-                                                FontSize="24"
-                                                HorizontalTextAlignment="Start"
-                                                Text="{Binding GivenName}"
-                                                TextColor="{Binding SelectedTextColor}" />
-                                            <Label
-                                                Grid.Row="1"
                                                 FontAttributes="Italic"
                                                 FontSize="20"
                                                 HorizontalTextAlignment="Start"
                                                 Text="{Binding PlantSpecies}"
                                                 TextColor="{Binding SelectedTextColor}" />
                                             <Label
-                                                Grid.Row="2"
+                                                Grid.Row="1"
                                                 FontSize="20"
                                                 HorizontalTextAlignment="Start"
                                                 Text="{Binding PlantGroupName}"
@@ -178,6 +183,7 @@
                                         </Grid>
 
                                         <Grid
+                                            Grid.Row="1"
                                             Grid.Column="1"
                                             ColumnDefinitions="30, *"
                                             RowDefinitions="25,25,25"
@@ -229,7 +235,9 @@
                                                 VerticalTextAlignment="Center" />
                                         </Grid>
                                         <Frame
+                                            Grid.Row="1"
                                             Grid.Column="2"
+                                            Grid.ColumnSpan="2"
                                             Padding="5"
                                             BackgroundColor="Black"
                                             HeightRequest="75">
@@ -282,8 +290,21 @@
                                                     Text="{Binding SunPercent, StringFormat='{0:P0}'}"
                                                     VerticalOptions="Start" />
                                             </Grid>
-
                                         </Frame>
+                                        <Button
+                                            x:Name="DeleteButton"
+                                            Grid.Row="0"
+                                            Grid.Column="3"
+                                            Padding="10,5"
+                                            BackgroundColor="Black"
+                                            BorderColor="White"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=DeletePlantCommand}"
+                                            CommandParameter="{Binding .}"
+                                            FontSize="15"
+                                            HeightRequest="30"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="X"
+                                            VerticalOptions="Start" />
                                     </Grid>
                                 </Frame>
                             </DataTemplate>

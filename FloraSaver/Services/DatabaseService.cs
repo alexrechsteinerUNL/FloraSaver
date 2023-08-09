@@ -58,13 +58,9 @@ namespace FloraSaver.Services
             int result = 0;
             try
             {
-                // TODO: Call Init()
                 await InitAsync();
-                // basic validation to ensure a name was entered
                 if (string.IsNullOrEmpty(plant.GivenName))
                     throw new Exception("Valid name required");
-
-                // TODO: Insert the new person into the database
                 result = await conn.DeleteAsync(plant);
 
                 StatusMessage = string.Format("{0} record(s) deleted (Name: {1})", result, plant.GivenName);
