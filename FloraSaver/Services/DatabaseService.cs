@@ -102,13 +102,13 @@ namespace FloraSaver.Services
                 await InitAsync();
                 result = await conn.DeleteAllAsync<PlantGroup>();
                 var plants = await GetAllPlantAsync();
-                foreach (var plant in plants.Where(_ => _.PlantGroupName != "Ungrouped"))
-                {
-                    plant.PlantGroupName = "Ungrouped";
-                    plant.GroupColorHexString = "#A9A9A9";
-                    await AddUpdateNewPlantAsync(plant);
-                }
-                // TODO: Insert the new person into the database
+                await SetPlantsToGroupAsync(plants);
+                //foreach (var plant in plants.Where(_ => _.PlantGroupName != "Ungrouped"))
+                //{
+                //    plant.PlantGroupName = "Ungrouped";
+                //    plant.GroupColorHexString = "#A9A9A9";
+                //    await AddUpdateNewPlantAsync(plant);
+                //}
 
 
                 StatusMessage = string.Format("{0} record(s) deleted. PlantGroup database is now empty", result);
@@ -116,6 +116,16 @@ namespace FloraSaver.Services
             catch (Exception ex)
             {
                 StatusMessage = string.Format("Failed to delete all PlantGroups. Error: {0}", ex.Message);
+            }
+        }
+
+        public async Task SetPlantsToGroupAsync(IEnumerable<Plant> plants, string groupName = "Ungrouped", string groupColorHex = "#A9A9A9")
+        {
+            foreach (var plant in plants.Where(_ => _.PlantGroupName != groupName))
+            {
+                plant.PlantGroupName = groupName;
+                plant.GroupColorHexString = groupColorHex;
+                await AddUpdateNewPlantAsync(plant);
             }
         }
 
@@ -180,12 +190,14 @@ namespace FloraSaver.Services
                 result = await conn.DeleteAsync(plantGroup);
 
                 var plants = await GetAllPlantAsync();
-                foreach (var plant in plants.Where(_ => _.PlantGroupName == plantGroup.GroupName))
-                {
-                    plant.PlantGroupName = "Ungrouped";
-                    plant.GroupColorHexString = "#A9A9A9";
-                    await AddUpdateNewPlantAsync(plant);
-                }
+                //foreach (var plant in plants.Where(_ => _.PlantGroupName == plantGroup.GroupName))
+                //{
+                //    plant.PlantGroupName = "Ungrouped";
+                //    plant.GroupColorHexString = "#A9A9A9";
+                //    await AddUpdateNewPlantAsync(plant);
+                //}
+
+                await SetPlantsToGroupAsync(plants.Where(_ => _.PlantGroupName == plantGroup.GroupName));
                 StatusMessage = string.Format("{0} group(s) deleted (Name: {1})", result, plantGroup.GroupName);
 
             }

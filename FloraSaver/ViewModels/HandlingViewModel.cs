@@ -93,7 +93,7 @@ namespace FloraSaver.ViewModels
             }
         }
 
-        //This also exists in the PlantDetailsPage you might want to genericize it
+        //This also exists in many pages you might want to genericize it
         [RelayCommand]
         async Task DeletePlantAsync(Plant plant)
         {

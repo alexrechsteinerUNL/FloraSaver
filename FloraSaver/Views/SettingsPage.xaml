@@ -231,6 +231,8 @@
                                                     Padding="10,5"
                                                     BackgroundColor="Black"
                                                     BorderColor="White"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SettingsViewModel}}, Path=DeletePlantGroupCommand}"
+                                                    CommandParameter="{Binding .}"
                                                     FontSize="20"
                                                     HorizontalOptions="End"
                                                     Text="X" />
@@ -431,6 +433,14 @@
                 <toolkit:EventToCommandBehavior Command="{Binding SetItemCommand}" EventName="PropertyChanged" />
             </Label.Behaviors>
         </Label>
+        <!--<Label
+            x:Name="hiddenSpacerForDeleteUpdate"
+            IsVisible="False"
+            Text="">
+            <Label.Behaviors>
+                <toolkit:EventToCommandBehavior Command="{Binding SetItemCommand}" EventName="PropertyChanged" />
+            </Label.Behaviors>
+        </Label>-->
     </Grid>
 
 </ContentPage>

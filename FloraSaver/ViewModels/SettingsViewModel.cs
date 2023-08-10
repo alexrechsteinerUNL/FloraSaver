@@ -161,6 +161,36 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
+        async Task DeletePlantGroupAsync(PlantGroup plantGroup)
+        {
+            if (IsBusy)
+                return;
+
+            try
+            {
+                IsBusy = true;
+                bool reallyDelete = await Application.Current.MainPage.DisplayAlert("OH HOLD ON!", $"Are you sure you want to delete your plant group: '{plantGroup.GroupName}'?", "Delete It", "Please Don't");
+                if (reallyDelete)
+                {
+                    await _databaseService.DeletePlantGroupAsync(plantGroup);
+                    PickerPlantGroups.Remove(plantGroup);
+                    IsBusy = false;
+                    SetItem();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Unable to delete plants: {ex.Message}");
+                await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+                OnPropertyChanged("PlantGroup");
+            }
+        }
+
+        [RelayCommand]
         async Task ClearAllPlantGroupDataAsync()
         {
             if (IsBusy)
