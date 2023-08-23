@@ -14,6 +14,7 @@ namespace FloraSaver.Services
 
         public async Task SetAllNotificationsAsync(List<Plant> plants)
         {
+            // first make these parallel, but it might be better to do them plant by plant instead of 3 separate loops
             foreach (var plant in plants.Where(_ => _.DateOfNextWatering != _.DateOfLastWatering && _.UseWatering))
             {
                 var plantDateWithExtraTime = plant.DateOfNextWatering.AddDays(plant.ExtraWaterTime);
@@ -80,7 +81,7 @@ namespace FloraSaver.Services
                 ReturningData = "Dummy data", // Returning data when tapped on notification.
                 Schedule =
                 {
-                    NotifyTime = notifyTime // Used for Scheduling local notification, if not specified notification will show immediately.
+                    NotifyTime = notifyTime.AddHours(1) // Used for Scheduling local notification, if not specified notification will show immediately.
                 }
             };
             await LocalNotificationCenter.Current.Show(notification);

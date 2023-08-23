@@ -281,7 +281,7 @@
                                                         FontSize="18"
                                                         HorizontalTextAlignment="Start"
                                                         IsVisible="{Binding UseMoving}"
-                                                        Text="{Binding DateOfNextMove, StringFormat='{0:d} {0:h\:mm tt}'}" />
+                                                        Text="{Binding DateOfLastMove, StringFormat='{0:d} {0:h\:mm tt}'}" />
                                                     <Image
                                                         Grid.Row="5"
                                                         Grid.Column="2"

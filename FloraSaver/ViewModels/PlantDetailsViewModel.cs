@@ -26,8 +26,11 @@ namespace FloraSaver.ViewModels
 
         private Random rand = new Random();
 
-        private List<GroupColors> groupoColors = PickerService.GetSelectableColors();
-        
+        [ObservableProperty]
+        public List<GroupColors> groupColors = PickerService.GetSelectableColors();
+        [ObservableProperty]
+        public GroupColors selectedGroupColor;
+       
         [ObservableProperty]
         public Plant alterPlant;
 
@@ -42,7 +45,7 @@ namespace FloraSaver.ViewModels
             wateringInterval = PickerService.GetWaterIntervals();
             mistingInterval = PickerService.GetWaterIntervals();
             sunInterval = PickerService.GetWaterIntervals();
-            var bloop = PickerService.GetSelectableColors();
+            SelectedGroupColor = GroupColors[rand.Next(GroupColors.Count)];
         }
 
         [RelayCommand]
@@ -254,7 +257,7 @@ namespace FloraSaver.ViewModels
             {
                 GroupId = PlantGroups.Any() ? PlantGroups.Max(x => x.GroupId) + 1 : 0,
                 GroupName = newPlantGroupName,
-                GroupColorHex = $"#{rand.Next(0x1000000):X6}",
+                GroupColorHex = $"{SelectedGroupColor.ColorsHex}",
             };
             var result = await AddUpdateGroupAsync(newPlantGroup);
             if (result)

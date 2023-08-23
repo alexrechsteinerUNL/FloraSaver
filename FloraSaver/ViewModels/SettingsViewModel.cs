@@ -33,6 +33,10 @@ namespace FloraSaver.ViewModels
             }
         }
 
+
+        [ObservableProperty]
+        public Plant alterPlant;
+
         [RelayCommand]
         public void SetItem()
         {
@@ -102,12 +106,6 @@ namespace FloraSaver.ViewModels
         //}
 
         [RelayCommand]
-        public void FishSelection(PlantGroup group)
-        {
-            Console.WriteLine("");
-        }
-
-        [RelayCommand]
         partial void OnMorningTimeChanged(TimeSpan value)
         {
             var morningTimeDate = new DateTime().Add(value).ToBinary();
@@ -158,6 +156,21 @@ namespace FloraSaver.ViewModels
             //this redundant call is due to a Bug in maui that makes observable collections not realized they've been altered
             VisiblePlantGroups = new ObservableCollection<PlantGroup>(VisiblePlantGroups);
             OnPropertyChanged(nameof(VisiblePlantGroups));
+        }
+
+        [RelayCommand]
+        async Task ResetGroupChangeAsync(PlantGroup plantGroup)
+        {
+            //write something in the database service that can get a plantGroup by its name
+            //await _databaseService.GetPlantGroupAsync(plantGroup);
+        }
+
+        [RelayCommand]
+        async Task SaveGroupChangeAsync(PlantGroup plantGroup)
+        {
+            await _databaseService.AddUpdateNewPlantGroupAsync(plantGroup);
+            PickerPlantGroups.FirstOrDefault(_ => _.Equals(plantGroup)).isEdited = false;
+            SetItem();
         }
 
         [RelayCommand]

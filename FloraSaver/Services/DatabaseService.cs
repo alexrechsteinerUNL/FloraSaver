@@ -102,6 +102,7 @@ namespace FloraSaver.Services
                 await InitAsync();
                 result = await conn.DeleteAllAsync<PlantGroup>();
                 var plants = await GetAllPlantAsync();
+                //make sure that the ungrouped group is set! You might need to do it here
                 await SetPlantsToGroupAsync(plants);
                 //foreach (var plant in plants.Where(_ => _.PlantGroupName != "Ungrouped"))
                 //{
@@ -119,9 +120,9 @@ namespace FloraSaver.Services
             }
         }
 
-        public async Task SetPlantsToGroupAsync(IEnumerable<Plant> plants, string groupName = "Ungrouped", string groupColorHex = "#A9A9A9")
+        public async Task SetPlantsToGroupAsync(IEnumerable<Plant> plantsGroup, string groupName = "Ungrouped", string groupColorHex = "#A9A9A9")
         {
-            foreach (var plant in plants.Where(_ => _.PlantGroupName != groupName))
+            foreach (var plant in plantsGroup)
             {
                 plant.PlantGroupName = groupName;
                 plant.GroupColorHexString = groupColorHex;
@@ -166,6 +167,15 @@ namespace FloraSaver.Services
                     throw new Exception("Valid group name required");
 
                 result = await conn.InsertOrReplaceAsync(plantGroup);
+                var plants = await GetAllPlantAsync();
+                //foreach (var plant in plants.Where(_ => _.PlantGroupName == plantGroup.GroupName))
+                //{
+                //    plant.PlantGroupName = "Ungrouped";
+                //    plant.GroupColorHexString = "#A9A9A9";
+                //    await AddUpdateNewPlantAsync(plant);
+                //}
+
+                await SetPlantsToGroupAsync(plants.Where(_ => _.PlantGroupName == plantGroup.GroupName), plantGroup.GroupName, plantGroup.GroupColorHex);
 
                 StatusMessage = string.Format("{0} group saved (Name: {1})", result, plantGroup.GroupName);
             }

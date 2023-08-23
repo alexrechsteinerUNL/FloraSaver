@@ -111,7 +111,7 @@ namespace FloraSaver.ViewModels
             OnPropertyChanged("Plants");
         }
 
-
+        //please break these bad boys out into a class of their own so you don't have to rewirte this fun logic ever.
         [RelayCommand]
         protected async Task ResetWateringAsync(Plant plant)
         {
@@ -119,8 +119,13 @@ namespace FloraSaver.ViewModels
             {
                 if (plant.WaterInterval != 0)
                 {
-                    plant.DateOfNextWatering = plant.DateOfNextWatering.AddDays(plant.WaterInterval != null ? (int)plant.WaterInterval :
+                    do
+                    {
+                        plant.DateOfNextWatering = plant.DateOfNextWatering.AddDays(plant.WaterInterval != null ? (int)plant.WaterInterval :
 (plant.DateOfNextWatering.Date - plant.DateOfLastWatering.Date).Days);
+                    } while (plant.DateOfNextWatering < DateTime.Now);
+
+
                 } else
                 {
                     plant.UseWatering = false;
@@ -142,8 +147,11 @@ namespace FloraSaver.ViewModels
             {
                 if (plant.MistInterval != 0)
                 {
-                    plant.DateOfNextMisting = plant.DateOfNextMisting.AddDays(plant.MistInterval != null ? (int)plant.MistInterval :
+                    do
+                    {
+                        plant.DateOfNextMisting = plant.DateOfNextMisting.AddDays(plant.MistInterval != null ? (int)plant.MistInterval :
     (plant.DateOfNextMisting.Date - plant.DateOfLastMisting.Date).Days);
+                    } while (plant.DateOfNextMisting < DateTime.Now);
                 }
                 else
                 {
@@ -167,8 +175,11 @@ namespace FloraSaver.ViewModels
             {
                 if (plant.SunInterval != 0)
                 {
-                    plant.DateOfNextMove = plant.DateOfNextMove.AddDays(plant.SunInterval != null ? (int)plant.SunInterval :
+                    do
+                    {
+                        plant.DateOfNextMove = plant.DateOfNextMove.AddDays(plant.SunInterval != null ? (int)plant.SunInterval :
                     (plant.DateOfNextMove.Date - plant.DateOfLastMove.Date).Days);
+                    } while (plant.DateOfNextMove < DateTime.Now);
                 }
                 else
                 {
@@ -383,11 +394,17 @@ namespace FloraSaver.ViewModels
                         Id = DataPlants.Any() ? DataPlants.Max(x => x.Id) + 1 : 0,
                         DateOfBirth = DateTime.Now,
                         DateOfLastWatering = DateTime.Now,
+                        TimeOfLastWatering = DateTime.Now.TimeOfDay,
                         DateOfNextWatering = DateTime.Now,
+                        TimeOfNextWatering = DateTime.Now.TimeOfDay,
                         DateOfLastMisting = DateTime.Now,
+                        TimeOfLastMisting = DateTime.Now.TimeOfDay,
                         DateOfNextMisting = DateTime.Now,
+                        TimeOfNextMisting = DateTime.Now.TimeOfDay,
                         DateOfLastMove = DateTime.Now,
-                        DateOfNextMove = DateTime.Now
+                        TimeOfLastMove = DateTime.Now.TimeOfDay,
+                        DateOfNextMove = DateTime.Now,
+                        TimeOfNextMove = DateTime.Now.TimeOfDay
                         }
                     },
                     {"PlantGroup", await _databaseService.GetAllPlantGroupAsync() }

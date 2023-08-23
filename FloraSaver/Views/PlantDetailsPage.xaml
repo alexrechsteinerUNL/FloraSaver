@@ -39,7 +39,8 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="300" />
+                                <ColumnDefinition Width="270" />
+                                <ColumnDefinition Width="30" />
                                 <ColumnDefinition Width="30" />
                             </Grid.ColumnDefinitions>
                             <Label
@@ -70,7 +71,7 @@
                             <Button
                                 x:Name="addGroupButton"
                                 Grid.Row="1"
-                                Grid.Column="1"
+                                Grid.Column="2"
                                 Padding="0"
                                 Command="{Binding AddGroupShowPressedCommand}"
                                 HeightRequest="45"
@@ -80,12 +81,12 @@
                                 Grid.Column="0"
                                 HorizontalOptions="Start"
                                 IsVisible="{Binding AddNewGroupGridVisible}"
-                                WidthRequest="300">
+                                WidthRequest="270">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="280" />
-                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="10" />
+                                        <ColumnDefinition Width="270" />
+                                        <ColumnDefinition Width="10" />
                                     </Grid.ColumnDefinitions>
                                     <Rectangle Grid.Column="0" Background="Black" />
                                     <Entry
@@ -93,14 +94,52 @@
                                         Grid.Column="1"
                                         Completed="Entry_Completed"
                                         Placeholder="Enter new plant group"
-                                        WidthRequest="280" />
+                                        WidthRequest="270" />
                                     <Rectangle Grid.Column="2" Background="Black" />
                                 </Grid>
+                            </Border>
+                            <Border
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Padding="0"
+                                BackgroundColor="white"
+                                HeightRequest="50"
+                                HorizontalOptions="Start"
+                                IsVisible="{Binding AddNewGroupGridVisible}"
+                                VerticalOptions="Start"
+                                WidthRequest="30">
+                                <Grid
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    ColumnDefinitions="45"
+                                    RowDefinitions="30">
+                                    <Picker
+                                        x:Name="NewGroupColorPicker"
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{Binding SelectedGroupColor.Colors, Mode=TwoWay}"
+                                        HeightRequest="60"
+                                        IsVisible="{Binding AddNewGroupGridVisible}"
+                                        ItemDisplayBinding="{Binding ColorName, Mode=TwoWay}"
+                                        ItemsSource="{Binding GroupColors, Mode=TwoWay}"
+                                        SelectedItem="{Binding SelectedGroupColor, Mode=TwoWay}"
+                                        TextColor="{Binding SelectedGroupColor.Colors, Mode=TwoWay}"
+                                        WidthRequest="100" />
+                                    <Rectangle
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        BackgroundColor="{Binding SelectedGroupColor.Colors, Mode=TwoWay}"
+                                        HeightRequest="1000"
+                                        WidthRequest="1000" />
+
+                                </Grid>
+
                             </Border>
                             <Button
                                 x:Name="addNewGroupButton"
                                 Grid.Row="2"
-                                Grid.Column="1"
+                                Grid.Column="2"
                                 Padding="0"
                                 Command="{Binding AddNewGroupCommand}"
                                 CommandParameter="{Binding Source={x:Reference _groupAdd}, Path=Text}"
@@ -130,6 +169,7 @@
                                         Grid.Column="1"
                                         Completed="Entry_Completed"
                                         Placeholder="Enter plant species"
+                                        ReturnType="Send"
                                         Text="{Binding AlterPlant.PlantSpecies, StringFormat='{0}', Mode=TwoWay}"
                                         WidthRequest="320" />
                                     <Rectangle Grid.Column="2" Background="Black" />
