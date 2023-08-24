@@ -190,7 +190,11 @@ namespace FloraSaver.Models
         [Range(0, 365)]
         public int? SunInterval { get; set; }
         public string ImageLocation { get; set; }
-        
+
+        public DateTime PlantWaterOverdueCooldownLastWarned { get; set; }
+        public DateTime PlantMistOverdueCooldownLastWarned { get; set; }
+        public DateTime PlantMoveOverdueCooldownLastWarned { get; set; }
+
         private double _waterPercent;
         public double WaterPercent
         {

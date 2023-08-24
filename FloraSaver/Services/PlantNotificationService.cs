@@ -12,7 +12,9 @@ namespace FloraSaver.Services
             LocalNotificationCenter.Current.Cancel(notificationId);
         }
 
-        public async Task SetAllNotificationsAsync(List<Plant> plants)
+        public static int COOLDOWN_HOURS { get; set; } = -1;
+
+        public async Task<List<Plant>> SetAllNotificationsAsync(List<Plant> plants)
         {
             // first make these parallel, but it might be better to do them plant by plant instead of 3 separate loops
             foreach (var plant in plants.Where(_ => _.DateOfNextWatering != _.DateOfLastWatering && _.UseWatering))
@@ -28,9 +30,13 @@ namespace FloraSaver.Services
                 {
                     plant.IsOverdueWater = true;
                     //this is gross. Fix it!
-                    await WarnOverdueAsync(plant, "water", plants
+                    if (DateTime.Now.AddHours(COOLDOWN_HOURS) > plant.PlantWaterOverdueCooldownLastWarned)
+                    {
+                        await WarnOverdueAsync(plant, "water", plants
                         .FirstOrDefault(plant => plantDateWithExtraTime > DateTime.Now)?
                         .DateOfNextWatering.AddDays(plant.ExtraWaterTime) ?? DateTime.Now);
+                        plant.PlantWaterOverdueCooldownLastWarned = DateTime.Now;
+                    }
                 }
             }
             foreach (var plant in plants.Where(_ => _.DateOfNextMisting != _.DateOfLastMisting && _.UseMisting))
@@ -46,9 +52,13 @@ namespace FloraSaver.Services
                 {
                     plant.IsOverdueMist = true;
                     //this is gross. Fix it!
-                    await WarnOverdueAsync(plant, "mist", plants
+                    if (DateTime.Now.AddHours(COOLDOWN_HOURS) > plant.PlantMistOverdueCooldownLastWarned)
+                    {
+                        await WarnOverdueAsync(plant, "mist", plants
                         .FirstOrDefault(plant => plantDateWithExtraTime > DateTime.Now)?
                         .DateOfNextMisting.AddDays(plant.ExtraMistTime) ?? DateTime.Now);
+                        plant.PlantMistOverdueCooldownLastWarned = DateTime.Now;
+                    }
                 }
             }
             foreach (var plant in plants.Where(_ => _.DateOfNextMove != _.DateOfLastMove && _.UseMoving))
@@ -63,12 +73,17 @@ namespace FloraSaver.Services
                 else
                 {
                     plant.IsOverdueWater = true;
-                    //this is gross. Fix it!
-                    await WarnOverdueAsync(plant, "move", plants
-                        .FirstOrDefault(plant => plantDateWithExtraTime > DateTime.Now)?
-                        .DateOfNextMove.AddDays(plant.ExtraMoveTime) ?? DateTime.Now);
+                    if (DateTime.Now.AddHours(COOLDOWN_HOURS) > plant.PlantMoveOverdueCooldownLastWarned)
+                    {
+                        //this is gross. Fix it!
+                        await WarnOverdueAsync(plant, "move", plants
+                            .FirstOrDefault(plant => plantDateWithExtraTime > DateTime.Now)?
+                            .DateOfNextMove.AddDays(plant.ExtraMoveTime) ?? DateTime.Now);
+                        plant.PlantMoveOverdueCooldownLastWarned = DateTime.Now;
+                    }
                 }
             }
+            return plants;
         }
 
         private async Task WarnOverdueAsync(Plant plant, string plantAction, DateTime notifyTime)
@@ -81,7 +96,7 @@ namespace FloraSaver.Services
                 ReturningData = "Dummy data", // Returning data when tapped on notification.
                 Schedule =
                 {
-                    NotifyTime = notifyTime.AddHours(1) // Used for Scheduling local notification, if not specified notification will show immediately.
+                    NotifyTime = notifyTime // Used for Scheduling local notification, if not specified notification will show immediately.
                 }
             };
             await LocalNotificationCenter.Current.Show(notification);

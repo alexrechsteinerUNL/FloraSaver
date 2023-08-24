@@ -224,7 +224,11 @@ namespace FloraSaver.Services
                 await InitAsync();
                 var allPlants = await conn.Table<Plant>().ToListAsync();
 #if (ANDROID || IOS)
-                await _plantNotificationService.SetAllNotificationsAsync(allPlants);
+                allPlants = await _plantNotificationService.SetAllNotificationsAsync(allPlants);
+                foreach (var plant in allPlants) 
+                {
+                    await AddUpdateNewPlantAsync(plant);
+                }
 #endif
                 return allPlants;
             }
