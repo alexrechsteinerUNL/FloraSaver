@@ -25,7 +25,7 @@ namespace FloraSaver.ViewModels
         public Plant initialPlant;
 
         private Random rand = new Random();
-
+        
         [ObservableProperty]
         public List<GroupColors> groupColors = PickerService.GetSelectableColors();
         [ObservableProperty]
@@ -320,7 +320,9 @@ namespace FloraSaver.ViewModels
             {
                 IsBusy = false;
                 FriendlyLabel = _databaseService.StatusMessage;
-                
+                await FriendlyLabelToastAsync();
+
+
             }
             return result;
         }
@@ -347,6 +349,7 @@ namespace FloraSaver.ViewModels
             {
                 IsBusy = false;
                 FriendlyLabel = _databaseService.StatusMessage;
+                await FriendlyLabelToastAsync();
             }
         }
 
@@ -369,6 +372,7 @@ namespace FloraSaver.ViewModels
             finally
             {
                 IsBusy = false;
+                await GoToTableAsync();
             }
         }
 

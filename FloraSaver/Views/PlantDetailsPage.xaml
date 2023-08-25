@@ -1107,8 +1107,15 @@
 
             </Grid>
         </Frame>
-
-
-        <Label x:Name="friendlyNotification" Text="{Binding FriendlyLabel}" />
+        <Frame
+            BackgroundColor="DimGray"
+            IsVisible="{Binding IsFriendlyLabelVisible}"
+            Opacity=".9"
+            WidthRequest="300">
+            <Label
+                x:Name="friendlyNotification"
+                IsVisible="{Binding IsFriendlyLabelVisible}"
+                Text="{Binding FriendlyLabel}" />
+        </Frame>
     </VerticalStackLayout>
 </ContentPage>

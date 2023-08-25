@@ -13,7 +13,8 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsNotBusy))]
         public bool isBusy;
-
+        [ObservableProperty]
+        public bool isFriendlyLabelVisible = false;
         [ObservableProperty]
         string title;
 
@@ -22,6 +23,7 @@ namespace FloraSaver.ViewModels
         // I think the code below is equivalent to
         // [ObservableProperty]
         // string friendlyLabel;
+        // also don't do this in the setter, are you crazy?
         string friendlyLabel;
         public string FriendlyLabel
         {
@@ -33,7 +35,12 @@ namespace FloraSaver.ViewModels
             }
         }
 
-
+        public async Task FriendlyLabelToastAsync()
+        {
+            IsFriendlyLabelVisible = true;
+            await Task.Delay(5000);
+            IsFriendlyLabelVisible = false;
+        }
         public bool IsNotBusy => !IsBusy;
         
         [RelayCommand]
