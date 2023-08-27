@@ -201,7 +201,9 @@ namespace FloraSaver.Models
             get { return _waterPercent;  }
             set 
             { 
+
                 _waterPercent = TimeToNextAction(DateOfLastWatering, DateOfNextWatering);
+                _waterPercent = UseWatering ? _waterPercent : 0;
                 WaterRect = new Rect(0, 40, Width, Height);
                 //WaterRect = new Rect(0, WaterPercent * Height, Width, Height);
                 OnPropertyChanged(nameof(WaterRect));
@@ -215,6 +217,7 @@ namespace FloraSaver.Models
             set 
             {
                 _mistPercent = TimeToNextAction(DateOfLastMisting, DateOfNextMisting);
+                _mistPercent = UseMisting ? _mistPercent : 0;
                 MistRect = new Rect(0, 60, Width, Height);
                 //MistRect = new Rect(0, MistPercent * Height, Width, Height);
                 OnPropertyChanged(nameof(MistRect));
@@ -228,6 +231,7 @@ namespace FloraSaver.Models
             set 
             {
                 _sunPercent = TimeToNextAction(DateOfLastMove, DateOfNextMove);
+                _sunPercent = UseMoving ? _sunPercent : 0;
                 SunRect = new Rect(0, 80, Width, Height);
                 //SunRect = new Rect(0, SunPercent * Height, Width, Height);
                 OnPropertyChanged(nameof(SunRect));

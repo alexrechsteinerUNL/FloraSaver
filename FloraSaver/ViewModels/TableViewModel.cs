@@ -84,13 +84,13 @@ namespace FloraSaver.ViewModels
             setPlantOrder(value);
         }
 
-        private void setPlantOrder(string order)
+        protected void setPlantOrder(string order)
         {
             //this is gross. There has to be a better way.
             switch (order)
             {
                 case "Next Action":
-                    Plants = new ObservableCollection<Plant>(Plants.OrderByDescending(_ => new[] { _.UseWatering, _.UseMisting, _.UseMoving }.Max()).ThenByDescending(_ => new[] { _.WaterPercent, _.MistPercent, _.SunPercent }.Max()));
+                    Plants = new ObservableCollection<Plant>(Plants.OrderByDescending(_ => new[] {_.WaterPercent, _.MistPercent, _.SunPercent }.Max()));
                     break;
                 case "Next Watering":
                     Plants = new ObservableCollection<Plant>(Plants.OrderByDescending(_ => _.UseWatering).ThenByDescending(_ => _.WaterPercent));
@@ -113,7 +113,7 @@ namespace FloraSaver.ViewModels
 
         //please break these bad boys out into a class of their own so you don't have to rewirte this fun logic ever.
         [RelayCommand]
-        protected async Task ResetWateringAsync(Plant plant)
+        protected virtual async Task ResetWateringAsync(Plant plant)
         {
             if (plant.UseWatering)
             {
@@ -141,7 +141,7 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        protected async Task ResetMistingAsync(Plant plant)
+        protected virtual async Task ResetMistingAsync(Plant plant)
         {
             if (plant.UseMisting)
             {
@@ -169,7 +169,7 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        protected async Task ResetMovingAsync(Plant plant)
+        protected virtual async Task ResetMovingAsync(Plant plant)
         {
             if (plant.UseMoving)
             {

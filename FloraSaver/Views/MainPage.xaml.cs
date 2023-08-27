@@ -4,7 +4,7 @@ namespace FloraSaver;
 
 public partial class MainPage : ContentPage
 {
-	public MainPage(TableViewModel viewModel)
+	public MainPage(MainViewModel viewModel)
 	{
 		InitializeComponent();
         BindingContext = viewModel;

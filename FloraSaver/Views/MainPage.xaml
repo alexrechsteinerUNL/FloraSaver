@@ -6,8 +6,13 @@
     xmlns:custom_components="clr-namespace:FloraSaver"
     xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
     xmlns:model="clr-namespace:FloraSaver.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
-    x:DataType="viewmodel:TableViewModel">
+    x:DataType="viewmodel:MainViewModel">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding AppearingHomeCommand}" EventName="Appearing" />
+        <toolkit:EventToCommandBehavior Command="{Binding DisappearingHomeCommand}" EventName="Disappearing" />
+    </ContentPage.Behaviors>
 
 
     <Grid>
@@ -19,19 +24,113 @@
                 SemanticProperties.Description="Title for app"
                 Source="plant_saver_title.png"
                 WidthRequest="350" />
-
-            <!--<Button
-                x:Name="startPlantService"
-                Command="{Binding GetPlantsCommand}"
-                HorizontalOptions="Center"
-                IsVisible="true"
-                Text="start Services" />-->
             <ImageButton
                 Command="{Binding TalkToClipetCommand}"
                 CommandParameter="WelcomeMessage.txt"
                 HeightRequest="180"
                 HorizontalOptions="Center"
                 Source="clipet_flowers_standing_color.png" />
+            <Frame
+                Padding="5,5"
+                BackgroundColor="Black"
+                HeightRequest="60"
+                Opacity=".98">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="50" />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Column="0"
+                        FontSize="16"
+                        Text="{Binding NextPlant.GivenName, StringFormat='Next: {0}'}"
+                        VerticalOptions="Center" />
+                    <Frame
+                        Grid.Column="1"
+                        Padding="5,0"
+                        BackgroundColor="Black">
+                        <Grid ColumnDefinitions="*, 30" RowDefinitions="50">
+                            <ProgressBar
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                IsVisible="{Binding IsNextWater}"
+                                Progress="{Binding NextPlant.WaterPercent}"
+                                ScaleY="2"
+                                VerticalOptions="Center" />
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                FontSize="14"
+                                IsVisible="{Binding IsNextWater}"
+                                Text="{Binding NextPlant.WaterPercent, StringFormat='{0:P0}'}"
+                                VerticalOptions="Center" />
+                            <ProgressBar
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                IsVisible="{Binding IsNextMist}"
+                                Progress="{Binding NextPlant.MistPercent}"
+                                ProgressColor="LightBlue"
+                                ScaleY="2"
+                                VerticalOptions="Center" />
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                FontSize="14"
+                                IsVisible="{Binding IsNextMist}"
+                                Text="{Binding NextPlant.MistPercent, StringFormat='{0:P0}'}"
+                                VerticalOptions="Center" />
+                            <ProgressBar
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                IsVisible="{Binding IsNextSun}"
+                                Progress="{Binding NextPlant.SunPercent}"
+                                ProgressColor="Orange"
+                                ScaleY="2"
+                                VerticalOptions="Center" />
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                FontSize="14"
+                                IsVisible="{Binding IsNextSun}"
+                                Text="{Binding NextPlant.SunPercent, StringFormat='{0:P0}'}"
+                                VerticalOptions="Center" />
+                        </Grid>
+                    </Frame>
+
+                    <ImageButton
+                        Grid.Column="2"
+                        Aspect="AspectFill"
+                        BackgroundColor="Black"
+                        Command="{Binding ResetWateringCommand}"
+                        CommandParameter="{Binding NextPlant}"
+                        HeightRequest="45"
+                        IsVisible="{Binding IsNextWater}"
+                        Source="water_timer_visual.png"
+                        WidthRequest="45" />
+                    <ImageButton
+                        Grid.Column="2"
+                        Aspect="AspectFill"
+                        BackgroundColor="Black"
+                        Command="{Binding ResetMistingCommand}"
+                        CommandParameter="{Binding NextPlant}"
+                        HeightRequest="45"
+                        IsVisible="{Binding IsNextMist}"
+                        Source="refresh_timer_visual.png"
+                        WidthRequest="45" />
+                    <ImageButton
+                        Grid.Column="2"
+                        Aspect="AspectFill"
+                        BackgroundColor="Black"
+                        Command="{Binding ResetMovingCommand}"
+                        CommandParameter="{Binding NextPlant}"
+                        HeightRequest="45"
+                        IsVisible="{Binding IsNextSun}"
+                        Source="sun_timer_visual.png"
+                        WidthRequest="45" />
+                </Grid>
+            </Frame>
+
         </VerticalStackLayout>
         <!--<custom_components:ClipetOverlay
             x:Name="Clipet"

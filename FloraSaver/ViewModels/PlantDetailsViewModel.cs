@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FloraSaver.Models;
@@ -151,6 +152,25 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         public int sunDaysFromNow;
 
+        [RelayCommand]
+        async Task ImageOfPlantToBase64Async()
+        {
+            var result = await FilePicker.PickAsync(new PickOptions
+            {
+                FileTypes = FilePickerFileType.Images
+            });
+
+            if (result is null)
+            {
+                return;
+            }
+            // extract below to extension method or helper class for base64
+            var imageStream = await result.OpenReadAsync();
+            using var memoryStream = new MemoryStream();
+            await imageStream.CopyToAsync(memoryStream);
+            AlterPlant.ImageLocation = Convert.ToBase64String(memoryStream.ToArray());
+        }
+
         partial void OnGroupPickerValueChanged(PlantGroup value)
         {
             if (!IsInitialization)
@@ -267,7 +287,6 @@ namespace FloraSaver.ViewModels
                 AddGroupShowPressed();
                 GroupPickerValue = newPlantGroup;
             }
-            
         }
 
 

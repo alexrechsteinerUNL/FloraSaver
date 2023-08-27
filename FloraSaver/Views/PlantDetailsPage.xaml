@@ -147,6 +147,20 @@
                                 IsVisible="{Binding AddNewGroupGridVisible}"
                                 Text="✓" />
                         </Grid>
+
+                        <Grid x:Name="PlantImageGrid">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="50" />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Text="Upload Plant Image: " />
+                            <Button
+                                x:Name="PlantImageButton"
+                                Grid.Row="1"
+                                Command="{Binding ImageOfPlantToBase64Command}"
+                                Text="Upload" />
+                        </Grid>
+
                         <Grid x:Name="plantSpeciesGrid">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="30" />
