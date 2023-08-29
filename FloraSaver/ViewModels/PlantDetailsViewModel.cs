@@ -155,20 +155,16 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         async Task ImageOfPlantToBase64Async()
         {
-            var result = await FilePicker.PickAsync(new PickOptions
-            {
-                FileTypes = FilePickerFileType.Images
-            });
+            AlterPlant.ImageLocation = await PickedImageToBase64Async();
+            OnPropertyChanged("AlterPlant");
+            SetImageSourceOfPlant();
+        }
 
-            if (result is null)
-            {
-                return;
-            }
-            // extract below to extension method or helper class for base64
-            var imageStream = await result.OpenReadAsync();
-            using var memoryStream = new MemoryStream();
-            await imageStream.CopyToAsync(memoryStream);
-            AlterPlant.ImageLocation = Convert.ToBase64String(memoryStream.ToArray());
+        [RelayCommand]
+        public void SetImageSourceOfPlant()
+        {
+            AlterPlant.PlantImageSource = Base64ToImage(AlterPlant.ImageLocation);
+            OnPropertyChanged("AlterPlant");
         }
 
         partial void OnGroupPickerValueChanged(PlantGroup value)

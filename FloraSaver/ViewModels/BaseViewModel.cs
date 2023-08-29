@@ -34,6 +34,31 @@ namespace FloraSaver.ViewModels
                 OnPropertyChanged();
             }
         }
+        public async Task<string> PickedImageToBase64Async()
+        {
+            var result = await FilePicker.PickAsync(new PickOptions
+            {
+                FileTypes = FilePickerFileType.Images
+            });
+
+            if (result is null)
+            {
+                return null;
+            }
+            // extract below to extension method or helper class for base64
+            var imageStream = await result.OpenReadAsync();
+            using var memoryStream = new MemoryStream();
+            await imageStream.CopyToAsync(memoryStream);
+            //AlterPlant.ImageLocation = Convert.ToBase64String(memoryStream.ToArray());
+            return Convert.ToBase64String(memoryStream.ToArray());
+        }
+
+        public ImageSource Base64ToImage(string base64String)
+        {
+            var bytesOfImage = Convert.FromBase64String(base64String);
+            MemoryStream memoryStream = new MemoryStream(bytesOfImage);
+            return ImageSource.FromStream(() => memoryStream);
+        }
 
         public async Task FriendlyLabelToastAsync()
         {

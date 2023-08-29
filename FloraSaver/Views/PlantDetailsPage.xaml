@@ -160,6 +160,7 @@
                                 Command="{Binding ImageOfPlantToBase64Command}"
                                 Text="Upload" />
                         </Grid>
+                        <Image HeightRequest="400" Source="{Binding AlterPlant.PlantImageSource}" />
 
                         <Grid x:Name="plantSpeciesGrid">
                             <Grid.RowDefinitions>

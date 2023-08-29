@@ -299,6 +299,8 @@ namespace FloraSaver.Models
             }
         }
 
+        [Ignore]
+        public ImageSource PlantImageSource { get; set; }
 
         [Ignore]
         public Color SelectedColor => IsEnabled ? Color.FromArgb("#e1ad01") : Color.FromArgb("#000000");
