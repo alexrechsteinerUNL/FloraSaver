@@ -245,6 +245,7 @@ namespace FloraSaver.ViewModels
                 if (plants.Count == 0)
                 {
                     plants = await _databaseService.GetAllPlantAsync();
+                    // small buffer for plant count
                     for (var i = 0; i < 2; i++)
                     {
                         if (plants.Count != 0)
@@ -260,6 +261,7 @@ namespace FloraSaver.ViewModels
                 }
                 foreach (var plant in plants)
                 {
+                    plant.PlantImageSource = plant.ImageLocation is not null ? Base64ImageConverterService.Base64ToImage(plant.ImageLocation) : null;
                     Plants.Add(plant);
                     OnPropertyChanged(nameof(Plants));
                 }

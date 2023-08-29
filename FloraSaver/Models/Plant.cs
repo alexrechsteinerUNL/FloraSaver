@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
+using FloraSaver.Services;
 using Microsoft.Maui.Controls.Shapes;
 using SQLite;
 
@@ -189,7 +190,15 @@ namespace FloraSaver.Models
         public int? MistInterval { get; set; }
         [Range(0, 365)]
         public int? SunInterval { get; set; }
-        public string ImageLocation { get; set; }
+        private string _imageLocation;
+        public string ImageLocation
+        {
+            get { return _imageLocation;  }
+            set 
+            {
+                _imageLocation = value;
+            }
+        }
 
         public DateTime PlantWaterOverdueCooldownLastWarned { get; set; }
         public DateTime PlantMistOverdueCooldownLastWarned { get; set; }

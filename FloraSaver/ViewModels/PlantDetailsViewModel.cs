@@ -83,6 +83,10 @@ namespace FloraSaver.ViewModels
             SunGridText = InitialPlant.UseMoving ? "Do Not Use Sunlight Move" : "Use Sunlight Move";
 
             IsInitialization = false;
+            if (InitialPlant.ImageLocation != null)
+            {
+                SetImageSourceOfPlant();
+            }
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -155,7 +159,7 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         async Task ImageOfPlantToBase64Async()
         {
-            AlterPlant.ImageLocation = await PickedImageToBase64Async();
+            AlterPlant.ImageLocation = await Base64ImageConverterService.PickedImageToBase64Async();
             OnPropertyChanged("AlterPlant");
             SetImageSourceOfPlant();
         }
@@ -163,7 +167,7 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         public void SetImageSourceOfPlant()
         {
-            AlterPlant.PlantImageSource = Base64ToImage(AlterPlant.ImageLocation);
+            AlterPlant.PlantImageSource = Base64ImageConverterService.Base64ToImage(AlterPlant.ImageLocation);
             OnPropertyChanged("AlterPlant");
         }
 
