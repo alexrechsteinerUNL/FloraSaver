@@ -23,5 +23,12 @@ public partial class SettingsPage : ContentPage
             hiddenSpacerForPickerUpdate.IsEnabled = hiddenSpacerForPickerUpdate.IsEnabled ? false : true;
         }
     }
+
+    private static void Entry_Completed(object sender, EventArgs e)
+    {
+        var entry = sender as Entry;
+        entry.IsEnabled = false;
+        entry.IsEnabled = true;
+    }
 }
 

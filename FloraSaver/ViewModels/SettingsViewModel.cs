@@ -140,6 +140,18 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
+        public void GroupNameEdit(PlantGroup plantGroup)
+        {
+            if (plantGroup is not null)
+            {
+                PickerPlantGroups.FirstOrDefault(_ => _.Equals(plantGroup)).isEdited = true;
+                SetItem();
+                OnPropertyChanged(nameof(VisiblePlantGroups));
+            }
+            
+        }
+
+        [RelayCommand]
         protected void VisiblePlantAttentionGetter()
         {
             VisiblePlantGroups = new ObservableCollection<PlantGroup>(VisiblePlantGroups);

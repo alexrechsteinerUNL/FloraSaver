@@ -44,11 +44,15 @@
             </Entry>
             <Rectangle Grid.Column="2" Background="Black" />
         </Grid>
-        <Image Grid.Row="1" Source="plantpagebackgroundfirstpass.png" />
+        <Image
+            Grid.Row="1"
+            Aspect="Fill"
+            Source="plantpagebackgroundfirstpass.png" />
         <Grid
             Grid.Row="1"
             Padding="2"
             ColumnDefinitions="70,160,160"
+            HorizontalOptions="Center"
             RowSpacing="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="60" />
@@ -58,7 +62,10 @@
             </Grid.RowDefinitions>
 
 
-            <Grid Grid.Row="0" Grid.ColumnSpan="3">
+            <Grid
+                Grid.Row="0"
+                Grid.ColumnSpan="3"
+                HorizontalOptions="Center">
                 <Frame Padding="5" BackgroundColor="Black">
                     <Grid ColumnSpacing="5">
                         <Grid.ColumnDefinitions>
@@ -394,12 +401,14 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </RefreshView>
+
             <Frame
                 Grid.Row="3"
                 Grid.Column="0"
                 Margin="8"
                 BackgroundColor="Black"
                 HeightRequest="60"
+                VerticalOptions="End"
                 WidthRequest="60">
                 <ImageButton
                     x:Name="getPlants"
@@ -419,6 +428,7 @@
                 HeightRequest="60"
                 IsEnabled="{Binding IsNotBusy}"
                 Text="Add New Plant"
+                VerticalOptions="End"
                 WidthRequest="150" />
             <Button
                 x:Name="addGroups"
@@ -429,6 +439,7 @@
                 HeightRequest="60"
                 IsEnabled="{Binding IsNotBusy}"
                 Text="Add New Group"
+                VerticalOptions="End"
                 WidthRequest="150" />
 
             <!--<custom_components:ClipetOverlay
