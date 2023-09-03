@@ -29,6 +29,7 @@
         <Grid
             Padding="0"
             ColumnDefinitions="210,182"
+            HorizontalOptions="FillAndExpand"
             RowDefinitions="*, 130"
             RowSpacing="0">
             <Image

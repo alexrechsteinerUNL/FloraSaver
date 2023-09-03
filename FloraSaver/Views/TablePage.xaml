@@ -52,7 +52,7 @@
             Grid.Row="1"
             Padding="2"
             ColumnDefinitions="70,160,160"
-            HorizontalOptions="Center"
+            HorizontalOptions="CenterAndExpand"
             RowSpacing="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="60" />
@@ -65,7 +65,7 @@
             <Grid
                 Grid.Row="0"
                 Grid.ColumnSpan="3"
-                HorizontalOptions="Center">
+                HorizontalOptions="CenterAndExpand">
                 <Frame Padding="5" BackgroundColor="Black">
                     <Grid ColumnSpacing="5">
                         <Grid.ColumnDefinitions>
@@ -102,7 +102,10 @@
                 </Frame>
             </Grid>
 
-            <Grid Grid.Row="1" Grid.ColumnSpan="3">
+            <Grid
+                Grid.Row="1"
+                Grid.ColumnSpan="3"
+                HorizontalOptions="CenterAndExpand">
                 <Frame Padding="5" BackgroundColor="Black">
                     <CollectionView
                         x:Name="groupdeck"
