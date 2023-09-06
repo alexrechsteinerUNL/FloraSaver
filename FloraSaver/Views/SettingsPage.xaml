@@ -249,24 +249,34 @@
                                                         HorizontalOptions="Start"
                                                         VerticalOptions="Start"
                                                         WidthRequest="50">
-                                                        <Picker
-                                                            x:Name="ColorIntervalPicker"
-                                                            Grid.Row="2"
-                                                            Grid.Column="1"
-                                                            Grid.ColumnSpan="2"
-                                                            BackgroundColor="{Binding GroupColorDetails.Colors, Mode=TwoWay}"
-                                                            ItemDisplayBinding="{Binding ColorName, Mode=TwoWay}"
-                                                            ItemsSource="{Binding PossibleGroupColors, Mode=TwoWay}"
-                                                            SelectedIndexChanged="ColorIntervalPicker_SelectedIndexChanged"
-                                                            SelectedItem="{Binding GroupColorDetails}"
-                                                            TextColor="{Binding GroupColorDetails.Colors, Mode=TwoWay}">
-                                                            <Picker.Behaviors>
-                                                                <toolkit:EventToCommandBehavior
-                                                                    Command="{Binding SetColorCommand}"
-                                                                    CommandParameter="{Binding SelectedItem, Source={x:Reference ColorIntervalPicker}}"
-                                                                    EventName="SelectedIndexChanged" />
-                                                            </Picker.Behaviors>
-                                                        </Picker>
+                                                        <Grid Grid.Row="2" Grid.Column="1">
+
+                                                            <Picker
+                                                                x:Name="ColorIntervalPicker"
+                                                                Grid.Row="0"
+                                                                Grid.Column="0"
+                                                                Grid.ColumnSpan="2"
+                                                                BackgroundColor="{Binding GroupColorDetails.Colors, Mode=TwoWay}"
+                                                                ItemDisplayBinding="{Binding ColorName, Mode=TwoWay}"
+                                                                ItemsSource="{Binding PossibleGroupColors, Mode=TwoWay}"
+                                                                SelectedIndexChanged="ColorIntervalPicker_SelectedIndexChanged"
+                                                                SelectedItem="{Binding GroupColorDetails}"
+                                                                TextColor="{Binding GroupColorDetails.Colors, Mode=TwoWay}">
+                                                                <Picker.Behaviors>
+                                                                    <toolkit:EventToCommandBehavior
+                                                                        Command="{Binding SetColorCommand}"
+                                                                        CommandParameter="{Binding SelectedItem, Source={x:Reference ColorIntervalPicker}}"
+                                                                        EventName="SelectedIndexChanged" />
+                                                                </Picker.Behaviors>
+                                                            </Picker>
+                                                            <Rectangle
+                                                                Grid.Row="0"
+                                                                Grid.Column="0"
+                                                                BackgroundColor="{Binding GroupColorDetails.Colors, Mode=TwoWay}"
+                                                                HeightRequest="1000"
+                                                                WidthRequest="1000" />
+                                                        </Grid>
+
                                                     </Border>
                                                     <Button
                                                         x:Name="groupChangesReset"
