@@ -70,6 +70,9 @@
 	  <Compile Update="ReusableComponentViews\ClipetOverlayPage.xaml.cs">
 	    <DependentUpon>ClipetOverlayPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\PlantDetailsSetupPage.xaml.cs">
+	    <DependentUpon>PlantDetailsSetupPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\SettingsPage.xaml.cs">
 	    <DependentUpon>SettingsPage.xaml</DependentUpon>
 	  </Compile>
@@ -86,6 +89,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="ReusableComponentViews\ClipetOverlayPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\PlantDetailsSetupPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\SettingsPage.xaml">

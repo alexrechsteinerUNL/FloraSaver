@@ -20,8 +20,9 @@ namespace FloraSaver.ViewModels
     public partial class PlantDetailsViewModel : BaseViewModel, IQueryAttributable, INotifyPropertyChanged
     {
         // I moved the _databaseService to the base viewmodel because just about every page was going to use it.
-        
 
+        [ObservableProperty]
+        public bool isImageSelected = false;
         [ObservableProperty]
         public Plant initialPlant;
 
@@ -54,7 +55,6 @@ namespace FloraSaver.ViewModels
         {
             IsInitialization = true;
             // extract to its own reusable method with reflection DRY!
-
             GroupPickerValue = initialPlant.PlantGroupName != null ? PlantGroups.FirstOrDefault(_ => _.GroupName == initialPlant.PlantGroupName) : PlantGroups.FirstOrDefault(_ => _.GroupName == "Ungrouped");
 
             WaterDaysFromNow = initialPlant.WaterInterval != null ? (int)initialPlant.WaterInterval : (initialPlant.DateOfNextWatering.Date - initialPlant.DateOfLastWatering.Date).Days;
@@ -83,9 +83,13 @@ namespace FloraSaver.ViewModels
             SunGridText = InitialPlant.UseMoving ? "Do Not Use Sunlight Move" : "Use Sunlight Move";
 
             IsInitialization = false;
-            if (InitialPlant.ImageLocation != null)
+            if (InitialPlant.ImageLocation is not null)
             {
                 SetImageSourceOfPlant();
+                IsImageSelected = true;
+            } else
+            {
+                IsImageSelected = false;
             }
         }
 
@@ -168,7 +172,9 @@ namespace FloraSaver.ViewModels
         public void SetImageSourceOfPlant()
         {
             AlterPlant.PlantImageSource = Base64ImageConverterService.Base64ToImage(AlterPlant.ImageLocation);
+            IsImageSelected = AlterPlant.PlantImageSource is not null ? true : false;
             OnPropertyChanged("AlterPlant");
+            OnPropertyChanged("IsImageSelected");
         }
 
         partial void OnGroupPickerValueChanged(PlantGroup value)

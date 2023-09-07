@@ -159,8 +159,23 @@
                                 Grid.Row="1"
                                 Command="{Binding ImageOfPlantToBase64Command}"
                                 Text="Upload" />
+                            <Grid
+                                Grid.Row="1"
+                                ColumnDefinitions="*, 50"
+                                IsVisible="{Binding IsImageSelected}">
+                                <Button
+                                    x:Name="_ChangeImageButton"
+                                    Grid.Column="0"
+                                    Command="{Binding ImageOfPlantToBase64Command}"
+                                    Text="Change Image" />
+                                <ImageButton
+                                    x:Name="_ChangeImagePreview"
+                                    Grid.Column="1"
+                                    Command="{Binding ImageOfPlantToBase64Command}"
+                                    Source="{Binding AlterPlant.PlantImageSource}"
+                                    WidthRequest="40" />
+                            </Grid>
                         </Grid>
-                        <Image HeightRequest="400" Source="{Binding AlterPlant.PlantImageSource}" />
 
                         <Grid x:Name="plantSpeciesGrid">
                             <Grid.RowDefinitions>
