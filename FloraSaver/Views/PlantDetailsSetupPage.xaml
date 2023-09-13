@@ -16,32 +16,65 @@
     </ContentPage.Behaviors>
     <Grid
         Padding="0"
-        ColumnDefinitions="210,182"
-        HorizontalOptions="FillAndExpand"
-        RowDefinitions="*, 130"
-        RowSpacing="0">
-        <Image
-            x:Name="clipet"
-            Grid.Row="0"
-            Grid.Column="1"
-            Aspect="AspectFit"
-            VerticalOptions="End" />
-        <Grid
-            x:Name="speechSpace"
+        HorizontalOptions="Fill"
+        RowDefinitions="30, *, *, 30"
+        RowSpacing="10">
+        <Label
+            FontAttributes="Bold"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
+            Setup Plant
+        </Label>
+        <Frame
             Grid.Row="1"
-            Grid.ColumnSpan="2">
+            BackgroundColor="Black"
+            VerticalOptions="Fill" />
+        <!--  Put each of the sections here inside the frame!  -->
+
+
+
+
+
+        <Grid
+            Grid.Row="2"
+            Padding="0"
+            ColumnDefinitions="210,*"
+            HorizontalOptions="FillAndExpand"
+            RowDefinitions="*, 130"
+            RowSpacing="0"
+            VerticalOptions="EndAndExpand">
             <Image
+                x:Name="clipet"
+                Grid.Row="0"
+                Grid.Column="1"
                 Aspect="Fill"
-                HeightRequest="140"
-                Source="speech_bubble.png"
-                WidthRequest="400" />
-            <!--  162 characters allowed per box before it's gotta be split  -->
-            <Label
-                x:Name="speech"
-                FontSize="22"
-                HeightRequest="120"
-                TextColor="Orange"
-                WidthRequest="375" />
+                Source="up_close_base_clipet.png"
+                VerticalOptions="EndAndExpand" />
+            <Grid
+                x:Name="speechSpace"
+                Grid.Row="1"
+                Grid.ColumnSpan="2">
+                <Image
+                    Aspect="Fill"
+                    HeightRequest="140"
+                    Source="speech_bubble.png"
+                    WidthRequest="400" />
+                <!--  162 characters allowed per box before it's gotta be split  -->
+                <Label
+                    x:Name="speech"
+                    FontSize="22"
+                    HeightRequest="120"
+                    TextColor="Orange"
+                    WidthRequest="375" />
+            </Grid>
+            <!--  Set up 6 tabs here  -->
         </Grid>
     </Grid>
+
+
+
+
+
+
+
 </ContentPage>

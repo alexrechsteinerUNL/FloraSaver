@@ -390,7 +390,7 @@ namespace FloraSaver.ViewModels
         {
             if (plant == null)
             {
-                await Shell.Current.GoToAsync(nameof(PlantDetailsPage), true, new Dictionary<string, object>
+                await Shell.Current.GoToAsync(nameof(PlantDetailsSetupPage), true, new Dictionary<string, object>
                 {
                     {"Plant", new Plant {
                         Id = DataPlants.Any() ? DataPlants.Max(x => x.Id) + 1 : 0,
