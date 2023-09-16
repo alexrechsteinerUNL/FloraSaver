@@ -62,8 +62,6 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         bool groupNameDialogActive;
         [ObservableProperty]
-        bool imageUploadDialogActive;
-        [ObservableProperty]
         bool plantNameDialogActive;
         [ObservableProperty]
         bool givenNameDialogActive;
@@ -74,6 +72,19 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         bool sunDialogActive;
 
+        [ObservableProperty]
+        Color tabBackgroundGroupNameDialog = Color.FromArgb("#000000");
+        [ObservableProperty]
+        Color tabBackgroundPlantNameDialog = Color.FromArgb("#000000");
+        [ObservableProperty]
+        Color tabBackgroundGivenNameDialog = Color.FromArgb("#000000");
+        [ObservableProperty]
+        Color tabBackgroundWaterDialog = Color.FromArgb("#000000");
+        [ObservableProperty]
+        Color tabBackgroundRefreshDialog = Color.FromArgb("#000000");
+        [ObservableProperty]
+        Color tabBackgroundSunDialog = Color.FromArgb("#000000");
+
         [RelayCommand]
         public void TabPressed(string tab)
         {
@@ -82,35 +93,37 @@ namespace FloraSaver.ViewModels
                 case "GroupName":
                     DisableAll();
                     GroupNameDialogActive = true;
-                    
-                    break;
-                case "ImageUpload":
-                    DisableAll();
-                    ImageUploadDialogActive = true;
+                    TabBackgroundGroupNameDialog = Color.FromArgb("#e1ad01");
                     break;
                 case "PlantName":
                     DisableAll();
                     PlantNameDialogActive = true;
+                    TabBackgroundPlantNameDialog = Color.FromArgb("#e1ad01");
                     break;
                 case "GivenName":
                     DisableAll();
                     GivenNameDialogActive = true;
+                    TabBackgroundGivenNameDialog = Color.FromArgb("#e1ad01");
                     break;
                 case "Water":
                     DisableAll();
                     WaterDialogActive = true;
+                    TabBackgroundWaterDialog = Color.FromArgb("#e1ad01");
                     break;
                 case "Refresh":
                     DisableAll();
                     RefreshDialogActive = true;
+                    TabBackgroundRefreshDialog = Color.FromArgb("#e1ad01");
                     break;
                 case "Sun":
                     DisableAll();
                     SunDialogActive = true;
+                    TabBackgroundSunDialog = Color.FromArgb("#e1ad01");
                     break;
                 default:
                     DisableAll();
                     GroupNameDialogActive = true;
+                    TabBackgroundGroupNameDialog = Color.FromArgb("#e1ad01");
                     tab = "GroupName";
                     break;
             }
@@ -141,12 +154,17 @@ namespace FloraSaver.ViewModels
         public void DisableAll()
         {
             GroupNameDialogActive = false;
-            ImageUploadDialogActive = false;
             PlantNameDialogActive = false;
             GivenNameDialogActive = false;
             WaterDialogActive = false;
             RefreshDialogActive = false;
             SunDialogActive = false;
+            TabBackgroundSunDialog = Color.FromArgb("#000000");
+            TabBackgroundRefreshDialog = Color.FromArgb("#000000");
+            TabBackgroundWaterDialog = Color.FromArgb("#000000");
+            TabBackgroundGivenNameDialog = Color.FromArgb("#000000");
+            TabBackgroundPlantNameDialog = Color.FromArgb("#000000");
+            TabBackgroundGroupNameDialog = Color.FromArgb("#000000");
         }
     }
 }
