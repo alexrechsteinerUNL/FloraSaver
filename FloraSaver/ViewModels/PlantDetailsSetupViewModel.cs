@@ -13,14 +13,42 @@ using Plugin.LocalNotification;
 
 namespace FloraSaver.ViewModels
 {
-
-
     [QueryProperty(nameof(Plant), "Plant")]
     [QueryProperty(nameof(PlantGroup), "PlantGroup")]
     public partial class PlantDetailsSetupViewModel : PlantDetailsViewModel, IQueryAttributable, INotifyPropertyChanged
     {
+        public ObservableCollection<DataTab> SetupTabs { get; set; } = new ObservableCollection<DataTab>() 
+        {
+            new DataTab(
+                tabName:"GroupName",
+                clipetText: "Add this plant to a group!"
+                ),
+            new DataTab(
+                tabName:"PlantName",
+                clipetText: "What is the name of this plant?"
+                ),
+            new DataTab(
+                tabName: "GivenName",
+                clipetText: "Add your personal touches."
+                ),
+            new DataTab(
+                tabName:"Water",
+                clipetText: "Watering?"
+                ),
+            new DataTab(
+                tabName:"Refresh",
+                clipetText: "Refreshing?"
+                ),
+            new DataTab(
+                tabName:"Sun",
+                clipetText: "Sunlight Move?"
+                )
+        };
+
+        public ObservableCollection<DataTab> VisibleTabs { get; set; } = new ObservableCollection<DataTab>();
+
         [ObservableProperty]
-        public List<string> setupTabs = new List<string>() {"GroupName","ImageUpload", "PlantName", "GivenName", "Water", "Refresh", "Sun"};
+        public DataTab activeTab;
 
         [ObservableProperty]
         public string activeElement;
@@ -31,6 +59,10 @@ namespace FloraSaver.ViewModels
         {
             _databaseService = databaseService;
             SelectedGroupColor = GroupColors[rand.Next(GroupColors.Count)];
+            VisibleTabs = new ObservableCollection<DataTab>(SetupTabs);
+            ActiveTab = VisibleTabs.First();
+            VisibleTabs.First().IsActive = true;
+            OnPropertyChanged("VisibleTabs");
         }
 
         [RelayCommand]
@@ -91,6 +123,7 @@ namespace FloraSaver.ViewModels
             switch (tab)
             {
                 case "GroupName":
+
                     DisableAll();
                     GroupNameDialogActive = true;
                     TabBackgroundGroupNameDialog = Color.FromArgb("#e1ad01");
@@ -130,25 +163,25 @@ namespace FloraSaver.ViewModels
             ActiveElement = tab;
         }
 
-        [RelayCommand]
-        public void NextButtonPressed()
-        {
-            var currentIndex = SetupTabs.IndexOf(ActiveElement);
-            if (currentIndex > -1 && currentIndex < SetupTabs.Count)
-            {
-                TabPressed(SetupTabs[currentIndex + 1]);
-            }
-        }
+        //[RelayCommand]
+        //public void NextButtonPressed()
+        //{
+        //    var currentIndex = SetupTabs.IndexOf(ActiveElement);
+        //    if (currentIndex > -1 && currentIndex < SetupTabs.Count)
+        //    {
+        //        TabPressed(SetupTabs[currentIndex + 1]);
+        //    }
+        //}
 
-        [RelayCommand]
-        public void LastButtonPressed()
-        {
-            var currentIndex = SetupTabs.IndexOf(ActiveElement);
-            if (currentIndex > -1 && currentIndex > 0)
-            {
-                TabPressed(SetupTabs[currentIndex - 1]);
-            }
-        }
+        //[RelayCommand]
+        //public void LastButtonPressed()
+        //{
+        //    var currentIndex = SetupTabs.IndexOf(ActiveElement);
+        //    if (currentIndex > -1 && currentIndex > 0)
+        //    {
+        //        TabPressed(SetupTabs[currentIndex - 1]);
+        //    }
+        //}
 
         [RelayCommand]
         public void DisableAll()
@@ -165,6 +198,7 @@ namespace FloraSaver.ViewModels
             TabBackgroundGivenNameDialog = Color.FromArgb("#000000");
             TabBackgroundPlantNameDialog = Color.FromArgb("#000000");
             TabBackgroundGroupNameDialog = Color.FromArgb("#000000");
+            VisibleTabs = new ObservableCollection<DataTab>(SetupTabs);
         }
     }
 }
