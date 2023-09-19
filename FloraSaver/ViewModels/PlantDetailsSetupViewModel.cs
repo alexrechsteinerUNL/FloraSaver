@@ -125,41 +125,76 @@ namespace FloraSaver.ViewModels
                 case "GroupName":
 
                     DisableAll();
-                    GroupNameDialogActive = true;
+                    ActiveTab = new DataTab(
+                tabName: "GroupName",
+                clipetText: "Add this plant to a group!",
+                isActive: true
+                );
                     TabBackgroundGroupNameDialog = Color.FromArgb("#e1ad01");
                     break;
                 case "PlantName":
                     DisableAll();
+                    ActiveTab = new DataTab(
+                tabName: "PlantName",
+                clipetText: "What is the name of this plant?",
+                isActive: true
+                );
                     PlantNameDialogActive = true;
                     TabBackgroundPlantNameDialog = Color.FromArgb("#e1ad01");
                     break;
                 case "GivenName":
                     DisableAll();
+                    ActiveTab = new DataTab(
+                tabName: "GivenName",
+                clipetText: "Add a personal touch!",
+                isActive: true
+                );
                     GivenNameDialogActive = true;
                     TabBackgroundGivenNameDialog = Color.FromArgb("#e1ad01");
                     break;
                 case "Water":
                     DisableAll();
+                    ActiveTab = new DataTab(
+                        tabName: "Water",
+                        clipetText: "Watering?",
+                        isActive: true
+                        );
                     WaterDialogActive = true;
                     TabBackgroundWaterDialog = Color.FromArgb("#e1ad01");
                     break;
                 case "Refresh":
                     DisableAll();
+                    ActiveTab = new DataTab(
+                        tabName: "Refresh",
+                        clipetText: "Refreshing?",
+                        isActive: true
+                        );
                     RefreshDialogActive = true;
                     TabBackgroundRefreshDialog = Color.FromArgb("#e1ad01");
                     break;
                 case "Sun":
                     DisableAll();
+                    ActiveTab = new DataTab(
+                        tabName: "Sun",
+                        clipetText: "Moving?",
+                        isActive: true
+                        );
                     SunDialogActive = true;
                     TabBackgroundSunDialog = Color.FromArgb("#e1ad01");
                     break;
                 default:
                     DisableAll();
                     GroupNameDialogActive = true;
+                    ActiveTab = new DataTab(
+                tabName: "GroupName",
+                clipetText: "Add this plant to a group!",
+                isActive: true
+                );
                     TabBackgroundGroupNameDialog = Color.FromArgb("#e1ad01");
                     tab = "GroupName";
                     break;
             }
+            OnPropertyChanged("ActiveTab");
             ActiveElement = tab;
         }
 
@@ -186,6 +221,7 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         public void DisableAll()
         {
+            ActiveTab = new DataTab("", "");
             GroupNameDialogActive = false;
             PlantNameDialogActive = false;
             GivenNameDialogActive = false;
