@@ -19,6 +19,6 @@ namespace FloraSaver.Models
         public string TabName { get; set; } = string.Empty;
         public bool IsActive { get; set; } = false;
         public string ClipetText { get; set; } = string.Empty;
-        public Color TabBackgroundGroupNameDialog => IsActive ? Color.FromArgb("#e1ad01") : Color.FromArgb("#000000");
+        public Color TabBackground => IsActive ? Color.FromArgb("#e1ad01") : Color.FromArgb("#000000");
     }
 }

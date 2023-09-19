@@ -17,35 +17,7 @@ namespace FloraSaver.ViewModels
     [QueryProperty(nameof(PlantGroup), "PlantGroup")]
     public partial class PlantDetailsSetupViewModel : PlantDetailsViewModel, IQueryAttributable, INotifyPropertyChanged
     {
-        public ObservableCollection<DataTab> SetupTabs { get; set; } = new ObservableCollection<DataTab>() 
-        {
-            new DataTab(
-                tabName:"GroupName",
-                clipetText: "Add this plant to a group!"
-                ),
-            new DataTab(
-                tabName:"PlantName",
-                clipetText: "What is the name of this plant?"
-                ),
-            new DataTab(
-                tabName: "GivenName",
-                clipetText: "Add your personal touches."
-                ),
-            new DataTab(
-                tabName:"Water",
-                clipetText: "Watering?"
-                ),
-            new DataTab(
-                tabName:"Refresh",
-                clipetText: "Refreshing?"
-                ),
-            new DataTab(
-                tabName:"Sun",
-                clipetText: "Sunlight Move?"
-                )
-        };
-
-        public ObservableCollection<DataTab> VisibleTabs { get; set; } = new ObservableCollection<DataTab>();
+        public List<string> SetupTabs { get; set; } = new List<string>() { "GroupName", "PlantName", "GivenName", "Water", "Refresh", "Sun" };
 
         [ObservableProperty]
         public DataTab activeTab;
@@ -59,9 +31,7 @@ namespace FloraSaver.ViewModels
         {
             _databaseService = databaseService;
             SelectedGroupColor = GroupColors[rand.Next(GroupColors.Count)];
-            VisibleTabs = new ObservableCollection<DataTab>(SetupTabs);
-            ActiveTab = VisibleTabs.First();
-            VisibleTabs.First().IsActive = true;
+            TabPressed(SetupTabs[0]);
             OnPropertyChanged("VisibleTabs");
         }
 
@@ -91,32 +61,6 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         Plant plant;
 
-        [ObservableProperty]
-        bool groupNameDialogActive;
-        [ObservableProperty]
-        bool plantNameDialogActive;
-        [ObservableProperty]
-        bool givenNameDialogActive;
-        [ObservableProperty]
-        bool waterDialogActive;
-        [ObservableProperty]
-        bool refreshDialogActive;
-        [ObservableProperty]
-        bool sunDialogActive;
-
-        [ObservableProperty]
-        Color tabBackgroundGroupNameDialog = Color.FromArgb("#000000");
-        [ObservableProperty]
-        Color tabBackgroundPlantNameDialog = Color.FromArgb("#000000");
-        [ObservableProperty]
-        Color tabBackgroundGivenNameDialog = Color.FromArgb("#000000");
-        [ObservableProperty]
-        Color tabBackgroundWaterDialog = Color.FromArgb("#000000");
-        [ObservableProperty]
-        Color tabBackgroundRefreshDialog = Color.FromArgb("#000000");
-        [ObservableProperty]
-        Color tabBackgroundSunDialog = Color.FromArgb("#000000");
-
         [RelayCommand]
         public void TabPressed(string tab)
         {
@@ -130,7 +74,6 @@ namespace FloraSaver.ViewModels
                 clipetText: "Add this plant to a group!",
                 isActive: true
                 );
-                    TabBackgroundGroupNameDialog = Color.FromArgb("#e1ad01");
                     break;
                 case "PlantName":
                     DisableAll();
@@ -139,8 +82,6 @@ namespace FloraSaver.ViewModels
                 clipetText: "What is the name of this plant?",
                 isActive: true
                 );
-                    PlantNameDialogActive = true;
-                    TabBackgroundPlantNameDialog = Color.FromArgb("#e1ad01");
                     break;
                 case "GivenName":
                     DisableAll();
@@ -149,8 +90,6 @@ namespace FloraSaver.ViewModels
                 clipetText: "Add a personal touch!",
                 isActive: true
                 );
-                    GivenNameDialogActive = true;
-                    TabBackgroundGivenNameDialog = Color.FromArgb("#e1ad01");
                     break;
                 case "Water":
                     DisableAll();
@@ -159,8 +98,6 @@ namespace FloraSaver.ViewModels
                         clipetText: "Watering?",
                         isActive: true
                         );
-                    WaterDialogActive = true;
-                    TabBackgroundWaterDialog = Color.FromArgb("#e1ad01");
                     break;
                 case "Refresh":
                     DisableAll();
@@ -169,8 +106,6 @@ namespace FloraSaver.ViewModels
                         clipetText: "Refreshing?",
                         isActive: true
                         );
-                    RefreshDialogActive = true;
-                    TabBackgroundRefreshDialog = Color.FromArgb("#e1ad01");
                     break;
                 case "Sun":
                     DisableAll();
@@ -179,18 +114,14 @@ namespace FloraSaver.ViewModels
                         clipetText: "Moving?",
                         isActive: true
                         );
-                    SunDialogActive = true;
-                    TabBackgroundSunDialog = Color.FromArgb("#e1ad01");
                     break;
                 default:
                     DisableAll();
-                    GroupNameDialogActive = true;
                     ActiveTab = new DataTab(
                 tabName: "GroupName",
                 clipetText: "Add this plant to a group!",
                 isActive: true
                 );
-                    TabBackgroundGroupNameDialog = Color.FromArgb("#e1ad01");
                     tab = "GroupName";
                     break;
             }
@@ -198,43 +129,30 @@ namespace FloraSaver.ViewModels
             ActiveElement = tab;
         }
 
-        //[RelayCommand]
-        //public void NextButtonPressed()
-        //{
-        //    var currentIndex = SetupTabs.IndexOf(ActiveElement);
-        //    if (currentIndex > -1 && currentIndex < SetupTabs.Count)
-        //    {
-        //        TabPressed(SetupTabs[currentIndex + 1]);
-        //    }
-        //}
+        [RelayCommand]
+        public void NextButtonPressed()
+        {
+            var currentIndex = SetupTabs.IndexOf(ActiveElement);
+            if (currentIndex > -1 && currentIndex < SetupTabs.Count)
+            {
+                TabPressed(SetupTabs[currentIndex + 1]);
+            }
+        }
 
-        //[RelayCommand]
-        //public void LastButtonPressed()
-        //{
-        //    var currentIndex = SetupTabs.IndexOf(ActiveElement);
-        //    if (currentIndex > -1 && currentIndex > 0)
-        //    {
-        //        TabPressed(SetupTabs[currentIndex - 1]);
-        //    }
-        //}
+        [RelayCommand]
+        public void LastButtonPressed()
+        {
+            var currentIndex = SetupTabs.IndexOf(ActiveElement);
+            if (currentIndex > -1 && currentIndex > 0)
+            {
+                TabPressed(SetupTabs[currentIndex - 1]);
+            }
+        }
 
         [RelayCommand]
         public void DisableAll()
         {
             ActiveTab = new DataTab("", "");
-            GroupNameDialogActive = false;
-            PlantNameDialogActive = false;
-            GivenNameDialogActive = false;
-            WaterDialogActive = false;
-            RefreshDialogActive = false;
-            SunDialogActive = false;
-            TabBackgroundSunDialog = Color.FromArgb("#000000");
-            TabBackgroundRefreshDialog = Color.FromArgb("#000000");
-            TabBackgroundWaterDialog = Color.FromArgb("#000000");
-            TabBackgroundGivenNameDialog = Color.FromArgb("#000000");
-            TabBackgroundPlantNameDialog = Color.FromArgb("#000000");
-            TabBackgroundGroupNameDialog = Color.FromArgb("#000000");
-            VisibleTabs = new ObservableCollection<DataTab>(SetupTabs);
         }
     }
 }
