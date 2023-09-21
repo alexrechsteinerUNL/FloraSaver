@@ -133,7 +133,7 @@ namespace FloraSaver.ViewModels
         public void NextButtonPressed()
         {
             var currentIndex = SetupTabs.IndexOf(ActiveElement);
-            if (currentIndex > -1 && currentIndex < SetupTabs.Count)
+            if (currentIndex > -1 && currentIndex < SetupTabs.Count-1)
             {
                 TabPressed(SetupTabs[currentIndex + 1]);
             }
@@ -143,7 +143,7 @@ namespace FloraSaver.ViewModels
         public void LastButtonPressed()
         {
             var currentIndex = SetupTabs.IndexOf(ActiveElement);
-            if (currentIndex > -1 && currentIndex > 0)
+            if (currentIndex > 0)
             {
                 TabPressed(SetupTabs[currentIndex - 1]);
             }
