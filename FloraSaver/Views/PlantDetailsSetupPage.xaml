@@ -5,12 +5,17 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
     xmlns:model="clr-namespace:FloraSaver.Models"
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
     Title="{Binding AlterPlant.GivenName}"
     x:DataType="viewmodel:PlantDetailsSetupViewModel"
     Shell.NavBarIsVisible="True"
     Shell.PresentationMode="Modal">
+    <ContentPage.Resources>
+        <s:Boolean x:Key="True">True</s:Boolean>
+        <s:Boolean x:Key="False">False</s:Boolean>
+    </ContentPage.Resources>
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding AppearingSetupCommand}" EventName="Appearing" />
         <toolkit:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
@@ -18,22 +23,36 @@
     <Grid
         Padding="0"
         HorizontalOptions="Fill"
-        RowDefinitions="40, *, 40, *"
+        RowDefinitions="40, *, 40, 50, *"
         RowSpacing="10">
-        <Frame
-            Grid.Row="0"
-            Padding="50,0"
-            BackgroundColor="Black"
-            HorizontalOptions="Center"
-            VerticalOptions="Center">
-            <Label
-                Padding="0,5,0,5"
-                FontAttributes="Bold"
+        <HorizontalStackLayout Padding="5,0" HorizontalOptions="Center">
+            <Button
+                x:Name="goBack"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=GoToTableCommand}"
+                IsEnabled="{Binding IsNotBusy}"
+                Text="Go Back" />
+            <Frame
+                Grid.Row="0"
+                Padding="50,0"
+                BackgroundColor="Black"
                 HorizontalOptions="Center"
-                VerticalOptions="Start">
-                Setup Plant
-            </Label>
-        </Frame>
+                VerticalOptions="CenterAndExpand">
+                <Label
+                    Padding="0,5,0,5"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Start">
+                    Setup Plant
+                </Label>
+            </Frame>
+            <Button
+                x:Name="deletePlants"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=DeleteCommand}"
+                CommandParameter="{Binding Plant}"
+                IsEnabled="{Binding IsNotBusy}"
+                Text="Delete" />
+        </HorizontalStackLayout>
+
         <Grid Grid.Row="1" RowDefinitions="300">
 
             <Frame
@@ -1226,18 +1245,50 @@
 
 
 
-        <HorizontalStackLayout Grid.Row="2">
+        <HorizontalStackLayout
+            Grid.Row="2"
+            Padding="0"
+            HorizontalOptions="CenterAndExpand">
             <Button
                 Command="{Binding LastButtonPressedCommand}"
-                HorizontalOptions="Start"
+                HorizontalOptions="Center"
                 Text="◄" />
             <Button
+                x:Name="addUpdate"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=AddUpdateCommand}"
+                CommandParameter="{Binding Plant}"
+                HorizontalOptions="CenterAndExpand"
+                IsEnabled="{Binding IsNotBusy}"
+                Text="Update"
+                WidthRequest="150" />
+            <Button
+                x:Name="switchToSetup"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SwitchDetailsCommand}"
+                CommandParameter="{StaticResource True}"
+                IsEnabled="{Binding IsNotBusy}"
+                Text="swap"
+                WidthRequest="150" />
+            <Button
                 Command="{Binding NextButtonPressedCommand}"
-                HorizontalOptions="End"
+                HorizontalOptions="Center"
                 Text="►" />
         </HorizontalStackLayout>
-        <Grid
+
+
+        <Frame
             Grid.Row="3"
+            BackgroundColor="DimGray"
+            IsVisible="{Binding IsFriendlyLabelVisible}"
+            Opacity=".9"
+            WidthRequest="300">
+            <Label
+                x:Name="friendlyNotification"
+                FontSize="12"
+                IsVisible="{Binding IsFriendlyLabelVisible}"
+                Text="{Binding FriendlyLabel}" />
+        </Frame>
+        <Grid
+            Grid.Row="4"
             Padding="0"
             ColumnDefinitions="250,*"
             HorizontalOptions="FillAndExpand"

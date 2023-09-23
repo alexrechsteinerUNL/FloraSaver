@@ -45,7 +45,6 @@ public static class MauiProgram
         builder.Services.AddSingleton<SettingsViewModel>();
         builder.Services.AddTransient<PlantDetailsSetupViewModel>();
         builder.Services.AddTransient<PlantDetailsSetupPage>();
-        builder.Services.AddTransient<PlantDetailsSetupViewModel>();
         builder.Services.AddTransient<PlantDetailsViewModel>();
         builder.Services.AddTransient<PlantDetailsPage>();
         builder.Services.AddTransient<ClipetOverlayViewModel>();

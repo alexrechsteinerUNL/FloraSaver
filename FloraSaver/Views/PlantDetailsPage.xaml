@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
     Title="{Binding AlterPlant.GivenName}"
@@ -11,6 +12,10 @@
     BackgroundColor="Transparent"
     Shell.NavBarIsVisible="True"
     Shell.PresentationMode="Modal">
+    <ContentPage.Resources>
+        <s:Boolean x:Key="True">True</s:Boolean>
+        <s:Boolean x:Key="False">False</s:Boolean>
+    </ContentPage.Resources>
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
         <toolkit:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
@@ -1133,6 +1138,12 @@
                         CommandParameter="{Binding Plant}"
                         IsEnabled="{Binding IsNotBusy}"
                         Text="Delete" />
+                    <Button
+                        x:Name="switchToSetup"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SwitchDetailsCommand}"
+                        CommandParameter="{StaticResource False}"
+                        IsEnabled="{Binding IsNotBusy}"
+                        Text="swap" />
                 </HorizontalStackLayout>
 
             </Grid>

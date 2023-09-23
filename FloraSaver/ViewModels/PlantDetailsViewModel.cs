@@ -379,6 +379,28 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
+        async Task SwitchDetailsAsync(bool isSetup)
+        {
+            if (isSetup)
+            {
+                await Shell.Current.GoToAsync(nameof(PlantDetailsPage), true, new Dictionary<string, object>
+                {
+                    {"Plant", AlterPlant },
+                    {"PlantGroup", await _databaseService.GetAllPlantGroupAsync() }
+                });
+            }
+            else
+            {
+                await Shell.Current.GoToAsync(nameof(PlantDetailsSetupPage), true, new Dictionary<string, object>
+                {
+                    {"Plant", AlterPlant },
+                    {"PlantGroup", await _databaseService.GetAllPlantGroupAsync() }
+                });
+            }
+            return;
+        }
+
+        [RelayCommand]
         async Task DeleteAsync(Plant plant)
         {
             if (IsBusy)
