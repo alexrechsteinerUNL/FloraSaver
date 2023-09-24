@@ -11,13 +11,18 @@ using FloraSaver.Utilities;
 
 namespace FloraSaver.ViewModels
 {
-    public partial class TableViewModel : BaseViewModel, INotifyPropertyChanged
+    [QueryProperty(nameof(shouldGetNewData), "ShouldGetNewData")]
+    [QueryProperty(nameof(shouldGetNewGroupData), "ShouldGetNewGroupData")]
+    public partial class TableViewModel : BaseViewModel, INotifyPropertyChanged, IQueryAttributable
     {
         private readonly int percentageButtonSize = 105;
         protected readonly IPlantNotificationService _plantNotificationService;
         public ObservableCollection<Plant> DataPlants { get; set; } = new();
         public ObservableCollection<Plant> Plants { get; set; } = new();
         public ObservableCollection<PlantGroup> PlantGroups { get; set; } = new();
+
+        protected bool shouldGetNewData { get; set; } = true;
+        protected bool shouldGetNewGroupData { get; set; } = true;
 
         // I moved the _databaseService to the base viewmodel because just about every page was going to use it.
         public TableViewModel(IDatabaseService databaseService, IPlantNotificationService plantNotificationService)
@@ -29,12 +34,25 @@ namespace FloraSaver.ViewModels
             WaterRectangle = new Rect(0, 20, 105, 105);
         }
 
-        [RelayCommand]
+        public void ApplyQueryAttributes(IDictionary<string, object> query)
+        {
+            if (query is null)
+            {
+                shouldGetNewData = true;
+                shouldGetNewGroupData = true;
+                return;
+            }
+            shouldGetNewData = (bool)(query["shouldGetNewData"] ?? false);
+            shouldGetNewGroupData = (bool)(query["shouldGetNewGroupData"] ?? false);
+        }
+
+            [RelayCommand]
         async Task AppearingAsync()
         {
             timer = new PeriodicTimer(TimeSpan.FromSeconds(10));
-            await GetPlantGroupsAsync();
-            await GetPlantsAsync();
+
+            if (shouldGetNewGroupData) await GetPlantGroupsAsync();
+            if (shouldGetNewData) await GetPlantsAsync();
         }
 
         [RelayCommand]

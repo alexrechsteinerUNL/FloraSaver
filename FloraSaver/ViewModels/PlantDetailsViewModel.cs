@@ -426,7 +426,7 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         async Task GoToTableAsync()
         {
-            await Shell.Current.GoToAsync("..");
+            await Shell.Current.GoToAsync(nameof(TablePage), true);
         }
 
         [RelayCommand]
