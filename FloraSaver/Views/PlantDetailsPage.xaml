@@ -37,13 +37,13 @@
                 </Grid.RowDefinitions>
                 <HorizontalStackLayout Grid.Row="0" Spacing="10">
                     <Button
-                        x:Name="goBack1"
+                        x:Name="goBack"
                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=GoToTableCommand}"
                         HorizontalOptions="Start"
                         IsEnabled="{Binding IsNotBusy}"
                         Text="Go Back" />
                     <Button
-                        x:Name="deletePlants1"
+                        x:Name="deletePlants"
                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=DeleteCommand}"
                         CommandParameter="{Binding Plant}"
                         HorizontalOptions="End"
