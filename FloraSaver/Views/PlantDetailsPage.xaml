@@ -31,10 +31,26 @@
             HeightRequest="660">
             <Grid RowSpacing="10">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="560" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="500" />
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
-                <ScrollView Grid.Row="0">
+                <HorizontalStackLayout Grid.Row="0" Spacing="10">
+                    <Button
+                        x:Name="goBack1"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=GoToTableCommand}"
+                        HorizontalOptions="Start"
+                        IsEnabled="{Binding IsNotBusy}"
+                        Text="Go Back" />
+                    <Button
+                        x:Name="deletePlants1"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=DeleteCommand}"
+                        CommandParameter="{Binding Plant}"
+                        HorizontalOptions="End"
+                        IsEnabled="{Binding IsNotBusy}"
+                        Text="Delete" />
+                </HorizontalStackLayout>
+                <ScrollView Grid.Row="1">
 
                     <VerticalStackLayout Spacing="10">
                         <Grid x:Name="groupGrid">
@@ -1120,24 +1136,13 @@
                     </VerticalStackLayout>
                 </ScrollView>
 
-                <HorizontalStackLayout Grid.Row="1" Spacing="10">
-                    <Button
-                        x:Name="goBack"
-                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=GoToTableCommand}"
-                        IsEnabled="{Binding IsNotBusy}"
-                        Text="Go Back" />
+                <HorizontalStackLayout Grid.Row="2" Spacing="10">
                     <Button
                         x:Name="addUpdate"
                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=AddUpdateCommand}"
                         CommandParameter="{Binding Plant}"
                         IsEnabled="{Binding IsNotBusy}"
                         Text="Update" />
-                    <Button
-                        x:Name="deletePlants"
-                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=DeleteCommand}"
-                        CommandParameter="{Binding Plant}"
-                        IsEnabled="{Binding IsNotBusy}"
-                        Text="Delete" />
                     <Button
                         x:Name="switchToSetup"
                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SwitchDetailsCommand}"

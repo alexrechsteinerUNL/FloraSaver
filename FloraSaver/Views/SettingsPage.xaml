@@ -139,7 +139,18 @@
                         </Border>
                     </Grid>
                 </Frame>
-
+                <Button
+                    x:Name="BackupPlants"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="8"
+                    Text="Backup Plants" />
+                <Button
+                    x:Name="ImportPlants"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="8"
+                    Text="Import From Backup" />
                 <Frame
                     Grid.Row="1"
                     Grid.Column="0"
@@ -213,30 +224,6 @@
                                                             <Rectangle Grid.Column="2" Background="Black" />
                                                         </Grid>
                                                     </Border>
-                                                    <!--<Button
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                Grid.ColumnSpan="2"
-                                Padding="5"
-                                BackgroundColor="{Binding SelectedColor}"
-                                BorderColor="{Binding GroupColor}"
-                                BorderWidth="2"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GroupSelectionCommand}"
-                                CommandParameter="{Binding .}"
-                                HeightRequest="40"
-                                Text="{Binding GroupName}"
-                                TextColor="{Binding SelectedTextColor}" />-->
-                                                    <!--<Border
-                                Grid.Column="1"
-                                HorizontalOptions="Start"
-                                WidthRequest="50">-->
-                                                    <!--<Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="10" />
-                                        <ColumnDefinition Width="30" />
-                                        <ColumnDefinition Width="10" />
-                                    </Grid.ColumnDefinitions>
-                                    <Rectangle Grid.Column="0" Background="Black" />-->
                                                     <Label
                                                         Grid.Row="2"
                                                         Grid.Column="0"
@@ -328,12 +315,6 @@
                     Grid.Column="0"
                     Margin="8"
                     Text="Notification Settings" />
-                <Button
-                    x:Name="backupPlants"
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    Margin="8"
-                    Text="Backup Plants" />
 
                 <Button
                     x:Name="clearAllPlantGroupDataCommand"
