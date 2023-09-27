@@ -33,6 +33,8 @@ public static class MauiProgram
         
         builder.Services.AddSingleton<TableViewModel>();
         builder.Services.AddSingleton<Base64ImageConverterService>();
+        //builder.Services.AddSingleton<IFileSaver>(FileSaver.Default);
+        builder.Services.AddSingleton<DBImportExportService>();
         builder.Services.AddSingleton<HandlingViewModel>();
         builder.Services.AddSingleton<MainViewModel>();
         builder.Services.AddSingleton<IDatabaseService, DatabaseService>(s => ActivatorUtilities.CreateInstance<DatabaseService>(s, dbPath));
