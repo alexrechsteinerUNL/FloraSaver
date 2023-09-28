@@ -3,6 +3,7 @@ using FloraSaver.Services;
 using FloraSaver.ViewModels;
 using System.Collections.ObjectModel;
 using Plugin.LocalNotification;
+using CommunityToolkit.Maui.Storage;
 
 namespace FloraSaver;
 
@@ -33,7 +34,7 @@ public static class MauiProgram
         
         builder.Services.AddSingleton<TableViewModel>();
         builder.Services.AddSingleton<Base64ImageConverterService>();
-        //builder.Services.AddSingleton<IFileSaver>(FileSaver.Default);
+        builder.Services.AddSingleton<IFileSaver>(FileSaver.Default);
         builder.Services.AddSingleton<DBImportExportService>();
         builder.Services.AddSingleton<HandlingViewModel>();
         builder.Services.AddSingleton<MainViewModel>();
