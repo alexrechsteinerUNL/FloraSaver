@@ -3,6 +3,7 @@ using FloraSaver.Models;
 
 using Plugin.LocalNotification;
 using System.Numerics;
+using CommunityToolkit.Maui.Storage;
 
 
 namespace FloraSaver.Services
@@ -10,6 +11,8 @@ namespace FloraSaver.Services
     public class DatabaseService : IDatabaseService
     {
         private readonly IPlantNotificationService _plantNotificationService;
+        private readonly IFileSaver _fileSaver;
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         string _dbPath;
         
         public string StatusMessage { get; set; }
@@ -27,10 +30,17 @@ namespace FloraSaver.Services
             await conn.CreateTableAsync<PlantGroup>();
         }
 
-        public DatabaseService(string dbPath, IPlantNotificationService plantNotificationService)
+        public DatabaseService(string dbPath, IPlantNotificationService plantNotificationService, IFileSaver fileSaver)
         {
             _plantNotificationService = plantNotificationService;
             _dbPath = dbPath;
+            _fileSaver = fileSaver;
+        }
+
+        public async Task BackupDatabaseAsync()
+        {
+            await InitAsync();
+            await _fileSaver.SaveAsync("blooper.db3", File.OpenRead(_dbPath), cancellationTokenSource.Token);
         }
 
         public async Task AddUpdateNewPlantAsync(Plant plant)

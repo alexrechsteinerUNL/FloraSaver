@@ -422,6 +422,14 @@ namespace FloraSaver.ViewModels
                 await GoToTableAsync();
             }
         }
+        //Testing
+        [RelayCommand]
+        async Task TestFilesaver()
+        {
+            await _databaseService.BackupDatabaseAsync();
+        }
+
+        //End Testing
 
         [RelayCommand]
         async Task GoToTableAsync()

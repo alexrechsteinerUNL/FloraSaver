@@ -49,6 +49,12 @@
                         HorizontalOptions="End"
                         IsEnabled="{Binding IsNotBusy}"
                         Text="Delete" />
+                    <Button
+                        x:Name="testBackup"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=TestFilesaverCommand}"
+                        HorizontalOptions="End"
+                        IsEnabled="{Binding IsNotBusy}"
+                        Text="TestDatabase" />
                 </HorizontalStackLayout>
                 <ScrollView Grid.Row="1">
 
