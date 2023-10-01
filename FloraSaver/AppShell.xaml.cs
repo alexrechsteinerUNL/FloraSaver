@@ -10,6 +10,7 @@ public partial class AppShell : Shell
         Routes.Add(nameof(ClipetOverlayPage), typeof(ClipetOverlayPage));
         Routes.Add(nameof(PlantDetailsSetupPage), typeof(PlantDetailsSetupPage));
         Routes.Add(nameof(DatabaseExportPage), typeof(DatabaseExportPage));
+        Routes.Add(nameof(DatabaseImportPage), typeof(DatabaseImportPage));
 
         foreach (var route in Routes)
 		{

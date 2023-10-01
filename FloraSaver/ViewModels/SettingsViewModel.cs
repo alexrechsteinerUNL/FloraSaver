@@ -133,6 +133,12 @@ namespace FloraSaver.ViewModels
             await Shell.Current.GoToAsync($"{nameof(DatabaseExportPage)}", true);
         }
 
+        [RelayCommand]
+        async Task GoToDatabaseImportAsync()
+        {
+            await Shell.Current.GoToAsync($"{nameof(DatabaseImportPage)}", true);
+        }
+
 
         [RelayCommand]
         public void UpdateColor(GroupColors value)

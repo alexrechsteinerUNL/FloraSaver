@@ -70,6 +70,9 @@
 	  <Compile Update="ReusableComponentViews\ClipetOverlayPage.xaml.cs">
 	    <DependentUpon>ClipetOverlayPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\DatabaseImportPage.xaml.cs">
+	    <DependentUpon>DatabaseImportPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\DatabaseExportPage.xaml.cs">
 	    <DependentUpon>DatabaseExportPage.xaml</DependentUpon>
 	  </Compile>
@@ -92,6 +95,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="ReusableComponentViews\ClipetOverlayPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\DatabaseImportPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\DatabaseExportPage.xaml">

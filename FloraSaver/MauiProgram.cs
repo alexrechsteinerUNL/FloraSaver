@@ -54,7 +54,8 @@ public static class MauiProgram
         builder.Services.AddTransient<BackupRestoreViewModel>();
         builder.Services.AddTransient<ClipetOverlayPage>();
         builder.Services.AddTransient<DatabaseExportPage>();
-        
+        builder.Services.AddTransient<DatabaseImportPage>();
+
         return builder.Build();
     }
 }

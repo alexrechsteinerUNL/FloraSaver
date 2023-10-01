@@ -34,6 +34,18 @@ namespace FloraSaver.ViewModels
             await _databaseService.BackupDatabaseAsync(databaseFileName);
         }
 
+        [RelayCommand]
+        async Task ImportDatabaseAsync()
+        {
+            var result = await FilePicker.PickAsync(new PickOptions { });
+
+            if (result is null)
+            {
+                return;
+            }
+            await _databaseService.TestDbConnectionFromFileAsync(result.FullPath);
+            return;
+        }
         //End Testing
     }
 }
