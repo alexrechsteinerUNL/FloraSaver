@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="FloraSaver.DatabaseExportPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converter="clr-namespace:FloraSaver.Converters"
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    xmlns:model="clr-namespace:FloraSaver.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
+    x:DataType="viewmodel:BackupRestoreViewModel">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding AppearingHandlingCommand}" EventName="Appearing" />
+        <toolkit:EventToCommandBehavior Command="{Binding DisappearingHandlingCommand}" EventName="Disappearing" />
+    </ContentPage.Behaviors>
+    <Grid RowDefinitions="*,*">
+
+        <Grid Grid.Row="0">
+            <ActivityIndicator
+                Grid.RowSpan="2"
+                HorizontalOptions="FillAndExpand"
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                VerticalOptions="CenterAndExpand"
+                Color="#e1ad01" />
+        </Grid>
+        <VerticalStackLayout>
+            <Border HorizontalOptions="Start" WidthRequest="330">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="310" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+                    <Rectangle Grid.Column="0" Background="Black" />
+                    <Entry
+                        x:Name="_DBFileName"
+                        Grid.Column="1"
+                        Completed="Entry_Completed"
+                        Placeholder="{Binding DefaultFileName}"
+                        ReturnType="Send"
+                        Text="{Binding FileName, StringFormat='{0}', Mode=TwoWay}"
+                        WidthRequest="320" />
+                    <Rectangle Grid.Column="2" Background="Black" />
+                </Grid>
+            </Border>
+            <Button
+                Command="{Binding BackupDatabaseCommand}"
+                CommandParameter="{Binding FileName}"
+                Text="Backup" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

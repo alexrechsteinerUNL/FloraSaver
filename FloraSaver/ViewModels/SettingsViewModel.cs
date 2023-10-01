@@ -128,6 +128,13 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
+        async Task GoToDatabaseExportAsync()
+        {
+            await Shell.Current.GoToAsync($"{nameof(DatabaseExportPage)}", true);
+        }
+
+
+        [RelayCommand]
         public void UpdateColor(GroupColors value)
         {
             Console.WriteLine("bloop");

@@ -144,6 +144,7 @@
                     Grid.Row="1"
                     Grid.Column="0"
                     Margin="8"
+                    Command="{Binding GoToDatabaseExportCommand}"
                     Text="Backup Plants" />
                 <Button
                     x:Name="ImportPlants"

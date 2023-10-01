@@ -45,13 +45,16 @@ public static class MauiProgram
         builder.Services.AddSingleton<TablePage>();
         builder.Services.AddSingleton<HandlingPage>();
         builder.Services.AddSingleton<SettingsPage>();
-        builder.Services.AddSingleton<SettingsViewModel>();
+        builder.Services.AddTransient<SettingsViewModel>();
         builder.Services.AddTransient<PlantDetailsSetupViewModel>();
         builder.Services.AddTransient<PlantDetailsSetupPage>();
         builder.Services.AddTransient<PlantDetailsViewModel>();
         builder.Services.AddTransient<PlantDetailsPage>();
         builder.Services.AddTransient<ClipetOverlayViewModel>();
+        builder.Services.AddTransient<BackupRestoreViewModel>();
         builder.Services.AddTransient<ClipetOverlayPage>();
+        builder.Services.AddTransient<DatabaseExportPage>();
+        
         return builder.Build();
     }
 }

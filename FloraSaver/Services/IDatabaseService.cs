@@ -5,7 +5,7 @@ namespace FloraSaver.Services
     public interface IDatabaseService
     {
         string StatusMessage { get; set; }
-        Task BackupDatabaseAsync();
+        Task BackupDatabaseAsync(string databaseFileName);
         Task AddUpdateNewPlantAsync(Plant plant);
         Task AddUpdateNewPlantGroupAsync(PlantGroup plantGroup);
         Task DeleteAllAsync();
