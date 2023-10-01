@@ -6,7 +6,7 @@ namespace FloraSaver.Services
     {
         string StatusMessage { get; set; }
         Task BackupDatabaseAsync(string databaseFileName);
-        Task TestDbConnectionFromFileAsync(string filePath);
+        Task<List<Plant>> TestDbConnectionFromFileAsync(string filePath);
         Task AddUpdateNewPlantAsync(Plant plant);
         Task AddUpdateNewPlantGroupAsync(PlantGroup plantGroup);
         Task DeleteAllAsync();

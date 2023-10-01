@@ -1,10 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using FloraSaver.Models;
 using FloraSaver.Services;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 namespace FloraSaver.ViewModels
 {
-    public partial class BackupRestoreViewModel : BaseViewModel
+    public partial class BackupRestoreViewModel : TableViewModel, INotifyPropertyChanged
     {
         [ObservableProperty]
         public string defaultFileName = $"Plants_{DateTime.Now}.db3";
@@ -13,9 +16,12 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         public string fileName = $"Plants_{DateTime.Now}.db3";
 
-        public BackupRestoreViewModel(IDatabaseService databaseService) 
+        public ObservableCollection<Plant> NewPlantsFromFile { get; set; } = new();
+
+        public BackupRestoreViewModel(IDatabaseService databaseService, IPlantNotificationService plantNotificationService) : base(databaseService, plantNotificationService)
         {
-            _databaseService = databaseService;
+            databaseService = _databaseService;
+            plantNotificationService = _plantNotificationService;
         }
 
         //Testing
@@ -43,7 +49,8 @@ namespace FloraSaver.ViewModels
             {
                 return;
             }
-            await _databaseService.TestDbConnectionFromFileAsync(result.FullPath);
+            NewPlantsFromFile = new(await _databaseService.TestDbConnectionFromFileAsync(result.FullPath));
+            OnPropertyChanged(nameof(NewPlantsFromFile));
             return;
         }
         //End Testing

@@ -20,17 +20,11 @@ namespace FloraSaver.Services
         // TODO: Add variable for the SQLite connection
         private SQLiteAsyncConnection conn;
         //Testing May want to expand this into its own test service that inherits from the main service
-        public async Task TestDbConnectionFromFileAsync(string filePath)
+        public async Task<List<Plant>> TestDbConnectionFromFileAsync(string filePath)
         {
             var testConn = new SQLiteAsyncConnection(filePath);
-            var bloop = await TestGetAllPlantAsync(testConn);
-            if (bloop.Count > 0)
-            {
-                Console.WriteLine("Ah nice!");
-                return;
-            }
-            Console.WriteLine("Aw Darnit!");
-            return;
+            return await TestGetAllPlantAsync(testConn);
+            
         }
         
         private async Task<List<Plant>> TestGetAllPlantAsync(SQLiteAsyncConnection testConn)

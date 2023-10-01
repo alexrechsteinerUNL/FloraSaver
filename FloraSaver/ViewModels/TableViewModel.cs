@@ -36,7 +36,7 @@ namespace FloraSaver.ViewModels
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            if (query is null)
+            if (query.Count < 1)
             {
                 shouldGetNewData = true;
                 shouldGetNewGroupData = true;
