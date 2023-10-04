@@ -39,6 +39,7 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         void PlantSelection(Plant plant)
         {
+            // You need to take into account that we could be selecting from something other than this "plants" file here.
             var specificPlant = Plants.FirstOrDefault(_ => _.Id == plant.Id);
             specificPlant.IsEnabled = plant.IsEnabled ? false : true;
             OnPropertyChanged("Plants");

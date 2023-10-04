@@ -15,7 +15,7 @@
     </ContentPage.Behaviors>
     <Grid RowDefinitions="*,*">
 
-        <Grid Grid.Row="0">
+        <!--<Grid Grid.Row="0">
             <ActivityIndicator
                 Grid.RowSpan="2"
                 HorizontalOptions="FillAndExpand"
@@ -23,18 +23,16 @@
                 IsVisible="{Binding IsBusy}"
                 VerticalOptions="CenterAndExpand"
                 Color="#e1ad01" />
-        </Grid>
+        </Grid>-->
         <VerticalStackLayout>
             <Button Command="{Binding ImportDatabaseCommand}" Text="Import" />
             <Frame
-                Grid.Row="2"
-                Grid.ColumnSpan="3"
                 BackgroundColor="Black"
-                HeightRequest="400"
+                HeightRequest="300"
                 VerticalOptions="CenterAndExpand"
                 WidthRequest="380">
                 <CollectionView
-                    x:Name="plantDeck"
+                    x:Name="newPlantDeck"
                     ItemsSource="{Binding NewPlantsFromFile}"
                     SelectionMode="Multiple"
                     VerticalOptions="CenterAndExpand">
@@ -46,14 +44,14 @@
                             VerticalItemSpacing="10" />
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:Name="singlePlant" x:DataType="model:Plant">
+                        <DataTemplate x:Name="singleNewPlant" x:DataType="model:Plant">
                             <Frame
                                 Padding="10,5"
                                 BackgroundColor="{Binding SelectedColor}"
                                 BorderColor="{Binding GroupColor}"
                                 HeightRequest="130">
                                 <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=PlantSelectionCommand}" CommandParameter="{Binding .}" />
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=PlantSelectionNewCommand}" CommandParameter="{Binding .}" />
                                 </Frame.GestureRecognizers>
                                 <Grid ColumnDefinitions="*, *, *, 30" RowDefinitions="35, *">
                                     <Label
@@ -144,7 +142,7 @@
                                         BackgroundColor="Black"
                                         HeightRequest="75">
                                         <Frame.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=PlantSelectionCommand}" CommandParameter="{Binding .}" />
+                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=PlantSelectionNewCommand}" CommandParameter="{Binding .}" />
                                         </Frame.GestureRecognizers>
                                         <Grid ColumnDefinitions="*, 30" RowDefinitions="25,25,25">
                                             <ProgressBar
@@ -199,31 +197,20 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </Frame>
-
-
-
-
-
-
-
-
-
-
-
-            <!--<Frame
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="1">
+            <Frame
                 BackgroundColor="Black"
-                HeightRequest="400"
+                HeightRequest="300"
                 VerticalOptions="CenterAndExpand"
                 WidthRequest="380">
                 <RefreshView
-                    Grid.Row="4"
-                    Grid.ColumnSpan="3"
                     Command="{Binding GetPlantsCommand}"
                     IsRefreshing="{Binding IsRefreshing}"
                     VerticalOptions="CenterAndExpand">
                     <CollectionView
-                        x:Name="plantDeck"
-                        ItemsSource="{Binding Plants}"
+                        x:Name="oldPlantDeck"
+                        ItemsSource="{Binding OldPlants}"
                         SelectionMode="Multiple"
                         VerticalOptions="CenterAndExpand">
                         <CollectionView.ItemsLayout>
@@ -234,14 +221,14 @@
                                 VerticalItemSpacing="10" />
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
-                            <DataTemplate x:Name="singlePlant" x:DataType="model:Plant">
+                            <DataTemplate x:Name="singleOldPlant" x:DataType="model:Plant">
                                 <Frame
                                     Padding="10,5"
                                     BackgroundColor="{Binding SelectedColor}"
                                     BorderColor="{Binding GroupColor}"
                                     HeightRequest="130">
                                     <Frame.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=PlantSelectionCommand}" CommandParameter="{Binding .}" />
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:BackupRestoreViewModel}}, Path=PlantSelectionOldCommand}" CommandParameter="{Binding .}" />
                                     </Frame.GestureRecognizers>
                                     <Grid ColumnDefinitions="*, *, *, 30" RowDefinitions="35, *">
                                         <Label
@@ -332,7 +319,7 @@
                                             BackgroundColor="Black"
                                             HeightRequest="75">
                                             <Frame.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=PlantSelectionCommand}" CommandParameter="{Binding .}" />
+                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:BackupRestoreViewModel}}, Path=PlantSelectionOldCommand}" CommandParameter="{Binding .}" />
                                             </Frame.GestureRecognizers>
                                             <Grid ColumnDefinitions="*, 30" RowDefinitions="25,25,25">
                                                 <ProgressBar
@@ -381,27 +368,13 @@
                                                     VerticalOptions="Start" />
                                             </Grid>
                                         </Frame>
-                                        <Button
-                                            x:Name="DeleteButton"
-                                            Grid.Row="0"
-                                            Grid.Column="3"
-                                            Padding="10,5"
-                                            BackgroundColor="Black"
-                                            BorderColor="White"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=DeletePlantCommand}"
-                                            CommandParameter="{Binding .}"
-                                            FontSize="15"
-                                            HeightRequest="30"
-                                            HorizontalOptions="EndAndExpand"
-                                            Text="X"
-                                            VerticalOptions="Start" />
                                     </Grid>
                                 </Frame>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
                 </RefreshView>
-            </Frame>-->
+            </Frame>
         </VerticalStackLayout>
     </Grid>
 </ContentPage>

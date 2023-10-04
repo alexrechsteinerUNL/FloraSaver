@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 namespace FloraSaver.ViewModels
 {
-    public partial class BackupRestoreViewModel : TableViewModel, INotifyPropertyChanged
+    public partial class BackupRestoreViewModel : HandlingViewModel, INotifyPropertyChanged
     {
         [ObservableProperty]
         public string defaultFileName = $"Plants_{DateTime.Now}.db3";
@@ -18,10 +18,13 @@ namespace FloraSaver.ViewModels
 
         public ObservableCollection<Plant> NewPlantsFromFile { get; set; } = new();
 
+        public ObservableCollection<Plant> OldPlants { get; set; } = new();
+
         public BackupRestoreViewModel(IDatabaseService databaseService, IPlantNotificationService plantNotificationService) : base(databaseService, plantNotificationService)
         {
             databaseService = _databaseService;
             plantNotificationService = _plantNotificationService;
+            OldPlants = Plants;
         }
 
         //Testing
@@ -49,9 +52,24 @@ namespace FloraSaver.ViewModels
             {
                 return;
             }
+
             NewPlantsFromFile = new(await _databaseService.TestDbConnectionFromFileAsync(result.FullPath));
             OnPropertyChanged(nameof(NewPlantsFromFile));
             return;
+        }
+        [RelayCommand]
+        void PlantSelectionOld(Plant plant)
+        {
+            var specificPlant = OldPlants.FirstOrDefault(_ => _.Id == plant.Id);
+            specificPlant.IsEnabled = plant.IsEnabled ? false : true;
+            OnPropertyChanged("OldPlants");
+        }
+        [RelayCommand]
+        void PlantSelectionNew(Plant plant)
+        {
+            var specificPlant = NewPlantsFromFile.FirstOrDefault(_ => _.Id == plant.Id);
+            specificPlant.IsEnabled = plant.IsEnabled ? false : true;
+            OnPropertyChanged("NewPlantsFromFile");
         }
         //End Testing
     }
