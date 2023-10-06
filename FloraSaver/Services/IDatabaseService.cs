@@ -10,6 +10,7 @@ namespace FloraSaver.Services
         Task AddUpdateNewPlantAsync(Plant plant);
         Task AddUpdateNewPlantGroupAsync(PlantGroup plantGroup);
         Task DeleteAllAsync();
+        Task DeleteAllPlantsAsync();
         Task DeleteAllPlantGroupsAsync();
         Task DeletePlantAsync(Plant plant);
         Task DeletePlantGroupAsync(PlantGroup plantGroup);

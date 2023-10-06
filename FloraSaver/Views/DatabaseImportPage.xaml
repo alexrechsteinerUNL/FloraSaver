@@ -13,7 +13,7 @@
         <toolkit:EventToCommandBehavior Command="{Binding AppearingHandlingCommand}" EventName="Appearing" />
         <toolkit:EventToCommandBehavior Command="{Binding DisappearingHandlingCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
-    <Grid RowDefinitions="*,*">
+    <Grid RowDefinitions="370,380">
 
         <!--<Grid Grid.Row="0">
             <ActivityIndicator
@@ -24,11 +24,11 @@
                 VerticalOptions="CenterAndExpand"
                 Color="#e1ad01" />
         </Grid>-->
-        <VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="0">
             <Button Command="{Binding ImportDatabaseCommand}" Text="Import" />
             <Frame
                 BackgroundColor="Black"
-                HeightRequest="300"
+                HeightRequest="280"
                 VerticalOptions="CenterAndExpand"
                 WidthRequest="380">
                 <CollectionView
@@ -197,11 +197,12 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </Frame>
+            <Button Text="Select All" />
         </VerticalStackLayout>
         <VerticalStackLayout Grid.Row="1">
             <Frame
                 BackgroundColor="Black"
-                HeightRequest="300"
+                HeightRequest="280"
                 VerticalOptions="CenterAndExpand"
                 WidthRequest="380">
                 <RefreshView
@@ -375,6 +376,7 @@
                     </CollectionView>
                 </RefreshView>
             </Frame>
+            <Button Command="{Binding AcceptMergeCommand}" Text="Accept Merge" />
         </VerticalStackLayout>
     </Grid>
 </ContentPage>

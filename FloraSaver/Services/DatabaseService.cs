@@ -105,18 +105,33 @@ namespace FloraSaver.Services
             }
         }
 
+        public async Task DeleteAllPlantsAsync()
+        {
+            int result = 0;
+            try
+            {
+                await InitAsync();
+
+                result = await conn.DeleteAllAsync<Plant>();
+
+
+                StatusMessage = string.Format("{0} record(s) deleted. Plant database is now empty", result);
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Failed to delete all plants. Error: {0}", ex.Message);
+            }
+        }
+
         public async Task DeleteAllAsync()
         {
             int result = 0;
             try
             {
                 await DeleteAllPlantGroupsAsync();
-                // TODO: Call Init()
                 await InitAsync();
 
                 result = await conn.DeleteAllAsync<Plant>();
-
-                // TODO: Insert the new person into the database
 
 
                 StatusMessage = string.Format("{0} record(s) deleted. Plant database is now empty", result);

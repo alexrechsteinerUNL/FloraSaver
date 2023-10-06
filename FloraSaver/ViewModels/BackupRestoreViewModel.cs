@@ -62,6 +62,12 @@ namespace FloraSaver.ViewModels
         {
             var specificPlant = OldPlants.FirstOrDefault(_ => _.Id == plant.Id);
             specificPlant.IsEnabled = plant.IsEnabled ? false : true;
+            var samePlant = NewPlantsFromFile.FirstOrDefault(_ => _.GivenName == plant.GivenName);
+            if (samePlant != null)
+            {
+                samePlant.IsEnabled = false;
+            }
+            OnPropertyChanged("NewPlantsFromFile");
             OnPropertyChanged("OldPlants");
         }
         [RelayCommand]
@@ -69,7 +75,33 @@ namespace FloraSaver.ViewModels
         {
             var specificPlant = NewPlantsFromFile.FirstOrDefault(_ => _.Id == plant.Id);
             specificPlant.IsEnabled = plant.IsEnabled ? false : true;
+            var samePlant = OldPlants.FirstOrDefault(_ => _.GivenName == plant.GivenName);
+            if (samePlant != null)
+            {
+                samePlant.IsEnabled = false;
+            }
             OnPropertyChanged("NewPlantsFromFile");
+            OnPropertyChanged("OldPlants");
+        }
+
+        [RelayCommand]
+        async Task AcceptMergeAsync()
+        {
+            if (NewPlantsFromFile.Any(_ => _.IsEnabled == true))
+            {
+                var allPlants = NewPlantsFromFile.Where(_ => _.IsEnabled == true).ToList();
+                allPlants.AddRange(OldPlants.Where(_ => _.IsEnabled == true).ToList());
+                Plants = new ObservableCollection<Plant>(allPlants);
+                bool reallyMerge = await Application.Current.MainPage.DisplayAlert("OH HOLD ON!", $"Current Plants: '{string.Join(", ", OldPlants.Where(_ => _.IsEnabled == false).Select(_ => _.GivenName).ToList())}' will be lost forever!", "Merge Em!", "Please Don't");
+                if (reallyMerge)
+                {
+                    await _databaseService.DeleteAllPlantsAsync();
+                    foreach (var plant in Plants)
+                    {
+                        await _databaseService.AddUpdateNewPlantAsync(plant);
+                    }
+                }
+            }
         }
         //End Testing
     }
