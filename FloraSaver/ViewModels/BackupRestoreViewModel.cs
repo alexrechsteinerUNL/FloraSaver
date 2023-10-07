@@ -89,10 +89,21 @@ namespace FloraSaver.ViewModels
         {
             if (NewPlantsFromFile.Any(_ => _.IsEnabled == true))
             {
+                var alertMessage = "Are you sure? ";
                 var allPlants = NewPlantsFromFile.Where(_ => _.IsEnabled == true).ToList();
+                var oldPlantsReplaced = OldPlants.Where(_ => allPlants.Select(_ => _.GivenName).Contains(_.GivenName)).Select(_ => _.GivenName).ToList();
+                var oldPlantsRemoved = OldPlants.Where(_ => _.IsEnabled == false && !oldPlantsReplaced.Contains(_.GivenName)).Select(_ => _.GivenName).ToList();
+                if (oldPlantsRemoved.Count > 0)
+                {
+                    alertMessage += $"Current Plants: '{string.Join(", ", oldPlantsRemoved)}' will be lost forever! ";
+                }
+                if (oldPlantsReplaced.Count > 0)
+                {
+                    alertMessage += (oldPlantsRemoved.Count) > 0 ? $"And '{string.Join(", ", oldPlantsReplaced)}' will be replaced by the merge! " : $"Current Plants: '{string.Join(", ", oldPlantsReplaced)}' will be replaced by the merge! ";
+                }
                 allPlants.AddRange(OldPlants.Where(_ => _.IsEnabled == true).ToList());
                 Plants = new ObservableCollection<Plant>(allPlants);
-                bool reallyMerge = await Application.Current.MainPage.DisplayAlert("OH HOLD ON!", $"Current Plants: '{string.Join(", ", OldPlants.Where(_ => _.IsEnabled == false).Select(_ => _.GivenName).ToList())}' will be lost forever!", "Merge Em!", "Please Don't");
+                bool reallyMerge = await Application.Current.MainPage.DisplayAlert("OH HOLD ON!", $"{alertMessage}. Some plant groups might be corrupted.", "Merge Em!", "Please Don't");
                 if (reallyMerge)
                 {
                     await _databaseService.DeleteAllPlantsAsync();
