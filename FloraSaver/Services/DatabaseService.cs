@@ -74,12 +74,19 @@ namespace FloraSaver.Services
             {
                 // TODO: Call Init()
                 await InitAsync();
+                var plantGroupsTask = GetAllPlantGroupAsync();
                 if (string.IsNullOrEmpty(plant.GivenName) || string.IsNullOrEmpty(plant.PlantSpecies))
                     throw new Exception("Valid name required");
-
+                
                 result = await conn.InsertOrReplaceAsync(plant);
-
+                
                 StatusMessage = string.Format("{0} record saved (Name: {1})", result, plant.GivenName);
+
+                var plantGroups = await plantGroupsTask;
+                if (!plantGroups.Select(_ => _.GroupName).Contains(plant.PlantGroupName))
+                {
+                    await AddUpdateNewPlantGroupAsync(new PlantGroup { GroupId = plantGroups.Count+1, GroupName = plant.PlantGroupName, GroupColorHex = plant.GroupColor.ToHex() }, false);
+                }
             }
             catch (Exception ex)
             {
@@ -205,7 +212,7 @@ namespace FloraSaver.Services
             return new List<PlantGroup>();
         }
 
-        public async Task AddUpdateNewPlantGroupAsync(PlantGroup plantGroup)
+        public async Task AddUpdateNewPlantGroupAsync(PlantGroup plantGroup, bool setPlants = true)
         {
             int result = 0;
             try
@@ -216,15 +223,19 @@ namespace FloraSaver.Services
                     throw new Exception("Valid group name required");
 
                 result = await conn.InsertOrReplaceAsync(plantGroup);
-                var plants = await GetAllPlantAsync();
+                
                 //foreach (var plant in plants.Where(_ => _.PlantGroupName == plantGroup.GroupName))
                 //{
                 //    plant.PlantGroupName = "Ungrouped";
                 //    plant.GroupColorHexString = "#A9A9A9";
                 //    await AddUpdateNewPlantAsync(plant);
                 //}
-
-                await SetPlantsToGroupAsync(plants.Where(_ => _.PlantGroupName == plantGroup.GroupName), plantGroup.GroupName, plantGroup.GroupColorHex);
+                if (setPlants)
+                {
+                    var plants = await GetAllPlantAsync();
+                    await SetPlantsToGroupAsync(plants.Where(_ => _.PlantGroupName == plantGroup.GroupName), plantGroup.GroupName, plantGroup.GroupColorHex);
+                }
+                
 
                 StatusMessage = string.Format("{0} group saved (Name: {1})", result, plantGroup.GroupName);
             }

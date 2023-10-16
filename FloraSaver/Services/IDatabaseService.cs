@@ -8,7 +8,7 @@ namespace FloraSaver.Services
         Task BackupDatabaseAsync(string databaseFileName);
         Task<List<Plant>> TestDbConnectionFromFileAsync(string filePath);
         Task AddUpdateNewPlantAsync(Plant plant);
-        Task AddUpdateNewPlantGroupAsync(PlantGroup plantGroup);
+        Task AddUpdateNewPlantGroupAsync(PlantGroup plantGroup, bool setPlants = true);
         Task DeleteAllAsync();
         Task DeleteAllPlantsAsync();
         Task DeleteAllPlantGroupsAsync();
