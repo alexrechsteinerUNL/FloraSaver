@@ -171,6 +171,7 @@
                             Padding="0,5"
                             Command="{Binding GetVisiblePlantGroupsCommand}"
                             IsRefreshing="{Binding IsRefreshing}">
+
                             <CollectionView
                                 x:Name="plantGroupDeck"
                                 ItemsLayout="VerticalList"
@@ -301,14 +302,20 @@
                                                         HorizontalOptions="End"
                                                         Text="X" />
                                                 </Grid>
-
                                             </Frame>
-
                                         </Grid>
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>
                             </CollectionView>
                         </RefreshView>
+                        <ActivityIndicator
+                            Grid.Row="0"
+                            Grid.RowSpan="2"
+                            HorizontalOptions="CenterAndExpand"
+                            IsRunning="{Binding IsBusy}"
+                            IsVisible="{Binding IsBusy}"
+                            VerticalOptions="CenterAndExpand"
+                            Color="#e1ad01" />
                     </Grid>
                 </Frame>
                 <Button

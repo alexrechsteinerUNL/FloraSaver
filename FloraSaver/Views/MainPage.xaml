@@ -128,6 +128,14 @@
                         IsVisible="{Binding IsNextSun}"
                         Source="sun_timer_visual.png"
                         WidthRequest="45" />
+                    <ActivityIndicator
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        HorizontalOptions="CenterAndExpand"
+                        IsRunning="{Binding IsBusy}"
+                        IsVisible="{Binding IsBusy}"
+                        VerticalOptions="CenterAndExpand"
+                        Color="#e1ad01" />
                 </Grid>
             </Frame>
 

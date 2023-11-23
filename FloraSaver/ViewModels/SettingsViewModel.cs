@@ -173,6 +173,9 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         protected async Task GetVisiblePlantGroupsAsync()
         {
+
+            IsBusy = true;
+            IsRefreshing = true;
             await GetPlantGroupsAsync();
             if (isInitialization)
             {
@@ -181,13 +184,18 @@ namespace FloraSaver.ViewModels
             //this redundant call is due to a Bug in maui that makes observable collections not realized they've been altered
             VisiblePlantGroups = new ObservableCollection<PlantGroup>(VisiblePlantGroups);
             OnPropertyChanged(nameof(VisiblePlantGroups));
+            IsBusy = false;
+            IsRefreshing = false;
         }
 
         [RelayCommand]
         async Task ResetGroupChangeAsync(PlantGroup plantGroup)
         {
-            //write something in the database service that can get a plantGroup by its name
-            //await _databaseService.GetPlantGroupAsync(plantGroup);
+            //not working... must figure out why
+            PickerPlantGroups[PickerPlantGroups.IndexOf(PickerPlantGroups.FirstOrDefault(_ => _.GroupId == plantGroup.GroupId))] = VisiblePlantGroups.FirstOrDefault(_ => _.GroupId == plantGroup.GroupId);
+            PickerPlantGroups.FirstOrDefault(_ => _.Equals(plantGroup)).isEdited = false;
+            SetItem();
+
         }
 
         [RelayCommand]
