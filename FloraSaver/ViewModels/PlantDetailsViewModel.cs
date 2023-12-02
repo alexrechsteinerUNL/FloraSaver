@@ -51,7 +51,7 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        void Appearing()
+        public void Appearing()
         {
             IsInitialization = true;
             // extract to its own reusable method with reflection DRY!
@@ -118,11 +118,11 @@ namespace FloraSaver.ViewModels
         public PlantGroup groupPickerValue;
 
         [ObservableProperty]
-        List<Interval> wateringInterval;
+        protected List<Interval> wateringInterval;
         [ObservableProperty]
-        List<Interval> mistingInterval;
+        protected List<Interval> mistingInterval;
         [ObservableProperty]
-        List<Interval> sunInterval;
+        protected List<Interval> sunInterval;
 
         [ObservableProperty]
         public bool customWaterIntervalGridVisible = false;

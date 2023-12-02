@@ -30,6 +30,9 @@ namespace FloraSaver.ViewModels
         public PlantDetailsSetupViewModel(IDatabaseService databaseService) : base (databaseService)
         {
             _databaseService = databaseService;
+            wateringInterval = PickerService.GetWaterIntervals();
+            mistingInterval = PickerService.GetWaterIntervals();
+            sunInterval = PickerService.GetWaterIntervals();
             SelectedGroupColor = GroupColors[rand.Next(GroupColors.Count)];
             TabPressed(SetupTabs[0]);
             OnPropertyChanged("VisibleTabs");
@@ -39,7 +42,7 @@ namespace FloraSaver.ViewModels
         void AppearingSetup()
         {
             IsInitialization = true;
-
+            Appearing();
             IsInitialization = false;
         }
 
