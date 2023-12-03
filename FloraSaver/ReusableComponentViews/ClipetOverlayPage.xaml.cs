@@ -7,7 +7,7 @@ namespace FloraSaver;
 
 public partial class ClipetOverlayPage : ContentPage
 {
-    public static readonly BindableProperty isClipetEnabledProperty = BindableProperty.Create(nameof(isClipetEnabled), typeof(bool?), typeof(ClipetOverlayPage), propertyChanged:(bindable, oldValue, newValue) => 
+    public static readonly BindableProperty isClipetEnabledProperty = BindableProperty.Create(nameof(isClipetEnabled), typeof(bool?), typeof(ClipetOverlayPage), propertyChanged: (bindable, oldValue, newValue) =>
     {
         var control = (ClipetOverlayPage)bindable;
 
@@ -48,9 +48,9 @@ public partial class ClipetOverlayPage : ContentPage
         BindingContext = viewModel;
     }
 
-    public bool? isClipetEnabled 
+    public bool? isClipetEnabled
     {
-        get => GetValue(isClipetEnabledProperty) as bool?; 
+        get => GetValue(isClipetEnabledProperty) as bool?;
         set => SetValue(isClipetEnabledProperty, value);
     }
 

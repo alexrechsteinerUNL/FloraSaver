@@ -13,21 +13,19 @@ namespace FloraSaver.ViewModels
 {
     public partial class HandlingViewModel : TableViewModel, INotifyPropertyChanged
     {
-
-        public HandlingViewModel(IDatabaseService databaseService, IPlantNotificationService plantNotificationService) : base (databaseService, plantNotificationService)
+        public HandlingViewModel(IDatabaseService databaseService, IPlantNotificationService plantNotificationService) : base(databaseService, plantNotificationService)
         {
             databaseService = _databaseService;
             plantNotificationService = _plantNotificationService;
         }
 
         [RelayCommand]
-        async Task AppearingHandlingAsync()
+        private async Task AppearingHandlingAsync()
         {
             timer = new PeriodicTimer(TimeSpan.FromSeconds(10));
             await GetPlantGroupsAsync();
             await GetPlantsAsync();
             PeriodicTimerUpdaterBackgroundAsync(() => CheatUpdateAllPlantProgress());
-
         }
 
         [RelayCommand]
@@ -37,7 +35,7 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        void PlantSelection(Plant plant)
+        private void PlantSelection(Plant plant)
         {
             // You need to take into account that we could be selecting from something other than this "plants" file here.
             var specificPlant = Plants.FirstOrDefault(_ => _.Id == plant.Id);
@@ -46,7 +44,7 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        void AllPlantSelection()
+        private void AllPlantSelection()
         {
             foreach (var plant in Plants)
             {
@@ -56,7 +54,7 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        void AllPlantUnselection()
+        private void AllPlantUnselection()
         {
             foreach (var plant in Plants)
             {
@@ -66,16 +64,17 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        async Task CheckAllSelectedWaterAsync()
+        private async Task CheckAllSelectedWaterAsync()
         {
             var changingPlants = Plants.ToList();
-            foreach (var plant in changingPlants.Where(_ => _.IsEnabled && _.UseWatering)) {
+            foreach (var plant in changingPlants.Where(_ => _.IsEnabled && _.UseWatering))
+            {
                 await ResetWateringAsync(plant);
             }
         }
 
         [RelayCommand]
-        async Task CheckAllSelectedMistAsync()
+        private async Task CheckAllSelectedMistAsync()
         {
             var changingPlants = Plants.ToList();
             foreach (var plant in changingPlants.Where(_ => _.IsEnabled && _.UseMisting))
@@ -85,7 +84,7 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        async Task CheckAllSelectedMoveAsync()
+        private async Task CheckAllSelectedMoveAsync()
         {
             var changingPlants = Plants.ToList();
             foreach (var plant in changingPlants.Where(_ => _.IsEnabled && _.UseMoving))
@@ -96,7 +95,7 @@ namespace FloraSaver.ViewModels
 
         //This also exists in many pages you might want to genericize it
         [RelayCommand]
-        async Task DeletePlantAsync(Plant plant)
+        private async Task DeletePlantAsync(Plant plant)
         {
             if (IsBusy)
                 return;

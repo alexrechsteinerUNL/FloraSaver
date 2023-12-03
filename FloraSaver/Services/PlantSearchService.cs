@@ -21,7 +21,6 @@ namespace FloraSaver.Services
 
         private async Task<Dictionary<string, int>> BonusComputer(string inputString, ObservableCollection<Plant> plants)
         {
-            
             var bonusDictionary = new Dictionary<string, int>();
             bonusDictionary["GivenNameBonus"] = 0;
             bonusDictionary["PlantSpeciesBonus"] = 0;

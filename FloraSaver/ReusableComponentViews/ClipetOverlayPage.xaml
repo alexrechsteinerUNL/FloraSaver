@@ -65,8 +65,6 @@
                     TextColor="Orange"
                     WidthRequest="375" />
             </Grid>
-
-
         </Grid>
     </Grid>
 </ContentPage>

@@ -22,6 +22,5 @@
         TimeSpan TimeOfNextMove { get; set; }
         TimeSpan TimeOfNextWatering { get; set; }
         public int? WaterInterval { get; set; }
-
     }
 }

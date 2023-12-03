@@ -5,28 +5,27 @@ using Plugin.LocalNotification;
 using System.Numerics;
 using CommunityToolkit.Maui.Storage;
 
-
 namespace FloraSaver.Services
 {
     public class DatabaseService : IDatabaseService
     {
         private readonly IPlantNotificationService _plantNotificationService;
         private readonly IFileSaver _fileSaver;
-        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-        string _dbPath;
-        
+        private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        private string _dbPath;
+
         public string StatusMessage { get; set; }
 
         // TODO: Add variable for the SQLite connection
         private SQLiteAsyncConnection conn;
+
         //Testing May want to expand this into its own test service that inherits from the main service
         public async Task<List<Plant>> TestDbConnectionFromFileAsync(string filePath)
         {
             var testConn = new SQLiteAsyncConnection(filePath);
             return await TestGetAllPlantAsync(testConn);
-            
         }
-        
+
         private async Task<List<Plant>> TestGetAllPlantAsync(SQLiteAsyncConnection testConn)
         {
             try
@@ -42,6 +41,7 @@ namespace FloraSaver.Services
 
             return new List<Plant>();
         }
+
         //End Testing
         private async Task InitAsync()
         {
@@ -77,15 +77,15 @@ namespace FloraSaver.Services
                 var plantGroupsTask = GetAllPlantGroupAsync();
                 if (string.IsNullOrEmpty(plant.GivenName) || string.IsNullOrEmpty(plant.PlantSpecies))
                     throw new Exception("Valid name required");
-                
+
                 result = await conn.InsertOrReplaceAsync(plant);
-                
+
                 StatusMessage = string.Format("{0} record saved (Name: {1})", result, plant.GivenName);
 
                 var plantGroups = await plantGroupsTask;
                 if (!plantGroups.Select(_ => _.GroupName).Contains(plant.PlantGroupName))
                 {
-                    await AddUpdateNewPlantGroupAsync(new PlantGroup { GroupId = plantGroups.Count+1, GroupName = plant.PlantGroupName, GroupColorHex = plant.GroupColor.ToHex() }, false);
+                    await AddUpdateNewPlantGroupAsync(new PlantGroup { GroupId = plantGroups.Count + 1, GroupName = plant.PlantGroupName, GroupColorHex = plant.GroupColor.ToHex() }, false);
                 }
             }
             catch (Exception ex)
@@ -121,7 +121,6 @@ namespace FloraSaver.Services
 
                 result = await conn.DeleteAllAsync<Plant>();
 
-
                 StatusMessage = string.Format("{0} record(s) deleted. Plant database is now empty", result);
             }
             catch (Exception ex)
@@ -139,7 +138,6 @@ namespace FloraSaver.Services
                 await InitAsync();
 
                 result = await conn.DeleteAllAsync<Plant>();
-
 
                 StatusMessage = string.Format("{0} record(s) deleted. Plant database is now empty", result);
             }
@@ -166,7 +164,6 @@ namespace FloraSaver.Services
                 //    plant.GroupColorHexString = "#A9A9A9";
                 //    await AddUpdateNewPlantAsync(plant);
                 //}
-
 
                 StatusMessage = string.Format("{0} record(s) deleted. PlantGroup database is now empty", result);
             }
@@ -223,7 +220,7 @@ namespace FloraSaver.Services
                     throw new Exception("Valid group name required");
 
                 result = await conn.InsertOrReplaceAsync(plantGroup);
-                
+
                 //foreach (var plant in plants.Where(_ => _.PlantGroupName == plantGroup.GroupName))
                 //{
                 //    plant.PlantGroupName = "Ungrouped";
@@ -235,7 +232,6 @@ namespace FloraSaver.Services
                     var plants = await GetAllPlantAsync();
                     await SetPlantsToGroupAsync(plants.Where(_ => _.PlantGroupName == plantGroup.GroupName), plantGroup.GroupName, plantGroup.GroupColorHex);
                 }
-                
 
                 StatusMessage = string.Format("{0} group saved (Name: {1})", result, plantGroup.GroupName);
             }
@@ -269,7 +265,6 @@ namespace FloraSaver.Services
 
                 await SetPlantsToGroupAsync(plants.Where(_ => _.PlantGroupName == plantGroup.GroupName));
                 StatusMessage = string.Format("{0} group(s) deleted (Name: {1})", result, plantGroup.GroupName);
-
             }
             catch (Exception ex)
             {
@@ -285,7 +280,7 @@ namespace FloraSaver.Services
                 var allPlants = await conn.Table<Plant>().ToListAsync();
 #if (ANDROID || IOS)
                 allPlants = await _plantNotificationService.SetAllNotificationsAsync(allPlants);
-                foreach (var plant in allPlants) 
+                foreach (var plant in allPlants)
                 {
                     await AddUpdateNewPlantAsync(plant);
                 }

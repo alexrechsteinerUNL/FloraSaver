@@ -9,13 +9,13 @@ namespace FloraSaver.Models
 {
     public partial class DataTab : ObservableObject
     {
-        public DataTab(string tabName, string clipetText, bool isActive = false) 
+        public DataTab(string tabName, string clipetText, bool isActive = false)
         {
             TabName = tabName;
             ClipetText = clipetText;
             IsActive = isActive;
-
         }
+
         public string TabName { get; set; } = string.Empty;
         public bool IsActive { get; set; } = false;
         public string ClipetText { get; set; } = string.Empty;

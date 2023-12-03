@@ -13,26 +13,26 @@ namespace FloraSaver.ViewModels
     public partial class SettingsViewModel : TableViewModel, INotifyPropertyChanged
     {
         private ObservableCollection<PlantGroup> visiblePlantGroups = new();
+
         public ObservableCollection<PlantGroup> VisiblePlantGroups
         {
             get { return visiblePlantGroups; }
-            set 
-            { 
+            set
+            {
                 SetObservableProperty(ref visiblePlantGroups, value);
             }
         }
 
         private List<PlantGroup> pickerPlantGroups;
+
         public List<PlantGroup> PickerPlantGroups
         {
             get { return pickerPlantGroups; }
             set
             {
                 SetObservableProperty(ref pickerPlantGroups, value);
-                
             }
         }
-
 
         [ObservableProperty]
         public Plant alterPlant;
@@ -44,7 +44,6 @@ namespace FloraSaver.ViewModels
             {
                 VisiblePlantGroups = new ObservableCollection<PlantGroup>(PickerPlantGroups);
             }
-            
         }
 
         protected void SetObservableProperty<T>(ref T field, T value,
@@ -59,8 +58,8 @@ namespace FloraSaver.ViewModels
         {
             databaseService = _databaseService;
             plantNotificationService = _plantNotificationService;
-            
-            DateTime morningDate = DateTime.FromBinary(Preferences.Default.Get("morning_time_date", new DateTime(1,1,1,8,0,0).ToBinary()));
+
+            DateTime morningDate = DateTime.FromBinary(Preferences.Default.Get("morning_time_date", new DateTime(1, 1, 1, 8, 0, 0).ToBinary()));
             morningTime = morningDate.TimeOfDay;
             var middayDate = DateTime.FromBinary(Preferences.Default.Get("midday_time_date", new DateTime(1, 1, 1, 12, 0, 0).ToBinary()));
             middayTime = middayDate.TimeOfDay;
@@ -69,10 +68,10 @@ namespace FloraSaver.ViewModels
         }
 
         [ObservableProperty]
-        bool isInitialization;
+        private bool isInitialization;
 
         [RelayCommand]
-        async Task AppearingSettingsAsync()
+        private async Task AppearingSettingsAsync()
         {
             IsInitialization = true;
             PickerPlantGroups = await _databaseService.GetAllPlantGroupAsync();
@@ -87,12 +86,13 @@ namespace FloraSaver.ViewModels
         //}
 
         [ObservableProperty]
-        TimeSpan morningTime;
-        [ObservableProperty]
-        TimeSpan middayTime;
-        [ObservableProperty]
-        TimeSpan nightTime;
+        private TimeSpan morningTime;
 
+        [ObservableProperty]
+        private TimeSpan middayTime;
+
+        [ObservableProperty]
+        private TimeSpan nightTime;
 
         //private GroupColors groupSelection;
         //public GroupColors GroupSelection
@@ -128,17 +128,16 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        async Task GoToDatabaseExportAsync()
+        private async Task GoToDatabaseExportAsync()
         {
             await Shell.Current.GoToAsync($"{nameof(DatabaseExportPage)}", true);
         }
 
         [RelayCommand]
-        async Task GoToDatabaseImportAsync()
+        private async Task GoToDatabaseImportAsync()
         {
             await Shell.Current.GoToAsync($"{nameof(DatabaseImportPage)}", true);
         }
-
 
         [RelayCommand]
         public void UpdateColor(GroupColors value)
@@ -161,7 +160,6 @@ namespace FloraSaver.ViewModels
                 SetItem();
                 OnPropertyChanged(nameof(VisiblePlantGroups));
             }
-            
         }
 
         [RelayCommand]
@@ -173,11 +171,10 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         protected async Task GetVisiblePlantGroupsAsync()
         {
-
             IsBusy = true;
             IsRefreshing = true;
             await GetPlantGroupsAsync();
-            if (isInitialization)
+            if (IsInitialization)
             {
                 VisiblePlantGroups = new ObservableCollection<PlantGroup>(PickerPlantGroups);
             }
@@ -189,17 +186,16 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        async Task ResetGroupChangeAsync(PlantGroup plantGroup)
+        private async Task ResetGroupChangeAsync(PlantGroup plantGroup)
         {
             //not working... must figure out why
             PickerPlantGroups[PickerPlantGroups.IndexOf(PickerPlantGroups.FirstOrDefault(_ => _.GroupId == plantGroup.GroupId))] = VisiblePlantGroups.FirstOrDefault(_ => _.GroupId == plantGroup.GroupId);
             PickerPlantGroups.FirstOrDefault(_ => _.Equals(plantGroup)).isEdited = false;
             SetItem();
-
         }
 
         [RelayCommand]
-        async Task SaveGroupChangeAsync(PlantGroup plantGroup)
+        private async Task SaveGroupChangeAsync(PlantGroup plantGroup)
         {
             await _databaseService.AddUpdateNewPlantGroupAsync(plantGroup);
             PickerPlantGroups.FirstOrDefault(_ => _.Equals(plantGroup)).isEdited = false;
@@ -207,7 +203,7 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        async Task DeletePlantGroupAsync(PlantGroup plantGroup)
+        private async Task DeletePlantGroupAsync(PlantGroup plantGroup)
         {
             if (IsBusy)
                 return;
@@ -237,7 +233,7 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        async Task ClearAllPlantGroupDataAsync()
+        private async Task ClearAllPlantGroupDataAsync()
         {
             if (IsBusy)
                 return;
@@ -250,7 +246,6 @@ namespace FloraSaver.ViewModels
                 {
                     await _databaseService.DeleteAllPlantGroupsAsync();
                 }
-
             }
             catch (Exception ex)
             {
@@ -263,9 +258,8 @@ namespace FloraSaver.ViewModels
             }
         }
 
-
         [RelayCommand]
-        async Task ClearAllPlantDataAsync()
+        private async Task ClearAllPlantDataAsync()
         {
             if (IsBusy)
                 return;
@@ -278,7 +272,6 @@ namespace FloraSaver.ViewModels
                 {
                     await _databaseService.DeleteAllAsync();
                 }
-                
             }
             catch (Exception ex)
             {

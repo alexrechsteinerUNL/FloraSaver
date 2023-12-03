@@ -12,46 +12,48 @@ namespace FloraSaver.ViewModels
         private int TEXTBOXINDEX = 0;
 
         [ObservableProperty]
-        bool isClipetVisible = false;
-        [ObservableProperty]
-        bool isRefImageVisable = false;
-        [ObservableProperty]
-        bool isSpeechBubbleVisible = false;
-
-
+        private bool isClipetVisible = false;
 
         [ObservableProperty]
-        List<ClipetSpeechBubble> clipetDialog;
-        [ObservableProperty]
-        ClipetSpeechBubble currentClipetDialog;
+        private bool isRefImageVisable = false;
 
-        public ClipetOverlayViewModel() 
+        [ObservableProperty]
+        private bool isSpeechBubbleVisible = false;
+
+        [ObservableProperty]
+        private List<ClipetSpeechBubble> clipetDialog;
+
+        [ObservableProperty]
+        private ClipetSpeechBubble currentClipetDialog;
+
+        public ClipetOverlayViewModel()
         {
-
         }
 
         [RelayCommand]
-        async Task AppearingAsync()
+        private async Task AppearingAsync()
         {
-            if (clipetDialog == null)
+            if (ClipetDialog == null)
             {
                 await Shell.Current.GoToAsync("..");
-            } else
+            }
+            else
             {
                 await MoveToNextTextBoxAsync();
             }
         }
 
         [RelayCommand]
-        async Task MoveToNextTextBoxAsync()
+        private async Task MoveToNextTextBoxAsync()
         {
-            if (TEXTBOXINDEX >=  ClipetDialog.Count)
+            if (TEXTBOXINDEX >= ClipetDialog.Count)
             {
                 ClipetDialog = null;
                 CurrentClipetDialog = null;
                 OnPropertyChanged("ClipetSpeechBubble");
                 await Shell.Current.GoToAsync("..");
-            } else
+            }
+            else
             {
                 IsClipetVisible = true;
                 IsRefImageVisable = ClipetDialog[TEXTBOXINDEX].DisplayImage != null ? true : false;
@@ -66,13 +68,13 @@ namespace FloraSaver.ViewModels
             }
         }
 
-
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             if (query != null)
             {
                 ClipetDialog = query["ClipetSpeechBubbles"] as List<ClipetSpeechBubble>;
-            } else
+            }
+            else
             {
                 ClipetDialog = null;
             }

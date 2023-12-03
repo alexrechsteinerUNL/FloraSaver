@@ -14,7 +14,6 @@
         <toolkit:EventToCommandBehavior Command="{Binding DisappearingSettingsCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
 
-
     <Grid>
         <Image Aspect="AspectFill" Source="plants_background.png" />
         <ScrollView>
@@ -266,7 +265,6 @@
                                                                 HeightRequest="1000"
                                                                 WidthRequest="1000" />
                                                         </Grid>
-
                                                     </Border>
                                                     <Button
                                                         x:Name="groupChangesReset"
@@ -343,7 +341,6 @@
                     IsEnabled="{Binding IsNotBusy}"
                     Text="Clear ALL Data"
                     TextColor="#e1ad01" />
-
             </VerticalStackLayout>
         </ScrollView>
         <Label
@@ -363,5 +360,4 @@
             </Label.Behaviors>
         </Label>-->
     </Grid>
-
 </ContentPage>

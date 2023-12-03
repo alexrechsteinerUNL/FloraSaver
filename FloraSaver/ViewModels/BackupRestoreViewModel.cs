@@ -5,14 +5,17 @@ using FloraSaver.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+
 namespace FloraSaver.ViewModels
 {
     public partial class BackupRestoreViewModel : HandlingViewModel, INotifyPropertyChanged
     {
         [ObservableProperty]
         public string defaultFileName = $"Plants_{DateTime.Now}.db3";
+
         [ObservableProperty]
         public string fileExtension = ".db3";
+
         [ObservableProperty]
         public string fileName = $"Plants_{DateTime.Now}.db3";
 
@@ -29,7 +32,7 @@ namespace FloraSaver.ViewModels
 
         //Testing
         [RelayCommand]
-        async Task BackupDatabaseAsync(string databaseFileName)
+        private async Task BackupDatabaseAsync(string databaseFileName)
         {
             if (string.IsNullOrWhiteSpace(databaseFileName))
             {
@@ -44,7 +47,7 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        async Task ImportDatabaseAsync()
+        private async Task ImportDatabaseAsync()
         {
             var result = await FilePicker.PickAsync(new PickOptions { });
 
@@ -57,8 +60,9 @@ namespace FloraSaver.ViewModels
             OnPropertyChanged(nameof(NewPlantsFromFile));
             return;
         }
+
         [RelayCommand]
-        void PlantSelectionOld(Plant plant)
+        private void PlantSelectionOld(Plant plant)
         {
             var specificPlant = OldPlants.FirstOrDefault(_ => _.Id == plant.Id);
             specificPlant.IsEnabled = plant.IsEnabled ? false : true;
@@ -70,8 +74,9 @@ namespace FloraSaver.ViewModels
             OnPropertyChanged("NewPlantsFromFile");
             OnPropertyChanged("OldPlants");
         }
+
         [RelayCommand]
-        void PlantSelectionNew(Plant plant)
+        private void PlantSelectionNew(Plant plant)
         {
             var specificPlant = NewPlantsFromFile.FirstOrDefault(_ => _.Id == plant.Id);
             specificPlant.IsEnabled = plant.IsEnabled ? false : true;
@@ -85,7 +90,7 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        async Task AcceptMergeAsync()
+        private async Task AcceptMergeAsync()
         {
             if (NewPlantsFromFile.Any(_ => _.IsEnabled == true))
             {
@@ -114,6 +119,7 @@ namespace FloraSaver.ViewModels
                 }
             }
         }
+
         //End Testing
     }
 }

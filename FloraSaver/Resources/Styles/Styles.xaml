@@ -357,7 +357,6 @@
     <Style ApplyToDerivedTypes="True" TargetType="Page">
         <Setter Property="Padding" Value="0" />
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light='#355E3B', Dark='#355E3B'}" />
-
     </Style>
 
     <Style ApplyToDerivedTypes="True" TargetType="Shell">
@@ -385,5 +384,4 @@
         <Setter Property="UnselectedTabColor" Value="{AppThemeBinding Light='#800020', Dark='#800020'}" />
         <Setter Property="SelectedTabColor" Value="{AppThemeBinding Light='#e1ad01', Dark='#e1ad01'}" />
     </Style>
-
 </ResourceDictionary>

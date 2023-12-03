@@ -8,15 +8,15 @@ namespace FloraSaver.ViewModels
 {
     public partial class BaseViewModel : ObservableObject
     {
-
-
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsNotBusy))]
         public bool isBusy;
+
         [ObservableProperty]
         public bool isFriendlyLabelVisible = false;
+
         [ObservableProperty]
-        string title;
+        private string title;
 
         public IDatabaseService _databaseService;
 
@@ -24,7 +24,8 @@ namespace FloraSaver.ViewModels
         // [ObservableProperty]
         // string friendlyLabel;
         // also don't do this in the setter, are you crazy?
-        string friendlyLabel;
+        private string friendlyLabel;
+
         public string FriendlyLabel
         {
             get => friendlyLabel;
@@ -41,8 +42,9 @@ namespace FloraSaver.ViewModels
             await Task.Delay(5000);
             IsFriendlyLabelVisible = false;
         }
+
         public bool IsNotBusy => !IsBusy;
-        
+
         [RelayCommand]
         public async Task UpdateNotifications(List<Plant> Plants)
         {
@@ -68,7 +70,7 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        async Task GoToClipetOverlayAsync(List<ClipetSpeechBubble> speechBubbles)
+        private async Task GoToClipetOverlayAsync(List<ClipetSpeechBubble> speechBubbles)
         {
             if (speechBubbles == null)
             {
@@ -80,6 +82,5 @@ namespace FloraSaver.ViewModels
             }
             return;
         }
-
     }
 }

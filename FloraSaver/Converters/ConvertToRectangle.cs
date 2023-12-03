@@ -14,11 +14,11 @@ namespace FloraSaver.Converters
             if (values != null)
             {
                 return new Rect(0d, (double)values[0], (double)values[1], (double)values[2]);
-            } else
+            }
+            else
             {
                 return new Rect(0d, 0d, 0d, 0d);
             }
-            
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

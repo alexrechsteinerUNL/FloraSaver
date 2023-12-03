@@ -19,6 +19,7 @@ namespace FloraSaver.Models
         public int Id { get; set; }
 
         private string plantSpecies;
+
         public string PlantSpecies
         {
             get { return plantSpecies; }
@@ -26,6 +27,7 @@ namespace FloraSaver.Models
         }
 
         private string givenName;
+
         [SQLite.MaxLength(250), Unique]
         public string GivenName
         {
@@ -43,26 +45,28 @@ namespace FloraSaver.Models
         public bool IsOverdueWater { get; set; } = false;
         public bool IsOverdueMist { get; set; } = false;
         public bool IsOverdueSun { get; set; } = false;
-        
+
         private bool _useWatering;
         private bool _useMisting;
         private bool _useMoving;
 
-        public bool UseWatering 
+        public bool UseWatering
         {
             get { return _useWatering; }
-            set 
+            set
             {
                 _useWatering = value;
                 if (value)
                 {
                     _waterOpacity = 1;
-                } else
+                }
+                else
                 {
                     _waterOpacity = .3;
                 }
             }
         }
+
         public bool UseMisting
         {
             get { return _useMisting; }
@@ -79,6 +83,7 @@ namespace FloraSaver.Models
                 }
             }
         }
+
         public bool UseMoving
         {
             get { return _useMoving; }
@@ -95,9 +100,11 @@ namespace FloraSaver.Models
                 }
             }
         }
+
         public DateTime DateOfLastWatering { get; set; }
-        
+
         private TimeSpan _timeOfLastWatering;
+
         public TimeSpan TimeOfLastWatering
         {
             get
@@ -110,24 +117,28 @@ namespace FloraSaver.Models
                 DateOfLastWatering = DateOfLastWatering.Date.Add(value);
             }
         }
+
         public DateTime DateOfNextWatering { get; set; }
 
         private TimeSpan _timeOfNextWatering;
-        public TimeSpan TimeOfNextWatering 
-        { 
-            get 
+
+        public TimeSpan TimeOfNextWatering
+        {
+            get
             {
                 return _timeOfNextWatering;
-            } 
+            }
             set
             {
                 _timeOfNextWatering = value;
                 DateOfNextWatering = DateOfNextWatering.Date.Add(value);
-            } 
+            }
         }
+
         public double ExtraWaterTime { get; set; } = 0;
         public DateTime DateOfLastMisting { get; set; }
         private TimeSpan _timeOfLastMisting;
+
         public TimeSpan TimeOfLastMisting
         {
             get
@@ -140,8 +151,10 @@ namespace FloraSaver.Models
                 DateOfLastMisting = DateOfLastMisting.Date.Add(value);
             }
         }
+
         public DateTime DateOfNextMisting { get; set; }
         private TimeSpan _timeOfNextMisting;
+
         public TimeSpan TimeOfNextMisting
         {
             get
@@ -154,9 +167,11 @@ namespace FloraSaver.Models
                 DateOfNextMisting = DateOfNextMisting.Date.Add(value);
             }
         }
+
         public double ExtraMistTime { get; set; } = 0;
         public DateTime DateOfLastMove { get; set; }
         private TimeSpan _timeOfLastMove;
+
         public TimeSpan TimeOfLastMove
         {
             get
@@ -169,8 +184,10 @@ namespace FloraSaver.Models
                 DateOfLastMove = DateOfLastMove.Date.Add(value);
             }
         }
+
         public DateTime DateOfNextMove { get; set; }
         private TimeSpan _timeOfNextMove;
+
         public TimeSpan TimeOfNextMove
         {
             get
@@ -183,18 +200,24 @@ namespace FloraSaver.Models
                 DateOfNextMove = DateOfNextMove.Date.Add(value);
             }
         }
+
         public double ExtraMoveTime { get; set; } = 0;
+
         [Range(0, 365)]
         public int? WaterInterval { get; set; }
+
         [Range(0, 365)]
         public int? MistInterval { get; set; }
+
         [Range(0, 365)]
         public int? SunInterval { get; set; }
+
         private string _imageLocation;
+
         public string ImageLocation
         {
-            get { return _imageLocation;  }
-            set 
+            get { return _imageLocation; }
+            set
             {
                 _imageLocation = value;
             }
@@ -205,12 +228,12 @@ namespace FloraSaver.Models
         public DateTime PlantMoveOverdueCooldownLastWarned { get; set; }
 
         private double _waterPercent;
+
         public double WaterPercent
         {
-            get { return _waterPercent;  }
-            set 
-            { 
-
+            get { return _waterPercent; }
+            set
+            {
                 _waterPercent = TimeToNextAction(DateOfLastWatering, DateOfNextWatering);
                 _waterPercent = UseWatering ? _waterPercent : 0;
                 WaterRect = new Rect(0, 40, Width, Height);
@@ -220,10 +243,11 @@ namespace FloraSaver.Models
         }
 
         private double _mistPercent;
+
         public double MistPercent
         {
             get { return _mistPercent; }
-            set 
+            set
             {
                 _mistPercent = TimeToNextAction(DateOfLastMisting, DateOfNextMisting);
                 _mistPercent = UseMisting ? _mistPercent : 0;
@@ -234,10 +258,11 @@ namespace FloraSaver.Models
         }
 
         private double _sunPercent;
+
         public double SunPercent
         {
             get { return _sunPercent; }
-            set 
+            set
             {
                 _sunPercent = TimeToNextAction(DateOfLastMove, DateOfNextMove);
                 _sunPercent = UseMoving ? _sunPercent : 0;
@@ -253,25 +278,27 @@ namespace FloraSaver.Models
             {
                 return (DateTime.Now - lastTime).TotalSeconds /
                 (nextTime - lastTime).TotalSeconds;
-            } else
+            }
+            else
             {
                 return (nextTime < DateTime.Now && nextTime != lastTime) ? 1 : 0;
             }
-            
         }
 
         private double _waterOpacity;
         private double _mistOpacity;
         private double _moveOpacity;
+
         [Ignore]
-        public double WaterOpacity 
-        { 
+        public double WaterOpacity
+        {
             get { return _waterOpacity; }
             set
             {
                 _waterOpacity = value;
-            } 
+            }
         }
+
         [Ignore]
         public double MistOpacity
         {
@@ -293,6 +320,7 @@ namespace FloraSaver.Models
         }
 
         private bool _isEnabled;
+
         [Ignore]
         public bool IsEnabled
         {
@@ -313,41 +341,51 @@ namespace FloraSaver.Models
 
         [Ignore]
         public Color SelectedColor => IsEnabled ? Color.FromArgb("#e1ad01") : Color.FromArgb("#000000");
+
         [Ignore]
         public Color SelectedTextColor => IsEnabled ? Color.FromArgb("#000000") : Color.FromArgb("#FFFFFF");
 
-
         [Ignore]
         public double Width { get; set; } = 105;
+
         [Ignore]
         public double Height { get; set; } = 105;
 
         private Rect _waterRect;
+
         [Ignore]
-        public Rect WaterRect 
-        { 
-            get { return _waterRect; } 
-            set { _waterRect = value;
+        public Rect WaterRect
+        {
+            get { return _waterRect; }
+            set
+            {
+                _waterRect = value;
                 OnPropertyChanged(nameof(WaterRect));
             }
         }
 
         private Rect _mistRect;
+
         [Ignore]
-        public Rect MistRect 
-        { 
-            get { return _mistRect; } 
-            set { _mistRect = value;
+        public Rect MistRect
+        {
+            get { return _mistRect; }
+            set
+            {
+                _mistRect = value;
                 OnPropertyChanged(nameof(MistRect));
-            } 
+            }
         }
-        
+
         private Rect _sunRect;
+
         [Ignore]
-        public Rect SunRect 
-        { 
+        public Rect SunRect
+        {
             get { return _sunRect; }
-            set { _sunRect = value;
+            set
+            {
+                _sunRect = value;
                 OnPropertyChanged(nameof(SunRect));
             }
         }

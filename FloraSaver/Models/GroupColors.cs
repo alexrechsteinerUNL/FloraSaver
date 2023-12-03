@@ -10,7 +10,6 @@ namespace FloraSaver.Models
     {
         public Color Colors { get; set; }
         public string ColorsHex { get; set; }
-        public string ColorName { get; set;}
+        public string ColorName { get; set; }
     }
-
 }

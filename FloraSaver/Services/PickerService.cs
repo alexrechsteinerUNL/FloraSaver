@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace FloraSaver.Services
 {
-    public  class PickerService
+    public class PickerService
     {
         public static List<Interval> GetWaterIntervals()
         {
-            return new List<Interval>() 
+            return new List<Interval>()
             {
                 new Interval() { DaysFromNow = 0, IntervalText = "None" },
                 new Interval() { DaysFromNow = 1, IntervalText = "Every Day" },
@@ -42,7 +42,7 @@ namespace FloraSaver.Services
             var colorType = typeof(Colors);
             var colorFields = colorType.GetFields()
                 .Where(_ => _.FieldType == typeof(Color))
-                .Select(_ => new GroupColors { ColorName = _.Name, Colors = (Color)_.GetValue(null), ColorsHex = ((Color)_.GetValue(null)).ToArgbHex()});
+                .Select(_ => new GroupColors { ColorName = _.Name, Colors = (Color)_.GetValue(null), ColorsHex = ((Color)_.GetValue(null)).ToArgbHex() });
             return colorFields.ToList();
         }
     }

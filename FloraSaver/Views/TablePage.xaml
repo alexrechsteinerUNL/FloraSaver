@@ -61,7 +61,6 @@
                 <RowDefinition Height="70" />
             </Grid.RowDefinitions>
 
-
             <Grid
                 Grid.Row="0"
                 Grid.ColumnSpan="3"
@@ -355,7 +354,6 @@
 
                                                 <!--  switch out your fancy rectangle clippings for the humble progress bar you dolt  -->
 
-
                                                 <ProgressBar
                                                     x:Name="MistProgress"
                                                     Grid.Row="0"
@@ -399,7 +397,6 @@
                                     </Grid>
                                 </Frame>
                             </Grid>
-
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

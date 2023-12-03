@@ -7,9 +7,8 @@ namespace FloraSaver;
 
 public partial class PlantDetailsSetupPage : ContentPage
 {
-
-	public PlantDetailsSetupPage(PlantDetailsSetupViewModel viewModel)
-	{
+    public PlantDetailsSetupPage(PlantDetailsSetupViewModel viewModel)
+    {
         InitializeComponent();
         BindingContext = viewModel;
     }
@@ -22,4 +21,3 @@ public partial class PlantDetailsSetupPage : ContentPage
         entry.IsEnabled = true;
     }
 }
-

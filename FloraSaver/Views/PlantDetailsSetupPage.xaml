@@ -169,9 +169,7 @@
                                 BackgroundColor="{Binding SelectedGroupColor.Colors, Mode=TwoWay}"
                                 HeightRequest="1000"
                                 WidthRequest="1000" />
-
                         </Grid>
-
                     </Border>
                     <Button
                         x:Name="addNewGroupButton"
@@ -332,7 +330,6 @@
                 </VerticalStackLayout>
             </Frame>
 
-
             <Frame
                 x:Name="WaterFrame"
                 Grid.Row="0"
@@ -385,7 +382,6 @@
                                         <Rectangle Grid.Column="2" Background="Black" />
                                     </Grid>
                                 </Border>
-
                             </Grid>
 
                             <Grid x:Name="customWaterIntervalGrid" IsVisible="{Binding CustomWaterIntervalGridVisible}">
@@ -632,7 +628,6 @@
                         </VerticalStackLayout>
                     </ScrollView>
                 </Grid>
-
             </Frame>
 
             <Frame
@@ -687,7 +682,6 @@
                                         <Rectangle Grid.Column="2" Background="Black" />
                                     </Grid>
                                 </Border>
-
                             </Grid>
 
                             <Grid x:Name="customMistIntervalGrid" IsVisible="{Binding CustomMistIntervalGridVisible}">
@@ -990,7 +984,6 @@
                                         <Rectangle Grid.Column="2" Background="Black" />
                                     </Grid>
                                 </Border>
-
                             </Grid>
 
                             <Grid x:Name="customSunIntervalGrid" IsVisible="{Binding CustomSunIntervalGridVisible}">
@@ -1147,8 +1140,6 @@
                                     Source="night.png"
                                     WidthRequest="25" />
 
-
-
                                 <Label
                                     Grid.Row="2"
                                     Grid.ColumnSpan="3"
@@ -1240,10 +1231,7 @@
                     </ScrollView>
                 </Grid>
             </Frame>
-
         </Grid>
-
-
 
         <HorizontalStackLayout
             Grid.Row="2"
@@ -1273,7 +1261,6 @@
                 HorizontalOptions="Center"
                 Text="►" />
         </HorizontalStackLayout>
-
 
         <Frame
             Grid.Row="3"
@@ -1435,13 +1422,8 @@
                             CommandParameter="Sun"
                             Source="sun_timer_visual.png" />
                     </Frame>
-
                 </Grid>
-
             </Frame>
         </Grid>
-
-
     </Grid>
-
 </ContentPage>

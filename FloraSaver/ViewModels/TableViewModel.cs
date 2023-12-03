@@ -46,8 +46,8 @@ namespace FloraSaver.ViewModels
             shouldGetNewGroupData = (bool)(query["shouldGetNewGroupData"] ?? false);
         }
 
-            [RelayCommand]
-        async Task AppearingAsync()
+        [RelayCommand]
+        private async Task AppearingAsync()
         {
             timer = new PeriodicTimer(TimeSpan.FromSeconds(10));
 
@@ -60,42 +60,53 @@ namespace FloraSaver.ViewModels
         {
             timer.Dispose();
         }
-        
+
         protected PeriodicTimer timer = new PeriodicTimer(TimeSpan.FromSeconds(10));
-        [ObservableProperty]
-        List<string> orderByValues = PickerService.GetOrderByValues();
-        [ObservableProperty]
-        string currentOrderByValue = "Next Action";
-        [ObservableProperty]
-        bool isRefreshing;
-        [ObservableProperty]
-        string searchQuery = string.Empty;
-        [ObservableProperty]
-        Rect rectNeedsWatering;
 
         [ObservableProperty]
-        bool isPlantTypeIncluded;
-        [ObservableProperty]
-        string toggleButtonTextColor;
-        [ObservableProperty]
-        bool toggleButtonBackgroundColor;
+        private List<string> orderByValues = PickerService.GetOrderByValues();
 
         [ObservableProperty]
-        Rect waterRectangle;
+        private string currentOrderByValue = "Next Action";
 
         [ObservableProperty]
-        bool waterEnabled;
-        [ObservableProperty]
-        bool mistEnabled;
-        [ObservableProperty]
-        bool moveEnabled;
+        private bool isRefreshing;
 
         [ObservableProperty]
-        int waterOpacity;
+        private string searchQuery = string.Empty;
+
         [ObservableProperty]
-        int mistOpacity;
+        private Rect rectNeedsWatering;
+
         [ObservableProperty]
-        int moveOpacity;
+        private bool isPlantTypeIncluded;
+
+        [ObservableProperty]
+        private string toggleButtonTextColor;
+
+        [ObservableProperty]
+        private bool toggleButtonBackgroundColor;
+
+        [ObservableProperty]
+        private Rect waterRectangle;
+
+        [ObservableProperty]
+        private bool waterEnabled;
+
+        [ObservableProperty]
+        private bool mistEnabled;
+
+        [ObservableProperty]
+        private bool moveEnabled;
+
+        [ObservableProperty]
+        private int waterOpacity;
+
+        [ObservableProperty]
+        private int mistOpacity;
+
+        [ObservableProperty]
+        private int moveOpacity;
 
         partial void OnCurrentOrderByValueChanged(string value)
         {
@@ -108,20 +119,25 @@ namespace FloraSaver.ViewModels
             switch (order)
             {
                 case "Next Action":
-                    Plants = new ObservableCollection<Plant>(Plants.OrderByDescending(_ => new[] {_.WaterPercent, _.MistPercent, _.SunPercent }.Max()));
+                    Plants = new ObservableCollection<Plant>(Plants.OrderByDescending(_ => new[] { _.WaterPercent, _.MistPercent, _.SunPercent }.Max()));
                     break;
+
                 case "Next Watering":
                     Plants = new ObservableCollection<Plant>(Plants.OrderByDescending(_ => _.UseWatering).ThenByDescending(_ => _.WaterPercent));
                     break;
+
                 case "Next Misting":
                     Plants = new ObservableCollection<Plant>(Plants.OrderByDescending(_ => _.UseMisting).ThenByDescending(_ => _.MistPercent));
                     break;
+
                 case "Next Moving":
                     Plants = new ObservableCollection<Plant>(Plants.OrderByDescending(_ => _.UseMoving).ThenByDescending(_ => _.SunPercent));
                     break;
+
                 case "Alphabetical":
                     Plants = new ObservableCollection<Plant>(Plants.OrderBy(_ => _.GivenName));
                     break;
+
                 default:
                     Plants = new ObservableCollection<Plant>(Plants.OrderByDescending(_ => _.UseWatering).ThenByDescending(_ => _.WaterPercent));
                     break;
@@ -142,9 +158,8 @@ namespace FloraSaver.ViewModels
                         plant.DateOfNextWatering = plant.DateOfNextWatering.AddDays(plant.WaterInterval != null ? (int)plant.WaterInterval :
 (plant.DateOfNextWatering.Date - plant.DateOfLastWatering.Date).Days);
                     } while (plant.DateOfNextWatering < DateTime.Now);
-
-
-                } else
+                }
+                else
                 {
                     plant.UseWatering = false;
                 }
@@ -235,7 +250,6 @@ namespace FloraSaver.ViewModels
                     }
                 }
                 setPlantOrder(CurrentOrderByValue);
-
             }
             catch (Exception ex)
             {
@@ -375,7 +389,7 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        async Task GroupSelectionAsync(PlantGroup plantGroup)
+        private async Task GroupSelectionAsync(PlantGroup plantGroup)
         {
             var specificGroup = PlantGroups.FirstOrDefault(_ => _.GroupId == plantGroup.GroupId);
             specificGroup.IsEnabled = plantGroup.IsEnabled ? false : true;
@@ -404,7 +418,7 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        async Task GoToDetailsAsync(Plant plant)
+        private async Task GoToDetailsAsync(Plant plant)
         {
             if (plant == null)
             {

@@ -19,12 +19,12 @@ namespace FloraSaver.Utilities
             if (unformattedResource.IndexOf(start) == -1)
             {
                 return new Tuple<string, Dictionary<int, string>>(unformattedResource, elementDict) ?? new Tuple<string, Dictionary<int, string>>(unformattedResource, null);
-            } 
+            }
             else
             {
                 int elementStart = unformattedResource.IndexOf(start);
                 var startingData = unformattedResource.Substring(elementStart);
-                var elementAsString = startingData.Substring(1, startingData.IndexOf(end)-1);
+                var elementAsString = startingData.Substring(1, startingData.IndexOf(end) - 1);
                 elementDict.Add(elementStart + 1, elementAsString);
                 var unformattedResourceWithoutCurrentImage = unformattedResource.Remove(elementStart, startingData.IndexOf(end) + 1);
                 return SpecialLocations(start, end, unformattedResourceWithoutCurrentImage, elementDict);
@@ -34,9 +34,10 @@ namespace FloraSaver.Utilities
         //Images denoted by {}
         public Dictionary<int, string> ImageChangeLocations(string unformattedResource)
         {
-            var noEmotionOrNewResource = SpecialLocations('#', '$', SpecialLocations('[',']', unformattedResource).Item1).Item1;
+            var noEmotionOrNewResource = SpecialLocations('#', '$', SpecialLocations('[', ']', unformattedResource).Item1).Item1;
             return SpecialLocations('{', '}', noEmotionOrNewResource).Item2;
         }
+
         //Emotion changes denoted by []
         public Dictionary<int, string> ClipetEmotionChangeLocations(string unformattedResource)
         {
@@ -58,20 +59,17 @@ namespace FloraSaver.Utilities
                     end = end + section.Length;
                     textBoxSections.Add(end, section);
                 }
-                
-                
             }
             return textBoxSections;
-
         }
 
-        public List<ClipetSpeechBubble> SortTextBoxes(string unformattedResource) 
+        public List<ClipetSpeechBubble> SortTextBoxes(string unformattedResource)
         {
             var images = ImageChangeLocations(unformattedResource);
             var emotions = ClipetEmotionChangeLocations(unformattedResource);
             var boxLocations = GetTextBoxes(unformattedResource);
             var boxes = new List<ClipetSpeechBubble>();
-            
+
             foreach (var box in boxLocations)
             {
                 var image = images.FirstOrDefault(_ => _.Key <= box.Key);
@@ -83,7 +81,5 @@ namespace FloraSaver.Utilities
 
             return boxes;
         }
-            
-
     }
 }

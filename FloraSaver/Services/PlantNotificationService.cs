@@ -1,7 +1,6 @@
 ﻿using FloraSaver.Models;
 using Plugin.LocalNotification;
 
-
 namespace FloraSaver.Services
 {
     public class PlantNotificationService : IPlantNotificationService
@@ -128,9 +127,11 @@ namespace FloraSaver.Services
                 case "water":
                     idWithIsOverdueThenType = id * 100 + ((plant.IsOverdueWater ? 1 : 0) * 10) + 0;
                     break;
+
                 case "mist":
                     idWithIsOverdueThenType = id * 100 + ((plant.IsOverdueMist ? 1 : 0) * 10) + 1;
                     break;
+
                 case "move":
                     idWithIsOverdueThenType = id * 100 + ((plant.IsOverdueSun ? 1 : 0) * 10) + 2;
                     break;

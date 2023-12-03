@@ -9,6 +9,7 @@ namespace FloraSaver
     public interface IServiceNotification
     {
         void Start();
+
         void Stop();
     }
 }

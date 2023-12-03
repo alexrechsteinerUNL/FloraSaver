@@ -27,7 +27,7 @@ namespace FloraSaver.ViewModels
 
         private Random rand = new Random();
 
-        public PlantDetailsSetupViewModel(IDatabaseService databaseService) : base (databaseService)
+        public PlantDetailsSetupViewModel(IDatabaseService databaseService) : base(databaseService)
         {
             _databaseService = databaseService;
             wateringInterval = PickerService.GetWaterIntervals();
@@ -39,7 +39,7 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        void AppearingSetup()
+        private void AppearingSetup()
         {
             IsInitialization = true;
             Appearing();
@@ -57,12 +57,11 @@ namespace FloraSaver.ViewModels
         //    IsInitialization = false;
         //}
 
+        [ObservableProperty]
+        private bool isInitialization;
 
         [ObservableProperty]
-        bool isInitialization;
-
-        [ObservableProperty]
-        Plant plant;
+        private Plant plant;
 
         [RelayCommand]
         public void TabPressed(string tab)
@@ -78,6 +77,7 @@ namespace FloraSaver.ViewModels
                 isActive: true
                 );
                     break;
+
                 case "PlantName":
                     DisableAll();
                     ActiveTab = new DataTab(
@@ -86,6 +86,7 @@ namespace FloraSaver.ViewModels
                 isActive: true
                 );
                     break;
+
                 case "GivenName":
                     DisableAll();
                     ActiveTab = new DataTab(
@@ -94,6 +95,7 @@ namespace FloraSaver.ViewModels
                 isActive: true
                 );
                     break;
+
                 case "Water":
                     DisableAll();
                     ActiveTab = new DataTab(
@@ -102,6 +104,7 @@ namespace FloraSaver.ViewModels
                         isActive: true
                         );
                     break;
+
                 case "Refresh":
                     DisableAll();
                     ActiveTab = new DataTab(
@@ -110,6 +113,7 @@ namespace FloraSaver.ViewModels
                         isActive: true
                         );
                     break;
+
                 case "Sun":
                     DisableAll();
                     ActiveTab = new DataTab(
@@ -118,6 +122,7 @@ namespace FloraSaver.ViewModels
                         isActive: true
                         );
                     break;
+
                 default:
                     DisableAll();
                     ActiveTab = new DataTab(
@@ -136,7 +141,7 @@ namespace FloraSaver.ViewModels
         public void NextButtonPressed()
         {
             var currentIndex = SetupTabs.IndexOf(ActiveElement);
-            if (currentIndex > -1 && currentIndex < SetupTabs.Count-1)
+            if (currentIndex > -1 && currentIndex < SetupTabs.Count - 1)
             {
                 TabPressed(SetupTabs[currentIndex + 1]);
             }

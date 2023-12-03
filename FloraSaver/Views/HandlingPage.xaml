@@ -57,7 +57,6 @@
                 <RowDefinition Height="70" />
             </Grid.RowDefinitions>
 
-
             <Grid
                 Grid.Row="0"
                 Grid.ColumnSpan="3"
@@ -394,7 +393,6 @@
                 IsEnabled="{Binding IsNotBusy}"
                 Text="Select All"
                 WidthRequest="150" />
-
 
             <ActivityIndicator
                 Grid.RowSpan="6"

@@ -5,10 +5,10 @@ namespace FloraSaver;
 public partial class DatabaseExportPage : ContentPage
 {
     public DatabaseExportPage(BackupRestoreViewModel viewModel)
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         BindingContext = viewModel;
-	}
+    }
 
     private static void Entry_Completed(object sender, EventArgs e)
     {
@@ -17,4 +17,3 @@ public partial class DatabaseExportPage : ContentPage
         entry.IsEnabled = true;
     }
 }
-

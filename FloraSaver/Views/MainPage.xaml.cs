@@ -4,9 +4,9 @@ namespace FloraSaver;
 
 public partial class MainPage : ContentPage
 {
-	public MainPage(MainViewModel viewModel)
-	{
-		InitializeComponent();
+    public MainPage(MainViewModel viewModel)
+    {
+        InitializeComponent();
         BindingContext = viewModel;
     }
 
@@ -15,4 +15,3 @@ public partial class MainPage : ContentPage
         base.OnAppearing();
     }
 }
-

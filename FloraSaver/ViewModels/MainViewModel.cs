@@ -18,13 +18,15 @@ namespace FloraSaver.ViewModels
 
         [ObservableProperty]
         public bool isNextPlantVisible = false;
+
         [ObservableProperty]
         public bool isNextWater = false;
+
         [ObservableProperty]
         public bool isNextMist = false;
+
         [ObservableProperty]
         public bool isNextSun = false;
-
 
         public MainViewModel(IDatabaseService databaseService, IPlantNotificationService plantNotificationService) : base(databaseService, plantNotificationService)
         {
@@ -33,7 +35,7 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        async Task AppearingHomeAsync()
+        private async Task AppearingHomeAsync()
         {
             await GetPlantsAsync();
             SetNextPlant();
@@ -53,16 +55,19 @@ namespace FloraSaver.ViewModels
                         IsNextMist = false;
                         IsNextSun = false;
                         break;
+
                     case var value when value == NextPlant.MistPercent:
                         IsNextWater = false;
                         IsNextMist = true;
                         IsNextSun = false;
                         break;
+
                     case var value when value == NextPlant.SunPercent:
                         IsNextWater = false;
                         IsNextMist = false;
                         IsNextSun = true;
                         break;
+
                     default:
                         IsNextWater = false;
                         IsNextMist = false;

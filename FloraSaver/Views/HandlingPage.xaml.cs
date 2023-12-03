@@ -7,10 +7,10 @@ namespace FloraSaver;
 public partial class HandlingPage : ContentPage
 {
     public HandlingPage(HandlingViewModel viewModel)
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         BindingContext = viewModel;
-	}
+    }
 
     private static void Entry_Completed(object sender, EventArgs e)
     {
@@ -19,4 +19,3 @@ public partial class HandlingPage : ContentPage
         entry.IsEnabled = true;
     }
 }
-

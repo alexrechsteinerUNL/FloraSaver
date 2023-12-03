@@ -25,13 +25,13 @@ public static class MauiProgram
 
 #if ANDROID
             builder.UseLocalNotification();
-            
+
 #elif IOS
         builder.UseLocalNotification();
 #endif
 
         string dbPath = FileAccessHelper.GetLocalFilePath("plant.db3");
-        
+
         builder.Services.AddSingleton<TableViewModel>();
         builder.Services.AddSingleton<Base64ImageConverterService>();
         builder.Services.AddSingleton<IFileSaver>(FileSaver.Default);
