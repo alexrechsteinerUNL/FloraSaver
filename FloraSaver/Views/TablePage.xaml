@@ -171,6 +171,12 @@
                                                     FontSize="34"
                                                     Text="{Binding GivenName, StringFormat='{0}'}"
                                                     TextColor="{Binding GroupColor}" />
+                                                <Border
+                                                    Grid.Row="0"
+                                                    Grid.Column="1"
+                                                    BackgroundColor="{Binding GroupColor}"
+                                                    HeightRequest="65"
+                                                    WidthRequest="65" />
                                                 <Image
                                                     Grid.Row="0"
                                                     Grid.Column="1"
@@ -180,16 +186,7 @@
                                                     Opacity=".90"
                                                     Source="card_background_hidden.png"
                                                     VerticalOptions="FillAndExpand"
-                                                    WidthRequest="50">
-                                                    <Image.Triggers>
-                                                        <DataTrigger
-                                                            Binding="{Binding Source={x:Reference _plantImage}, Path=IsVisible}"
-                                                            TargetType="Image"
-                                                            Value="True">
-                                                            <Setter Property="IsVisible" Value="False" />
-                                                        </DataTrigger>
-                                                    </Image.Triggers>
-                                                </Image>
+                                                    WidthRequest="50" />
                                                 <Image
                                                     x:Name="_plantImage"
                                                     Grid.Row="0"
