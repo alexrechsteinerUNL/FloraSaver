@@ -42,8 +42,8 @@ namespace FloraSaver.ViewModels
                 shouldGetNewGroupData = true;
                 return;
             }
-            shouldGetNewData = (bool)(query["shouldGetNewData"] ?? false);
-            shouldGetNewGroupData = (bool)(query["shouldGetNewGroupData"] ?? false);
+            shouldGetNewData = (bool)(query["ShouldGetNewData"] ?? false);
+            shouldGetNewGroupData = (bool)(query["ShouldGetNewGroupData"] ?? false);
         }
 
         [RelayCommand]

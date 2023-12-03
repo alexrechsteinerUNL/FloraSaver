@@ -20,6 +20,12 @@ namespace FloraSaver.ViewModels
         // I moved the _databaseService to the base viewmodel because just about every page was going to use it.
 
         [ObservableProperty]
+        public bool shouldGetNewData = false;
+
+        [ObservableProperty]
+        public bool shouldGetNewGroupData = false;
+
+        [ObservableProperty]
         public bool isImageSelected = false;
 
         [ObservableProperty]
@@ -81,6 +87,12 @@ namespace FloraSaver.ViewModels
             WaterGridText = InitialPlant.UseWatering ? "Do Not Use Watering" : "Use Watering";
             MistGridText = InitialPlant.UseMisting ? "Do Not Use Misting" : "Use Misting";
             SunGridText = InitialPlant.UseMoving ? "Do Not Use Sunlight Move" : "Use Sunlight Move";
+
+            if (InitialPlant == AlterPlant)
+            {
+                ShouldGetNewData = false;
+                ShouldGetNewGroupData = false;
+            }
 
             IsInitialization = false;
             if (InitialPlant.ImageLocation is not null)
@@ -281,14 +293,14 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        private void AddGroupShowPressed()
+        protected void AddGroupShowPressed()
         {
             AddNewGroupGridVisible = !AddNewGroupGridVisible;
             AddGroupButtonText = AddNewGroupGridVisible ? "-" : "+";
         }
 
         [RelayCommand]
-        private async Task AddNewGroupAsync(string newPlantGroupName)
+        protected async Task AddNewGroupAsync(string newPlantGroupName)
         {
             var newPlantGroup = new PlantGroup()
             {
@@ -307,7 +319,16 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        private void UseWateringPressed(bool value)
+        protected void ClearImage()
+        {
+            AlterPlant.ImageLocation = null;
+            AlterPlant.PlantImageSource = null;
+            IsImageSelected = false;
+            OnPropertyChanged("AlterPlant");
+        }
+
+        [RelayCommand]
+        protected void UseWateringPressed(bool value)
         {
             AlterPlant.UseWatering = !AlterPlant.UseWatering;
             WaterGridText = AlterPlant.UseWatering ? "Do Not Use Watering" : "Use Watering";
@@ -315,7 +336,7 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        private void UseMistingPressed(bool value)
+        protected void UseMistingPressed(bool value)
         {
             AlterPlant.UseMisting = !AlterPlant.UseMisting;
             MistGridText = AlterPlant.UseMisting ? "Do Not Use Misting" : "Use Misting";
@@ -323,7 +344,7 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        private void UseSunPressed(bool value)
+        protected void UseSunPressed(bool value)
         {
             AlterPlant.UseMoving = !AlterPlant.UseMoving;
             SunGridText = AlterPlant.UseMoving ? "Do Not Use Sunlight Move" : "Use Sunlight Move";
@@ -331,7 +352,7 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        private async Task<bool> AddUpdateGroupAsync(PlantGroup plantGroup)
+        protected async Task<bool> AddUpdateGroupAsync(PlantGroup plantGroup)
         {
             var result = false;
             if (IsBusy)
@@ -355,13 +376,15 @@ namespace FloraSaver.ViewModels
             {
                 IsBusy = false;
                 FriendlyLabel = _databaseService.StatusMessage;
+                ShouldGetNewGroupData = true;
                 await FriendlyLabelToastAsync();
+
             }
             return result;
         }
 
         [RelayCommand]
-        private async Task AddUpdateAsync(Plant plant)
+        protected async Task AddUpdateAsync(Plant plant)
         {
             if (IsBusy)
                 return;
@@ -382,12 +405,13 @@ namespace FloraSaver.ViewModels
             {
                 IsBusy = false;
                 FriendlyLabel = _databaseService.StatusMessage;
+                ShouldGetNewData = true;
                 await FriendlyLabelToastAsync();
             }
         }
 
         [RelayCommand]
-        private async Task SwitchDetailsAsync(bool isSetup)
+        protected async Task SwitchDetailsAsync(bool isSetup)
         {
             if (isSetup)
             {
@@ -409,7 +433,7 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        private async Task DeleteAsync(Plant plant)
+        protected async Task DeleteAsync(Plant plant)
         {
             if (IsBusy)
                 return;
@@ -427,32 +451,38 @@ namespace FloraSaver.ViewModels
             finally
             {
                 IsBusy = false;
+                ShouldGetNewData = true;
                 await GoToTableAsync();
             }
         }
 
         [RelayCommand]
-        private async Task GoToTableAsync()
+        protected async Task GoToTableAsync()
         {
-            await Shell.Current.GoToAsync($"///{nameof(TablePage)}", true);
+            await Shell.Current.GoToAsync($"///{nameof(TablePage)}", true, new Dictionary<string, object>
+            {
+                {"ShouldGetNewData", ShouldGetNewData },
+                {"ShouldGetNewGroupData", ShouldGetNewGroupData }
+            });
+            return;
         }
 
         [RelayCommand]
-        private void SetToDefaultMorningTime(string timeValue)
+        protected void SetToDefaultMorningTime(string timeValue)
         {
             AlterPlant.GetType().GetProperty(timeValue).SetValue(AlterPlant, DateTime.FromBinary(Preferences.Default.Get("morning_time_date", new DateTime(1, 1, 1, 8, 0, 0).ToBinary())).TimeOfDay);
             OnPropertyChanged("AlterPlant");
         }
 
         [RelayCommand]
-        private void SetToDefaultMiddayTime(string timeValue)
+        protected void SetToDefaultMiddayTime(string timeValue)
         {
             AlterPlant.GetType().GetProperty(timeValue).SetValue(AlterPlant, DateTime.FromBinary(Preferences.Default.Get("midday_time_date", new DateTime(1, 1, 1, 12, 0, 0).ToBinary())).TimeOfDay);
             OnPropertyChanged("AlterPlant");
         }
 
         [RelayCommand]
-        private void SetToDefaultNightTime(string timeValue)
+        protected void SetToDefaultNightTime(string timeValue)
         {
             AlterPlant.GetType().GetProperty(timeValue).SetValue(AlterPlant, DateTime.FromBinary(Preferences.Default.Get("night_time_date", new DateTime(1, 1, 1, 16, 0, 0).ToBinary())).TimeOfDay);
             OnPropertyChanged("AlterPlant");

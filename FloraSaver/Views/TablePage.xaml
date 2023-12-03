@@ -171,26 +171,36 @@
                                                     FontSize="34"
                                                     Text="{Binding GivenName, StringFormat='{0}'}"
                                                     TextColor="{Binding GroupColor}" />
-
-                                                <Polygon
-                                                    Grid.Row="0"
-                                                    Grid.Column="1"
-                                                    HorizontalOptions="Center"
-                                                    Points="0,15 30,15 30,40 0,15"
-                                                    Stroke="{Binding GroupColor}"
-                                                    StrokeThickness="2"
-                                                    VerticalOptions="Center">
-                                                    <Polygon.Fill>
-                                                        <SolidColorBrush Color="{Binding GroupColor}" />
-                                                    </Polygon.Fill>
-                                                </Polygon>
                                                 <Image
                                                     Grid.Row="0"
                                                     Grid.Column="1"
-                                                    HorizontalOptions="Center"
-                                                    Scale="1.4"
+                                                    HeightRequest="50"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    IsVisible="True"
+                                                    Opacity=".90"
+                                                    Source="card_background_hidden.png"
+                                                    VerticalOptions="FillAndExpand"
+                                                    WidthRequest="50">
+                                                    <Image.Triggers>
+                                                        <DataTrigger
+                                                            Binding="{Binding Source={x:Reference _plantImage}, Path=IsVisible}"
+                                                            TargetType="Image"
+                                                            Value="True">
+                                                            <Setter Property="IsVisible" Value="False" />
+                                                        </DataTrigger>
+                                                    </Image.Triggers>
+                                                </Image>
+                                                <Image
+                                                    x:Name="_plantImage"
+                                                    Grid.Row="0"
+                                                    Grid.Column="1"
+                                                    Aspect="Fill"
+                                                    HeightRequest="50"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    IsVisible="{Binding HasImage}"
                                                     Source="{Binding PlantImageSource}"
-                                                    VerticalOptions="Center" />
+                                                    VerticalOptions="FillAndExpand"
+                                                    WidthRequest="50" />
                                                 <Label
                                                     Grid.Row="1"
                                                     Grid.ColumnSpan="2"

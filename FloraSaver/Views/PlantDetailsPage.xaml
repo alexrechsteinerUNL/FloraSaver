@@ -201,7 +201,7 @@
                                 Text="Upload" />
                             <Grid
                                 Grid.Row="1"
-                                ColumnDefinitions="*, 50"
+                                ColumnDefinitions="*, 70, 40"
                                 IsVisible="{Binding IsImageSelected}">
                                 <Button
                                     x:Name="_ChangeImageButton"
@@ -213,6 +213,12 @@
                                     Grid.Column="1"
                                     Command="{Binding ImageOfPlantToBase64Command}"
                                     Source="{Binding AlterPlant.PlantImageSource}"
+                                    WidthRequest="60" />
+                                <Button
+                                    x:Name="_ClearImage"
+                                    Grid.Column="2"
+                                    Command="{Binding ClearImageCommand}"
+                                    Text="X"
                                     WidthRequest="40" />
                             </Grid>
                         </Grid>

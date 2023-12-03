@@ -38,6 +38,8 @@ namespace FloraSaver.Models
         public string PlantGroupName { get; set; } = "Ungrouped";
         public string GroupColorHexString { get; set; } = "#A9A9A9";
 
+        public bool HasImage => !string.IsNullOrEmpty(ImageLocation);
+
         [Ignore]
         public Color GroupColor => Color.FromArgb(GroupColorHexString);
 
