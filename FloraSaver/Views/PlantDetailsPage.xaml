@@ -21,6 +21,7 @@
         <toolkit:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
 
+
     <VerticalStackLayout Padding="10">
 
         <Frame
@@ -69,10 +70,15 @@
                                 <ColumnDefinition Width="30" />
                                 <ColumnDefinition Width="30" />
                             </Grid.ColumnDefinitions>
-                            <Label
-                                Grid.Row="0"
-                                Grid.ColumnSpan="2"
-                                Text="Plant Group: " />
+                            <FlexLayout Grid.Row="0" Grid.ColumnSpan="2">
+                                <Label Text="Plant Group: " />
+                                <ImageButton
+                                    x:Name="_undoGroupChange"
+                                    Grid.Column="0"
+                                    Command="{Binding ImageOfPlantToBase64Command}"
+                                    Source="undo_button.png"
+                                    WidthRequest="40" />
+                            </FlexLayout>
                             <Border
                                 Grid.Row="1"
                                 HorizontalOptions="StartAndExpand"
@@ -158,7 +164,9 @@
                                         BackgroundColor="{Binding SelectedGroupColor.Colors, Mode=TwoWay}"
                                         HeightRequest="1000"
                                         WidthRequest="1000" />
+
                                 </Grid>
+
                             </Border>
                             <Button
                                 x:Name="addNewGroupButton"
@@ -177,7 +185,15 @@
                                 <RowDefinition Height="30" />
                                 <RowDefinition Height="50" />
                             </Grid.RowDefinitions>
-                            <Label Grid.Row="0" Text="Upload Plant Image: " />
+                            <FlexLayout Grid.Row="0">
+                                <Label Text="Upload Plant Image: " />
+                                <ImageButton
+                                    x:Name="_undoGroupChange"
+                                    Grid.Column="0"
+                                    Command="{Binding ImageOfPlantToBase64Command}"
+                                    Source="undo_button.png"
+                                    WidthRequest="40" />
+                            </FlexLayout>
                             <Button
                                 x:Name="PlantImageButton"
                                 Grid.Row="1"
@@ -206,7 +222,15 @@
                                 <RowDefinition Height="30" />
                                 <RowDefinition Height="50" />
                             </Grid.RowDefinitions>
-                            <Label Grid.Row="0" Text="Plant Species: " />
+                            <FlexLayout Grid.Row="0">
+                                <Label Text="Plant Species: " />
+                                <ImageButton
+                                    x:Name="_undoGroupChange"
+                                    Grid.Column="0"
+                                    Command="{Binding ImageOfPlantToBase64Command}"
+                                    Source="undo_button.png"
+                                    WidthRequest="40" />
+                            </FlexLayout>
                             <Border
                                 Grid.Row="1"
                                 HorizontalOptions="Start"
@@ -236,7 +260,15 @@
                                 <RowDefinition Height="30" />
                                 <RowDefinition Height="50" />
                             </Grid.RowDefinitions>
-                            <Label Grid.Row="0" Text="Given Name: " />
+                            <FlexLayout Grid.Row="0">
+                                <Label Text="Given Name: " />
+                                <ImageButton
+                                    x:Name="_undoGroupChange"
+                                    Grid.Column="0"
+                                    Command="{Binding ImageOfPlantToBase64Command}"
+                                    Source="undo_button.png"
+                                    WidthRequest="40" />
+                            </FlexLayout>
                             <Border
                                 Grid.Row="1"
                                 HorizontalOptions="Start"
@@ -265,7 +297,15 @@
                                 <RowDefinition Height="30" />
                                 <RowDefinition Height="50" />
                             </Grid.RowDefinitions>
-                            <Label Grid.Row="0" Text="Date Of Birth: " />
+                            <FlexLayout Grid.Row="0">
+                                <Label Text="Date Of Birth: " />
+                                <ImageButton
+                                    x:Name="_undoGroupChange"
+                                    Grid.Column="0"
+                                    Command="{Binding ImageOfPlantToBase64Command}"
+                                    Source="undo_button.png"
+                                    WidthRequest="40" />
+                            </FlexLayout>
                             <Border
                                 Grid.Row="1"
                                 HorizontalOptions="StartAndExpand"
@@ -300,7 +340,15 @@
                                     <RowDefinition Height="30" />
                                     <RowDefinition Height="50" />
                                 </Grid.RowDefinitions>
-                                <Label Grid.Row="0" Text="Watering Interval: " />
+                                <FlexLayout Grid.Row="0">
+                                    <Label Text="Watering Interval: " />
+                                    <ImageButton
+                                        x:Name="_undoGroupChange"
+                                        Grid.Column="0"
+                                        Command="{Binding ImageOfPlantToBase64Command}"
+                                        Source="undo_button.png"
+                                        WidthRequest="40" />
+                                </FlexLayout>
                                 <Border
                                     Grid.Row="1"
                                     Grid.Column="0"
@@ -323,6 +371,7 @@
                                         <Rectangle Grid.Column="2" Background="Black" />
                                     </Grid>
                                 </Border>
+
                             </Grid>
 
                             <Grid x:Name="customWaterIntervalGrid" IsVisible="{Binding CustomWaterIntervalGridVisible}">
@@ -391,10 +440,15 @@
                                     <ColumnDefinition Width="35" />
                                     <ColumnDefinition Width="35" />
                                 </Grid.ColumnDefinitions>
-                                <Label
-                                    Grid.Row="0"
-                                    Grid.ColumnSpan="3"
-                                    Text="Last Watered On: " />
+                                <FlexLayout Grid.Row="0" Grid.ColumnSpan="3">
+                                    <Label Text="Last Watered On: " />
+                                    <ImageButton
+                                        x:Name="_undoGroupChange"
+                                        Grid.Column="0"
+                                        Command="{Binding ImageOfPlantToBase64Command}"
+                                        Source="undo_button.png"
+                                        WidthRequest="40" />
+                                </FlexLayout>
                                 <Border Grid.Row="1" Grid.Column="0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -478,11 +532,15 @@
                                     HeightRequest="25"
                                     Source="night.png"
                                     WidthRequest="25" />
-
-                                <Label
-                                    Grid.Row="2"
-                                    Grid.ColumnSpan="3"
-                                    Text="Water On: " />
+                                <FlexLayout Grid.Row="2" Grid.ColumnSpan="3">
+                                    <Label Text="Water On: " />
+                                    <ImageButton
+                                        x:Name="_undoGroupChange"
+                                        Grid.Column="0"
+                                        Command="{Binding ImageOfPlantToBase64Command}"
+                                        Source="undo_button.png"
+                                        WidthRequest="40" />
+                                </FlexLayout>
                                 <Border Grid.Row="3" Grid.Column="0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -581,7 +639,15 @@
                                     <RowDefinition Height="30" />
                                     <RowDefinition Height="50" />
                                 </Grid.RowDefinitions>
-                                <Label Grid.Row="0" Text="Misting Interval: " />
+                                <FlexLayout Grid.Row="0">
+                                    <Label Text="Misting Interval: " />
+                                    <ImageButton
+                                        x:Name="_undoGroupChange"
+                                        Grid.Column="0"
+                                        Command="{Binding ImageOfPlantToBase64Command}"
+                                        Source="undo_button.png"
+                                        WidthRequest="40" />
+                                </FlexLayout>
 
                                 <Border
                                     Grid.Row="1"
@@ -604,6 +670,7 @@
                                         <Rectangle Grid.Column="2" Background="Black" />
                                     </Grid>
                                 </Border>
+
                             </Grid>
 
                             <Grid x:Name="customMistIntervalGrid" IsVisible="{Binding CustomMistIntervalGridVisible}">
@@ -672,10 +739,15 @@
                                     <ColumnDefinition Width="35" />
                                     <ColumnDefinition Width="35" />
                                 </Grid.ColumnDefinitions>
-                                <Label
-                                    Grid.Row="0"
-                                    Grid.ColumnSpan="3"
-                                    Text="Last Misted On: " />
+                                <FlexLayout Grid.Row="0" Grid.ColumnSpan="3">
+                                    <Label Text="Last Misted On: " />
+                                    <ImageButton
+                                        x:Name="_undoGroupChange"
+                                        Grid.Column="0"
+                                        Command="{Binding ImageOfPlantToBase64Command}"
+                                        Source="undo_button.png"
+                                        WidthRequest="40" />
+                                </FlexLayout>
                                 <Border Grid.Row="1" Grid.Column="0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -760,11 +832,15 @@
                                     HeightRequest="25"
                                     Source="night.png"
                                     WidthRequest="25" />
-
-                                <Label
-                                    Grid.Row="2"
-                                    Grid.ColumnSpan="3"
-                                    Text="Mist On: " />
+                                <FlexLayout Grid.Row="2" Grid.ColumnSpan="3">
+                                    <Label Text="Mist On: " />
+                                    <ImageButton
+                                        x:Name="_undoGroupChange"
+                                        Grid.Column="0"
+                                        Command="{Binding ImageOfPlantToBase64Command}"
+                                        Source="undo_button.png"
+                                        WidthRequest="40" />
+                                </FlexLayout>
                                 <Border Grid.Row="3" Grid.Column="0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -864,8 +940,15 @@
                                     <RowDefinition Height="30" />
                                     <RowDefinition Height="50" />
                                 </Grid.RowDefinitions>
-                                <Label Grid.Row="0" Text="Move Interval: " />
-
+                                <FlexLayout Grid.Row="0">
+                                    <Label Text="Move Interval: " />
+                                    <ImageButton
+                                        x:Name="_undoGroupChange"
+                                        Grid.Column="0"
+                                        Command="{Binding ImageOfPlantToBase64Command}"
+                                        Source="undo_button.png"
+                                        WidthRequest="40" />
+                                </FlexLayout>
                                 <Border
                                     Grid.Row="1"
                                     HorizontalOptions="Start"
@@ -887,6 +970,7 @@
                                         <Rectangle Grid.Column="2" Background="Black" />
                                     </Grid>
                                 </Border>
+
                             </Grid>
 
                             <Grid x:Name="customSunIntervalGrid" IsVisible="{Binding CustomSunIntervalGridVisible}">
@@ -955,10 +1039,15 @@
                                     <ColumnDefinition Width="35" />
                                     <ColumnDefinition Width="35" />
                                 </Grid.ColumnDefinitions>
-                                <Label
-                                    Grid.Row="0"
-                                    Grid.ColumnSpan="3"
-                                    Text="Last Moved On: " />
+                                <FlexLayout Grid.Row="0" Grid.ColumnSpan="3">
+                                    <Label Text="Last Moved On: " />
+                                    <ImageButton
+                                        x:Name="_undoGroupChange"
+                                        Grid.Column="0"
+                                        Command="{Binding ImageOfPlantToBase64Command}"
+                                        Source="undo_button.png"
+                                        WidthRequest="40" />
+                                </FlexLayout>
                                 <Border Grid.Row="1" Grid.Column="0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -1042,11 +1131,15 @@
                                     HeightRequest="25"
                                     Source="night.png"
                                     WidthRequest="25" />
-
-                                <Label
-                                    Grid.Row="2"
-                                    Grid.ColumnSpan="3"
-                                    Text="Move On: " />
+                                <FlexLayout Grid.Row="2" Grid.ColumnSpan="3">
+                                    <Label Text="Move On: " />
+                                    <ImageButton
+                                        x:Name="_undoGroupChange"
+                                        Grid.Column="0"
+                                        Command="{Binding ImageOfPlantToBase64Command}"
+                                        Source="undo_button.png"
+                                        WidthRequest="40" />
+                                </FlexLayout>
                                 <Border Grid.Row="3" Grid.Column="0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -1148,6 +1241,7 @@
                         IsEnabled="{Binding IsNotBusy}"
                         Text="swap" />
                 </HorizontalStackLayout>
+
             </Grid>
         </Frame>
         <Frame
