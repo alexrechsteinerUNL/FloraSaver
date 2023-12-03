@@ -188,7 +188,7 @@
                             <FlexLayout Grid.Row="0">
                                 <Label Text="Upload Plant Image: " />
                                 <ImageButton
-                                    x:Name="_undoGroupChange"
+                                    x:Name="_undoImageChange"
                                     Grid.Column="0"
                                     Command="{Binding ImageOfPlantToBase64Command}"
                                     Source="undo_button.png"
@@ -225,7 +225,7 @@
                             <FlexLayout Grid.Row="0">
                                 <Label Text="Plant Species: " />
                                 <ImageButton
-                                    x:Name="_undoGroupChange"
+                                    x:Name="_undoSpeciesChange"
                                     Grid.Column="0"
                                     Command="{Binding ImageOfPlantToBase64Command}"
                                     Source="undo_button.png"
@@ -263,7 +263,7 @@
                             <FlexLayout Grid.Row="0">
                                 <Label Text="Given Name: " />
                                 <ImageButton
-                                    x:Name="_undoGroupChange"
+                                    x:Name="_undoNameChange"
                                     Grid.Column="0"
                                     Command="{Binding ImageOfPlantToBase64Command}"
                                     Source="undo_button.png"
@@ -300,7 +300,7 @@
                             <FlexLayout Grid.Row="0">
                                 <Label Text="Date Of Birth: " />
                                 <ImageButton
-                                    x:Name="_undoGroupChange"
+                                    x:Name="_undoDobChange"
                                     Grid.Column="0"
                                     Command="{Binding ImageOfPlantToBase64Command}"
                                     Source="undo_button.png"
@@ -343,7 +343,7 @@
                                 <FlexLayout Grid.Row="0">
                                     <Label Text="Watering Interval: " />
                                     <ImageButton
-                                        x:Name="_undoGroupChange"
+                                        x:Name="_undoWaterIntervalChange"
                                         Grid.Column="0"
                                         Command="{Binding ImageOfPlantToBase64Command}"
                                         Source="undo_button.png"
@@ -443,7 +443,7 @@
                                 <FlexLayout Grid.Row="0" Grid.ColumnSpan="3">
                                     <Label Text="Last Watered On: " />
                                     <ImageButton
-                                        x:Name="_undoGroupChange"
+                                        x:Name="_undoLastWateredChange"
                                         Grid.Column="0"
                                         Command="{Binding ImageOfPlantToBase64Command}"
                                         Source="undo_button.png"
@@ -535,7 +535,7 @@
                                 <FlexLayout Grid.Row="2" Grid.ColumnSpan="3">
                                     <Label Text="Water On: " />
                                     <ImageButton
-                                        x:Name="_undoGroupChange"
+                                        x:Name="_undoWaterOnChange"
                                         Grid.Column="0"
                                         Command="{Binding ImageOfPlantToBase64Command}"
                                         Source="undo_button.png"
@@ -642,7 +642,7 @@
                                 <FlexLayout Grid.Row="0">
                                     <Label Text="Misting Interval: " />
                                     <ImageButton
-                                        x:Name="_undoGroupChange"
+                                        x:Name="_undoMistingIntervalChange"
                                         Grid.Column="0"
                                         Command="{Binding ImageOfPlantToBase64Command}"
                                         Source="undo_button.png"
@@ -742,7 +742,7 @@
                                 <FlexLayout Grid.Row="0" Grid.ColumnSpan="3">
                                     <Label Text="Last Misted On: " />
                                     <ImageButton
-                                        x:Name="_undoGroupChange"
+                                        x:Name="_undoLastMistedChange"
                                         Grid.Column="0"
                                         Command="{Binding ImageOfPlantToBase64Command}"
                                         Source="undo_button.png"
@@ -835,7 +835,7 @@
                                 <FlexLayout Grid.Row="2" Grid.ColumnSpan="3">
                                     <Label Text="Mist On: " />
                                     <ImageButton
-                                        x:Name="_undoGroupChange"
+                                        x:Name="_undoMistOnChange"
                                         Grid.Column="0"
                                         Command="{Binding ImageOfPlantToBase64Command}"
                                         Source="undo_button.png"
@@ -943,7 +943,7 @@
                                 <FlexLayout Grid.Row="0">
                                     <Label Text="Move Interval: " />
                                     <ImageButton
-                                        x:Name="_undoGroupChange"
+                                        x:Name="_undoMoveIntervalChange"
                                         Grid.Column="0"
                                         Command="{Binding ImageOfPlantToBase64Command}"
                                         Source="undo_button.png"
@@ -1042,7 +1042,7 @@
                                 <FlexLayout Grid.Row="0" Grid.ColumnSpan="3">
                                     <Label Text="Last Moved On: " />
                                     <ImageButton
-                                        x:Name="_undoGroupChange"
+                                        x:Name="_undoLastMovedChange"
                                         Grid.Column="0"
                                         Command="{Binding ImageOfPlantToBase64Command}"
                                         Source="undo_button.png"
@@ -1134,7 +1134,7 @@
                                 <FlexLayout Grid.Row="2" Grid.ColumnSpan="3">
                                     <Label Text="Move On: " />
                                     <ImageButton
-                                        x:Name="_undoGroupChange"
+                                        x:Name="_undoMoveOnChange"
                                         Grid.Column="0"
                                         Command="{Binding ImageOfPlantToBase64Command}"
                                         Source="undo_button.png"
