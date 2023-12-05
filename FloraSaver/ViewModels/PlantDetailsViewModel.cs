@@ -17,7 +17,16 @@ namespace FloraSaver.ViewModels
     [QueryProperty(nameof(PlantGroup), "PlantGroup")]
     public partial class PlantDetailsViewModel : BaseViewModel, IQueryAttributable, INotifyPropertyChanged
     {
+        [ObservableProperty]
+        protected bool isBeingUndone = false;
+
+
         // I moved the _databaseService to the base viewmodel because just about every page was going to use it.
+        [ObservableProperty]
+        protected bool groupUndoButtonVisible = false;
+        [RelayCommand]
+        protected void GroupPickerChanged() { GroupUndoButtonVisible = (!IsInitialization && !IsBeingUndone) ? true : false; }
+        
 
         [ObservableProperty]
         public bool shouldGetNewData = false;

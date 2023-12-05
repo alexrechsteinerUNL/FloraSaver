@@ -76,6 +76,7 @@
                                     x:Name="_undoGroupChange"
                                     Grid.Column="0"
                                     Command="{Binding ImageOfPlantToBase64Command}"
+                                    IsVisible="{Binding GroupUndoButtonVisible}"
                                     Source="undo_button.png"
                                     WidthRequest="40" />
                             </FlexLayout>
@@ -96,7 +97,11 @@
                                         Grid.Column="1"
                                         ItemDisplayBinding="{Binding GroupName, Mode=TwoWay}"
                                         ItemsSource="{Binding PlantGroups, Mode=TwoWay}"
-                                        SelectedItem="{Binding GroupPickerValue, Mode=TwoWay}" />
+                                        SelectedItem="{Binding GroupPickerValue, Mode=TwoWay}">
+                                        <Picker.Behaviors>
+                                            <toolkit:EventToCommandBehavior Command="{Binding GroupPickerChangedCommand}" EventName="SelectedIndexChanged" />
+                                        </Picker.Behaviors>
+                                    </Picker>
                                     <Rectangle Grid.Column="2" BackgroundColor="Black" />
                                 </Grid>
                             </Border>
@@ -191,8 +196,18 @@
                                     x:Name="_undoImageChange"
                                     Grid.Column="0"
                                     Command="{Binding ImageOfPlantToBase64Command}"
+                                    IsVisible="false"
                                     Source="undo_button.png"
-                                    WidthRequest="40" />
+                                    WidthRequest="40">
+                                    <!--<ImageButton.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding Source={x:Reference _ChangeImageButton}, Path=IsPressed}"
+                                            TargetType="ImageButton"
+                                            Value="True">
+                                            <Setter Property="IsVisible" Value="True" />
+                                        </DataTrigger>
+                                    </ImageButton.Triggers>-->
+                                </ImageButton>
                             </FlexLayout>
                             <Button
                                 x:Name="PlantImageButton"
