@@ -75,7 +75,7 @@
                                 <ImageButton
                                     x:Name="_undoGroupChange"
                                     Grid.Column="0"
-                                    Command="{Binding ImageOfPlantToBase64Command}"
+                                    Command="{Binding GroupSectionUndoCommand}"
                                     IsVisible="{Binding GroupUndoButtonVisible}"
                                     Source="undo_button.png"
                                     WidthRequest="40" />

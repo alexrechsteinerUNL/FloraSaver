@@ -26,7 +26,16 @@ namespace FloraSaver.ViewModels
         protected bool groupUndoButtonVisible = false;
         [RelayCommand]
         protected void GroupPickerChanged() { GroupUndoButtonVisible = (!IsInitialization && !IsBeingUndone) ? true : false; }
-        
+        [RelayCommand]
+        protected void GroupSectionUndo()
+        {
+            IsBeingUndone = true;
+            AlterPlant.PlantGroupName = InitialPlant.PlantGroupName;
+            AlterPlant.GroupColorHexString = InitialPlant.GroupColorHexString;
+            GroupPickerValue = AlterPlant.PlantGroupName != null ? PlantGroups.FirstOrDefault(_ => _.GroupName == AlterPlant.PlantGroupName) : PlantGroups.FirstOrDefault(_ => _.GroupName == "Ungrouped");
+            OnPropertyChanged("AlterPlant");
+            IsBeingUndone = false;
+        }
 
         [ObservableProperty]
         public bool shouldGetNewData = false;
@@ -37,8 +46,7 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         public bool isImageSelected = false;
 
-        [ObservableProperty]
-        public Plant initialPlant;
+        public Plant InitialPlant;
 
         private Random rand = new Random();
 
@@ -70,32 +78,32 @@ namespace FloraSaver.ViewModels
         {
             IsInitialization = true;
             // extract to its own reusable method with reflection DRY!
-            GroupPickerValue = InitialPlant.PlantGroupName != null ? PlantGroups.FirstOrDefault(_ => _.GroupName == InitialPlant.PlantGroupName) : PlantGroups.FirstOrDefault(_ => _.GroupName == "Ungrouped");
+            GroupPickerValue = AlterPlant.PlantGroupName != null ? PlantGroups.FirstOrDefault(_ => _.GroupName == AlterPlant.PlantGroupName) : PlantGroups.FirstOrDefault(_ => _.GroupName == "Ungrouped");
 
-            WaterDaysFromNow = InitialPlant.WaterInterval != null ? (int)InitialPlant.WaterInterval : (InitialPlant.DateOfNextWatering.Date - InitialPlant.DateOfLastWatering.Date).Days;
+            WaterDaysFromNow = AlterPlant.WaterInterval != null ? (int)AlterPlant.WaterInterval : (AlterPlant.DateOfNextWatering.Date - AlterPlant.DateOfLastWatering.Date).Days;
             WaterIntervalPickerValue = WateringInterval.FirstOrDefault(x => x.DaysFromNow == WaterDaysFromNow);
             if (WaterIntervalPickerValue == null)
             {
                 WaterIntervalPickerValue = WateringInterval.First(x => x.DaysFromNow == -1);
             }
 
-            MistDaysFromNow = InitialPlant.MistInterval != null ? (int)InitialPlant.MistInterval : (InitialPlant.DateOfNextMisting.Date - InitialPlant.DateOfLastMisting.Date).Days;
+            MistDaysFromNow = AlterPlant.MistInterval != null ? (int)AlterPlant.MistInterval : (AlterPlant.DateOfNextMisting.Date - AlterPlant.DateOfLastMisting.Date).Days;
             MistIntervalPickerValue = MistingInterval.FirstOrDefault(x => x.DaysFromNow == MistDaysFromNow);
             if (MistIntervalPickerValue == null)
             {
                 MistIntervalPickerValue = MistingInterval.First(x => x.DaysFromNow == -1);
             }
 
-            SunDaysFromNow = InitialPlant.SunInterval != null ? (int)InitialPlant.SunInterval : (InitialPlant.DateOfNextMove.Date - InitialPlant.DateOfLastMove.Date).Days;
+            SunDaysFromNow = AlterPlant.SunInterval != null ? (int)AlterPlant.SunInterval : (AlterPlant.DateOfNextMove.Date - AlterPlant.DateOfLastMove.Date).Days;
             SunIntervalPickerValue = SunInterval.FirstOrDefault(x => x.DaysFromNow == SunDaysFromNow);
             if (SunIntervalPickerValue == null)
             {
                 SunIntervalPickerValue = SunInterval.First(x => x.DaysFromNow == -1);
             }
 
-            WaterGridText = InitialPlant.UseWatering ? "Do Not Use Watering" : "Use Watering";
-            MistGridText = InitialPlant.UseMisting ? "Do Not Use Misting" : "Use Misting";
-            SunGridText = InitialPlant.UseMoving ? "Do Not Use Sunlight Move" : "Use Sunlight Move";
+            WaterGridText = AlterPlant.UseWatering ? "Do Not Use Watering" : "Use Watering";
+            MistGridText = AlterPlant.UseMisting ? "Do Not Use Misting" : "Use Misting";
+            SunGridText = AlterPlant.UseMoving ? "Do Not Use Sunlight Move" : "Use Sunlight Move";
 
             if (InitialPlant == AlterPlant)
             {
@@ -104,7 +112,7 @@ namespace FloraSaver.ViewModels
             }
 
             IsInitialization = false;
-            if (InitialPlant.ImageLocation is not null)
+            if (AlterPlant.ImageLocation is not null)
             {
                 SetImageSourceOfPlant();
                 IsImageSelected = true;
@@ -118,8 +126,9 @@ namespace FloraSaver.ViewModels
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             IsInitialization = true;
-            InitialPlant = AlterPlant = query["Plant"] as Plant;
-            OnPropertyChanged("Plant");
+            AlterPlant = query["Plant"] as Plant;
+            InitialPlant = new Plant(AlterPlant);
+            OnPropertyChanged("AlterPlant");
             var groups = query["PlantGroup"] as List<PlantGroup>;
             PlantGroups = new ObservableCollection<PlantGroup>(groups);
             OnPropertyChanged("PlantGroups");

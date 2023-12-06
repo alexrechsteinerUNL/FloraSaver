@@ -15,6 +15,8 @@ namespace FloraSaver.Models
     [Table("plant")]
     public class Plant : ObservableObject, IPlant
     {
+        public Plant() { }
+
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
@@ -390,6 +392,56 @@ namespace FloraSaver.Models
                 _sunRect = value;
                 OnPropertyChanged(nameof(SunRect));
             }
+        }
+
+        public Plant(Plant _Plant)
+        {
+
+            DateOfBirth = _Plant.DateOfBirth;
+            DateOfLastMisting = _Plant.DateOfLastMisting;
+            DateOfLastMove = _Plant.DateOfLastMove;
+            DateOfLastWatering = _Plant.DateOfLastWatering;
+            DateOfNextMisting = _Plant.DateOfNextMisting;
+            DateOfNextMove = _Plant.DateOfNextMove;
+            DateOfNextWatering = _Plant.DateOfNextWatering;
+            GivenName = _Plant.GivenName;
+            ImageLocation = _Plant.ImageLocation;
+            MistInterval = _Plant.MistInterval;
+            PlantSpecies = _Plant.PlantSpecies;
+            SunInterval = _Plant.SunInterval;
+            TimeOfLastMisting = _Plant.TimeOfLastMisting;
+            TimeOfLastMove = _Plant.TimeOfLastMove;
+            TimeOfLastWatering = _Plant.TimeOfLastWatering;
+            TimeOfNextMisting = _Plant.TimeOfNextMisting;
+            TimeOfNextMove = _Plant.TimeOfNextMove;
+            TimeOfNextWatering = _Plant.TimeOfNextWatering;
+            WaterInterval = _Plant.WaterInterval;
+            PlantGroupName = _Plant.PlantGroupName;
+            GroupColorHexString = _Plant.GroupColorHexString;
+        }
+
+        public Plant(IPlant _Plant)
+        {
+
+            DateOfBirth = _Plant.DateOfBirth;
+            DateOfLastMisting = _Plant.DateOfLastMisting;
+            DateOfLastMove = _Plant.DateOfLastMove;
+            DateOfLastWatering = _Plant.DateOfLastWatering;
+            DateOfNextMisting = _Plant.DateOfNextMisting;
+            DateOfNextMove = _Plant.DateOfNextMove;
+            DateOfNextWatering = _Plant.DateOfNextWatering;
+            GivenName = _Plant.GivenName;
+            ImageLocation = _Plant.ImageLocation;
+            MistInterval = _Plant.MistInterval;
+            PlantSpecies = _Plant.PlantSpecies;
+            SunInterval = _Plant.SunInterval;
+            TimeOfLastMisting = _Plant.TimeOfLastMisting;
+            TimeOfLastMove = _Plant.TimeOfLastMove;
+            TimeOfLastWatering = _Plant.TimeOfLastWatering;
+            TimeOfNextMisting = _Plant.TimeOfNextMisting;
+            TimeOfNextMove = _Plant.TimeOfNextMove;
+            TimeOfNextWatering = _Plant.TimeOfNextWatering;
+            WaterInterval = _Plant.WaterInterval;
         }
     }
 }
