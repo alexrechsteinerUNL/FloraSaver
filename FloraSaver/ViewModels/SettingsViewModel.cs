@@ -12,6 +12,38 @@ namespace FloraSaver.ViewModels
 {
     public partial class SettingsViewModel : TableViewModel, INotifyPropertyChanged
     {
+        [ObservableProperty]
+        protected bool isBeingUndone = false;
+        [ObservableProperty]
+        protected bool nameEntryUndoButtonVisible = false;
+        [RelayCommand]
+        protected void NameEntryChanged() { NameEntryUndoButtonVisible = (!IsInitialization && !IsBeingUndone) ? true : false; }
+        [RelayCommand]
+        protected void NameSectionUndo(PlantGroup group)
+        {
+            IsBeingUndone = true;
+
+            //AlterPlant.PlantGroupName = InitialPlant.PlantGroupName;
+            //AlterPlant.GroupColorHexString = InitialPlant.GroupColorHexString;
+            //GroupPickerValue = AlterPlant.PlantGroupName != null ? PlantGroups.FirstOrDefault(_ => _.GroupName == AlterPlant.PlantGroupName) : PlantGroups.FirstOrDefault(_ => _.GroupName == "Ungrouped");
+            //OnPropertyChanged("AlterPlant");
+            IsBeingUndone = false;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         private ObservableCollection<PlantGroup> visiblePlantGroups = new();
 
         public ObservableCollection<PlantGroup> VisiblePlantGroups

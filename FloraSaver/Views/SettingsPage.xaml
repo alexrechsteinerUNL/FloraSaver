@@ -219,7 +219,7 @@
                                                                     <toolkit:EventToCommandBehavior
                                                                         Command="{Binding Source={x:Reference This}, Path=BindingContext.GroupNameEditCommand}"
                                                                         CommandParameter="{Binding .}"
-                                                                        EventName="Completed" />
+                                                                        EventName="TextChanged" />
                                                                 </Entry.Behaviors>
                                                             </Entry>
                                                             <Rectangle Grid.Column="2" Background="Black" />
