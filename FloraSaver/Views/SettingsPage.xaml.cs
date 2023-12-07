@@ -29,4 +29,9 @@ public partial class SettingsPage : ContentPage
         entry.IsEnabled = false;
         entry.IsEnabled = true;
     }
+
+    private void _GroupName_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
 }

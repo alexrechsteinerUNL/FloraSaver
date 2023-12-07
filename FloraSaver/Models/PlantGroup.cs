@@ -61,5 +61,16 @@ namespace FloraSaver.Models
 
         [Ignore]
         public bool isEdited { get; set; } = false;
+
+        public PlantGroup() { }
+
+        public PlantGroup(PlantGroup _group)
+        {
+            GroupId = _group.GroupId;
+            GroupName = _group.GroupName;
+            GroupColorHex = _group.GroupColorHex;
+            IsEnabled = _group.IsEnabled;
+            isEdited = _group.isEdited;
+        }
     }
 }

@@ -17,17 +17,27 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         protected bool nameEntryUndoButtonVisible = false;
         [RelayCommand]
-        protected void NameEntryChanged() { NameEntryUndoButtonVisible = (!IsInitialization && !IsBeingUndone) ? true : false; }
+        public void GroupNameEdit(PlantGroup plantGroup)
+        {
+            if (plantGroup is not null && !IsInitialization && !IsBeingUndone)
+            {
+                NameEntryUndoButtonVisible = true;
+                PickerPlantGroups.FirstOrDefault(_ => _.Equals(plantGroup)).isEdited = true;
+                SetItem();
+                OnPropertyChanged(nameof(VisiblePlantGroups));
+            }
+            return;
+        }
         [RelayCommand]
         protected void NameSectionUndo(PlantGroup group)
         {
             IsBeingUndone = true;
-
-            //AlterPlant.PlantGroupName = InitialPlant.PlantGroupName;
-            //AlterPlant.GroupColorHexString = InitialPlant.GroupColorHexString;
-            //GroupPickerValue = AlterPlant.PlantGroupName != null ? PlantGroups.FirstOrDefault(_ => _.GroupName == AlterPlant.PlantGroupName) : PlantGroups.FirstOrDefault(_ => _.GroupName == "Ungrouped");
-            //OnPropertyChanged("AlterPlant");
+            PickerPlantGroups.FirstOrDefault(_ => _.GroupId == group.GroupId).GroupName = initialPlantGroups?.FirstOrDefault(_ => _.GroupId == group.GroupId).GroupName ?? PickerPlantGroups.FirstOrDefault(_ => _.GroupId == group.GroupId).GroupName;
+            SetItem();
+            OnPropertyChanged(nameof(VisiblePlantGroups));
             IsBeingUndone = false;
+            group.isEdited = false;
+            NameEntryUndoButtonVisible = false;
         }
 
 
@@ -42,7 +52,7 @@ namespace FloraSaver.ViewModels
 
 
 
-
+        private List<PlantGroup> initialPlantGroups = new();
 
         private ObservableCollection<PlantGroup> visiblePlantGroups = new();
 
@@ -107,8 +117,11 @@ namespace FloraSaver.ViewModels
         {
             IsInitialization = true;
             PickerPlantGroups = await _databaseService.GetAllPlantGroupAsync();
+            foreach (var group in PickerPlantGroups)
+            {
+                initialPlantGroups.Add(new PlantGroup(group));
+            }
             await GetVisiblePlantGroupsAsync();
-
             IsInitialization = false;
         }
 
@@ -125,17 +138,6 @@ namespace FloraSaver.ViewModels
 
         [ObservableProperty]
         private TimeSpan nightTime;
-
-        //private GroupColors groupSelection;
-        //public GroupColors GroupSelection
-        //{
-        //    get => groupSelection;
-        //    set
-        //    {
-        //        SetProperty(ref groupSelection, value);
-        //        VisiblePlantAttentionGetter();
-        //    }
-        //}
 
         [RelayCommand]
         partial void OnMorningTimeChanged(TimeSpan value)
@@ -183,16 +185,6 @@ namespace FloraSaver.ViewModels
             Console.WriteLine("bloop");
         }
 
-        [RelayCommand]
-        public void GroupNameEdit(PlantGroup plantGroup)
-        {
-            if (plantGroup is not null)
-            {
-                PickerPlantGroups.FirstOrDefault(_ => _.Equals(plantGroup)).isEdited = true;
-                SetItem();
-                OnPropertyChanged(nameof(VisiblePlantGroups));
-            }
-        }
 
         [RelayCommand]
         protected void VisiblePlantAttentionGetter()
@@ -218,18 +210,11 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        private async Task ResetGroupChangeAsync(PlantGroup plantGroup)
-        {
-            //not working... must figure out why
-            PickerPlantGroups[PickerPlantGroups.IndexOf(PickerPlantGroups.FirstOrDefault(_ => _.GroupId == plantGroup.GroupId))] = VisiblePlantGroups.FirstOrDefault(_ => _.GroupId == plantGroup.GroupId);
-            PickerPlantGroups.FirstOrDefault(_ => _.Equals(plantGroup)).isEdited = false;
-            SetItem();
-        }
-
-        [RelayCommand]
         private async Task SaveGroupChangeAsync(PlantGroup plantGroup)
         {
             await _databaseService.AddUpdateNewPlantGroupAsync(plantGroup);
+            initialPlantGroups.FirstOrDefault(_ => _.GroupId == plantGroup.GroupId).GroupName = plantGroup.GroupName;
+            initialPlantGroups.FirstOrDefault(_ => _.GroupId == plantGroup.GroupId).GroupColorHex = plantGroup.GroupColorHex;
             PickerPlantGroups.FirstOrDefault(_ => _.Equals(plantGroup)).isEdited = false;
             SetItem();
         }

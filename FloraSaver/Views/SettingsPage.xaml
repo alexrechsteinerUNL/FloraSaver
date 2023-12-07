@@ -188,10 +188,20 @@
                                                     HorizontalOptions="Start"
                                                     RowDefinitions="35, 45, 30, 40"
                                                     RowSpacing="1">
-                                                    <Label
+                                                    <FlexLayout
                                                         Grid.Row="0"
                                                         Grid.Column="0"
-                                                        Text="Name: " />
+                                                        Grid.ColumnSpan="2">
+                                                        <Label Text="Name: " />
+                                                        <ImageButton
+                                                            x:Name="_undoNameChange"
+                                                            Grid.Column="0"
+                                                            Command="{Binding Source={x:Reference This}, Path=BindingContext.NameSectionUndoCommand}"
+                                                            CommandParameter="{Binding .}"
+                                                            IsVisible="{Binding Source={x:Reference This}, Path=BindingContext.NameEntryUndoButtonVisible}"
+                                                            Source="undo_button.png"
+                                                            WidthRequest="40" />
+                                                    </FlexLayout>
                                                     <Border
                                                         Grid.Row="1"
                                                         Grid.Column="0"
@@ -208,6 +218,7 @@
                                                             <Entry
                                                                 x:Name="_GroupName"
                                                                 Grid.Column="1"
+                                                                toolkit:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference _GroupName}"
                                                                 Completed="Entry_Completed"
                                                                 FontSize="16"
                                                                 Placeholder="Enter plant species"
@@ -219,7 +230,7 @@
                                                                     <toolkit:EventToCommandBehavior
                                                                         Command="{Binding Source={x:Reference This}, Path=BindingContext.GroupNameEditCommand}"
                                                                         CommandParameter="{Binding .}"
-                                                                        EventName="TextChanged" />
+                                                                        EventName="Focused" />
                                                                 </Entry.Behaviors>
                                                             </Entry>
                                                             <Rectangle Grid.Column="2" Background="Black" />
