@@ -57,13 +57,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="CommunityToolkit.Common" Version="8.2.1" />
-	  <PackageReference Include="CommunityToolkit.Maui" Version="6.0.0" />
-	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
-	  <PackageReference Include="Microsoft.VisualStudio.Utilities" Version="17.7.37355" />
+	  <PackageReference Include="CommunityToolkit.Common" Version="8.2.2" />
+	  <PackageReference Include="CommunityToolkit.Maui" Version="7.0.0" />
+	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+	  <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
+	  <PackageReference Include="Microsoft.VisualStudio.Utilities" Version="17.8.37221" />
 	  <PackageReference Include="Plugin.LocalNotification" Version="10.1.8" />
 	  <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
-	  <PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.6" />
+	  <PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.7" />
 	</ItemGroup>
 
 	<ItemGroup>
