@@ -33,7 +33,7 @@ namespace FloraSaver.Models
             {
                 GroupColorHex = selectedGroup.ColorsHex;
             }
-            isEdited = true;
+            isColorEdited = true;
         }
 
         private bool _isEnabled = true;
@@ -60,7 +60,12 @@ namespace FloraSaver.Models
         public Color SelectedTextColor => IsEnabled ? Color.FromArgb("#000000") : Color.FromArgb("#FFFFFF");
 
         [Ignore]
-        public bool isEdited { get; set; } = false;
+        public bool isNameEdited { get; set; } = false;
+        [Ignore]
+        public bool isColorEdited { get; set; } = false;
+
+        [Ignore]
+        public bool isEdited => isNameEdited || isColorEdited;
 
         public PlantGroup() { }
 
@@ -70,7 +75,8 @@ namespace FloraSaver.Models
             GroupName = _group.GroupName;
             GroupColorHex = _group.GroupColorHex;
             IsEnabled = _group.IsEnabled;
-            isEdited = _group.isEdited;
+            isNameEdited = _group.isNameEdited;
+            isColorEdited = _group.isColorEdited;
         }
     }
 }

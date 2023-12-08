@@ -17,12 +17,15 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         protected bool nameEntryUndoButtonVisible = false;
         [RelayCommand]
-        public void GroupNameEdit(PlantGroup plantGroup)
+        public void GroupNameEdit()
         {
-            if (plantGroup is not null && !IsInitialization && !IsBeingUndone)
+            if (!IsInitialization && !IsBeingUndone)
             {
+                foreach (var plant in PickerPlantGroups.Where(_ => !initialPlantGroups.Select(_ => _.GroupName).Contains(_.GroupName)))
+                {
+                    plant.isNameEdited = true;
+                }
                 NameEntryUndoButtonVisible = true;
-                PickerPlantGroups.FirstOrDefault(_ => _.Equals(plantGroup)).isEdited = true;
                 SetItem();
                 OnPropertyChanged(nameof(VisiblePlantGroups));
             }
@@ -36,7 +39,7 @@ namespace FloraSaver.ViewModels
             SetItem();
             OnPropertyChanged(nameof(VisiblePlantGroups));
             IsBeingUndone = false;
-            group.isEdited = false;
+            group.isColorEdited = false;
             NameEntryUndoButtonVisible = false;
         }
 
@@ -215,7 +218,8 @@ namespace FloraSaver.ViewModels
             await _databaseService.AddUpdateNewPlantGroupAsync(plantGroup);
             initialPlantGroups.FirstOrDefault(_ => _.GroupId == plantGroup.GroupId).GroupName = plantGroup.GroupName;
             initialPlantGroups.FirstOrDefault(_ => _.GroupId == plantGroup.GroupId).GroupColorHex = plantGroup.GroupColorHex;
-            PickerPlantGroups.FirstOrDefault(_ => _.Equals(plantGroup)).isEdited = false;
+            PickerPlantGroups.FirstOrDefault(_ => _.Equals(plantGroup)).isNameEdited = false;
+            PickerPlantGroups.FirstOrDefault(_ => _.Equals(plantGroup)).isColorEdited = false;
             SetItem();
         }
 

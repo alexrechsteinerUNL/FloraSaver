@@ -198,7 +198,7 @@
                                                             Grid.Column="0"
                                                             Command="{Binding Source={x:Reference This}, Path=BindingContext.NameSectionUndoCommand}"
                                                             CommandParameter="{Binding .}"
-                                                            IsVisible="{Binding Source={x:Reference This}, Path=BindingContext.NameEntryUndoButtonVisible}"
+                                                            IsVisible="{Binding isNameEdited}"
                                                             Source="undo_button.png"
                                                             WidthRequest="40" />
                                                     </FlexLayout>
@@ -224,15 +224,9 @@
                                                                 Placeholder="Enter plant species"
                                                                 ReturnType="Send"
                                                                 Text="{Binding GroupName, StringFormat='{0}', Mode=TwoWay}"
+                                                                Unfocused="Entry_Completed"
                                                                 VerticalOptions="CenterAndExpand"
-                                                                WidthRequest="180">
-                                                                <Entry.Behaviors>
-                                                                    <toolkit:EventToCommandBehavior
-                                                                        Command="{Binding Source={x:Reference This}, Path=BindingContext.GroupNameEditCommand}"
-                                                                        CommandParameter="{Binding .}"
-                                                                        EventName="Focused" />
-                                                                </Entry.Behaviors>
-                                                            </Entry>
+                                                                WidthRequest="180" />
                                                             <Rectangle Grid.Column="2" Background="Black" />
                                                         </Grid>
                                                     </Border>

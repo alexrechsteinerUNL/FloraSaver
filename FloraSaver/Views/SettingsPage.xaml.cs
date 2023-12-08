@@ -23,15 +23,11 @@ public partial class SettingsPage : ContentPage
         }
     }
 
-    private static void Entry_Completed(object sender, EventArgs e)
+    private void Entry_Completed(object sender, EventArgs e)
     {
         var entry = sender as Entry;
         entry.IsEnabled = false;
         entry.IsEnabled = true;
-    }
-
-    private void _GroupName_TextChanged(object sender, TextChangedEventArgs e)
-    {
-
+        ((SettingsViewModel)(this.BindingContext)).GroupNameEdit();
     }
 }
