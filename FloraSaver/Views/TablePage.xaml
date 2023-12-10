@@ -64,39 +64,35 @@
             <Grid
                 Grid.Row="0"
                 Grid.ColumnSpan="3"
-                HorizontalOptions="CenterAndExpand">
-                <Frame Padding="5" BackgroundColor="Black">
-                    <Grid ColumnSpacing="5">
+                HorizontalOptions="FillAndExpand">
+
+                <Frame Padding="10, 5" BackgroundColor="Black">
+                    <Grid ColumnSpacing="0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100" />
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
                         <Label
                             Grid.Column="0"
                             HorizontalOptions="Start"
                             Text="Order By:"
                             VerticalOptions="Center" />
-                        <Border Grid.Column="1" HorizontalOptions="CenterAndExpand">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Rectangle Grid.Column="0" Background="Black" />
-                                <Picker
-                                    x:Name="orderByPicker"
-                                    Title="Choose Order By"
-                                    Grid.Column="1"
-                                    HorizontalOptions="Center"
-                                    HorizontalTextAlignment="Center"
-                                    ItemsSource="{Binding OrderByValues, Mode=TwoWay}"
-                                    SelectedItem="{Binding CurrentOrderByValue, Mode=TwoWay}"
-                                    VerticalOptions="Center"
-                                    VerticalTextAlignment="Center" />
-                                <Rectangle Grid.Column="2" BackgroundColor="Black" />
-                            </Grid>
-                        </Border>
+                        <Frame
+                            Grid.Column="1"
+                            Padding="3"
+                            BackgroundColor="Black"
+                            HorizontalOptions="FillAndExpand">
+                            <Picker
+                                x:Name="orderByPicker"
+                                Title="Choose Order By"
+                                HorizontalOptions="FillAndExpand"
+                                HorizontalTextAlignment="Center"
+                                ItemsSource="{Binding OrderByValues, Mode=TwoWay}"
+                                SelectedItem="{Binding CurrentOrderByValue, Mode=TwoWay}"
+                                TextColor="White"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </Frame>
                     </Grid>
                 </Frame>
             </Grid>
