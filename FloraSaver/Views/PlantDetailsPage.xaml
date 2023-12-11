@@ -86,17 +86,19 @@
                             <Frame
                                 Grid.Row="1"
                                 Padding="2,2"
-                                BackgroundColor="Transparent">
+                                BackgroundColor="Transparent"
+                                BorderColor="{Binding AlterPlant.GroupColor}">
                                 <Frame
                                     Padding="0,2"
                                     BackgroundColor="Transparent"
                                     BorderColor="Transparent"
-                                    HorizontalOptions="FillAndExpand"
+                                    HorizontalOptions="CenterAndExpand"
                                     VerticalOptions="FillAndExpand">
                                     <Picker
                                         x:Name="groupPicker"
                                         Title="Select Plant Group"
                                         Grid.Column="1"
+                                        HorizontalTextAlignment="Center"
                                         ItemDisplayBinding="{Binding GroupName, Mode=TwoWay}"
                                         ItemsSource="{Binding PlantGroups, Mode=TwoWay}"
                                         SelectedItem="{Binding GroupPickerValue, Mode=TwoWay}">

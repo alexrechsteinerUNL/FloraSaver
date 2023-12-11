@@ -210,8 +210,9 @@
                                                     Grid.Column="1"
                                                     BackgroundColor="Transparent"
                                                     BorderColor="{Binding GroupColor}"
-                                                    HeightRequest="60"
-                                                    WidthRequest="60" />
+                                                    HeightRequest="52"
+                                                    Scale="1.1538"
+                                                    WidthRequest="52" />
                                                 <Label
                                                     Grid.Row="1"
                                                     Grid.ColumnSpan="2"
