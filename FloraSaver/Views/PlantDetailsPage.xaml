@@ -59,16 +59,19 @@
                 <ScrollView Grid.Row="1">
 
                     <VerticalStackLayout Spacing="10">
-                        <Grid x:Name="groupGrid">
+                        <Grid
+                            x:Name="groupGrid"
+                            ColumnSpacing="5"
+                            RowSpacing="5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="30" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="270" />
-                                <ColumnDefinition Width="30" />
-                                <ColumnDefinition Width="30" />
+                                <ColumnDefinition Width="250" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <FlexLayout Grid.Row="0" Grid.ColumnSpan="2">
                                 <Label Text="Plant Group: " />
@@ -80,7 +83,121 @@
                                     Source="undo_button.png"
                                     WidthRequest="40" />
                             </FlexLayout>
-                            <Border
+                            <Frame
+                                Grid.Row="1"
+                                Padding="2,2"
+                                BackgroundColor="Transparent">
+                                <Frame
+                                    Padding="0,2"
+                                    BackgroundColor="Transparent"
+                                    BorderColor="Transparent"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand">
+                                    <Picker
+                                        x:Name="groupPicker"
+                                        Title="Select Plant Group"
+                                        Grid.Column="1"
+                                        ItemDisplayBinding="{Binding GroupName, Mode=TwoWay}"
+                                        ItemsSource="{Binding PlantGroups, Mode=TwoWay}"
+                                        SelectedItem="{Binding GroupPickerValue, Mode=TwoWay}">
+                                        <Picker.Behaviors>
+                                            <toolkit:EventToCommandBehavior Command="{Binding GroupPickerChangedCommand}" EventName="SelectedIndexChanged" />
+                                        </Picker.Behaviors>
+                                    </Picker>
+                                </Frame>
+                            </Frame>
+                            <!--  There's no reason why we shouldn't be able to set the current group color here as well if you want that implemented here is a start  -->
+                            <!--<Frame
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Padding="0"
+                                BackgroundColor="Transparent"
+                                BorderColor="White">
+                                <Grid ColumnDefinitions="45" RowDefinitions="30">
+                                    <Picker
+                                        x:Name="CurrentGroupColorPicker"
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{Binding Plant.GroupColor, Mode=TwoWay}"
+                                        HeightRequest="60"
+                                        ItemDisplayBinding="{Binding ColorName, Mode=TwoWay}"
+                                        ItemsSource="{Binding GroupColors, Mode=TwoWay}"
+                                        SelectedItem="{Binding SelectedGroupColor, Mode=TwoWay}"
+                                        TextColor="{Binding SelectedGroupColor.Colors, Mode=TwoWay}"
+                                        WidthRequest="100" />
+                                    <Rectangle
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        BackgroundColor="{Binding Plant.GroupColor, Mode=TwoWay}"
+                                        HeightRequest="1000"
+                                        WidthRequest="1000" />
+                                </Grid>
+                            </Frame>-->
+                            <Button
+                                x:Name="addGroupButton"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                Command="{Binding AddGroupShowPressedCommand}"
+                                FontSize="Title"
+                                Text="{Binding AddGroupButtonText}" />
+                            <Frame
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Padding="2,2"
+                                BackgroundColor="Transparent"
+                                IsVisible="{Binding AddNewGroupGridVisible}">
+                                <Frame
+                                    Padding="0,2"
+                                    BackgroundColor="Transparent"
+                                    BorderColor="Transparent"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand">
+                                    <Entry
+                                        x:Name="_groupAdd"
+                                        Completed="Entry_Completed"
+                                        HorizontalOptions="FillAndExpand"
+                                        Placeholder="Enter new plant group"
+                                        VerticalOptions="CenterAndExpand" />
+                                </Frame>
+                            </Frame>
+                            <Frame
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Padding="-10"
+                                BackgroundColor="{Binding SelectedGroupColor.Colors}"
+                                IsVisible="{Binding AddNewGroupGridVisible}">
+                                <Picker
+                                    x:Name="NewGroupColorPicker"
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    BackgroundColor="{Binding SelectedGroupColor.Colors, Mode=TwoWay}"
+                                    HorizontalOptions="FillAndExpand"
+                                    IsVisible="{Binding AddNewGroupGridVisible}"
+                                    ItemDisplayBinding="{Binding ColorName, Mode=TwoWay}"
+                                    ItemsSource="{Binding GroupColors, Mode=TwoWay}"
+                                    SelectedItem="{Binding SelectedGroupColor, Mode=TwoWay}"
+                                    TextColor="{Binding SelectedGroupColor.Colors, Mode=TwoWay}"
+                                    VerticalOptions="FillAndExpand" />
+                            </Frame>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <!--<Border
                                 Grid.Row="1"
                                 HorizontalOptions="StartAndExpand"
                                 WidthRequest="300">
@@ -172,7 +289,7 @@
 
                                 </Grid>
 
-                            </Border>
+                            </Border>-->
                             <Button
                                 x:Name="addNewGroupButton"
                                 Grid.Row="2"
@@ -180,7 +297,6 @@
                                 Padding="0"
                                 Command="{Binding AddNewGroupCommand}"
                                 CommandParameter="{Binding Source={x:Reference _groupAdd}, Path=Text}"
-                                HeightRequest="45"
                                 IsVisible="{Binding AddNewGroupGridVisible}"
                                 Text="✓" />
                         </Grid>
@@ -198,16 +314,7 @@
                                     Command="{Binding ImageOfPlantToBase64Command}"
                                     IsVisible="false"
                                     Source="undo_button.png"
-                                    WidthRequest="40">
-                                    <!--<ImageButton.Triggers>
-                                        <DataTrigger
-                                            Binding="{Binding Source={x:Reference _ChangeImageButton}, Path=IsPressed}"
-                                            TargetType="ImageButton"
-                                            Value="True">
-                                            <Setter Property="IsVisible" Value="True" />
-                                        </DataTrigger>
-                                    </ImageButton.Triggers>-->
-                                </ImageButton>
+                                    WidthRequest="40" />
                             </FlexLayout>
                             <Button
                                 x:Name="PlantImageButton"
@@ -238,7 +345,7 @@
                             </Grid>
                         </Grid>
 
-                        <Grid x:Name="plantSpeciesGrid">
+                        <Grid x:Name="plantSpeciesGrid" RowSpacing="5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="30" />
                                 <RowDefinition Height="50" />
@@ -252,31 +359,28 @@
                                     Source="undo_button.png"
                                     WidthRequest="40" />
                             </FlexLayout>
-                            <Border
+                            <Frame
                                 Grid.Row="1"
-                                HorizontalOptions="Start"
-                                WidthRequest="330">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="10" />
-                                        <ColumnDefinition Width="310" />
-                                        <ColumnDefinition Width="10" />
-                                    </Grid.ColumnDefinitions>
-                                    <Rectangle Grid.Column="0" Background="Black" />
+                                Padding="2,2"
+                                BackgroundColor="Transparent">
+                                <Frame
+                                    Padding="0,2"
+                                    BackgroundColor="Transparent"
+                                    BorderColor="Transparent"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand">
                                     <Entry
                                         x:Name="_PlantSpecies"
-                                        Grid.Column="1"
                                         Completed="Entry_Completed"
+                                        HorizontalOptions="FillAndExpand"
                                         Placeholder="Enter plant species"
-                                        ReturnType="Send"
                                         Text="{Binding AlterPlant.PlantSpecies, StringFormat='{0}', Mode=TwoWay}"
-                                        WidthRequest="320" />
-                                    <Rectangle Grid.Column="2" Background="Black" />
-                                </Grid>
-                            </Border>
+                                        VerticalOptions="CenterAndExpand" />
+                                </Frame>
+                            </Frame>
                         </Grid>
 
-                        <Grid x:Name="givenNameGrid">
+                        <Grid x:Name="givenNameGrid" RowSpacing="5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="30" />
                                 <RowDefinition Height="50" />
@@ -290,7 +394,26 @@
                                     Source="undo_button.png"
                                     WidthRequest="40" />
                             </FlexLayout>
-                            <Border
+                            <Frame
+                                Grid.Row="1"
+                                Padding="2,2"
+                                BackgroundColor="Transparent">
+                                <Frame
+                                    Padding="0,2"
+                                    BackgroundColor="Transparent"
+                                    BorderColor="Transparent"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand">
+                                    <Entry
+                                        x:Name="_GivenName"
+                                        Completed="Entry_Completed"
+                                        HorizontalOptions="FillAndExpand"
+                                        Placeholder="Give your plant a name!"
+                                        Text="{Binding AlterPlant.GivenName, StringFormat='{0}', Mode=TwoWay}"
+                                        VerticalOptions="CenterAndExpand" />
+                                </Frame>
+                            </Frame>
+                            <!--<Border
                                 Grid.Row="1"
                                 HorizontalOptions="Start"
                                 WidthRequest="330">
@@ -310,7 +433,7 @@
                                         WidthRequest="320" />
                                     <Rectangle Grid.Column="2" BackgroundColor="Black" />
                                 </Grid>
-                            </Border>
+                            </Border>-->
                         </Grid>
 
                         <Grid x:Name="dobGrid">
@@ -327,7 +450,7 @@
                                     Source="undo_button.png"
                                     WidthRequest="40" />
                             </FlexLayout>
-                            <Border
+                            <!--<Border
                                 Grid.Row="1"
                                 HorizontalOptions="StartAndExpand"
                                 WidthRequest="100">
@@ -345,7 +468,7 @@
                                         HorizontalOptions="FillAndExpand" />
                                     <Rectangle Grid.Column="2" BackgroundColor="Black" />
                                 </Grid>
-                            </Border>
+                            </Border>-->
                         </Grid>
 
                         <Button
@@ -370,7 +493,7 @@
                                         Source="undo_button.png"
                                         WidthRequest="40" />
                                 </FlexLayout>
-                                <Border
+                                <!--<Border
                                     Grid.Row="1"
                                     Grid.Column="0"
                                     HorizontalOptions="Start"
@@ -391,7 +514,7 @@
                                             SelectedItem="{Binding WaterIntervalPickerValue, Mode=TwoWay}" />
                                         <Rectangle Grid.Column="2" Background="Black" />
                                     </Grid>
-                                </Border>
+                                </Border>-->
 
                             </Grid>
 
@@ -415,7 +538,7 @@
                                     VerticalOptions="Center">
                                     Every
                                 </Label>
-                                <Border
+                                <!--<Border
                                     Grid.Row="1"
                                     Grid.Column="1"
                                     HorizontalOptions="Start">
@@ -437,7 +560,7 @@
                                             WidthRequest="30" />
                                         <Rectangle Grid.Column="2" Background="Black" />
                                     </Grid>
-                                </Border>
+                                </Border>-->
                                 <Label
                                     Grid.Row="1"
                                     Grid.Column="2"
@@ -470,7 +593,7 @@
                                         Source="undo_button.png"
                                         WidthRequest="40" />
                                 </FlexLayout>
-                                <Border Grid.Row="1" Grid.Column="0">
+                                <!--<Border Grid.Row="1" Grid.Column="0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
@@ -487,14 +610,14 @@
                                             HorizontalOptions="Fill" />
                                         <Rectangle Grid.Column="2" Background="Black" />
                                     </Grid>
-                                </Border>
+                                </Border>-->
                                 <Label
                                     Grid.Row="1"
                                     Grid.Column="1"
                                     HorizontalOptions="Center"
                                     Text="at"
                                     VerticalOptions="Center" />
-                                <Border Grid.Row="1" Grid.Column="2">
+                                <!--<Border Grid.Row="1" Grid.Column="2">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
@@ -510,7 +633,7 @@
                                             Time="{Binding AlterPlant.TimeOfLastWatering, Mode=TwoWay}" />
                                         <Rectangle Grid.Column="2" Background="Black" />
                                     </Grid>
-                                </Border>
+                                </Border>-->
                                 <ImageButton
                                     Grid.Row="1"
                                     Grid.Column="3"
@@ -562,7 +685,7 @@
                                         Source="undo_button.png"
                                         WidthRequest="40" />
                                 </FlexLayout>
-                                <Border Grid.Row="3" Grid.Column="0">
+                                <!--<Border Grid.Row="3" Grid.Column="0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
@@ -578,14 +701,14 @@
                                             Format="d" />
                                         <Rectangle Grid.Column="2" Background="Black" />
                                     </Grid>
-                                </Border>
+                                </Border>-->
                                 <Label
                                     Grid.Row="3"
                                     Grid.Column="1"
                                     HorizontalOptions="Center"
                                     Text="at"
                                     VerticalOptions="Center" />
-                                <Border Grid.Row="3" Grid.Column="2">
+                                <!--<Border Grid.Row="3" Grid.Column="2">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
@@ -601,7 +724,7 @@
                                             Time="{Binding AlterPlant.TimeOfNextWatering, Mode=TwoWay}" />
                                         <Rectangle Grid.Column="2" Background="Black" />
                                     </Grid>
-                                </Border>
+                                </Border>-->
                                 <ImageButton
                                     Grid.Row="3"
                                     Grid.Column="3"
@@ -670,7 +793,7 @@
                                         WidthRequest="40" />
                                 </FlexLayout>
 
-                                <Border
+                                <!--<Border
                                     Grid.Row="1"
                                     HorizontalOptions="Start"
                                     WidthRequest="330">
@@ -690,7 +813,7 @@
                                             SelectedItem="{Binding MistIntervalPickerValue, Mode=TwoWay}" />
                                         <Rectangle Grid.Column="2" Background="Black" />
                                     </Grid>
-                                </Border>
+                                </Border>-->
 
                             </Grid>
 
@@ -714,7 +837,7 @@
                                     VerticalOptions="Center">
                                     Every
                                 </Label>
-                                <Border
+                                <!--<Border
                                     Grid.Row="1"
                                     Grid.Column="1"
                                     HorizontalOptions="Start">
@@ -736,7 +859,7 @@
                                             WidthRequest="30" />
                                         <Rectangle Grid.Column="2" Background="Black" />
                                     </Grid>
-                                </Border>
+                                </Border>-->
                                 <Label
                                     Grid.Row="1"
                                     Grid.Column="2"
@@ -769,7 +892,7 @@
                                         Source="undo_button.png"
                                         WidthRequest="40" />
                                 </FlexLayout>
-                                <Border Grid.Row="1" Grid.Column="0">
+                                <!--<Border Grid.Row="1" Grid.Column="0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
@@ -786,14 +909,14 @@
                                             HorizontalOptions="Fill" />
                                         <Rectangle Grid.Column="2" Background="Black" />
                                     </Grid>
-                                </Border>
+                                </Border>-->
                                 <Label
                                     Grid.Row="1"
                                     Grid.Column="1"
                                     HorizontalOptions="Center"
                                     Text="at"
                                     VerticalOptions="Center" />
-                                <Border Grid.Row="1" Grid.Column="2">
+                                <!--<Border Grid.Row="1" Grid.Column="2">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
@@ -809,7 +932,7 @@
                                             Time="{Binding AlterPlant.TimeOfLastMisting, Mode=TwoWay}" />
                                         <Rectangle Grid.Column="2" Background="Black" />
                                     </Grid>
-                                </Border>
+                                </Border>-->
 
                                 <ImageButton
                                     Grid.Row="1"
@@ -862,7 +985,7 @@
                                         Source="undo_button.png"
                                         WidthRequest="40" />
                                 </FlexLayout>
-                                <Border Grid.Row="3" Grid.Column="0">
+                                <!--<Border Grid.Row="3" Grid.Column="0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
@@ -878,14 +1001,14 @@
                                             Format="d" />
                                         <Rectangle Grid.Column="2" Background="Black" />
                                     </Grid>
-                                </Border>
+                                </Border>-->
                                 <Label
                                     Grid.Row="3"
                                     Grid.Column="1"
                                     HorizontalOptions="Center"
                                     Text="at"
                                     VerticalOptions="Center" />
-                                <Border Grid.Row="3" Grid.Column="2">
+                                <!--<Border Grid.Row="3" Grid.Column="2">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
@@ -901,7 +1024,7 @@
                                             Time="{Binding AlterPlant.TimeOfNextMisting, Mode=TwoWay}" />
                                         <Rectangle Grid.Column="2" Background="Black" />
                                     </Grid>
-                                </Border>
+                                </Border>-->
 
                                 <ImageButton
                                     Grid.Row="3"
@@ -970,7 +1093,7 @@
                                         Source="undo_button.png"
                                         WidthRequest="40" />
                                 </FlexLayout>
-                                <Border
+                                <!--<Border
                                     Grid.Row="1"
                                     HorizontalOptions="Start"
                                     WidthRequest="330">
@@ -990,7 +1113,7 @@
                                             SelectedItem="{Binding SunIntervalPickerValue, Mode=TwoWay}" />
                                         <Rectangle Grid.Column="2" Background="Black" />
                                     </Grid>
-                                </Border>
+                                </Border>-->
 
                             </Grid>
 
@@ -1014,7 +1137,7 @@
                                     VerticalOptions="Center">
                                     Every
                                 </Label>
-                                <Border
+                                <!--<Border
                                     Grid.Row="1"
                                     Grid.Column="1"
                                     HorizontalOptions="Start">
@@ -1036,7 +1159,7 @@
                                             WidthRequest="30" />
                                         <Rectangle Grid.Column="2" Background="Black" />
                                     </Grid>
-                                </Border>
+                                </Border>-->
                                 <Label
                                     Grid.Row="1"
                                     Grid.Column="2"
@@ -1069,7 +1192,7 @@
                                         Source="undo_button.png"
                                         WidthRequest="40" />
                                 </FlexLayout>
-                                <Border Grid.Row="1" Grid.Column="0">
+                                <!--<Border Grid.Row="1" Grid.Column="0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
@@ -1086,14 +1209,14 @@
                                             HorizontalOptions="Fill" />
                                         <Rectangle Grid.Column="2" Background="Black" />
                                     </Grid>
-                                </Border>
+                                </Border>-->
                                 <Label
                                     Grid.Row="1"
                                     Grid.Column="1"
                                     HorizontalOptions="Center"
                                     Text="at"
                                     VerticalOptions="Center" />
-                                <Border Grid.Row="1" Grid.Column="2">
+                                <!--<Border Grid.Row="1" Grid.Column="2">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
@@ -1109,7 +1232,7 @@
                                             Time="{Binding AlterPlant.TimeOfLastMove, Mode=TwoWay}" />
                                         <Rectangle Grid.Column="2" Background="Black" />
                                     </Grid>
-                                </Border>
+                                </Border>-->
                                 <ImageButton
                                     Grid.Row="1"
                                     Grid.Column="3"
@@ -1161,7 +1284,7 @@
                                         Source="undo_button.png"
                                         WidthRequest="40" />
                                 </FlexLayout>
-                                <Border Grid.Row="3" Grid.Column="0">
+                                <!--<Border Grid.Row="3" Grid.Column="0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
@@ -1177,14 +1300,14 @@
                                             Format="d" />
                                         <Rectangle Grid.Column="2" Background="Black" />
                                     </Grid>
-                                </Border>
+                                </Border>-->
                                 <Label
                                     Grid.Row="3"
                                     Grid.Column="1"
                                     HorizontalOptions="Center"
                                     Text="at"
                                     VerticalOptions="Center" />
-                                <Border Grid.Row="3" Grid.Column="2">
+                                <!--<Border Grid.Row="3" Grid.Column="2">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
@@ -1200,7 +1323,7 @@
                                             Time="{Binding AlterPlant.TimeOfNextMove, Mode=TwoWay}" />
                                         <Rectangle Grid.Column="2" Background="Black" />
                                     </Grid>
-                                </Border>
+                                </Border>-->
                                 <ImageButton
                                     Grid.Row="3"
                                     Grid.Column="3"
