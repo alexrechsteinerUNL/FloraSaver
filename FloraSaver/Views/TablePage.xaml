@@ -20,13 +20,12 @@
         <toolkit:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
     <Grid Padding="0" RowDefinitions="60, 695">
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="10" />
-            </Grid.ColumnDefinitions>
-            <Rectangle Grid.Column="0" Background="Black" />
+        <Frame
+            Grid.Row="0"
+            Padding="10,5"
+            BackgroundColor="Black"
+            BorderColor="Black"
+            CornerRadius="0">
             <Entry
                 x:Name="searchBar"
                 Grid.Column="1"
@@ -42,8 +41,7 @@
                         EventName="TextChanged" />
                 </Entry.Behaviors>
             </Entry>
-            <Rectangle Grid.Column="2" Background="Black" />
-        </Grid>
+        </Frame>
         <Image
             Grid.Row="1"
             Aspect="Fill"
@@ -66,7 +64,7 @@
                 Grid.ColumnSpan="3"
                 HorizontalOptions="FillAndExpand">
 
-                <Frame Padding="10, 5" BackgroundColor="Black">
+                <Frame Padding="10,5" BackgroundColor="Black">
                     <Grid ColumnSpacing="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -100,8 +98,11 @@
             <Grid
                 Grid.Row="1"
                 Grid.ColumnSpan="3"
-                HorizontalOptions="CenterAndExpand">
-                <Frame Padding="5" BackgroundColor="Black">
+                HorizontalOptions="FillAndExpand">
+                <Frame
+                    Padding="5"
+                    BackgroundColor="Black"
+                    HorizontalOptions="FillAndExpand">
                     <CollectionView
                         x:Name="groupdeck"
                         ItemsLayout="HorizontalList"
@@ -128,15 +129,17 @@
             <RefreshView
                 Grid.Row="2"
                 Grid.ColumnSpan="3"
+                Padding="0,30"
                 Command="{Binding GetPlantsCommand}"
                 IsRefreshing="{Binding IsRefreshing}">
                 <CollectionView
                     x:Name="plantDeck"
                     ItemsSource="{Binding Plants}"
-                    SelectionMode="None">
+                    SelectionMode="None"
+                    VerticalScrollBarVisibility="Always">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:Name="bloop" x:DataType="model:Plant">
-                            <Grid Padding="15,5">
+                            <Grid Padding="15,15,15,0">
                                 <Frame
                                     Padding="5"
                                     BackgroundColor="Black"
@@ -153,7 +156,7 @@
                                         <Grid
                                             Padding="0"
                                             HorizontalOptions="StartAndExpand"
-                                            RowDefinitions="280,130">
+                                            RowDefinitions="2.1538*,*">
 
                                             <Grid
                                                 Grid.Row="0"
@@ -167,33 +170,48 @@
                                                     FontSize="34"
                                                     Text="{Binding GivenName, StringFormat='{0}'}"
                                                     TextColor="{Binding GroupColor}" />
-                                                <Border
+                                                <Frame
                                                     Grid.Row="0"
                                                     Grid.Column="1"
-                                                    BackgroundColor="{Binding GroupColor}"
-                                                    HeightRequest="65"
-                                                    WidthRequest="65" />
-                                                <Image
+                                                    BackgroundColor="Transparent"
+                                                    BorderColor="Transparent"
+                                                    HeightRequest="52"
+                                                    WidthRequest="52">
+                                                    <Image
+                                                        Grid.Row="0"
+                                                        Grid.Column="1"
+                                                        HeightRequest="52"
+                                                        HorizontalOptions="FillAndExpand"
+                                                        IsVisible="True"
+                                                        Source="card_background_hidden.png"
+                                                        VerticalOptions="FillAndExpand"
+                                                        WidthRequest="52" />
+                                                </Frame>
+
+                                                <Frame
                                                     Grid.Row="0"
                                                     Grid.Column="1"
-                                                    HeightRequest="50"
-                                                    HorizontalOptions="FillAndExpand"
-                                                    IsVisible="True"
-                                                    Opacity=".90"
-                                                    Source="card_background_hidden.png"
-                                                    VerticalOptions="FillAndExpand"
-                                                    WidthRequest="50" />
-                                                <Image
-                                                    x:Name="_plantImage"
+                                                    BackgroundColor="Transparent"
+                                                    BorderColor="Transparent"
+                                                    HeightRequest="52"
+                                                    WidthRequest="52">
+                                                    <Image
+                                                        x:Name="_plantImage"
+                                                        Aspect="Fill"
+                                                        HeightRequest="52"
+                                                        HorizontalOptions="FillAndExpand"
+                                                        IsVisible="{Binding HasImage}"
+                                                        Source="{Binding PlantImageSource}"
+                                                        VerticalOptions="FillAndExpand"
+                                                        WidthRequest="52" />
+                                                </Frame>
+                                                <Frame
                                                     Grid.Row="0"
                                                     Grid.Column="1"
-                                                    Aspect="Fill"
-                                                    HeightRequest="50"
-                                                    HorizontalOptions="FillAndExpand"
-                                                    IsVisible="{Binding HasImage}"
-                                                    Source="{Binding PlantImageSource}"
-                                                    VerticalOptions="FillAndExpand"
-                                                    WidthRequest="50" />
+                                                    BackgroundColor="Transparent"
+                                                    BorderColor="{Binding GroupColor}"
+                                                    HeightRequest="60"
+                                                    WidthRequest="60" />
                                                 <Label
                                                     Grid.Row="1"
                                                     Grid.ColumnSpan="2"
@@ -355,7 +373,9 @@
                                                     Source="water_timer_visual.png"
                                                     WidthRequest="115" />
 
+
                                                 <!--  switch out your fancy rectangle clippings for the humble progress bar you dolt  -->
+
 
                                                 <ProgressBar
                                                     x:Name="MistProgress"
@@ -402,6 +422,7 @@
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
+
                 </CollectionView>
             </RefreshView>
 
