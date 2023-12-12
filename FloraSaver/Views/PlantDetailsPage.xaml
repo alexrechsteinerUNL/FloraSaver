@@ -663,64 +663,51 @@
                                     <Frame
                                         Padding="2,2"
                                         BackgroundColor="Transparent"
-                                        BorderColor="MediumPurple"
-                                        WidthRequest="100">
+                                        BorderColor="MediumPurple">
                                         <Frame
                                             Padding="0,2"
                                             BackgroundColor="Transparent"
-                                            BorderColor="Transparent"
-                                            HorizontalOptions="CenterAndExpand"
-                                            VerticalOptions="Center">
+                                            BorderColor="Transparent">
                                             <DatePicker
                                                 x:Name="_DateOfLastWatering"
                                                 Grid.Column="1"
                                                 BackgroundColor="White"
                                                 Date="{Binding AlterPlant.DateOfLastWatering, Mode=TwoWay}"
                                                 Format="d"
-                                                HorizontalOptions="Fill" />
+                                                HorizontalOptions="Fill"
+                                                WidthRequest="85" />
                                         </Frame>
                                     </Frame>
                                     <Label Text="at" VerticalOptions="Center" />
                                     <Frame
-                                        WidthRequest="80"
                                         Padding="2,2"
                                         BackgroundColor="Transparent"
                                         BorderColor="MediumPurple">
                                         <Frame
                                             Padding="0,2"
                                             BackgroundColor="Transparent"
-                                            BorderColor="Transparent"
-                                            HorizontalOptions="CenterAndExpand"
-                                            VerticalOptions="Center">
+                                            BorderColor="Transparent">
                                             <TimePicker
                                                 x:Name="_TimeOfLastWatering"
                                                 Grid.Column="1"
                                                 BackgroundColor="White"
                                                 Format="t"
-                                                Time="{Binding AlterPlant.TimeOfLastWatering, Mode=TwoWay}" />
+                                                Time="{Binding AlterPlant.TimeOfLastWatering, Mode=TwoWay}"
+                                                WidthRequest="70" />
                                         </Frame>
                                     </Frame>
                                     <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
                                         <ImageButton
                                             Grid.Column="0"
-                                            Padding="30"
-                                            Aspect="AspectFit"
                                             BackgroundColor="Black"
-                                            BorderColor="White"
-                                            BorderWidth="1"
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMorningTimeCommand}"
                                             CommandParameter="TimeOfLastWatering"
-                                            CornerRadius="8"
                                             HeightRequest="30"
                                             Source="morning.png"
                                             WidthRequest="30" />
                                         <ImageButton
                                             Grid.Column="1"
-                                            Padding="30"
-                                            Aspect="AspectFit"
                                             BackgroundColor="Black"
-                                            BorderColor="White"
-                                            BorderWidth="1"
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMiddayTimeCommand}"
                                             CommandParameter="TimeOfLastWatering"
                                             CornerRadius="8"
@@ -729,11 +716,7 @@
                                             WidthRequest="30" />
                                         <ImageButton
                                             Grid.Column="2"
-                                            Padding="30"
-                                            Aspect="AspectFit"
                                             BackgroundColor="Black"
-                                            BorderColor="White"
-                                            BorderWidth="1"
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultNightTimeCommand}"
                                             CommandParameter="TimeOfLastWatering"
                                             CornerRadius="8"
@@ -760,21 +743,18 @@
                                     <Frame
                                         Padding="2,2"
                                         BackgroundColor="Transparent"
-                                        BorderColor="MediumPurple"
-                                        WidthRequest="100">
+                                        BorderColor="MediumPurple">
                                         <Frame
                                             Padding="0,2"
                                             BackgroundColor="Transparent"
-                                            BorderColor="Transparent"
-                                            HorizontalOptions="CenterAndExpand"
-                                            VerticalOptions="Center">
+                                            BorderColor="Transparent">
                                             <DatePicker
                                                 x:Name="_DateOfNextWatering"
                                                 Grid.Column="1"
                                                 BackgroundColor="White"
                                                 Date="{Binding AlterPlant.DateOfNextWatering, Mode=TwoWay}"
                                                 Format="d"
-                                                HorizontalOptions="FillAndExpand" />
+                                                WidthRequest="85" />
                                         </Frame>
                                     </Frame>
                                     <Label Text="at" VerticalOptions="Center" />
@@ -782,7 +762,7 @@
                                         Padding="2,2"
                                         BackgroundColor="Transparent"
                                         BorderColor="MediumPurple"
-                                        HorizontalOptions="FillAndExpand" WidthRequest="80">
+                                        HorizontalOptions="FillAndExpand">
                                         <Frame
                                             Padding="0,2"
                                             BackgroundColor="Transparent"
@@ -793,18 +773,14 @@
                                                 x:Name="_TimeOfNextWatering"
                                                 BackgroundColor="White"
                                                 Format="t"
-                                                HorizontalOptions="FillAndExpand"
-                                                Time="{Binding AlterPlant.TimeOfNextWatering, Mode=TwoWay}" />
+                                                Time="{Binding AlterPlant.TimeOfNextWatering, Mode=TwoWay}"
+                                                WidthRequest="70" />
                                         </Frame>
                                     </Frame>
                                     <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
                                         <ImageButton
                                             Grid.Column="0"
-                                            Padding="30"
-                                            Aspect="AspectFit"
                                             BackgroundColor="Black"
-                                            BorderColor="White"
-                                            BorderWidth="1"
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMorningTimeCommand}"
                                             CommandParameter="TimeOfNextWatering"
                                             CornerRadius="8"
@@ -813,11 +789,7 @@
                                             WidthRequest="30" />
                                         <ImageButton
                                             Grid.Column="1"
-                                            Padding="30"
-                                            Aspect="AspectFit"
                                             BackgroundColor="Black"
-                                            BorderColor="White"
-                                            BorderWidth="1"
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMiddayTimeCommand}"
                                             CommandParameter="TimeOfNextWatering"
                                             CornerRadius="8"
@@ -826,11 +798,7 @@
                                             WidthRequest="30" />
                                         <ImageButton
                                             Grid.Column="2"
-                                            Padding="30"
-                                            Aspect="AspectFit"
                                             BackgroundColor="Black"
-                                            BorderColor="White"
-                                            BorderWidth="1"
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultNightTimeCommand}"
                                             CommandParameter="TimeOfNextWatering"
                                             CornerRadius="8"
