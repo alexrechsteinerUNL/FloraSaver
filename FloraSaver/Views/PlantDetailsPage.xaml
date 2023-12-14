@@ -109,33 +109,6 @@
                                 </Frame>
                             </Frame>
                             <!--  There's no reason why we shouldn't be able to set the current group color here as well if you want that implemented here is a start  -->
-                            <!--<Frame
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                Padding="0"
-                                BackgroundColor="Transparent"
-                                BorderColor="White">
-                                <Grid ColumnDefinitions="45" RowDefinitions="30">
-                                    <Picker
-                                        x:Name="CurrentGroupColorPicker"
-                                        Grid.Row="0"
-                                        Grid.Column="0"
-                                        Grid.ColumnSpan="2"
-                                        BackgroundColor="{Binding Plant.GroupColor, Mode=TwoWay}"
-                                        HeightRequest="60"
-                                        ItemDisplayBinding="{Binding ColorName, Mode=TwoWay}"
-                                        ItemsSource="{Binding GroupColors, Mode=TwoWay}"
-                                        SelectedItem="{Binding SelectedGroupColor, Mode=TwoWay}"
-                                        TextColor="{Binding SelectedGroupColor.Colors, Mode=TwoWay}"
-                                        WidthRequest="100" />
-                                    <Rectangle
-                                        Grid.Row="0"
-                                        Grid.Column="0"
-                                        BackgroundColor="{Binding Plant.GroupColor, Mode=TwoWay}"
-                                        HeightRequest="1000"
-                                        WidthRequest="1000" />
-                                </Grid>
-                            </Frame>-->
                             <Button
                                 x:Name="addGroupButton"
                                 Grid.Row="1"
@@ -184,114 +157,6 @@
                                     TextColor="{Binding SelectedGroupColor.Colors, Mode=TwoWay}"
                                     VerticalOptions="FillAndExpand" />
                             </Frame>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                            <!--<Border
-                                Grid.Row="1"
-                                HorizontalOptions="StartAndExpand"
-                                WidthRequest="300">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="280" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Rectangle Grid.Column="0" Background="Black" />
-                                    <Picker
-                                        x:Name="groupPicker"
-                                        Title="Select Plant Group"
-                                        Grid.Column="1"
-                                        ItemDisplayBinding="{Binding GroupName, Mode=TwoWay}"
-                                        ItemsSource="{Binding PlantGroups, Mode=TwoWay}"
-                                        SelectedItem="{Binding GroupPickerValue, Mode=TwoWay}">
-                                        <Picker.Behaviors>
-                                            <toolkit:EventToCommandBehavior Command="{Binding GroupPickerChangedCommand}" EventName="SelectedIndexChanged" />
-                                        </Picker.Behaviors>
-                                    </Picker>
-                                    <Rectangle Grid.Column="2" BackgroundColor="Black" />
-                                </Grid>
-                            </Border>
-                            <Button
-                                x:Name="addGroupButton"
-                                Grid.Row="1"
-                                Grid.Column="2"
-                                Padding="0"
-                                Command="{Binding AddGroupShowPressedCommand}"
-                                HeightRequest="45"
-                                Text="{Binding AddGroupButtonText}" />
-                            <Border
-                                Grid.Row="2"
-                                Grid.Column="0"
-                                HorizontalOptions="Start"
-                                IsVisible="{Binding AddNewGroupGridVisible}"
-                                WidthRequest="270">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="10" />
-                                        <ColumnDefinition Width="270" />
-                                        <ColumnDefinition Width="10" />
-                                    </Grid.ColumnDefinitions>
-                                    <Rectangle Grid.Column="0" Background="Black" />
-                                    <Entry
-                                        x:Name="_groupAdd"
-                                        Grid.Column="1"
-                                        Completed="Entry_Completed"
-                                        Placeholder="Enter new plant group"
-                                        WidthRequest="270" />
-                                    <Rectangle Grid.Column="2" Background="Black" />
-                                </Grid>
-                            </Border>
-                            <Border
-                                Grid.Row="2"
-                                Grid.Column="1"
-                                Padding="0"
-                                BackgroundColor="white"
-                                HeightRequest="50"
-                                HorizontalOptions="Start"
-                                IsVisible="{Binding AddNewGroupGridVisible}"
-                                VerticalOptions="Start"
-                                WidthRequest="30">
-                                <Grid
-                                    Grid.Row="2"
-                                    Grid.Column="1"
-                                    ColumnDefinitions="45"
-                                    RowDefinitions="30">
-                                    <Picker
-                                        x:Name="NewGroupColorPicker"
-                                        Grid.Row="0"
-                                        Grid.Column="0"
-                                        Grid.ColumnSpan="2"
-                                        BackgroundColor="{Binding SelectedGroupColor.Colors, Mode=TwoWay}"
-                                        HeightRequest="60"
-                                        IsVisible="{Binding AddNewGroupGridVisible}"
-                                        ItemDisplayBinding="{Binding ColorName, Mode=TwoWay}"
-                                        ItemsSource="{Binding GroupColors, Mode=TwoWay}"
-                                        SelectedItem="{Binding SelectedGroupColor, Mode=TwoWay}"
-                                        TextColor="{Binding SelectedGroupColor.Colors, Mode=TwoWay}"
-                                        WidthRequest="100" />
-                                    <Rectangle
-                                        Grid.Row="0"
-                                        Grid.Column="0"
-                                        BackgroundColor="{Binding SelectedGroupColor.Colors, Mode=TwoWay}"
-                                        HeightRequest="1000"
-                                        WidthRequest="1000" />
-
-                                </Grid>
-
-                            </Border>-->
                             <Button
                                 x:Name="addNewGroupButton"
                                 Grid.Row="2"
@@ -415,27 +280,6 @@
                                         VerticalOptions="CenterAndExpand" />
                                 </Frame>
                             </Frame>
-                            <!--<Border
-                                Grid.Row="1"
-                                HorizontalOptions="Start"
-                                WidthRequest="330">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="10" />
-                                        <ColumnDefinition Width="310" />
-                                        <ColumnDefinition Width="10" />
-                                    </Grid.ColumnDefinitions>
-                                    <Rectangle Grid.Column="0" Background="Black" />
-                                    <Entry
-                                        x:Name="_GivenName"
-                                        Grid.Column="1"
-                                        Completed="Entry_Completed"
-                                        Placeholder="Give your plant a name!"
-                                        Text="{Binding AlterPlant.GivenName, StringFormat='{0}', Mode=TwoWay}"
-                                        WidthRequest="320" />
-                                    <Rectangle Grid.Column="2" BackgroundColor="Black" />
-                                </Grid>
-                            </Border>-->
                         </Grid>
 
                         <Grid
@@ -473,25 +317,6 @@
                                         HorizontalOptions="FillAndExpand" />
                                 </Frame>
                             </Frame>
-                            <!--<Border
-                                Grid.Row="1"
-                                HorizontalOptions="StartAndExpand"
-                                WidthRequest="100">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Rectangle Grid.Column="0" Background="Black" />
-                                    <DatePicker
-                                        x:Name="_DateOfBirth"
-                                        Grid.Column="1"
-                                        Date="{Binding AlterPlant.DateOfBirth, Mode=TwoWay}"
-                                        HorizontalOptions="FillAndExpand" />
-                                    <Rectangle Grid.Column="2" BackgroundColor="Black" />
-                                </Grid>
-                            </Border>-->
                         </Grid>
 
                         <Button
@@ -538,31 +363,7 @@
                                             SelectedItem="{Binding WaterIntervalPickerValue, Mode=TwoWay}" />
                                     </Frame>
                                 </Frame>
-                                <!--<Border
-                                    Grid.Row="1"
-                                    Grid.Column="0"
-                                    HorizontalOptions="Start"
-                                    WidthRequest="330">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="10" />
-                                            <ColumnDefinition Width="310" />
-                                            <ColumnDefinition Width="10" />
-                                        </Grid.ColumnDefinitions>
-                                        <Rectangle Grid.Column="0" Background="Black" />
-                                        <Picker
-                                            x:Name="waterIntervalPicker"
-                                            Title="Water in _ days"
-                                            Grid.Column="1"
-                                            ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
-                                            ItemsSource="{Binding WateringInterval, Mode=TwoWay}"
-                                            SelectedItem="{Binding WaterIntervalPickerValue, Mode=TwoWay}" />
-                                        <Rectangle Grid.Column="2" Background="Black" />
-                                    </Grid>
-                                </Border>-->
-
                             </Grid>
-
                             <Grid
                                 x:Name="customWaterIntervalGrid"
                                 ColumnDefinitions="*"
@@ -603,30 +404,6 @@
                                     </Frame>
                                     <Label Text=" Day(s)" VerticalOptions="Center" />
                                 </FlexLayout>
-
-                                <!--<Border
-                                    Grid.Row="1"
-                                    Grid.Column="1"
-                                    HorizontalOptions="Start">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="5" />
-                                            <ColumnDefinition Width="20" />
-                                            <ColumnDefinition Width="5" />
-                                        </Grid.ColumnDefinitions>
-                                        <Rectangle Grid.Column="0" Background="Black" />
-                                        <Entry
-                                            x:Name="_CustomWaterInterval"
-                                            Grid.Column="1"
-                                            Completed="Entry_Completed"
-                                            HorizontalTextAlignment="Center"
-                                            Keyboard="Numeric"
-                                            Placeholder="0"
-                                            Text="{Binding WaterDaysFromNow, Mode=TwoWay}"
-                                            WidthRequest="30" />
-                                        <Rectangle Grid.Column="2" Background="Black" />
-                                    </Grid>
-                                </Border>-->
                             </Grid>
 
                             <Grid
@@ -693,7 +470,7 @@
                                                 BackgroundColor="White"
                                                 Format="t"
                                                 Time="{Binding AlterPlant.TimeOfLastWatering, Mode=TwoWay}"
-                                                WidthRequest="70" />
+                                                WidthRequest="75" />
                                         </Frame>
                                     </Frame>
                                     <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
@@ -774,7 +551,7 @@
                                                 BackgroundColor="White"
                                                 Format="t"
                                                 Time="{Binding AlterPlant.TimeOfNextWatering, Mode=TwoWay}"
-                                                WidthRequest="70" />
+                                                WidthRequest="75" />
                                         </Frame>
                                     </Frame>
                                     <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
@@ -807,82 +584,6 @@
                                             WidthRequest="30" />
                                     </Grid>
                                 </FlexLayout>
-                                <!--<Border Grid.Row="3" Grid.Column="0">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Rectangle Grid.Column="0" Background="Black" />
-                                        <DatePicker
-                                            x:Name="_DateOfNextWatering"
-                                            Grid.Column="1"
-                                            BackgroundColor="White"
-                                            Date="{Binding AlterPlant.DateOfNextWatering, Mode=TwoWay}"
-                                            Format="d" />
-                                        <Rectangle Grid.Column="2" Background="Black" />
-                                    </Grid>
-                                </Border>-->
-                                <!--<Border Grid.Row="3" Grid.Column="2">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Rectangle Grid.Column="0" Background="Black" />
-                                        <TimePicker
-                                            x:Name="_TimeOfNextWatering"
-                                            Grid.Column="1"
-                                            BackgroundColor="White"
-                                            Format="t"
-                                            Time="{Binding AlterPlant.TimeOfNextWatering, Mode=TwoWay}" />
-                                        <Rectangle Grid.Column="2" Background="Black" />
-                                    </Grid>
-                                </Border>-->
-                                <!--<ImageButton
-                                    Grid.Row="3"
-                                    Grid.Column="3"
-                                    Padding="2"
-                                    Aspect="AspectFill"
-                                    BackgroundColor="Black"
-                                    BorderColor="White"
-                                    BorderWidth="1"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMorningTimeCommand}"
-                                    CommandParameter="TimeOfNextWatering"
-                                    CornerRadius="8"
-                                    HeightRequest="25"
-                                    Source="morning.png"
-                                    WidthRequest="25" />
-                                <ImageButton
-                                    Grid.Row="3"
-                                    Grid.Column="4"
-                                    Padding="2"
-                                    Aspect="AspectFill"
-                                    BackgroundColor="Black"
-                                    BorderColor="White"
-                                    BorderWidth="1"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMiddayTimeCommand}"
-                                    CommandParameter="TimeOfNextWatering"
-                                    CornerRadius="8"
-                                    HeightRequest="25"
-                                    Source="midday.png"
-                                    WidthRequest="25" />
-                                <ImageButton
-                                    Grid.Row="3"
-                                    Grid.Column="5"
-                                    Padding="2"
-                                    Aspect="AspectFill"
-                                    BackgroundColor="Black"
-                                    BorderColor="White"
-                                    BorderWidth="1"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultNightTimeCommand}"
-                                    CommandParameter="TimeOfNextWatering"
-                                    CornerRadius="8"
-                                    HeightRequest="25"
-                                    Source="night.png"
-                                    WidthRequest="25" />-->
                             </Grid>
                         </VerticalStackLayout>
 
@@ -894,97 +595,89 @@
                             Text="{Binding MistGridText}" />
 
                         <VerticalStackLayout x:Name="MistingGrids" IsVisible="{Binding AlterPlant.UseMisting}">
-                            <Grid x:Name="mistingIntervalGrid">
+                            <Grid x:Name="mistingIntervalGrid" RowSpacing="5">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="30" />
-                                    <RowDefinition Height="50" />
+                                    <RowDefinition Height="55" />
                                 </Grid.RowDefinitions>
                                 <FlexLayout Grid.Row="0">
                                     <Label Text="Misting Interval: " />
                                     <ImageButton
-                                        x:Name="_undoMistingIntervalChange"
+                                        x:Name="_undoMistIntervalChange"
                                         Grid.Column="0"
                                         Command="{Binding ImageOfPlantToBase64Command}"
                                         Source="undo_button.png"
                                         WidthRequest="40" />
                                 </FlexLayout>
-
-                                <!--<Border
+                                <Frame
                                     Grid.Row="1"
-                                    HorizontalOptions="Start"
-                                    WidthRequest="330">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="10" />
-                                            <ColumnDefinition Width="310" />
-                                            <ColumnDefinition Width="10" />
-                                        </Grid.ColumnDefinitions>
-                                        <Rectangle Grid.Column="0" Background="Black" />
+                                    Padding="2,2"
+                                    BackgroundColor="Transparent"
+                                    BorderColor="Cyan"
+                                    HeightRequest="50">
+                                    <Frame
+                                        Padding="0,2"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Transparent"
+                                        HorizontalOptions="CenterAndExpand"
+                                        VerticalOptions="FillAndExpand">
                                         <Picker
                                             x:Name="mistIntervalPicker"
                                             Title="Mist in _ days"
-                                            Grid.Column="1"
+                                            HorizontalTextAlignment="Center"
                                             ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
                                             ItemsSource="{Binding MistingInterval, Mode=TwoWay}"
                                             SelectedItem="{Binding MistIntervalPickerValue, Mode=TwoWay}" />
-                                        <Rectangle Grid.Column="2" Background="Black" />
-                                    </Grid>
-                                </Border>-->
-
+                                    </Frame>
+                                </Frame>
                             </Grid>
 
-                            <Grid x:Name="customMistIntervalGrid" IsVisible="{Binding CustomMistIntervalGridVisible}">
+                            <Grid
+                                x:Name="customMistIntervalGrid"
+                                ColumnDefinitions="*"
+                                ColumnSpacing="5"
+                                IsVisible="{Binding CustomMistIntervalGridVisible}"
+                                RowSpacing="5">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="30" />
                                     <RowDefinition Height="50" />
                                 </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="60" />
-                                    <ColumnDefinition Width="40" />
-                                    <ColumnDefinition Width="70" />
-                                </Grid.ColumnDefinitions>
-                                <Label
-                                    Grid.Row="0"
-                                    Grid.ColumnSpan="3"
-                                    Text="Custom Interval: " />
-                                <Label
-                                    Grid.Row="1"
-                                    Grid.Column="0"
-                                    VerticalOptions="Center">
-                                    Every
-                                </Label>
-                                <!--<Border
-                                    Grid.Row="1"
-                                    Grid.Column="1"
-                                    HorizontalOptions="Start">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="5" />
-                                            <ColumnDefinition Width="20" />
-                                            <ColumnDefinition Width="5" />
-                                        </Grid.ColumnDefinitions>
-                                        <Rectangle Grid.Column="0" Background="Black" />
-                                        <Entry
-                                            x:Name="_CustomMistInterval"
-                                            Grid.Column="1"
-                                            Completed="Entry_Completed"
-                                            HorizontalTextAlignment="Center"
-                                            Keyboard="Numeric"
-                                            Placeholder="0"
-                                            Text="{Binding MistDaysFromNow, Mode=TwoWay}"
-                                            WidthRequest="30" />
-                                        <Rectangle Grid.Column="2" Background="Black" />
-                                    </Grid>
-                                </Border>-->
-                                <Label
-                                    Grid.Row="1"
-                                    Grid.Column="2"
-                                    VerticalOptions="Center">
-                                    Days
-                                </Label>
+                                <Label Grid.Row="0" Text="Custom Interval: " />
+                                <FlexLayout Grid.Row="1" JustifyContent="Start">
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Text="Every "
+                                        VerticalOptions="Center" />
+                                    <Frame
+                                        Padding="2,2"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Cyan">
+                                        <Frame
+                                            Padding="0,2"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="Transparent"
+                                            HorizontalOptions="CenterAndExpand"
+                                            VerticalOptions="Center">
+                                            <Entry
+                                                x:Name="_CustomMistInterval"
+                                                Completed="Entry_Completed"
+                                                HorizontalOptions="CenterAndExpand"
+                                                HorizontalTextAlignment="Center"
+                                                Keyboard="Numeric"
+                                                Placeholder="0"
+                                                Text="{Binding MistDaysFromNow, Mode=TwoWay}"
+                                                VerticalOptions="CenterAndExpand" />
+                                        </Frame>
+                                    </Frame>
+                                    <Label Text=" Day(s)" VerticalOptions="Center" />
+                                </FlexLayout>
                             </Grid>
 
-                            <Grid x:Name="MistGrid">
+                            <Grid
+                                x:Name="MistGrid"
+                                RowSpacing="5"
+                                VerticalOptions="CenterAndExpand">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="30" />
                                     <RowDefinition Height="50" />
@@ -1008,90 +701,76 @@
                                         Source="undo_button.png"
                                         WidthRequest="40" />
                                 </FlexLayout>
-                                <!--<Border Grid.Row="1" Grid.Column="0">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Rectangle Grid.Column="0" Background="Black" />
-                                        <DatePicker
-                                            x:Name="_DateOfLastMisting"
-                                            Grid.Column="1"
-                                            BackgroundColor="White"
-                                            Date="{Binding AlterPlant.DateOfLastMisting, Mode=TwoWay}"
-                                            Format="d"
-                                            HorizontalOptions="Fill" />
-                                        <Rectangle Grid.Column="2" Background="Black" />
-                                    </Grid>
-                                </Border>-->
-                                <Label
+                                <FlexLayout
                                     Grid.Row="1"
-                                    Grid.Column="1"
-                                    HorizontalOptions="Center"
-                                    Text="at"
-                                    VerticalOptions="Center" />
-                                <!--<Border Grid.Row="1" Grid.Column="2">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Rectangle Grid.Column="0" Background="Black" />
-                                        <TimePicker
-                                            x:Name="_TimeOfLastMisting"
+                                    Grid.ColumnSpan="6"
+                                    JustifyContent="SpaceBetween">
+                                    <Frame
+                                        Padding="2,2"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Cyan">
+                                        <Frame
+                                            Padding="0,2"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="Transparent">
+                                            <DatePicker
+                                                x:Name="_DateOfLastMisting"
+                                                Grid.Column="1"
+                                                BackgroundColor="White"
+                                                Date="{Binding AlterPlant.DateOfLastMisting, Mode=TwoWay}"
+                                                Format="d"
+                                                HorizontalOptions="Fill"
+                                                WidthRequest="85" />
+                                        </Frame>
+                                    </Frame>
+                                    <Label Text="at" VerticalOptions="Center" />
+                                    <Frame
+                                        Padding="2,2"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Cyan">
+                                        <Frame
+                                            Padding="0,2"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="Transparent">
+                                            <TimePicker
+                                                x:Name="_TimeOfLastMisting"
+                                                Grid.Column="1"
+                                                BackgroundColor="White"
+                                                Format="t"
+                                                Time="{Binding AlterPlant.TimeOfLastMisting, Mode=TwoWay}"
+                                                WidthRequest="75" />
+                                        </Frame>
+                                    </Frame>
+                                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
+                                        <ImageButton
+                                            Grid.Column="0"
+                                            BackgroundColor="Black"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMorningTimeCommand}"
+                                            CommandParameter="TimeOfLastMisting"
+                                            HeightRequest="30"
+                                            Source="morning.png"
+                                            WidthRequest="30" />
+                                        <ImageButton
                                             Grid.Column="1"
-                                            BackgroundColor="White"
-                                            Format="t"
-                                            Time="{Binding AlterPlant.TimeOfLastMisting, Mode=TwoWay}" />
-                                        <Rectangle Grid.Column="2" Background="Black" />
+                                            BackgroundColor="Black"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMiddayTimeCommand}"
+                                            CommandParameter="TimeOfLastMisting"
+                                            CornerRadius="8"
+                                            HeightRequest="30"
+                                            Source="midday.png"
+                                            WidthRequest="30" />
+                                        <ImageButton
+                                            Grid.Column="2"
+                                            BackgroundColor="Black"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultNightTimeCommand}"
+                                            CommandParameter="TimeOfLastMisting"
+                                            CornerRadius="8"
+                                            HeightRequest="30"
+                                            Source="night.png"
+                                            WidthRequest="30" />
                                     </Grid>
-                                </Border>-->
+                                </FlexLayout>
 
-                                <ImageButton
-                                    Grid.Row="1"
-                                    Grid.Column="3"
-                                    Padding="2"
-                                    Aspect="AspectFill"
-                                    BackgroundColor="Black"
-                                    BorderColor="White"
-                                    BorderWidth="1"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMorningTimeCommand}"
-                                    CommandParameter="TimeOfLastMisting"
-                                    CornerRadius="8"
-                                    HeightRequest="25"
-                                    Source="morning.png"
-                                    WidthRequest="25" />
-                                <ImageButton
-                                    Grid.Row="1"
-                                    Grid.Column="4"
-                                    Padding="2"
-                                    Aspect="AspectFill"
-                                    BackgroundColor="Black"
-                                    BorderColor="White"
-                                    BorderWidth="1"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMiddayTimeCommand}"
-                                    CommandParameter="TimeOfLastMisting"
-                                    CornerRadius="8"
-                                    HeightRequest="25"
-                                    Source="midday.png"
-                                    WidthRequest="25" />
-                                <ImageButton
-                                    Grid.Row="1"
-                                    Grid.Column="5"
-                                    Padding="2"
-                                    Aspect="AspectFill"
-                                    BackgroundColor="Black"
-                                    BorderColor="White"
-                                    BorderWidth="1"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultNightTimeCommand}"
-                                    CommandParameter="TimeOfLastMisting"
-                                    CornerRadius="8"
-                                    HeightRequest="25"
-                                    Source="night.png"
-                                    WidthRequest="25" />
                                 <FlexLayout Grid.Row="2" Grid.ColumnSpan="3">
                                     <Label Text="Mist On: " />
                                     <ImageButton
@@ -1101,89 +780,78 @@
                                         Source="undo_button.png"
                                         WidthRequest="40" />
                                 </FlexLayout>
-                                <!--<Border Grid.Row="3" Grid.Column="0">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Rectangle Grid.Column="0" Background="Black" />
-                                        <DatePicker
-                                            x:Name="_DateOfNextMisting"
-                                            Grid.Column="1"
-                                            BackgroundColor="White"
-                                            Date="{Binding AlterPlant.DateOfNextMisting, Mode=TwoWay}"
-                                            Format="d" />
-                                        <Rectangle Grid.Column="2" Background="Black" />
-                                    </Grid>
-                                </Border>-->
-                                <Label
-                                    Grid.Row="3"
-                                    Grid.Column="1"
-                                    HorizontalOptions="Center"
-                                    Text="at"
-                                    VerticalOptions="Center" />
-                                <!--<Border Grid.Row="3" Grid.Column="2">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Rectangle Grid.Column="0" Background="Black" />
-                                        <TimePicker
-                                            x:Name="_TimeOfNextMisting"
-                                            Grid.Column="1"
-                                            BackgroundColor="White"
-                                            Format="t"
-                                            Time="{Binding AlterPlant.TimeOfNextMisting, Mode=TwoWay}" />
-                                        <Rectangle Grid.Column="2" Background="Black" />
-                                    </Grid>
-                                </Border>-->
 
-                                <ImageButton
+                                <FlexLayout
                                     Grid.Row="3"
-                                    Grid.Column="3"
-                                    Padding="2"
-                                    Aspect="AspectFill"
-                                    BackgroundColor="Black"
-                                    BorderColor="White"
-                                    BorderWidth="1"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMorningTimeCommand}"
-                                    CommandParameter="TimeOfNextMisting"
-                                    CornerRadius="8"
-                                    HeightRequest="25"
-                                    Source="morning.png"
-                                    WidthRequest="25" />
-                                <ImageButton
-                                    Grid.Row="3"
-                                    Grid.Column="4"
-                                    Padding="2"
-                                    Aspect="AspectFill"
-                                    BackgroundColor="Black"
-                                    BorderColor="White"
-                                    BorderWidth="1"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMiddayTimeCommand}"
-                                    CommandParameter="TimeOfNextMisting"
-                                    CornerRadius="8"
-                                    HeightRequest="25"
-                                    Source="midday.png"
-                                    WidthRequest="25" />
-                                <ImageButton
-                                    Grid.Row="3"
-                                    Grid.Column="5"
-                                    Padding="2"
-                                    Aspect="AspectFill"
-                                    BackgroundColor="Black"
-                                    BorderColor="White"
-                                    BorderWidth="1"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultNightTimeCommand}"
-                                    CommandParameter="TimeOfNextMisting"
-                                    CornerRadius="8"
-                                    HeightRequest="25"
-                                    Source="night.png"
-                                    WidthRequest="25" />
+                                    Grid.ColumnSpan="6"
+                                    JustifyContent="SpaceBetween">
+                                    <Frame
+                                        Padding="2,2"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Cyan">
+                                        <Frame
+                                            Padding="0,2"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="Transparent">
+                                            <DatePicker
+                                                x:Name="_DateOfNextMisting"
+                                                Grid.Column="1"
+                                                BackgroundColor="White"
+                                                Date="{Binding AlterPlant.DateOfNextMisting, Mode=TwoWay}"
+                                                Format="d"
+                                                WidthRequest="85" />
+                                        </Frame>
+                                    </Frame>
+                                    <Label Text="at" VerticalOptions="Center" />
+                                    <Frame
+                                        Padding="2,2"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Cyan"
+                                        HorizontalOptions="FillAndExpand">
+                                        <Frame
+                                            Padding="0,2"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="Transparent"
+                                            HorizontalOptions="CenterAndExpand"
+                                            VerticalOptions="Center">
+                                            <TimePicker
+                                                x:Name="_TimeOfNextMisting"
+                                                BackgroundColor="White"
+                                                Format="t"
+                                                Time="{Binding AlterPlant.TimeOfNextMisting, Mode=TwoWay}"
+                                                WidthRequest="75" />
+                                        </Frame>
+                                    </Frame>
+                                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
+                                        <ImageButton
+                                            Grid.Column="0"
+                                            BackgroundColor="Black"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMorningTimeCommand}"
+                                            CommandParameter="TimeOfNextMisting"
+                                            CornerRadius="8"
+                                            HeightRequest="30"
+                                            Source="morning.png"
+                                            WidthRequest="30" />
+                                        <ImageButton
+                                            Grid.Column="1"
+                                            BackgroundColor="Black"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMiddayTimeCommand}"
+                                            CommandParameter="TimeOfNextMisting"
+                                            CornerRadius="8"
+                                            HeightRequest="30"
+                                            Source="midday.png"
+                                            WidthRequest="30" />
+                                        <ImageButton
+                                            Grid.Column="2"
+                                            BackgroundColor="Black"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultNightTimeCommand}"
+                                            CommandParameter="TimeOfNextMisting"
+                                            CornerRadius="8"
+                                            HeightRequest="30"
+                                            Source="night.png"
+                                            WidthRequest="30" />
+                                    </Grid>
+                                </FlexLayout>
                             </Grid>
                         </VerticalStackLayout>
 
@@ -1195,10 +863,22 @@
                             Text="{Binding SunGridText}" />
 
                         <VerticalStackLayout x:Name="MoveGrids" IsVisible="{Binding AlterPlant.UseMoving}">
-                            <Grid x:Name="sunningIntervalGrid">
+
+
+
+
+
+
+
+
+
+
+
+
+                            <Grid x:Name="sunningIntervalGrid" RowSpacing="5">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="30" />
-                                    <RowDefinition Height="50" />
+                                    <RowDefinition Height="55" />
                                 </Grid.RowDefinitions>
                                 <FlexLayout Grid.Row="0">
                                     <Label Text="Move Interval: " />
@@ -1209,82 +889,75 @@
                                         Source="undo_button.png"
                                         WidthRequest="40" />
                                 </FlexLayout>
-                                <!--<Border
+                                <Frame
                                     Grid.Row="1"
-                                    HorizontalOptions="Start"
-                                    WidthRequest="330">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="10" />
-                                            <ColumnDefinition Width="310" />
-                                            <ColumnDefinition Width="10" />
-                                        </Grid.ColumnDefinitions>
-                                        <Rectangle Grid.Column="0" Background="Black" />
+                                    Padding="2,2"
+                                    BackgroundColor="Transparent"
+                                    BorderColor="Orange"
+                                    HeightRequest="50">
+                                    <Frame
+                                        Padding="0,2"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Transparent"
+                                        HorizontalOptions="CenterAndExpand"
+                                        VerticalOptions="FillAndExpand">
                                         <Picker
                                             x:Name="sunIntervalPicker"
                                             Title="Sun in _ days"
-                                            Grid.Column="1"
+                                            HorizontalTextAlignment="Center"
                                             ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
                                             ItemsSource="{Binding SunInterval, Mode=TwoWay}"
                                             SelectedItem="{Binding SunIntervalPickerValue, Mode=TwoWay}" />
-                                        <Rectangle Grid.Column="2" Background="Black" />
-                                    </Grid>
-                                </Border>-->
-
+                                    </Frame>
+                                </Frame>
                             </Grid>
 
-                            <Grid x:Name="customSunIntervalGrid" IsVisible="{Binding CustomSunIntervalGridVisible}">
+                            <Grid
+                                x:Name="customSunIntervalGrid"
+                                ColumnDefinitions="*"
+                                ColumnSpacing="5"
+                                IsVisible="{Binding CustomSunIntervalGridVisible}"
+                                RowSpacing="5">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="30" />
                                     <RowDefinition Height="50" />
                                 </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="60" />
-                                    <ColumnDefinition Width="40" />
-                                    <ColumnDefinition Width="70" />
-                                </Grid.ColumnDefinitions>
-                                <Label
-                                    Grid.Row="0"
-                                    Grid.ColumnSpan="3"
-                                    Text="Custom Interval: " />
-                                <Label
-                                    Grid.Row="1"
-                                    Grid.Column="0"
-                                    VerticalOptions="Center">
-                                    Every
-                                </Label>
-                                <!--<Border
-                                    Grid.Row="1"
-                                    Grid.Column="1"
-                                    HorizontalOptions="Start">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="5" />
-                                            <ColumnDefinition Width="20" />
-                                            <ColumnDefinition Width="5" />
-                                        </Grid.ColumnDefinitions>
-                                        <Rectangle Grid.Column="0" Background="Black" />
-                                        <Entry
-                                            x:Name="_CustomSunInterval"
-                                            Grid.Column="1"
-                                            Completed="Entry_Completed"
-                                            HorizontalTextAlignment="Center"
-                                            Keyboard="Numeric"
-                                            Placeholder="0"
-                                            Text="{Binding SunDaysFromNow, Mode=TwoWay}"
-                                            WidthRequest="30" />
-                                        <Rectangle Grid.Column="2" Background="Black" />
-                                    </Grid>
-                                </Border>-->
-                                <Label
-                                    Grid.Row="1"
-                                    Grid.Column="2"
-                                    VerticalOptions="Center">
-                                    Days
-                                </Label>
+                                <Label Grid.Row="0" Text="Custom Interval: " />
+                                <FlexLayout Grid.Row="1" JustifyContent="Start">
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Text="Every "
+                                        VerticalOptions="Center" />
+                                    <Frame
+                                        Padding="2,2"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Orange">
+                                        <Frame
+                                            Padding="0,2"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="Transparent"
+                                            HorizontalOptions="CenterAndExpand"
+                                            VerticalOptions="Center">
+                                            <Entry
+                                                x:Name="_CustomSunInterval"
+                                                Completed="Entry_Completed"
+                                                HorizontalOptions="CenterAndExpand"
+                                                HorizontalTextAlignment="Center"
+                                                Keyboard="Numeric"
+                                                Placeholder="0"
+                                                Text="{Binding MistDaysFromNow, Mode=TwoWay}"
+                                                VerticalOptions="CenterAndExpand" />
+                                        </Frame>
+                                    </Frame>
+                                    <Label Text=" Day(s)" VerticalOptions="Center" />
+                                </FlexLayout>
                             </Grid>
 
-                            <Grid x:Name="SunGrid">
+                            <Grid
+                                x:Name="SunGrid"
+                                RowSpacing="5"
+                                VerticalOptions="CenterAndExpand">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="30" />
                                     <RowDefinition Height="50" />
@@ -1308,91 +981,78 @@
                                         Source="undo_button.png"
                                         WidthRequest="40" />
                                 </FlexLayout>
-                                <!--<Border Grid.Row="1" Grid.Column="0">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Rectangle Grid.Column="0" Background="Black" />
-                                        <DatePicker
-                                            x:Name="_DateOfLastMove"
+                                <FlexLayout
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="6"
+                                    JustifyContent="SpaceBetween">
+                                    <Frame
+                                        Padding="2,2"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Orange">
+                                        <Frame
+                                            Padding="0,2"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="Transparent">
+                                            <DatePicker
+                                                x:Name="_DateOfLastMove"
+                                                Grid.Column="1"
+                                                BackgroundColor="White"
+                                                Date="{Binding AlterPlant.DateOfLastMove, Mode=TwoWay}"
+                                                Format="d"
+                                                HorizontalOptions="Fill"
+                                                WidthRequest="85" />
+                                        </Frame>
+                                    </Frame>
+                                    <Label Text="at" VerticalOptions="Center" />
+                                    <Frame
+                                        Padding="2,2"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Orange">
+                                        <Frame
+                                            Padding="0,2"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="Transparent">
+                                            <TimePicker
+                                                x:Name="_TimeOfLastMove"
+                                                Grid.Column="1"
+                                                BackgroundColor="White"
+                                                Format="t"
+                                                Time="{Binding AlterPlant.TimeOfLastMove, Mode=TwoWay}"
+                                                WidthRequest="75" />
+                                        </Frame>
+                                    </Frame>
+                                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
+                                        <ImageButton
+                                            Grid.Column="0"
+                                            BackgroundColor="Black"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMorningTimeCommand}"
+                                            CommandParameter="TimeOfLastMove"
+                                            HeightRequest="30"
+                                            Source="morning.png"
+                                            WidthRequest="30" />
+                                        <ImageButton
                                             Grid.Column="1"
-                                            BackgroundColor="White"
-                                            Date="{Binding AlterPlant.DateOfLastMove, Mode=TwoWay}"
-                                            Format="d"
-                                            HorizontalOptions="Fill" />
-                                        <Rectangle Grid.Column="2" Background="Black" />
+                                            BackgroundColor="Black"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMiddayTimeCommand}"
+                                            CommandParameter="TimeOfLastMove"
+                                            CornerRadius="8"
+                                            HeightRequest="30"
+                                            Source="midday.png"
+                                            WidthRequest="30" />
+                                        <ImageButton
+                                            Grid.Column="2"
+                                            BackgroundColor="Black"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultNightTimeCommand}"
+                                            CommandParameter="TimeOfLastMove"
+                                            CornerRadius="8"
+                                            HeightRequest="30"
+                                            Source="night.png"
+                                            WidthRequest="30" />
                                     </Grid>
-                                </Border>-->
-                                <Label
-                                    Grid.Row="1"
-                                    Grid.Column="1"
-                                    HorizontalOptions="Center"
-                                    Text="at"
-                                    VerticalOptions="Center" />
-                                <!--<Border Grid.Row="1" Grid.Column="2">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Rectangle Grid.Column="0" Background="Black" />
-                                        <TimePicker
-                                            x:Name="_TimeOfLastMove"
-                                            Grid.Column="1"
-                                            BackgroundColor="White"
-                                            Format="t"
-                                            Time="{Binding AlterPlant.TimeOfLastMove, Mode=TwoWay}" />
-                                        <Rectangle Grid.Column="2" Background="Black" />
-                                    </Grid>
-                                </Border>-->
-                                <ImageButton
-                                    Grid.Row="1"
-                                    Grid.Column="3"
-                                    Padding="2"
-                                    Aspect="AspectFill"
-                                    BackgroundColor="Black"
-                                    BorderColor="White"
-                                    BorderWidth="1"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMorningTimeCommand}"
-                                    CommandParameter="TimeOfLastMove"
-                                    CornerRadius="8"
-                                    HeightRequest="25"
-                                    Source="morning.png"
-                                    WidthRequest="25" />
-                                <ImageButton
-                                    Grid.Row="1"
-                                    Grid.Column="4"
-                                    Padding="2"
-                                    Aspect="AspectFill"
-                                    BackgroundColor="Black"
-                                    BorderColor="White"
-                                    BorderWidth="1"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMiddayTimeCommand}"
-                                    CommandParameter="TimeOfLastMove"
-                                    CornerRadius="8"
-                                    HeightRequest="25"
-                                    Source="midday.png"
-                                    WidthRequest="25" />
-                                <ImageButton
-                                    Grid.Row="1"
-                                    Grid.Column="5"
-                                    Padding="2"
-                                    Aspect="AspectFill"
-                                    BackgroundColor="Black"
-                                    BorderColor="White"
-                                    BorderWidth="1"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultNightTimeCommand}"
-                                    CommandParameter="TimeOfLastMove"
-                                    CornerRadius="8"
-                                    HeightRequest="25"
-                                    Source="night.png"
-                                    WidthRequest="25" />
+                                </FlexLayout>
+
                                 <FlexLayout Grid.Row="2" Grid.ColumnSpan="3">
-                                    <Label Text="Move On: " />
+                                    <Label Text="Mist On: " />
                                     <ImageButton
                                         x:Name="_undoMoveOnChange"
                                         Grid.Column="0"
@@ -1400,88 +1060,78 @@
                                         Source="undo_button.png"
                                         WidthRequest="40" />
                                 </FlexLayout>
-                                <!--<Border Grid.Row="3" Grid.Column="0">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Rectangle Grid.Column="0" Background="Black" />
-                                        <DatePicker
-                                            x:Name="_DateOfNextMove"
+
+                                <FlexLayout
+                                    Grid.Row="3"
+                                    Grid.ColumnSpan="6"
+                                    JustifyContent="SpaceBetween">
+                                    <Frame
+                                        Padding="2,2"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Orange">
+                                        <Frame
+                                            Padding="0,2"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="Transparent">
+                                            <DatePicker
+                                                x:Name="_DateOfNextMove"
+                                                Grid.Column="1"
+                                                BackgroundColor="White"
+                                                Date="{Binding AlterPlant.DateOfNextMove, Mode=TwoWay}"
+                                                Format="d"
+                                                WidthRequest="85" />
+                                        </Frame>
+                                    </Frame>
+                                    <Label Text="at" VerticalOptions="Center" />
+                                    <Frame
+                                        Padding="2,2"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Orange"
+                                        HorizontalOptions="FillAndExpand">
+                                        <Frame
+                                            Padding="0,2"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="Transparent"
+                                            HorizontalOptions="CenterAndExpand"
+                                            VerticalOptions="Center">
+                                            <TimePicker
+                                                x:Name="_TimeOfNextMove"
+                                                BackgroundColor="White"
+                                                Format="t"
+                                                Time="{Binding AlterPlant.TimeOfNextMove, Mode=TwoWay}"
+                                                WidthRequest="75" />
+                                        </Frame>
+                                    </Frame>
+                                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
+                                        <ImageButton
+                                            Grid.Column="0"
+                                            BackgroundColor="Black"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMorningTimeCommand}"
+                                            CommandParameter="TimeOfNextMove"
+                                            CornerRadius="8"
+                                            HeightRequest="30"
+                                            Source="morning.png"
+                                            WidthRequest="30" />
+                                        <ImageButton
                                             Grid.Column="1"
-                                            BackgroundColor="White"
-                                            Date="{Binding AlterPlant.DateOfNextMove, Mode=TwoWay}"
-                                            Format="d" />
-                                        <Rectangle Grid.Column="2" Background="Black" />
+                                            BackgroundColor="Black"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMiddayTimeCommand}"
+                                            CommandParameter="TimeOfNextMove"
+                                            CornerRadius="8"
+                                            HeightRequest="30"
+                                            Source="midday.png"
+                                            WidthRequest="30" />
+                                        <ImageButton
+                                            Grid.Column="2"
+                                            BackgroundColor="Black"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultNightTimeCommand}"
+                                            CommandParameter="TimeOfNextMove"
+                                            CornerRadius="8"
+                                            HeightRequest="30"
+                                            Source="night.png"
+                                            WidthRequest="30" />
                                     </Grid>
-                                </Border>-->
-                                <Label
-                                    Grid.Row="3"
-                                    Grid.Column="1"
-                                    HorizontalOptions="Center"
-                                    Text="at"
-                                    VerticalOptions="Center" />
-                                <!--<Border Grid.Row="3" Grid.Column="2">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Rectangle Grid.Column="0" Background="Black" />
-                                        <TimePicker
-                                            x:Name="_TimeOfNextMove"
-                                            Grid.Column="1"
-                                            BackgroundColor="White"
-                                            Format="t"
-                                            Time="{Binding AlterPlant.TimeOfNextMove, Mode=TwoWay}" />
-                                        <Rectangle Grid.Column="2" Background="Black" />
-                                    </Grid>
-                                </Border>-->
-                                <ImageButton
-                                    Grid.Row="3"
-                                    Grid.Column="3"
-                                    Padding="2"
-                                    Aspect="AspectFill"
-                                    BackgroundColor="Black"
-                                    BorderColor="White"
-                                    BorderWidth="1"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMorningTimeCommand}"
-                                    CommandParameter="TimeOfNextMove"
-                                    CornerRadius="8"
-                                    HeightRequest="25"
-                                    Source="morning.png"
-                                    WidthRequest="25" />
-                                <ImageButton
-                                    Grid.Row="3"
-                                    Grid.Column="4"
-                                    Padding="2"
-                                    Aspect="AspectFill"
-                                    BackgroundColor="Black"
-                                    BorderColor="White"
-                                    BorderWidth="1"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMiddayTimeCommand}"
-                                    CommandParameter="TimeOfNextMove"
-                                    CornerRadius="8"
-                                    HeightRequest="25"
-                                    Source="midday.png"
-                                    WidthRequest="25" />
-                                <ImageButton
-                                    Grid.Row="3"
-                                    Grid.Column="5"
-                                    Padding="2"
-                                    Aspect="AspectFill"
-                                    BackgroundColor="Black"
-                                    BorderColor="White"
-                                    BorderWidth="1"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultNightTimeCommand}"
-                                    CommandParameter="TimeOfNextMove"
-                                    CornerRadius="8"
-                                    HeightRequest="25"
-                                    Source="night.png"
-                                    WidthRequest="25" />
+                                </FlexLayout>
                             </Grid>
                         </VerticalStackLayout>
                     </VerticalStackLayout>

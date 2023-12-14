@@ -19,7 +19,7 @@
         <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
         <toolkit:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
-    <Grid Padding="0" RowDefinitions="60, 695">
+    <Grid Padding="0" RowDefinitions="*, 11.6*">
         <Frame
             Grid.Row="0"
             Padding="10,5"
@@ -49,14 +49,14 @@
         <Grid
             Grid.Row="1"
             Padding="2"
-            ColumnDefinitions="70,160,160"
+            ColumnDefinitions="*,2.28*,2.28*"
             HorizontalOptions="CenterAndExpand"
             RowSpacing="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="60" />
-                <RowDefinition Height="60" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="70" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="8.8*" />
+                <RowDefinition Height="1.16*" />
             </Grid.RowDefinitions>
 
             <Grid
@@ -163,7 +163,7 @@
                                                 Grid.ColumnSpan="3"
                                                 Padding="10"
                                                 ColumnDefinitions="*, 50"
-                                                RowDefinitions="40, 30, 30, 162">
+                                                RowDefinitions="1.333333*, *, *, 5.4*">
                                                 <Label
                                                     Grid.Row="0"
                                                     Grid.Column="0"
@@ -232,7 +232,7 @@
                                                         Grid.Row="0"
                                                         Grid.ColumnSpan="4"
                                                         Padding="2"
-                                                        FontSize="18"
+                                                        FontSize="16"
                                                         IsVisible="{Binding UseWatering}"
                                                         Text="{Binding WaterInterval, StringFormat='Water Interval: Every {0} Day(s)'}" />
                                                     <Image
@@ -245,7 +245,7 @@
                                                         Grid.Row="1"
                                                         Grid.Column="1"
                                                         Padding="2"
-                                                        FontSize="18"
+                                                        FontSize="16"
                                                         HorizontalTextAlignment="Start"
                                                         IsVisible="{Binding UseWatering}"
                                                         Text="{Binding DateOfLastWatering, StringFormat='{0:d} {0:h\:mm tt}'}" />
@@ -259,7 +259,7 @@
                                                         Grid.Row="1"
                                                         Grid.Column="3"
                                                         Padding="2"
-                                                        FontSize="18"
+                                                        FontSize="16"
                                                         HorizontalTextAlignment="Start"
                                                         IsVisible="{Binding UseWatering}"
                                                         Text="{Binding DateOfNextWatering, StringFormat='{0:d} {0:h\:mm tt}'}" />
@@ -268,7 +268,7 @@
                                                         Grid.Row="2"
                                                         Grid.ColumnSpan="4"
                                                         Padding="2"
-                                                        FontSize="18"
+                                                        FontSize="16"
                                                         IsVisible="{Binding UseMisting}"
                                                         Text="{Binding MistInterval, StringFormat='Mist Interval: Every {0} Day(s)'}" />
                                                     <Image
@@ -281,7 +281,7 @@
                                                         Grid.Row="3"
                                                         Grid.Column="1"
                                                         Padding="2"
-                                                        FontSize="18"
+                                                        FontSize="16"
                                                         HorizontalTextAlignment="Start"
                                                         IsVisible="{Binding UseMisting}"
                                                         Text="{Binding DateOfLastMisting, StringFormat='{0:d} {0:h\:mm tt}'}" />
@@ -295,7 +295,7 @@
                                                         Grid.Row="3"
                                                         Grid.Column="3"
                                                         Padding="2"
-                                                        FontSize="18"
+                                                        FontSize="16"
                                                         HorizontalTextAlignment="Start"
                                                         IsVisible="{Binding UseMisting}"
                                                         Text="{Binding DateOfNextMisting, StringFormat='{0:d} {0:h\:mm tt}'}" />
@@ -304,7 +304,7 @@
                                                         Grid.Row="4"
                                                         Grid.ColumnSpan="4"
                                                         Padding="2"
-                                                        FontSize="18"
+                                                        FontSize="16"
                                                         IsVisible="{Binding UseMoving}"
                                                         Text="{Binding SunInterval, StringFormat='Sun Interval: Every {0} Day(s)'}" />
                                                     <Image
@@ -317,7 +317,7 @@
                                                         Grid.Row="5"
                                                         Grid.Column="1"
                                                         Padding="2"
-                                                        FontSize="18"
+                                                        FontSize="16"
                                                         HorizontalTextAlignment="Start"
                                                         IsVisible="{Binding UseMoving}"
                                                         Text="{Binding DateOfLastMove, StringFormat='{0:d} {0:h\:mm tt}'}" />
@@ -331,7 +331,7 @@
                                                         Grid.Row="5"
                                                         Grid.Column="3"
                                                         Padding="2"
-                                                        FontSize="18"
+                                                        FontSize="16"
                                                         HorizontalTextAlignment="Start"
                                                         IsVisible="{Binding UseMoving}"
                                                         Text="{Binding DateOfNextMove, StringFormat='{0:d} {0:h\:mm tt}'}" />
