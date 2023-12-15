@@ -120,9 +120,14 @@ namespace FloraSaver.ViewModels
         {
             IsInitialization = true;
             PickerPlantGroups = await _databaseService.GetAllPlantGroupAsync();
+            PickerPlantGroups = PickerPlantGroups.Where(_ => !string.Equals(_.GroupName, "Ungrouped")).ToList();
             foreach (var group in PickerPlantGroups)
             {
-                initialPlantGroups.Add(new PlantGroup(group));
+                if (!string.Equals(group.GroupName, "Ungrouped"))
+                {
+                    initialPlantGroups.Add(new PlantGroup(group));
+                }
+
             }
             await GetVisiblePlantGroupsAsync();
             IsInitialization = false;
@@ -178,12 +183,6 @@ namespace FloraSaver.ViewModels
 
         [RelayCommand]
         public void UpdateColor(GroupColors value)
-        {
-            Console.WriteLine("bloop");
-        }
-
-        [RelayCommand]
-        public void SetColor(GroupColors value)
         {
             Console.WriteLine("bloop");
         }
