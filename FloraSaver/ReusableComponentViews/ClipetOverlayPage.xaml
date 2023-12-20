@@ -17,7 +17,7 @@
         <toolkit:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
 
-    <Grid>
+    <Grid Padding="0">
         <Grid.GestureRecognizers>
             <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ClipetOverlayViewModel}}, Path=MoveToNextTextBoxCommand}" />
         </Grid.GestureRecognizers>
@@ -28,9 +28,9 @@
             Source="frosted_shade_green.png" />
         <Grid
             Padding="0"
-            ColumnDefinitions="210,182"
+            ColumnDefinitions="1.1538*,*"
             HorizontalOptions="FillAndExpand"
-            RowDefinitions="*, 130"
+            RowDefinitions="*, .2*"
             RowSpacing="0">
             <Image
                 x:Name="displaySpace"
@@ -44,18 +44,19 @@
                 Grid.Row="0"
                 Grid.Column="1"
                 Aspect="AspectFit"
+                Scale="1.1"
                 Source="{Binding CurrentClipetDialog.ClipetEmotion}"
                 VerticalOptions="End" />
             <Grid
                 x:Name="speechSpace"
                 Grid.Row="1"
-                Grid.ColumnSpan="2">
+                Grid.ColumnSpan="2"
+                Padding="0"
+                ScaleX="1.011">
                 <Image
                     Aspect="Fill"
-                    HeightRequest="140"
                     IsVisible="{Binding IsSpeechBubbleVisible}"
-                    Source="speech_bubble.png"
-                    WidthRequest="400" />
+                    Source="speech_bubble.png" />
                 <!--  162 characters allowed per box before it's gotta be split  -->
                 <Label
                     x:Name="speech"
