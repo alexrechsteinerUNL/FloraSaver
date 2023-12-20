@@ -18,14 +18,13 @@
         <toolkit:EventToCommandBehavior Command="{Binding AppearingHandlingCommand}" EventName="Appearing" />
         <toolkit:EventToCommandBehavior Command="{Binding DisappearingHandlingCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
-    <Grid Padding="0" RowDefinitions="60, 695">
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="10" />
-            </Grid.ColumnDefinitions>
-            <Rectangle Grid.Column="0" Background="Black" />
+    <Grid Padding="0" RowDefinitions="*, 11.6*">
+        <Frame
+            Grid.Row="0"
+            Padding="10,5"
+            BackgroundColor="Black"
+            BorderColor="Black"
+            CornerRadius="0">
             <Entry
                 x:Name="searchBar"
                 Grid.Column="1"
@@ -41,58 +40,57 @@
                         EventName="TextChanged" />
                 </Entry.Behaviors>
             </Entry>
-            <Rectangle Grid.Column="2" Background="Black" />
-        </Grid>
-        <Image Grid.Row="1" Source="plantpagebackgroundfirstpass.png" />
+        </Frame>
+        <Image
+            Grid.Row="1"
+            Aspect="Fill"
+            Source="plantpagebackgroundfirstpass.png" />
         <Grid
             Grid.Row="1"
             Padding="2"
-            ColumnDefinitions="70,160,160"
+            ColumnDefinitions="*,2.6*,2.6*"
+            HorizontalOptions="CenterAndExpand"
             RowSpacing="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="60" />
-                <RowDefinition Height="60" />
+                <RowDefinition Height=".16*" />
+                <RowDefinition Height=".16*" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="130" />
-                <RowDefinition Height="70" />
+                <RowDefinition Height=".35*" />
+                <RowDefinition Height=".2*" />
             </Grid.RowDefinitions>
 
             <Grid
                 Grid.Row="0"
                 Grid.ColumnSpan="3"
-                HorizontalOptions="CenterAndExpand">
-                <Frame Padding="5" BackgroundColor="Black">
-                    <Grid ColumnSpacing="5">
+                HorizontalOptions="FillAndExpand">
+
+                <Frame Padding="10,5" BackgroundColor="Black">
+                    <Grid ColumnSpacing="0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100" />
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
                         <Label
                             Grid.Column="0"
                             HorizontalOptions="Start"
                             Text="Order By:"
                             VerticalOptions="Center" />
-                        <Border Grid.Column="1" HorizontalOptions="CenterAndExpand">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Rectangle Grid.Column="0" Background="Black" />
-                                <Picker
-                                    x:Name="orderByPicker"
-                                    Title="Choose Order By"
-                                    Grid.Column="1"
-                                    HorizontalOptions="Center"
-                                    HorizontalTextAlignment="Center"
-                                    ItemsSource="{Binding OrderByValues, Mode=TwoWay}"
-                                    SelectedItem="{Binding CurrentOrderByValue, Mode=TwoWay}"
-                                    VerticalOptions="Center"
-                                    VerticalTextAlignment="Center" />
-                                <Rectangle Grid.Column="2" BackgroundColor="Black" />
-                            </Grid>
-                        </Border>
+                        <Frame
+                            Grid.Column="1"
+                            Padding="3"
+                            BackgroundColor="Black"
+                            HorizontalOptions="FillAndExpand">
+                            <Picker
+                                x:Name="orderByPicker"
+                                Title="Choose Order By"
+                                HorizontalOptions="FillAndExpand"
+                                HorizontalTextAlignment="Center"
+                                ItemsSource="{Binding OrderByValues, Mode=TwoWay}"
+                                SelectedItem="{Binding CurrentOrderByValue, Mode=TwoWay}"
+                                TextColor="White"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </Frame>
                     </Grid>
                 </Frame>
             </Grid>
@@ -100,9 +98,11 @@
             <Grid
                 Grid.Row="1"
                 Grid.ColumnSpan="3"
-                HorizontalOptions="CenterAndExpand"
-                VerticalOptions="CenterAndExpand">
-                <Frame Padding="5" BackgroundColor="Black">
+                HorizontalOptions="FillAndExpand">
+                <Frame
+                    Padding="5"
+                    BackgroundColor="Black"
+                    HorizontalOptions="FillAndExpand">
                     <CollectionView
                         x:Name="groupdeck"
                         ItemsLayout="HorizontalList"
@@ -114,7 +114,7 @@
                                     BackgroundColor="{Binding SelectedColor}"
                                     BorderColor="{Binding GroupColor}"
                                     BorderWidth="2"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=GroupSelectionCommand}"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GroupSelectionCommand}"
                                     CommandParameter="{Binding .}"
                                     HeightRequest="40"
                                     Text="{Binding GroupName}"
@@ -204,7 +204,7 @@
                                             <Label
                                                 Grid.Row="0"
                                                 Grid.Column="1"
-                                                FontSize="16"
+                                                FontSize="14"
                                                 HorizontalTextAlignment="Start"
                                                 IsVisible="{Binding UseWatering}"
                                                 Text="{Binding DateOfNextWatering, StringFormat='{0:d}'}"
@@ -219,7 +219,7 @@
                                             <Label
                                                 Grid.Row="1"
                                                 Grid.Column="1"
-                                                FontSize="16"
+                                                FontSize="14"
                                                 HorizontalTextAlignment="Start"
                                                 IsVisible="{Binding UseMisting}"
                                                 Text="{Binding DateOfNextMisting, StringFormat='{0:d}'}"
@@ -234,7 +234,7 @@
                                             <Label
                                                 Grid.Row="2"
                                                 Grid.Column="1"
-                                                FontSize="16"
+                                                FontSize="14"
                                                 HorizontalTextAlignment="Start"
                                                 IsVisible="{Binding UseMoving}"
                                                 Text="{Binding DateOfNextMove, StringFormat='{0:d}'}"

@@ -49,7 +49,7 @@
         <Grid
             Grid.Row="1"
             Padding="2"
-            ColumnDefinitions="*,2.28*,2.28*"
+            ColumnDefinitions="*,2.6*,2.6*"
             HorizontalOptions="CenterAndExpand"
             RowSpacing="2">
             <Grid.RowDefinitions>
@@ -128,9 +128,11 @@
 
             <RefreshView
                 Grid.Row="2"
+                Grid.Column="0"
                 Grid.ColumnSpan="3"
                 Padding="0,30"
                 Command="{Binding GetPlantsCommand}"
+                HorizontalOptions="Center"
                 IsRefreshing="{Binding IsRefreshing}">
                 <CollectionView
                     x:Name="plantDeck"
@@ -226,21 +228,21 @@
                                                 <Grid
                                                     Grid.Row="3"
                                                     Grid.ColumnSpan="2"
-                                                    ColumnDefinitions="20, 155, 20, 155"
-                                                    RowDefinitions="27,27,27,27,27,27">
+                                                    ColumnDefinitions="*, 7.75*, *, 7.75*"
+                                                    RowDefinitions="*,*,*,*,*,*">
                                                     <Label
                                                         Grid.Row="0"
                                                         Grid.ColumnSpan="4"
                                                         Padding="2"
                                                         FontSize="16"
                                                         IsVisible="{Binding UseWatering}"
-                                                        Text="{Binding WaterInterval, StringFormat='Water Interval: Every {0} Day(s)'}" />
+                                                        Text="{Binding WaterInterval, StringFormat='Water Interval: Every {0} Day(s)'}"
+                                                        VerticalOptions="CenterAndExpand" />
                                                     <Image
                                                         Grid.Row="1"
                                                         Grid.Column="0"
                                                         IsVisible="{Binding UseWatering}"
-                                                        Source="water_timer_visual_inverted.png"
-                                                        WidthRequest="20" />
+                                                        Source="water_timer_visual_inverted.png" />
                                                     <Label
                                                         Grid.Row="1"
                                                         Grid.Column="1"
@@ -248,13 +250,13 @@
                                                         FontSize="16"
                                                         HorizontalTextAlignment="Start"
                                                         IsVisible="{Binding UseWatering}"
-                                                        Text="{Binding DateOfLastWatering, StringFormat='{0:d} {0:h\:mm tt}'}" />
+                                                        Text="{Binding DateOfLastWatering, StringFormat='{0:d} {0:h\:mm tt}'}"
+                                                        VerticalOptions="CenterAndExpand" />
                                                     <Image
                                                         Grid.Row="1"
                                                         Grid.Column="2"
                                                         IsVisible="{Binding UseWatering}"
-                                                        Source="water_timer_visual.png"
-                                                        WidthRequest="20" />
+                                                        Source="water_timer_visual.png" />
                                                     <Label
                                                         Grid.Row="1"
                                                         Grid.Column="3"
@@ -262,7 +264,8 @@
                                                         FontSize="16"
                                                         HorizontalTextAlignment="Start"
                                                         IsVisible="{Binding UseWatering}"
-                                                        Text="{Binding DateOfNextWatering, StringFormat='{0:d} {0:h\:mm tt}'}" />
+                                                        Text="{Binding DateOfNextWatering, StringFormat='{0:d} {0:h\:mm tt}'}"
+                                                        VerticalOptions="CenterAndExpand" />
 
                                                     <Label
                                                         Grid.Row="2"
@@ -270,13 +273,13 @@
                                                         Padding="2"
                                                         FontSize="16"
                                                         IsVisible="{Binding UseMisting}"
-                                                        Text="{Binding MistInterval, StringFormat='Mist Interval: Every {0} Day(s)'}" />
+                                                        Text="{Binding MistInterval, StringFormat='Mist Interval: Every {0} Day(s)'}"
+                                                        VerticalOptions="CenterAndExpand" />
                                                     <Image
                                                         Grid.Row="3"
                                                         Grid.Column="0"
                                                         IsVisible="{Binding UseMisting}"
-                                                        Source="refresh_timer_visual_inverted.png"
-                                                        WidthRequest="20" />
+                                                        Source="refresh_timer_visual_inverted.png" />
                                                     <Label
                                                         Grid.Row="3"
                                                         Grid.Column="1"
@@ -284,13 +287,13 @@
                                                         FontSize="16"
                                                         HorizontalTextAlignment="Start"
                                                         IsVisible="{Binding UseMisting}"
-                                                        Text="{Binding DateOfLastMisting, StringFormat='{0:d} {0:h\:mm tt}'}" />
+                                                        Text="{Binding DateOfLastMisting, StringFormat='{0:d} {0:h\:mm tt}'}"
+                                                        VerticalOptions="CenterAndExpand" />
                                                     <Image
                                                         Grid.Row="3"
                                                         Grid.Column="2"
                                                         IsVisible="{Binding UseMisting}"
-                                                        Source="refresh_timer_visual.png"
-                                                        WidthRequest="20" />
+                                                        Source="refresh_timer_visual.png" />
                                                     <Label
                                                         Grid.Row="3"
                                                         Grid.Column="3"
@@ -298,7 +301,8 @@
                                                         FontSize="16"
                                                         HorizontalTextAlignment="Start"
                                                         IsVisible="{Binding UseMisting}"
-                                                        Text="{Binding DateOfNextMisting, StringFormat='{0:d} {0:h\:mm tt}'}" />
+                                                        Text="{Binding DateOfNextMisting, StringFormat='{0:d} {0:h\:mm tt}'}"
+                                                        VerticalOptions="CenterAndExpand" />
 
                                                     <Label
                                                         Grid.Row="4"
@@ -306,13 +310,13 @@
                                                         Padding="2"
                                                         FontSize="16"
                                                         IsVisible="{Binding UseMoving}"
-                                                        Text="{Binding SunInterval, StringFormat='Sun Interval: Every {0} Day(s)'}" />
+                                                        Text="{Binding SunInterval, StringFormat='Sun Interval: Every {0} Day(s)'}"
+                                                        VerticalOptions="CenterAndExpand" />
                                                     <Image
                                                         Grid.Row="5"
                                                         Grid.Column="0"
                                                         IsVisible="{Binding UseMoving}"
-                                                        Source="sun_timer_visual_inverted.png"
-                                                        WidthRequest="20" />
+                                                        Source="sun_timer_visual_inverted.png" />
                                                     <Label
                                                         Grid.Row="5"
                                                         Grid.Column="1"
@@ -320,13 +324,13 @@
                                                         FontSize="16"
                                                         HorizontalTextAlignment="Start"
                                                         IsVisible="{Binding UseMoving}"
-                                                        Text="{Binding DateOfLastMove, StringFormat='{0:d} {0:h\:mm tt}'}" />
+                                                        Text="{Binding DateOfLastMove, StringFormat='{0:d} {0:h\:mm tt}'}"
+                                                        VerticalOptions="CenterAndExpand" />
                                                     <Image
                                                         Grid.Row="5"
                                                         Grid.Column="2"
                                                         IsVisible="{Binding UseMoving}"
-                                                        Source="sun_timer_visual.png"
-                                                        WidthRequest="20" />
+                                                        Source="sun_timer_visual.png" />
                                                     <Label
                                                         Grid.Row="5"
                                                         Grid.Column="3"
@@ -334,7 +338,8 @@
                                                         FontSize="16"
                                                         HorizontalTextAlignment="Start"
                                                         IsVisible="{Binding UseMoving}"
-                                                        Text="{Binding DateOfNextMove, StringFormat='{0:d} {0:h\:mm tt}'}" />
+                                                        Text="{Binding DateOfNextMove, StringFormat='{0:d} {0:h\:mm tt}'}"
+                                                        VerticalOptions="CenterAndExpand" />
                                                 </Grid>
                                             </Grid>
                                             <Grid
@@ -345,21 +350,20 @@
                                                 ColumnSpacing="0"
                                                 RowSpacing="0">
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="115" />
-                                                    <ColumnDefinition Width="115" />
-                                                    <ColumnDefinition Width="115" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
                                                 </Grid.ColumnDefinitions>
                                                 <Grid.RowDefinitions>
-                                                    <RowDefinition Height="10" />
-                                                    <RowDefinition Height="110" />
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="11*" />
                                                 </Grid.RowDefinitions>
                                                 <ProgressBar
                                                     Grid.Row="0"
                                                     Grid.Column="0"
                                                     IsVisible="{Binding UseWatering}"
                                                     Progress="{Binding WaterPercent}"
-                                                    ScaleY="2"
-                                                    WidthRequest="115" />
+                                                    ScaleY="2" />
                                                 <ImageButton
                                                     Grid.Row="1"
                                                     Grid.Column="0"
@@ -368,11 +372,9 @@
                                                     BackgroundColor="Black"
                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=ResetWateringCommand}"
                                                     CommandParameter="{Binding .}"
-                                                    HeightRequest="115"
                                                     IsEnabled="{Binding UseWatering}"
                                                     Opacity="{Binding WaterOpacity}"
-                                                    Source="water_timer_visual.png"
-                                                    WidthRequest="115" />
+                                                    Source="water_timer_visual.png" />
 
 
                                                 <!--  switch out your fancy rectangle clippings for the humble progress bar you dolt  -->
@@ -385,18 +387,15 @@
                                                     IsVisible="{Binding UseMisting}"
                                                     Progress="{Binding MistPercent}"
                                                     ProgressColor="LightBlue"
-                                                    ScaleY="2"
-                                                    WidthRequest="115" />
+                                                    ScaleY="2" />
                                                 <ImageButton
                                                     Grid.Row="1"
                                                     Grid.Column="1"
                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=ResetMistingCommand}"
                                                     CommandParameter="{Binding .}"
-                                                    HeightRequest="115"
                                                     IsEnabled="{Binding UseMisting}"
                                                     Opacity="{Binding MistOpacity}"
-                                                    Source="refresh_timer_visual.png"
-                                                    WidthRequest="115" />
+                                                    Source="refresh_timer_visual.png" />
 
                                                 <ProgressBar
                                                     Grid.Row="0"
@@ -404,18 +403,15 @@
                                                     IsVisible="{Binding UseMoving}"
                                                     Progress="{Binding SunPercent}"
                                                     ProgressColor="Orange"
-                                                    ScaleY="2"
-                                                    WidthRequest="115" />
+                                                    ScaleY="2" />
                                                 <ImageButton
                                                     Grid.Row="1"
                                                     Grid.Column="2"
                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=ResetMovingCommand}"
                                                     CommandParameter="{Binding .}"
-                                                    HeightRequest="115"
                                                     IsEnabled="{Binding UseMoving}"
                                                     Opacity="{Binding MoveOpacity}"
-                                                    Source="sun_timer_visual.png"
-                                                    WidthRequest="115" />
+                                                    Source="sun_timer_visual.png" />
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -453,8 +449,7 @@
                 HeightRequest="60"
                 IsEnabled="{Binding IsNotBusy}"
                 Text="Add New Plant"
-                VerticalOptions="End"
-                WidthRequest="150" />
+                VerticalOptions="End" />
             <Button
                 x:Name="addGroups"
                 Grid.Row="4"
@@ -464,8 +459,7 @@
                 HeightRequest="60"
                 IsEnabled="{Binding IsNotBusy}"
                 Text="Add New Group"
-                VerticalOptions="End"
-                WidthRequest="150" />
+                VerticalOptions="End" />
 
             <!--<custom_components:ClipetOverlay
                 x:Name="Clipet"

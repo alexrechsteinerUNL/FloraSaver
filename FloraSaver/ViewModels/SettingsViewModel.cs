@@ -39,7 +39,7 @@ namespace FloraSaver.ViewModels
             SetItem();
             OnPropertyChanged(nameof(VisiblePlantGroups));
             IsBeingUndone = false;
-            group.isColorEdited = false;
+            group.isNameEdited = false;
             NameEntryUndoButtonVisible = false;
         }
 
