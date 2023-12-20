@@ -20,6 +20,7 @@ public partial class SettingsPage : ContentPage
         {
             var pickerColor = (GroupColors)picker.ItemsSource[selectedIndex];
             hiddenSpacerForPickerUpdate.IsEnabled = hiddenSpacerForPickerUpdate.IsEnabled ? false : true;
+            ((SettingsViewModel)(this.BindingContext)).GroupColorEdit();
         }
     }
 

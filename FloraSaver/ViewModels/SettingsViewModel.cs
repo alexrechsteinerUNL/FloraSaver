@@ -36,11 +36,40 @@ namespace FloraSaver.ViewModels
         {
             IsBeingUndone = true;
             PickerPlantGroups.FirstOrDefault(_ => _.GroupId == group.GroupId).GroupName = initialPlantGroups?.FirstOrDefault(_ => _.GroupId == group.GroupId).GroupName ?? PickerPlantGroups.FirstOrDefault(_ => _.GroupId == group.GroupId).GroupName;
-            SetItem();
-            OnPropertyChanged(nameof(VisiblePlantGroups));
             IsBeingUndone = false;
             group.isNameEdited = false;
             NameEntryUndoButtonVisible = false;
+            SetItem();
+            OnPropertyChanged(nameof(VisiblePlantGroups));
+        }
+
+        [ObservableProperty]
+        protected bool colorEntryUndoButtonVisible = false;
+        [RelayCommand]
+        public void GroupColorEdit()
+        {
+            if (!IsInitialization && !IsBeingUndone)
+            {
+                foreach (var plant in PickerPlantGroups.Where(_ => !initialPlantGroups.Select(_ => _.GroupColorHex).Contains(_.GroupColorHex)))
+                {
+                    plant.isColorEdited = true;
+                }
+                ColorEntryUndoButtonVisible = true;
+                SetItem();
+                OnPropertyChanged(nameof(VisiblePlantGroups));
+            }
+            return;
+        }
+        [RelayCommand]
+        protected void ColorSectionUndo(PlantGroup group)
+        {
+            IsBeingUndone = true;
+            PickerPlantGroups.FirstOrDefault(_ => _.GroupId == group.GroupId).GroupColorHex = initialPlantGroups?.FirstOrDefault(_ => _.GroupId == group.GroupId).GroupColorHex ?? PickerPlantGroups.FirstOrDefault(_ => _.GroupId == group.GroupId).GroupColorHex;
+            IsBeingUndone = false;
+            group.isColorEdited = false;
+            ColorEntryUndoButtonVisible = false;
+            SetItem();
+            OnPropertyChanged(nameof(VisiblePlantGroups));
         }
 
 

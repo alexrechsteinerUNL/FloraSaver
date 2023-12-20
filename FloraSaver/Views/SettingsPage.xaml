@@ -291,10 +291,20 @@
                                                                 WidthRequest="180" />
                                                         </Frame>
                                                     </Frame>
-                                                    <Label
+                                                    <FlexLayout
                                                         Grid.Row="2"
                                                         Grid.Column="0"
-                                                        Text="Color:" />
+                                                        Grid.ColumnSpan="2">
+                                                        <Label Text="Color: " />
+                                                        <ImageButton
+                                                            x:Name="_undoColorChange"
+                                                            Grid.Column="0"
+                                                            Command="{Binding Source={x:Reference This}, Path=BindingContext.ColorSectionUndoCommand}"
+                                                            CommandParameter="{Binding .}"
+                                                            IsVisible="{Binding isColorEdited}"
+                                                            Source="undo_button.png"
+                                                            WidthRequest="40" />
+                                                    </FlexLayout>
                                                     <Frame
                                                         Grid.Row="3"
                                                         Grid.Column="0"
