@@ -178,8 +178,8 @@
                                 <ImageButton
                                     x:Name="_undoImageChange"
                                     Grid.Column="0"
-                                    Command="{Binding ImageOfPlantToBase64Command}"
-                                    IsVisible="false"
+                                    Command="{Binding ImageChangedSectionUndoCommand}"
+                                    IsVisible="{Binding ImageUndoButtonVisible}"
                                     Source="undo_button.png"
                                     WidthRequest="40" />
                             </FlexLayout>

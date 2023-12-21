@@ -38,6 +38,32 @@ namespace FloraSaver.ViewModels
         }
 
         [ObservableProperty]
+        protected bool imageUndoButtonVisible = false;
+        [RelayCommand]
+        protected void ImageChanged() { ImageUndoButtonVisible = (!IsInitialization && !IsBeingUndone) ? true : false; }
+        [RelayCommand]
+        protected void ImageChangedSectionUndo()
+        {
+            IsBeingUndone = true;
+            AlterPlant.ImageLocation = InitialPlant.ImageLocation;
+            AlterPlant.PlantImageSource = InitialPlant.PlantImageSource;
+
+            if (AlterPlant.ImageLocation is not null)
+            {
+                SetImageSourceOfPlant();
+                IsImageSelected = true;
+            }
+            else
+            {
+                IsImageSelected = false;
+            }
+
+            OnPropertyChanged("AlterPlant");
+            IsBeingUndone = false;
+            ImageUndoButtonVisible = false;
+        }
+
+        [ObservableProperty]
         public bool shouldGetNewData = false;
 
         [ObservableProperty]
@@ -111,7 +137,6 @@ namespace FloraSaver.ViewModels
                 ShouldGetNewGroupData = false;
             }
 
-            IsInitialization = false;
             if (AlterPlant.ImageLocation is not null)
             {
                 SetImageSourceOfPlant();
@@ -121,6 +146,8 @@ namespace FloraSaver.ViewModels
             {
                 IsImageSelected = false;
             }
+
+            IsInitialization = false;
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -214,6 +241,7 @@ namespace FloraSaver.ViewModels
         {
             AlterPlant.PlantImageSource = Base64ImageConverterService.Base64ToImage(AlterPlant.ImageLocation);
             IsImageSelected = AlterPlant.PlantImageSource is not null ? true : false;
+            ImageChanged();
             OnPropertyChanged("AlterPlant");
             OnPropertyChanged("IsImageSelected");
         }
