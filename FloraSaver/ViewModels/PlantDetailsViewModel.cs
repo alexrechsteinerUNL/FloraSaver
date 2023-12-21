@@ -64,6 +64,21 @@ namespace FloraSaver.ViewModels
         }
 
         [ObservableProperty]
+        protected bool speciesUndoButtonVisible = false;
+        [RelayCommand]
+        protected void SpeciesChanged() { SpeciesUndoButtonVisible = (!IsInitialization && !IsBeingUndone && AlterPlant.PlantSpecies != InitialPlant.PlantSpecies) ? true : false; }
+        [RelayCommand]
+        protected void SpeciesChangedSectionUndo()
+        {
+            IsBeingUndone = true;
+            AlterPlant.PlantSpecies = InitialPlant.PlantSpecies;
+
+            OnPropertyChanged("AlterPlant");
+            IsBeingUndone = false;
+            SpeciesUndoButtonVisible = false;
+        }
+
+        [ObservableProperty]
         public bool shouldGetNewData = false;
 
         [ObservableProperty]

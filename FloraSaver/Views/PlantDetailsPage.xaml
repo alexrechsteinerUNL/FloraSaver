@@ -222,7 +222,8 @@
                                 <ImageButton
                                     x:Name="_undoSpeciesChange"
                                     Grid.Column="0"
-                                    Command="{Binding ImageOfPlantToBase64Command}"
+                                    Command="{Binding SpeciesChangedSectionUndoCommand}"
+                                    IsVisible="{Binding SpeciesUndoButtonVisible}"
                                     Source="undo_button.png"
                                     WidthRequest="40" />
                             </FlexLayout>
@@ -242,7 +243,11 @@
                                         HorizontalOptions="FillAndExpand"
                                         Placeholder="Enter plant species"
                                         Text="{Binding AlterPlant.PlantSpecies, StringFormat='{0}', Mode=TwoWay}"
-                                        VerticalOptions="CenterAndExpand" />
+                                        VerticalOptions="CenterAndExpand">
+                                        <Entry.Behaviors>
+                                            <toolkit:EventToCommandBehavior Command="{Binding SpeciesChangedCommand}" EventName="Unfocused" />
+                                        </Entry.Behaviors>
+                                    </Entry>
                                 </Frame>
                             </Frame>
                         </Grid>
