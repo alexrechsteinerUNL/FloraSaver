@@ -243,7 +243,7 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         private async Task SaveGroupChangeAsync(PlantGroup plantGroup)
         {
-            await _databaseService.AddUpdateNewPlantGroupAsync(plantGroup);
+            await _databaseService.AddUpdateNewPlantGroupAsync(plantGroup, true, initialPlantGroups.FirstOrDefault(_ => _.GroupId == plantGroup.GroupId).GroupName);
             initialPlantGroups.FirstOrDefault(_ => _.GroupId == plantGroup.GroupId).GroupName = plantGroup.GroupName;
             initialPlantGroups.FirstOrDefault(_ => _.GroupId == plantGroup.GroupId).GroupColorHex = plantGroup.GroupColorHex;
             PickerPlantGroups.FirstOrDefault(_ => _.Equals(plantGroup)).isNameEdited = false;

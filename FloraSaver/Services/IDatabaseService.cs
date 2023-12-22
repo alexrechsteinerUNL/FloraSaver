@@ -12,7 +12,7 @@ namespace FloraSaver.Services
 
         Task AddUpdateNewPlantAsync(Plant plant);
 
-        Task AddUpdateNewPlantGroupAsync(PlantGroup plantGroup, bool setPlants = true);
+        Task AddUpdateNewPlantGroupAsync(PlantGroup plantGroup, bool setPlants = true, string oldPlantNameIfApplicable = "");
 
         Task DeleteAllAsync();
 

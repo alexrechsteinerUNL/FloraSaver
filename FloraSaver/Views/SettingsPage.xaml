@@ -8,8 +8,7 @@
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
     x:Name="This"
-    x:DataType="viewmodel:SettingsViewModel"
-    HideSoftInputOnTapped="True">
+    x:DataType="viewmodel:SettingsViewModel">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding AppearingSettingsCommand}" EventName="Appearing" />
         <toolkit:EventToCommandBehavior Command="{Binding DisappearingSettingsCommand}" EventName="Disappearing" />

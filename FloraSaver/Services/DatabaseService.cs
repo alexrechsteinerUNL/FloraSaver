@@ -209,7 +209,7 @@ namespace FloraSaver.Services
             return new List<PlantGroup>();
         }
 
-        public async Task AddUpdateNewPlantGroupAsync(PlantGroup plantGroup, bool setPlants = true)
+        public async Task AddUpdateNewPlantGroupAsync(PlantGroup plantGroup, bool setPlants = true, string oldPlantNameIfApplicable = null)
         {
             int result = 0;
             try
@@ -229,8 +229,9 @@ namespace FloraSaver.Services
                 //}
                 if (setPlants)
                 {
+                    var selectGroupName = string.IsNullOrEmpty(oldPlantNameIfApplicable) ? plantGroup.GroupName : oldPlantNameIfApplicable;
                     var plants = await GetAllPlantAsync();
-                    await SetPlantsToGroupAsync(plants.Where(_ => _.PlantGroupName == plantGroup.GroupName), plantGroup.GroupName, plantGroup.GroupColorHex);
+                    await SetPlantsToGroupAsync(plants.Where(_ => _.PlantGroupName == selectGroupName), plantGroup.GroupName, plantGroup.GroupColorHex);
                 }
 
                 StatusMessage = string.Format("{0} group saved (Name: {1})", result, plantGroup.GroupName);
