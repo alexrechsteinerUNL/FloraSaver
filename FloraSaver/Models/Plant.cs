@@ -242,7 +242,7 @@ namespace FloraSaver.Models
                 _waterPercent = UseWatering ? _waterPercent : 0;
                 WaterRect = new Rect(0, 40, Width, Height);
                 //WaterRect = new Rect(0, WaterPercent * Height, Width, Height);
-                OnPropertyChanged(nameof(WaterRect));
+                OnPropertyChanged(nameof(WaterPercent));
             }
         }
 
@@ -257,7 +257,7 @@ namespace FloraSaver.Models
                 _mistPercent = UseMisting ? _mistPercent : 0;
                 MistRect = new Rect(0, 60, Width, Height);
                 //MistRect = new Rect(0, MistPercent * Height, Width, Height);
-                OnPropertyChanged(nameof(MistRect));
+                OnPropertyChanged(nameof(MistPercent));
             }
         }
 
@@ -272,7 +272,7 @@ namespace FloraSaver.Models
                 _sunPercent = UseMoving ? _sunPercent : 0;
                 SunRect = new Rect(0, 80, Width, Height);
                 //SunRect = new Rect(0, SunPercent * Height, Width, Height);
-                OnPropertyChanged(nameof(SunRect));
+                OnPropertyChanged(nameof(SunPercent));
             }
         }
 

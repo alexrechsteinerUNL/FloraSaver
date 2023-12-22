@@ -951,7 +951,7 @@
                                                 HorizontalTextAlignment="Center"
                                                 Keyboard="Numeric"
                                                 Placeholder="0"
-                                                Text="{Binding MistDaysFromNow, Mode=TwoWay}"
+                                                Text="{Binding SunDaysFromNow, Mode=TwoWay}"
                                                 VerticalOptions="CenterAndExpand" />
                                         </Frame>
                                     </Frame>
@@ -1057,7 +1057,7 @@
                                 </FlexLayout>
 
                                 <FlexLayout Grid.Row="2" Grid.ColumnSpan="3">
-                                    <Label Text="Mist On: " />
+                                    <Label Text="Move On: " />
                                     <ImageButton
                                         x:Name="_undoMoveOnChange"
                                         Grid.Column="0"

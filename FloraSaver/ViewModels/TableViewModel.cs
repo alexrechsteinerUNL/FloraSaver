@@ -204,6 +204,7 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         protected virtual async Task ResetMovingAsync(Plant plant)
         {
+            //This method is probably causing a glitch
             if (plant.UseMoving)
             {
                 if (plant.SunInterval != 0)
@@ -212,7 +213,8 @@ namespace FloraSaver.ViewModels
                     {
                         plant.DateOfNextMove = plant.DateOfNextMove.AddDays(plant.SunInterval != null ? (int)plant.SunInterval :
                     (plant.DateOfNextMove.Date - plant.DateOfLastMove.Date).Days);
-                    } while (plant.DateOfNextMove < DateTime.Now);
+                    }
+                    while (plant.DateOfNextMove < DateTime.Now);
                 }
                 else
                 {
@@ -319,17 +321,12 @@ namespace FloraSaver.ViewModels
 
         protected void CheatUpdateAllPlantProgress()
         {
-            if (Plants.Count > 0)
+            for (var i = 0; i < Plants.Count; i++)
             {
-                var tempPlants = new ObservableCollection<Plant>(Plants);
-                foreach (Plant plant in tempPlants)
-                {
-                    plant.WaterPercent = plant.WaterPercent;
-                    plant.MistPercent = plant.MistPercent;
-                    plant.SunPercent = plant.SunPercent;
-                }
-                Plants.Replace(tempPlants);
-                OnPropertyChanged(nameof(Plants));
+                Plants[i].WaterPercent = Plants[i].WaterPercent;
+                Plants[i].MistPercent = Plants[i].MistPercent;
+                Plants[i].SunPercent = Plants[i].SunPercent;
+                OnPropertyChanged("Plant");
             }
         }
 
