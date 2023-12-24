@@ -8,6 +8,9 @@ namespace FloraSaver.ViewModels
 {
     public partial class BaseViewModel : ObservableObject
     {
+        public bool shouldUpdateGroupFromDB = false;
+        public bool shouldUpdatePlantsFromDB = false;
+
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsNotBusy))]
         public bool isBusy;
