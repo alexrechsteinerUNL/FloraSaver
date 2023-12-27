@@ -262,7 +262,8 @@
                                 <ImageButton
                                     x:Name="_undoNameChange"
                                     Grid.Column="0"
-                                    Command="{Binding ImageOfPlantToBase64Command}"
+                                    Command="{Binding GivenNameChangedSectionUndoCommand}"
+                                    IsVisible="{Binding GivenNameUndoButtonVisible}"
                                     Source="undo_button.png"
                                     WidthRequest="40" />
                             </FlexLayout>
@@ -282,7 +283,11 @@
                                         HorizontalOptions="FillAndExpand"
                                         Placeholder="Give your plant a name!"
                                         Text="{Binding AlterPlant.GivenName, StringFormat='{0}', Mode=TwoWay}"
-                                        VerticalOptions="CenterAndExpand" />
+                                        VerticalOptions="CenterAndExpand">
+                                        <Entry.Behaviors>
+                                            <toolkit:EventToCommandBehavior Command="{Binding GivenNameChangedCommand}" EventName="Unfocused" />
+                                        </Entry.Behaviors>
+                                    </Entry>
                                 </Frame>
                             </Frame>
                         </Grid>
