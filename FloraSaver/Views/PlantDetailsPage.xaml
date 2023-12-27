@@ -305,7 +305,8 @@
                                 <ImageButton
                                     x:Name="_undoDobChange"
                                     Grid.Column="0"
-                                    Command="{Binding ImageOfPlantToBase64Command}"
+                                    Command="{Binding DobChangedSectionUndoCommand}"
+                                    IsVisible="{Binding DobUndoButtonVisible}"
                                     Source="undo_button.png"
                                     WidthRequest="40" />
                             </FlexLayout>
@@ -324,7 +325,11 @@
                                         x:Name="_DateOfBirth"
                                         Grid.Column="1"
                                         Date="{Binding AlterPlant.DateOfBirth, Mode=TwoWay}"
-                                        HorizontalOptions="FillAndExpand" />
+                                        HorizontalOptions="FillAndExpand">
+                                        <DatePicker.Behaviors>
+                                            <toolkit:EventToCommandBehavior Command="{Binding DobChangedCommand}" EventName="PropertyChanged" />
+                                        </DatePicker.Behaviors>
+                                    </DatePicker>
                                 </Frame>
                             </Frame>
                         </Grid>

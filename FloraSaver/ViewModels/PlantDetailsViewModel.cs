@@ -94,6 +94,21 @@ namespace FloraSaver.ViewModels
         }
 
         [ObservableProperty]
+        protected bool dobUndoButtonVisible = false;
+        [RelayCommand]
+        protected void DobChanged() { DobUndoButtonVisible = (!IsInitialization && !IsBeingUndone && AlterPlant.DateOfBirth != InitialPlant.DateOfBirth) ? true : false; }
+        [RelayCommand]
+        protected void DobChangedSectionUndo()
+        {
+            IsBeingUndone = true;
+            AlterPlant.DateOfBirth = InitialPlant.DateOfBirth;
+
+            OnPropertyChanged("AlterPlant");
+            IsBeingUndone = false;
+            DobUndoButtonVisible = false;
+        }
+
+        [ObservableProperty]
         public bool shouldGetNewData = false;
 
         [ObservableProperty]
