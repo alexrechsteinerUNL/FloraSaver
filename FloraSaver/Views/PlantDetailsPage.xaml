@@ -453,7 +453,8 @@
                                     <ImageButton
                                         x:Name="_undoLastWateredChange"
                                         Grid.Column="0"
-                                        Command="{Binding ImageOfPlantToBase64Command}"
+                                        Command="{Binding LastWateredChangedSectionUndoCommand}"
+                                        IsVisible="{Binding LastWateredUndoButtonVisible}"
                                         Source="undo_button.png"
                                         WidthRequest="40" />
                                 </FlexLayout>
@@ -476,7 +477,11 @@
                                                 Date="{Binding AlterPlant.DateOfLastWatering, Mode=TwoWay}"
                                                 Format="d"
                                                 HorizontalOptions="Fill"
-                                                WidthRequest="85" />
+                                                WidthRequest="85">
+                                                <DatePicker.Behaviors>
+                                                    <toolkit:EventToCommandBehavior Command="{Binding LastWateredChangedCommand}" EventName="PropertyChanged" />
+                                                </DatePicker.Behaviors>
+                                            </DatePicker>
                                         </Frame>
                                     </Frame>
                                     <Label Text="at" VerticalOptions="Center" />
@@ -494,7 +499,11 @@
                                                 BackgroundColor="White"
                                                 Format="t"
                                                 Time="{Binding AlterPlant.TimeOfLastWatering, Mode=TwoWay}"
-                                                WidthRequest="75" />
+                                                WidthRequest="75">
+                                                <TimePicker.Behaviors>
+                                                    <toolkit:EventToCommandBehavior Command="{Binding LastWateredChangedCommand}" EventName="PropertyChanged" />
+                                                </TimePicker.Behaviors>
+                                            </TimePicker>
                                         </Frame>
                                     </Frame>
                                     <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">

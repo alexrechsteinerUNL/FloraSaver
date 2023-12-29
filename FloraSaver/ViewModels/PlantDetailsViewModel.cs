@@ -124,15 +124,123 @@ namespace FloraSaver.ViewModels
                 WaterIntervalPickerValue = WateringInterval.First(x => x.DaysFromNow == -1);
             }
 
-            //AlterPlant.DateOfLastWatering = InitialPlant.DateOfLastWatering;
-            //AlterPlant.TimeOfLastWatering = InitialPlant.TimeOfLastWatering;
-            //AlterPlant.DateOfNextWatering = InitialPlant.DateOfNextWatering;
-            //AlterPlant.TimeOfLastWatering = InitialPlant.TimeOfLastWatering;
-
             OnPropertyChanged("AlterPlant");
             IsBeingUndone = false;
             WaterIntervalUndoButtonVisible = false;
         }
+
+        [ObservableProperty]
+        protected bool lastWateredUndoButtonVisible = false;
+        [RelayCommand]
+        protected void LastWateredChanged() { LastWateredUndoButtonVisible = (!IsInitialization
+                                                                            && !IsBeingUndone
+                                                                            && (AlterPlant.DateOfLastWatering != InitialPlant.DateOfLastWatering
+                                                                            || AlterPlant.TimeOfLastWatering != InitialPlant.TimeOfLastWatering))
+                                                                            ? true : false; }
+        [RelayCommand]
+        protected void LastWateredChangedSectionUndo()
+        {
+            IsBeingUndone = true;
+
+            AlterPlant.DateOfLastWatering = InitialPlant.DateOfLastWatering;
+            AlterPlant.TimeOfLastWatering = InitialPlant.TimeOfLastWatering;
+
+            OnPropertyChanged("AlterPlant");
+            IsBeingUndone = false;
+            LastWateredUndoButtonVisible = false;
+        }
+
+        [ObservableProperty]
+        protected bool nextWaterUndoButtonVisible = false;
+        [RelayCommand]
+        protected void NextWaterChanged() { NextWaterUndoButtonVisible = (!IsInitialization
+                                                                            && !IsBeingUndone
+                                                                            && (AlterPlant.DateOfNextWatering != InitialPlant.DateOfLastWatering
+                                                                            || AlterPlant.TimeOfNextWatering != InitialPlant.TimeOfNextWatering))
+                                                                            ? true : false; }
+        [RelayCommand]
+        protected void NextWaterChangedSectionUndo()
+        {
+            IsBeingUndone = true;
+
+            AlterPlant.DateOfNextWatering = InitialPlant.DateOfNextWatering;
+            AlterPlant.TimeOfNextWatering = InitialPlant.TimeOfNextWatering;
+
+            OnPropertyChanged("AlterPlant");
+            IsBeingUndone = false;
+            NextWaterUndoButtonVisible = false;
+        }
+
+        [ObservableProperty]
+        protected bool mistIntervalUndoButtonVisible = false;
+        [RelayCommand]
+        protected void MistIntervalChanged() { MistIntervalUndoButtonVisible = (!IsInitialization && !IsBeingUndone) ? true : false; }
+        [RelayCommand]
+        protected void MistIntervalChangedSectionUndo()
+        {
+            IsBeingUndone = true;
+            AlterPlant.MistInterval = InitialPlant.MistInterval;
+            MistDaysFromNow = AlterPlant.MistInterval != null ? (int)AlterPlant.MistInterval : (AlterPlant.DateOfNextMisting.Date - AlterPlant.DateOfLastMisting.Date).Days;
+            MistIntervalPickerValue = MistingInterval.FirstOrDefault(x => x.DaysFromNow == MistDaysFromNow);
+            if (MistIntervalPickerValue == null)
+            {
+                MistIntervalPickerValue = MistingInterval.First(x => x.DaysFromNow == -1);
+            }
+
+            OnPropertyChanged("AlterPlant");
+            IsBeingUndone = false;
+            MistIntervalUndoButtonVisible = false;
+        }
+
+        [ObservableProperty]
+        protected bool lastMistedUndoButtonVisible = false;
+        [RelayCommand]
+        protected void LastMistedChanged()
+        {
+            LastMistedUndoButtonVisible = (!IsInitialization
+                                                                            && !IsBeingUndone
+                                                                            && (AlterPlant.DateOfLastMisting != InitialPlant.DateOfLastMisting
+                                                                            || AlterPlant.TimeOfLastMisting != InitialPlant.TimeOfLastMisting))
+                                                                            ? true : false;
+        }
+        [RelayCommand]
+        protected void LastMistedChangedSectionUndo()
+        {
+            IsBeingUndone = true;
+
+            AlterPlant.DateOfLastMisting = InitialPlant.DateOfLastMisting;
+            AlterPlant.TimeOfLastMisting = InitialPlant.TimeOfLastMisting;
+
+            OnPropertyChanged("AlterPlant");
+            IsBeingUndone = false;
+            LastMistedUndoButtonVisible = false;
+        }
+
+        [ObservableProperty]
+        protected bool nextMistUndoButtonVisible = false;
+        [RelayCommand]
+        protected void NextMistChanged()
+        {
+            NextMistUndoButtonVisible = (!IsInitialization
+                                                                            && !IsBeingUndone
+                                                                            && (AlterPlant.DateOfNextMisting != InitialPlant.DateOfLastMisting
+                                                                            || AlterPlant.TimeOfNextMisting != InitialPlant.TimeOfNextMisting))
+                                                                            ? true : false;
+        }
+        [RelayCommand]
+        protected void NextMistChangedSectionUndo()
+        {
+            IsBeingUndone = true;
+
+            AlterPlant.DateOfNextMisting = InitialPlant.DateOfNextMisting;
+            AlterPlant.TimeOfNextMisting = InitialPlant.TimeOfNextMisting;
+
+            OnPropertyChanged("AlterPlant");
+            IsBeingUndone = false;
+            NextMistUndoButtonVisible = false;
+        }
+
+
 
 
 
