@@ -109,6 +109,38 @@ namespace FloraSaver.ViewModels
         }
 
         [ObservableProperty]
+        protected bool waterIntervalUndoButtonVisible = false;
+        [RelayCommand]
+        protected void WaterIntervalChanged() { WaterIntervalUndoButtonVisible = (!IsInitialization && !IsBeingUndone) ? true : false; }
+        [RelayCommand]
+        protected void WaterIntervalChangedSectionUndo()
+        {
+            IsBeingUndone = true;
+            AlterPlant.WaterInterval = InitialPlant.WaterInterval;
+            WaterDaysFromNow = AlterPlant.WaterInterval != null ? (int)AlterPlant.WaterInterval : (AlterPlant.DateOfNextWatering.Date - AlterPlant.DateOfLastWatering.Date).Days;
+            WaterIntervalPickerValue = WateringInterval.FirstOrDefault(x => x.DaysFromNow == WaterDaysFromNow);
+            if (WaterIntervalPickerValue == null)
+            {
+                WaterIntervalPickerValue = WateringInterval.First(x => x.DaysFromNow == -1);
+            }
+
+            //AlterPlant.DateOfLastWatering = InitialPlant.DateOfLastWatering;
+            //AlterPlant.TimeOfLastWatering = InitialPlant.TimeOfLastWatering;
+            //AlterPlant.DateOfNextWatering = InitialPlant.DateOfNextWatering;
+            //AlterPlant.TimeOfLastWatering = InitialPlant.TimeOfLastWatering;
+
+            OnPropertyChanged("AlterPlant");
+            IsBeingUndone = false;
+            WaterIntervalUndoButtonVisible = false;
+        }
+
+
+
+
+
+
+
+        [ObservableProperty]
         public bool shouldGetNewData = false;
 
         [ObservableProperty]

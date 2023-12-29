@@ -353,7 +353,8 @@
                                     <ImageButton
                                         x:Name="_undoWaterIntervalChange"
                                         Grid.Column="0"
-                                        Command="{Binding ImageOfPlantToBase64Command}"
+                                        Command="{Binding WaterIntervalChangedSectionUndoCommand}"
+                                        IsVisible="{Binding WaterIntervalUndoButtonVisible}"
                                         Source="undo_button.png"
                                         WidthRequest="40" />
                                 </FlexLayout>
@@ -375,7 +376,11 @@
                                             HorizontalTextAlignment="Center"
                                             ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
                                             ItemsSource="{Binding WateringInterval, Mode=TwoWay}"
-                                            SelectedItem="{Binding WaterIntervalPickerValue, Mode=TwoWay}" />
+                                            SelectedItem="{Binding WaterIntervalPickerValue, Mode=TwoWay}">
+                                            <Picker.Behaviors>
+                                                <toolkit:EventToCommandBehavior Command="{Binding WaterIntervalChangedCommand}" EventName="SelectedIndexChanged" />
+                                            </Picker.Behaviors>
+                                        </Picker>
                                     </Frame>
                                 </Frame>
                             </Grid>
@@ -414,7 +419,11 @@
                                                 Keyboard="Numeric"
                                                 Placeholder="0"
                                                 Text="{Binding WaterDaysFromNow, Mode=TwoWay}"
-                                                VerticalOptions="CenterAndExpand" />
+                                                VerticalOptions="CenterAndExpand">
+                                                <Entry.Behaviors>
+                                                    <toolkit:EventToCommandBehavior Command="{Binding WaterIntervalChangedCommand}" EventName="Unfocused" />
+                                                </Entry.Behaviors>
+                                            </Entry>
                                         </Frame>
                                     </Frame>
                                     <Label Text=" Day(s)" VerticalOptions="Center" />
