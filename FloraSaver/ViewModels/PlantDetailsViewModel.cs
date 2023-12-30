@@ -132,11 +132,14 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         protected bool lastWateredUndoButtonVisible = false;
         [RelayCommand]
-        protected void LastWateredChanged() { LastWateredUndoButtonVisible = (!IsInitialization
+        protected void LastWateredChanged()
+        {
+            LastWateredUndoButtonVisible = (!IsInitialization
                                                                             && !IsBeingUndone
                                                                             && (AlterPlant.DateOfLastWatering != InitialPlant.DateOfLastWatering
                                                                             || AlterPlant.TimeOfLastWatering != InitialPlant.TimeOfLastWatering))
-                                                                            ? true : false; }
+                                                                            ? true : false;
+        }
         [RelayCommand]
         protected void LastWateredChangedSectionUndo()
         {
@@ -153,11 +156,14 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         protected bool nextWaterUndoButtonVisible = false;
         [RelayCommand]
-        protected void NextWaterChanged() { NextWaterUndoButtonVisible = (!IsInitialization
+        protected void NextWaterChanged()
+        {
+            NextWaterUndoButtonVisible = (!IsInitialization
                                                                             && !IsBeingUndone
                                                                             && (AlterPlant.DateOfNextWatering != InitialPlant.DateOfLastWatering
                                                                             || AlterPlant.TimeOfNextWatering != InitialPlant.TimeOfNextWatering))
-                                                                            ? true : false; }
+                                                                            ? true : false;
+        }
         [RelayCommand]
         protected void NextWaterChangedSectionUndo()
         {
@@ -198,10 +204,10 @@ namespace FloraSaver.ViewModels
         protected void LastMistedChanged()
         {
             LastMistedUndoButtonVisible = (!IsInitialization
-                                                                            && !IsBeingUndone
-                                                                            && (AlterPlant.DateOfLastMisting != InitialPlant.DateOfLastMisting
-                                                                            || AlterPlant.TimeOfLastMisting != InitialPlant.TimeOfLastMisting))
-                                                                            ? true : false;
+                                            && !IsBeingUndone
+                                            && (AlterPlant.DateOfLastMisting != InitialPlant.DateOfLastMisting
+                                            || AlterPlant.TimeOfLastMisting != InitialPlant.TimeOfLastMisting))
+                                            ? true : false;
         }
         [RelayCommand]
         protected void LastMistedChangedSectionUndo()
@@ -222,10 +228,10 @@ namespace FloraSaver.ViewModels
         protected void NextMistChanged()
         {
             NextMistUndoButtonVisible = (!IsInitialization
-                                                                            && !IsBeingUndone
-                                                                            && (AlterPlant.DateOfNextMisting != InitialPlant.DateOfLastMisting
-                                                                            || AlterPlant.TimeOfNextMisting != InitialPlant.TimeOfNextMisting))
-                                                                            ? true : false;
+                                        && !IsBeingUndone
+                                        && (AlterPlant.DateOfNextMisting != InitialPlant.DateOfLastMisting
+                                        || AlterPlant.TimeOfNextMisting != InitialPlant.TimeOfNextMisting))
+                                        ? true : false;
         }
         [RelayCommand]
         protected void NextMistChangedSectionUndo()
@@ -240,13 +246,74 @@ namespace FloraSaver.ViewModels
             NextMistUndoButtonVisible = false;
         }
 
+        [ObservableProperty]
+        protected bool moveIntervalUndoButtonVisible = false;
+        [RelayCommand]
+        protected void MoveIntervalChanged() { MoveIntervalUndoButtonVisible = (!IsInitialization && !IsBeingUndone) ? true : false; }
+        [RelayCommand]
+        protected void MoveIntervalChangedSectionUndo()
+        {
+            IsBeingUndone = true;
+            AlterPlant.SunInterval = InitialPlant.SunInterval;
+            SunDaysFromNow = AlterPlant.SunInterval != null ? (int)AlterPlant.SunInterval : (AlterPlant.DateOfNextMove.Date - AlterPlant.DateOfLastMove.Date).Days;
+            SunIntervalPickerValue = SunInterval.FirstOrDefault(x => x.DaysFromNow == SunDaysFromNow);
+            if (SunIntervalPickerValue == null)
+            {
+                SunIntervalPickerValue = SunInterval.First(x => x.DaysFromNow == -1);
+            }
 
+            OnPropertyChanged("AlterPlant");
+            IsBeingUndone = false;
+            MoveIntervalUndoButtonVisible = false;
+        }
 
+        [ObservableProperty]
+        protected bool lastMovedUndoButtonVisible = false;
+        [RelayCommand]
+        protected void LastMovedChanged()
+        {
+            LastMovedUndoButtonVisible = (!IsInitialization
+                                            && !IsBeingUndone
+                                            && (AlterPlant.DateOfLastMove != InitialPlant.DateOfLastMove
+                                            || AlterPlant.TimeOfLastMove != InitialPlant.TimeOfLastMove))
+                                            ? true : false;
+        }
+        [RelayCommand]
+        protected void LastMovedChangedSectionUndo()
+        {
+            IsBeingUndone = true;
 
+            AlterPlant.DateOfLastMove = InitialPlant.DateOfLastMove;
+            AlterPlant.TimeOfLastMove = InitialPlant.TimeOfLastMove;
 
+            OnPropertyChanged("AlterPlant");
+            IsBeingUndone = false;
+            LastMovedUndoButtonVisible = false;
+        }
 
+        [ObservableProperty]
+        protected bool nextMoveUndoButtonVisible = false;
+        [RelayCommand]
+        protected void NextMoveChanged()
+        {
+            NextMoveUndoButtonVisible = (!IsInitialization
+                                        && !IsBeingUndone
+                                        && (AlterPlant.DateOfNextMove != InitialPlant.DateOfLastMove
+                                        || AlterPlant.TimeOfNextMove != InitialPlant.TimeOfNextMove))
+                                        ? true : false;
+        }
+        [RelayCommand]
+        protected void NextMoveChangedSectionUndo()
+        {
+            IsBeingUndone = true;
 
+            AlterPlant.DateOfNextMove = InitialPlant.DateOfNextMove;
+            AlterPlant.TimeOfNextMove = InitialPlant.TimeOfNextMove;
 
+            OnPropertyChanged("AlterPlant");
+            IsBeingUndone = false;
+            NextMoveUndoButtonVisible = false;
+        }
 
         [ObservableProperty]
         public bool shouldGetNewData = false;
