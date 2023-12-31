@@ -160,7 +160,7 @@ namespace FloraSaver.ViewModels
         {
             NextWaterUndoButtonVisible = (!IsInitialization
                                                                             && !IsBeingUndone
-                                                                            && (AlterPlant.DateOfNextWatering != InitialPlant.DateOfLastWatering
+                                                                            && (AlterPlant.DateOfNextWatering != InitialPlant.DateOfNextWatering
                                                                             || AlterPlant.TimeOfNextWatering != InitialPlant.TimeOfNextWatering))
                                                                             ? true : false;
         }
@@ -229,7 +229,7 @@ namespace FloraSaver.ViewModels
         {
             NextMistUndoButtonVisible = (!IsInitialization
                                         && !IsBeingUndone
-                                        && (AlterPlant.DateOfNextMisting != InitialPlant.DateOfLastMisting
+                                        && (AlterPlant.DateOfNextMisting != InitialPlant.DateOfNextMisting
                                         || AlterPlant.TimeOfNextMisting != InitialPlant.TimeOfNextMisting))
                                         ? true : false;
         }
@@ -298,7 +298,7 @@ namespace FloraSaver.ViewModels
         {
             NextMoveUndoButtonVisible = (!IsInitialization
                                         && !IsBeingUndone
-                                        && (AlterPlant.DateOfNextMove != InitialPlant.DateOfLastMove
+                                        && (AlterPlant.DateOfNextMove != InitialPlant.DateOfNextMove
                                         || AlterPlant.TimeOfNextMove != InitialPlant.TimeOfNextMove))
                                         ? true : false;
         }

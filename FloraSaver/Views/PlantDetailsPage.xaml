@@ -541,7 +541,8 @@
                                     <ImageButton
                                         x:Name="_undoWaterOnChange"
                                         Grid.Column="0"
-                                        Command="{Binding ImageOfPlantToBase64Command}"
+                                        Command="{Binding NextWaterChangedSectionUndoCommand}"
+                                        IsVisible="{Binding NextWaterUndoButtonVisible}"
                                         Source="undo_button.png"
                                         WidthRequest="40" />
                                 </FlexLayout>
@@ -564,7 +565,11 @@
                                                 BackgroundColor="White"
                                                 Date="{Binding AlterPlant.DateOfNextWatering, Mode=TwoWay}"
                                                 Format="d"
-                                                WidthRequest="85" />
+                                                WidthRequest="85">
+                                                <DatePicker.Behaviors>
+                                                    <toolkit:EventToCommandBehavior Command="{Binding NextWaterChangedCommand}" EventName="PropertyChanged" />
+                                                </DatePicker.Behaviors>
+                                            </DatePicker>
                                         </Frame>
                                     </Frame>
                                     <Label Text="at" VerticalOptions="Center" />
@@ -584,7 +589,11 @@
                                                 BackgroundColor="White"
                                                 Format="t"
                                                 Time="{Binding AlterPlant.TimeOfNextWatering, Mode=TwoWay}"
-                                                WidthRequest="75" />
+                                                WidthRequest="75">
+                                                <TimePicker.Behaviors>
+                                                    <toolkit:EventToCommandBehavior Command="{Binding NextWaterChangedCommand}" EventName="PropertyChanged" />
+                                                </TimePicker.Behaviors>
+                                            </TimePicker>
                                         </Frame>
                                     </Frame>
                                     <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
@@ -638,7 +647,8 @@
                                     <ImageButton
                                         x:Name="_undoMistIntervalChange"
                                         Grid.Column="0"
-                                        Command="{Binding ImageOfPlantToBase64Command}"
+                                        Command="{Binding MistIntervalChangedSectionUndoCommand}"
+                                        IsVisible="{Binding MistIntervalUndoButtonVisible}"
                                         Source="undo_button.png"
                                         WidthRequest="40" />
                                 </FlexLayout>
@@ -660,7 +670,11 @@
                                             HorizontalTextAlignment="Center"
                                             ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
                                             ItemsSource="{Binding MistingInterval, Mode=TwoWay}"
-                                            SelectedItem="{Binding MistIntervalPickerValue, Mode=TwoWay}" />
+                                            SelectedItem="{Binding MistIntervalPickerValue, Mode=TwoWay}">
+                                            <Picker.Behaviors>
+                                                <toolkit:EventToCommandBehavior Command="{Binding MistIntervalChangedCommand}" EventName="SelectedIndexChanged" />
+                                            </Picker.Behaviors>
+                                        </Picker>
                                     </Frame>
                                 </Frame>
                             </Grid>
@@ -700,7 +714,11 @@
                                                 Keyboard="Numeric"
                                                 Placeholder="0"
                                                 Text="{Binding MistDaysFromNow, Mode=TwoWay}"
-                                                VerticalOptions="CenterAndExpand" />
+                                                VerticalOptions="CenterAndExpand">
+                                                <Entry.Behaviors>
+                                                    <toolkit:EventToCommandBehavior Command="{Binding MistIntervalChangedCommand}" EventName="Unfocused" />
+                                                </Entry.Behaviors>
+                                            </Entry>
                                         </Frame>
                                     </Frame>
                                     <Label Text=" Day(s)" VerticalOptions="Center" />
@@ -730,7 +748,8 @@
                                     <ImageButton
                                         x:Name="_undoLastMistedChange"
                                         Grid.Column="0"
-                                        Command="{Binding ImageOfPlantToBase64Command}"
+                                        Command="{Binding LastMistedChangedSectionUndoCommand}"
+                                        IsVisible="{Binding LastMistedUndoButtonVisible}"
                                         Source="undo_button.png"
                                         WidthRequest="40" />
                                 </FlexLayout>
@@ -753,7 +772,11 @@
                                                 Date="{Binding AlterPlant.DateOfLastMisting, Mode=TwoWay}"
                                                 Format="d"
                                                 HorizontalOptions="Fill"
-                                                WidthRequest="85" />
+                                                WidthRequest="85">
+                                                <DatePicker.Behaviors>
+                                                    <toolkit:EventToCommandBehavior Command="{Binding LastMistedChangedCommand}" EventName="PropertyChanged" />
+                                                </DatePicker.Behaviors>
+                                            </DatePicker>
                                         </Frame>
                                     </Frame>
                                     <Label Text="at" VerticalOptions="Center" />
@@ -771,7 +794,11 @@
                                                 BackgroundColor="White"
                                                 Format="t"
                                                 Time="{Binding AlterPlant.TimeOfLastMisting, Mode=TwoWay}"
-                                                WidthRequest="75" />
+                                                WidthRequest="75">
+                                                <TimePicker.Behaviors>
+                                                    <toolkit:EventToCommandBehavior Command="{Binding LastMistedChangedCommand}" EventName="PropertyChanged" />
+                                                </TimePicker.Behaviors>
+                                            </TimePicker>
                                         </Frame>
                                     </Frame>
                                     <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
@@ -809,7 +836,8 @@
                                     <ImageButton
                                         x:Name="_undoMistOnChange"
                                         Grid.Column="0"
-                                        Command="{Binding ImageOfPlantToBase64Command}"
+                                        Command="{Binding NextMistChangedSectionUndoCommand}"
+                                        IsVisible="{Binding NextMistUndoButtonVisible}"
                                         Source="undo_button.png"
                                         WidthRequest="40" />
                                 </FlexLayout>
@@ -832,7 +860,11 @@
                                                 BackgroundColor="White"
                                                 Date="{Binding AlterPlant.DateOfNextMisting, Mode=TwoWay}"
                                                 Format="d"
-                                                WidthRequest="85" />
+                                                WidthRequest="85">
+                                                <DatePicker.Behaviors>
+                                                    <toolkit:EventToCommandBehavior Command="{Binding NextMistChangedCommand}" EventName="PropertyChanged" />
+                                                </DatePicker.Behaviors>
+                                            </DatePicker>
                                         </Frame>
                                     </Frame>
                                     <Label Text="at" VerticalOptions="Center" />
@@ -852,7 +884,11 @@
                                                 BackgroundColor="White"
                                                 Format="t"
                                                 Time="{Binding AlterPlant.TimeOfNextMisting, Mode=TwoWay}"
-                                                WidthRequest="75" />
+                                                WidthRequest="75">
+                                                <TimePicker.Behaviors>
+                                                    <toolkit:EventToCommandBehavior Command="{Binding NextMistChangedCommand}" EventName="PropertyChanged" />
+                                                </TimePicker.Behaviors>
+                                            </TimePicker>
                                         </Frame>
                                     </Frame>
                                     <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
