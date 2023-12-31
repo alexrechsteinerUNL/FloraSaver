@@ -319,6 +319,34 @@ namespace FloraSaver.ViewModels
             NextMoveUndoButtonVisible = false;
         }
 
+        //Not sure if this one is ready for prime time yet :(
+        [RelayCommand]
+        protected void UndoAll()
+        {
+            IsBeingUndone = true;
+            AlterPlant = new Plant(InitialPlant);
+            OnPropertyChanged("AlterPlant");
+            GroupUndoButtonVisible = false;
+            ImageUndoButtonVisible = false;
+            SpeciesUndoButtonVisible = false;
+            GivenNameUndoButtonVisible = false;
+            DobUndoButtonVisible = false;
+            WaterIntervalUndoButtonVisible = false;
+            LastWateredUndoButtonVisible = false;
+            NextWaterUndoButtonVisible = false;
+            MistIntervalUndoButtonVisible = false;
+            LastMistedUndoButtonVisible = false;
+            NextMistUndoButtonVisible = false;
+            MoveIntervalUndoButtonVisible = false;
+            LastMovedUndoButtonVisible = false;
+            NextMoveUndoButtonVisible = false;
+            IsBeingUndone = false;
+        }
+
+
+
+
+
         [ObservableProperty]
         public bool shouldGetNewData = false;
 
@@ -697,6 +725,11 @@ namespace FloraSaver.ViewModels
 
                 IsBusy = true;
                 await _databaseService.AddUpdateNewPlantAsync(plant);
+                InitialPlant = new Plant(AlterPlant);
+                InitialWaterDaysFromNow = WaterDaysFromNow;
+                InitialMistDaysFromNow = MistDaysFromNow;
+                InitialSunDaysFromNow = SunDaysFromNow;
+                UndoAll();
             }
             catch (Exception ex)
             {
@@ -792,5 +825,7 @@ namespace FloraSaver.ViewModels
 
         [ObservableProperty]
         private Plant plant;
+
+
     }
 }

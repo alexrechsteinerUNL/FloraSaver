@@ -414,6 +414,7 @@
                                             <Entry
                                                 x:Name="_CustomWaterInterval"
                                                 Completed="Entry_Completed"
+                                                FontSize="Body"
                                                 HorizontalOptions="CenterAndExpand"
                                                 HorizontalTextAlignment="Center"
                                                 Keyboard="Numeric"
@@ -475,6 +476,7 @@
                                                 Grid.Column="1"
                                                 BackgroundColor="White"
                                                 Date="{Binding AlterPlant.DateOfLastWatering, Mode=TwoWay}"
+                                                FontSize="Body"
                                                 Format="d"
                                                 HorizontalOptions="Fill"
                                                 WidthRequest="85">
@@ -497,6 +499,7 @@
                                                 x:Name="_TimeOfLastWatering"
                                                 Grid.Column="1"
                                                 BackgroundColor="White"
+                                                FontSize="Body"
                                                 Format="t"
                                                 Time="{Binding AlterPlant.TimeOfLastWatering, Mode=TwoWay}"
                                                 WidthRequest="75">
@@ -564,6 +567,7 @@
                                                 Grid.Column="1"
                                                 BackgroundColor="White"
                                                 Date="{Binding AlterPlant.DateOfNextWatering, Mode=TwoWay}"
+                                                FontSize="Body"
                                                 Format="d"
                                                 WidthRequest="85">
                                                 <DatePicker.Behaviors>
@@ -587,6 +591,7 @@
                                             <TimePicker
                                                 x:Name="_TimeOfNextWatering"
                                                 BackgroundColor="White"
+                                                FontSize="Body"
                                                 Format="t"
                                                 Time="{Binding AlterPlant.TimeOfNextWatering, Mode=TwoWay}"
                                                 WidthRequest="75">
@@ -709,6 +714,7 @@
                                             <Entry
                                                 x:Name="_CustomMistInterval"
                                                 Completed="Entry_Completed"
+                                                FontSize="Body"
                                                 HorizontalOptions="CenterAndExpand"
                                                 HorizontalTextAlignment="Center"
                                                 Keyboard="Numeric"
@@ -770,6 +776,7 @@
                                                 Grid.Column="1"
                                                 BackgroundColor="White"
                                                 Date="{Binding AlterPlant.DateOfLastMisting, Mode=TwoWay}"
+                                                FontSize="Body"
                                                 Format="d"
                                                 HorizontalOptions="Fill"
                                                 WidthRequest="85">
@@ -792,6 +799,7 @@
                                                 x:Name="_TimeOfLastMisting"
                                                 Grid.Column="1"
                                                 BackgroundColor="White"
+                                                FontSize="Body"
                                                 Format="t"
                                                 Time="{Binding AlterPlant.TimeOfLastMisting, Mode=TwoWay}"
                                                 WidthRequest="75">
@@ -859,6 +867,7 @@
                                                 Grid.Column="1"
                                                 BackgroundColor="White"
                                                 Date="{Binding AlterPlant.DateOfNextMisting, Mode=TwoWay}"
+                                                FontSize="Body"
                                                 Format="d"
                                                 WidthRequest="85">
                                                 <DatePicker.Behaviors>
@@ -882,6 +891,7 @@
                                             <TimePicker
                                                 x:Name="_TimeOfNextMisting"
                                                 BackgroundColor="White"
+                                                FontSize="Body"
                                                 Format="t"
                                                 Time="{Binding AlterPlant.TimeOfNextMisting, Mode=TwoWay}"
                                                 WidthRequest="75">
@@ -1016,6 +1026,7 @@
                                             <Entry
                                                 x:Name="_CustomSunInterval"
                                                 Completed="Entry_Completed"
+                                                FontSize="Body"
                                                 HorizontalOptions="CenterAndExpand"
                                                 HorizontalTextAlignment="Center"
                                                 Keyboard="Numeric"
@@ -1077,6 +1088,7 @@
                                                 Grid.Column="1"
                                                 BackgroundColor="White"
                                                 Date="{Binding AlterPlant.DateOfLastMove, Mode=TwoWay}"
+                                                FontSize="Body"
                                                 Format="d"
                                                 HorizontalOptions="Fill"
                                                 WidthRequest="85">
@@ -1099,6 +1111,7 @@
                                                 x:Name="_TimeOfLastMove"
                                                 Grid.Column="1"
                                                 BackgroundColor="White"
+                                                FontSize="Body"
                                                 Format="t"
                                                 Time="{Binding AlterPlant.TimeOfLastMove, Mode=TwoWay}"
                                                 WidthRequest="75">
@@ -1166,6 +1179,7 @@
                                                 Grid.Column="1"
                                                 BackgroundColor="White"
                                                 Date="{Binding AlterPlant.DateOfNextMove, Mode=TwoWay}"
+                                                FontSize="Body"
                                                 Format="d"
                                                 WidthRequest="85">
                                                 <DatePicker.Behaviors>
@@ -1189,6 +1203,7 @@
                                             <TimePicker
                                                 x:Name="_TimeOfNextMove"
                                                 BackgroundColor="White"
+                                                FontSize="Body"
                                                 Format="t"
                                                 Time="{Binding AlterPlant.TimeOfNextMove, Mode=TwoWay}"
                                                 WidthRequest="75">
