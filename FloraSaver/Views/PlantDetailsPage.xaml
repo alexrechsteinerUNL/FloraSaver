@@ -954,7 +954,8 @@
                                     <ImageButton
                                         x:Name="_undoMoveIntervalChange"
                                         Grid.Column="0"
-                                        Command="{Binding ImageOfPlantToBase64Command}"
+                                        Command="{Binding MoveIntervalChangedSectionUndoCommand}"
+                                        IsVisible="{Binding MoveIntervalUndoButtonVisible}"
                                         Source="undo_button.png"
                                         WidthRequest="40" />
                                 </FlexLayout>
@@ -976,7 +977,11 @@
                                             HorizontalTextAlignment="Center"
                                             ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
                                             ItemsSource="{Binding SunInterval, Mode=TwoWay}"
-                                            SelectedItem="{Binding SunIntervalPickerValue, Mode=TwoWay}" />
+                                            SelectedItem="{Binding SunIntervalPickerValue, Mode=TwoWay}">
+                                            <Picker.Behaviors>
+                                                <toolkit:EventToCommandBehavior Command="{Binding MoveIntervalChangedCommand}" EventName="SelectedIndexChanged" />
+                                            </Picker.Behaviors>
+                                        </Picker>
                                     </Frame>
                                 </Frame>
                             </Grid>
@@ -1016,7 +1021,11 @@
                                                 Keyboard="Numeric"
                                                 Placeholder="0"
                                                 Text="{Binding SunDaysFromNow, Mode=TwoWay}"
-                                                VerticalOptions="CenterAndExpand" />
+                                                VerticalOptions="CenterAndExpand">
+                                                <Entry.Behaviors>
+                                                    <toolkit:EventToCommandBehavior Command="{Binding MoveIntervalChangedCommand}" EventName="Unfocused" />
+                                                </Entry.Behaviors>
+                                            </Entry>
                                         </Frame>
                                     </Frame>
                                     <Label Text=" Day(s)" VerticalOptions="Center" />
@@ -1046,7 +1055,8 @@
                                     <ImageButton
                                         x:Name="_undoLastMovedChange"
                                         Grid.Column="0"
-                                        Command="{Binding ImageOfPlantToBase64Command}"
+                                        Command="{Binding LastMovedChangedSectionUndoCommand}"
+                                        IsVisible="{Binding LastMovedUndoButtonVisible}"
                                         Source="undo_button.png"
                                         WidthRequest="40" />
                                 </FlexLayout>
@@ -1069,7 +1079,11 @@
                                                 Date="{Binding AlterPlant.DateOfLastMove, Mode=TwoWay}"
                                                 Format="d"
                                                 HorizontalOptions="Fill"
-                                                WidthRequest="85" />
+                                                WidthRequest="85">
+                                                <DatePicker.Behaviors>
+                                                    <toolkit:EventToCommandBehavior Command="{Binding LastMovedChangedCommand}" EventName="PropertyChanged" />
+                                                </DatePicker.Behaviors>
+                                            </DatePicker>
                                         </Frame>
                                     </Frame>
                                     <Label Text="at" VerticalOptions="Center" />
@@ -1087,7 +1101,11 @@
                                                 BackgroundColor="White"
                                                 Format="t"
                                                 Time="{Binding AlterPlant.TimeOfLastMove, Mode=TwoWay}"
-                                                WidthRequest="75" />
+                                                WidthRequest="75">
+                                                <TimePicker.Behaviors>
+                                                    <toolkit:EventToCommandBehavior Command="{Binding LastMovedChangedCommand}" EventName="PropertyChanged" />
+                                                </TimePicker.Behaviors>
+                                            </TimePicker>
                                         </Frame>
                                     </Frame>
                                     <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
@@ -1125,7 +1143,8 @@
                                     <ImageButton
                                         x:Name="_undoMoveOnChange"
                                         Grid.Column="0"
-                                        Command="{Binding ImageOfPlantToBase64Command}"
+                                        Command="{Binding NextMoveChangedSectionUndoCommand}"
+                                        IsVisible="{Binding NextMoveUndoButtonVisible}"
                                         Source="undo_button.png"
                                         WidthRequest="40" />
                                 </FlexLayout>
@@ -1148,7 +1167,11 @@
                                                 BackgroundColor="White"
                                                 Date="{Binding AlterPlant.DateOfNextMove, Mode=TwoWay}"
                                                 Format="d"
-                                                WidthRequest="85" />
+                                                WidthRequest="85">
+                                                <DatePicker.Behaviors>
+                                                    <toolkit:EventToCommandBehavior Command="{Binding NextMoveChangedCommand}" EventName="PropertyChanged" />
+                                                </DatePicker.Behaviors>
+                                            </DatePicker>
                                         </Frame>
                                     </Frame>
                                     <Label Text="at" VerticalOptions="Center" />
@@ -1168,7 +1191,11 @@
                                                 BackgroundColor="White"
                                                 Format="t"
                                                 Time="{Binding AlterPlant.TimeOfNextMove, Mode=TwoWay}"
-                                                WidthRequest="75" />
+                                                WidthRequest="75">
+                                                <TimePicker.Behaviors>
+                                                    <toolkit:EventToCommandBehavior Command="{Binding NextMoveChangedCommand}" EventName="PropertyChanged" />
+                                                </TimePicker.Behaviors>
+                                            </TimePicker>
                                         </Frame>
                                     </Frame>
                                     <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
