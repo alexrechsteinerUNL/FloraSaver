@@ -72,18 +72,6 @@ namespace FloraSaver.ViewModels
             OnPropertyChanged(nameof(VisiblePlantGroups));
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
         private List<PlantGroup> initialPlantGroups = new();
 
         private ObservableCollection<PlantGroup> visiblePlantGroups = new();
@@ -158,7 +146,8 @@ namespace FloraSaver.ViewModels
                 }
 
             }
-            await GetVisiblePlantGroupsAsync();
+            if (ShouldUpdateCheckService.shouldGetNewGroupDataSettings) { await GetVisiblePlantGroupsAsync(); ShouldUpdateCheckService.shouldGetNewGroupDataSettings = false; }
+
             IsInitialization = false;
         }
 
@@ -249,6 +238,7 @@ namespace FloraSaver.ViewModels
             PickerPlantGroups.FirstOrDefault(_ => _.Equals(plantGroup)).isNameEdited = false;
             PickerPlantGroups.FirstOrDefault(_ => _.Equals(plantGroup)).isColorEdited = false;
             SetItem();
+            ShouldUpdateCheckService.ForceToGetNewGroupData();
         }
 
         [RelayCommand]
@@ -278,6 +268,7 @@ namespace FloraSaver.ViewModels
             {
                 IsBusy = false;
                 OnPropertyChanged("PlantGroup");
+                ShouldUpdateCheckService.ForceToGetNewGroupData();
             }
         }
 
@@ -304,6 +295,7 @@ namespace FloraSaver.ViewModels
             finally
             {
                 IsBusy = false;
+                ShouldUpdateCheckService.ForceToGetNewGroupData();
             }
         }
 
@@ -330,6 +322,7 @@ namespace FloraSaver.ViewModels
             finally
             {
                 IsBusy = false;
+                ShouldUpdateCheckService.ForceToGetNewPlantData();
             }
         }
     }

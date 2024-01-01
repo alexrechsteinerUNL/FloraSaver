@@ -20,7 +20,6 @@ namespace FloraSaver.ViewModels
         public ObservableCollection<Plant> DataPlants { get; set; } = new();
         public ObservableCollection<Plant> Plants { get; set; } = new();
         public ObservableCollection<PlantGroup> PlantGroups { get; set; } = new();
-
         protected bool shouldGetNewData { get; set; } = true;
         protected bool shouldGetNewGroupData { get; set; } = true;
 
@@ -38,12 +37,10 @@ namespace FloraSaver.ViewModels
         {
             if (query.Count < 1)
             {
-                shouldGetNewData = true;
-                shouldGetNewGroupData = true;
                 return;
             }
-            shouldGetNewData = (bool)(query["ShouldGetNewData"] ?? false);
-            shouldGetNewGroupData = (bool)(query["ShouldGetNewGroupData"] ?? false);
+            ShouldUpdateCheckService.shouldGetNewPlantDataTable = (bool)(query["ShouldGetNewData"] ?? false);
+            ShouldUpdateCheckService.shouldGetNewGroupDataTable = (bool)(query["ShouldGetNewGroupData"] ?? false);
         }
 
         [RelayCommand]
@@ -51,8 +48,8 @@ namespace FloraSaver.ViewModels
         {
             timer = new PeriodicTimer(TimeSpan.FromSeconds(10));
 
-            if (shouldGetNewGroupData) await GetPlantGroupsAsync();
-            if (shouldGetNewData) await GetPlantsAsync();
+            if (ShouldUpdateCheckService.shouldGetNewGroupDataTable) { ShouldUpdateCheckService.ForceToGetNewGroupData(); await GetPlantGroupsAsync(); ShouldUpdateCheckService.shouldGetNewGroupDataTable = false; }
+            if (ShouldUpdateCheckService.shouldGetNewPlantDataTable) { ShouldUpdateCheckService.ForceToGetNewPlantData(); await GetPlantsAsync(); ShouldUpdateCheckService.shouldGetNewPlantDataTable = false; }
         }
 
         [RelayCommand]
@@ -171,6 +168,7 @@ namespace FloraSaver.ViewModels
                 OnPropertyChanged("Plant");
                 await GetPlantsAsync();
             }
+            ShouldUpdateCheckService.ForceToGetNewPlantData();
         }
 
         [RelayCommand]
@@ -199,6 +197,7 @@ namespace FloraSaver.ViewModels
                 OnPropertyChanged("Plant");
                 await GetPlantsAsync();
             }
+            ShouldUpdateCheckService.ForceToGetNewPlantData();
         }
 
         [RelayCommand]
@@ -228,6 +227,7 @@ namespace FloraSaver.ViewModels
                 OnPropertyChanged("Plant");
                 await GetPlantsAsync();
             }
+            ShouldUpdateCheckService.ForceToGetNewPlantData();
         }
 
         [RelayCommand]
@@ -349,7 +349,7 @@ namespace FloraSaver.ViewModels
                 IsBusy = true;
                 var plantGroups = await _databaseService.GetAllPlantGroupAsync();
 
-                // checking if there are really 0 plantGroups or if an issue occured.
+                // checking if there are really 0 plantGroups or if an issue occurred.
                 if (plantGroups.Count == 0)
                 {
                     plantGroups = await _databaseService.GetAllPlantGroupAsync();

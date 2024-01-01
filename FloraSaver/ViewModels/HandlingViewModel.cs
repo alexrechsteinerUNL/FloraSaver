@@ -23,8 +23,9 @@ namespace FloraSaver.ViewModels
         private async Task AppearingHandlingAsync()
         {
             timer = new PeriodicTimer(TimeSpan.FromSeconds(10));
-            await GetPlantGroupsAsync();
-            await GetPlantsAsync();
+
+            if (ShouldUpdateCheckService.shouldGetNewGroupDataHandling) { await GetPlantGroupsAsync(); ShouldUpdateCheckService.shouldGetNewGroupDataHandling = false; }
+            if (ShouldUpdateCheckService.shouldGetNewPlantDataHandling) { await GetPlantsAsync(); ShouldUpdateCheckService.shouldGetNewPlantDataHandling = false; }
             PeriodicTimerUpdaterBackgroundAsync(() => CheatUpdateAllPlantProgress());
         }
 

@@ -117,6 +117,8 @@ namespace FloraSaver.ViewModels
                         await _databaseService.AddUpdateNewPlantAsync(plant);
                     }
                 }
+                ShouldUpdateCheckService.ForceToGetNewGroupData();
+                ShouldUpdateCheckService.ForceToGetNewPlantData();
             }
         }
 

@@ -37,7 +37,7 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         private async Task AppearingHomeAsync()
         {
-            await GetPlantsAsync();
+            if (ShouldUpdateCheckService.shouldGetNewPlantDataMain) { await GetPlantsAsync(); ShouldUpdateCheckService.shouldGetNewPlantDataMain = false; }
             SetNextPlant();
         }
 
