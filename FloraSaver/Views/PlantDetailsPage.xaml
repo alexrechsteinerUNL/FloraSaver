@@ -942,18 +942,6 @@
                             Text="{Binding SunGridText}" />
 
                         <VerticalStackLayout x:Name="MoveGrids" IsVisible="{Binding AlterPlant.UseMoving}">
-
-
-
-
-
-
-
-
-
-
-
-
                             <Grid x:Name="sunningIntervalGrid" RowSpacing="5">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="30" />
