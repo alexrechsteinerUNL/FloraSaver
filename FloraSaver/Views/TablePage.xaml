@@ -230,9 +230,15 @@
                                                     Grid.ColumnSpan="2"
                                                     ColumnDefinitions="*, 7.75*, *, 7.75*"
                                                     RowDefinitions="*,*,*,*,*,*">
+                                                    <Image
+                                                        Grid.Row="0"
+                                                        Grid.Column="0"
+                                                        IsVisible="{Binding UseWatering}"
+                                                        Source="interval_timer_visual.png" />
                                                     <Label
                                                         Grid.Row="0"
-                                                        Grid.ColumnSpan="4"
+                                                        Grid.Column="1"
+                                                        Grid.ColumnSpan="3"
                                                         Padding="2"
                                                         FontSize="Body"
                                                         IsVisible="{Binding UseWatering}"
@@ -266,10 +272,16 @@
                                                         IsVisible="{Binding UseWatering}"
                                                         Text="{Binding DateOfNextWatering, StringFormat='{0:d} {0:h\:mm tt}'}"
                                                         VerticalOptions="CenterAndExpand" />
+                                                    <Image
+                                                        Grid.Row="2"
+                                                        Grid.Column="0"
+                                                        IsVisible="{Binding UseMisting}"
+                                                        Source="interval_timer_visual.png" />
 
                                                     <Label
                                                         Grid.Row="2"
-                                                        Grid.ColumnSpan="4"
+                                                        Grid.Column="1"
+                                                        Grid.ColumnSpan="3"
                                                         Padding="2"
                                                         FontSize="Body"
                                                         IsVisible="{Binding UseMisting}"
@@ -303,10 +315,15 @@
                                                         IsVisible="{Binding UseMisting}"
                                                         Text="{Binding DateOfNextMisting, StringFormat='{0:d} {0:h\:mm tt}'}"
                                                         VerticalOptions="CenterAndExpand" />
-
+                                                    <Image
+                                                        Grid.Row="4"
+                                                        Grid.Column="0"
+                                                        IsVisible="{Binding UseMoving}"
+                                                        Source="interval_timer_visual.png" />
                                                     <Label
                                                         Grid.Row="4"
-                                                        Grid.ColumnSpan="4"
+                                                        Grid.Column="1"
+                                                        Grid.ColumnSpan="3"
                                                         Padding="2"
                                                         FontSize="Body"
                                                         IsVisible="{Binding UseMoving}"
