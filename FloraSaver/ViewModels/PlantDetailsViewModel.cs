@@ -434,7 +434,7 @@ namespace FloraSaver.ViewModels
             IsInitialization = false;
         }
 
-        public void ApplyQueryAttributes(IDictionary<string, object> query)
+        public virtual void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             IsInitialization = true;
             AlterPlant = query["Plant"] as Plant;

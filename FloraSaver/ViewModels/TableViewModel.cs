@@ -414,8 +414,37 @@ namespace FloraSaver.ViewModels
             }
         }
 
+        private async Task GoToSetupDetailsGroupName(Plant plant)
+        {
+
+        }
+
+        private async Task GoToSetupDetailsPlantName(Plant plant)
+        {
+
+        }
+        private async Task GoToSetupDetailsGivenName(Plant plant)
+        {
+
+        }
+
+        private async Task GoToSetupDetailsWater(Plant plant)
+        {
+
+        }
+
+        private async Task GoToSetupDetailsRefresh(Plant plant)
+        {
+
+        }
+
+        private async Task GoToSetupDetailsSun(Plant plant)
+        {
+
+        }
+
         [RelayCommand]
-        private async Task GoToDetailsAsync(Plant plant)
+        private async Task GoToDetailsAsync(Plant plant, string plantDetailsSetupPageOpenTab = null)
         {
             if (plant == null)
             {
@@ -438,7 +467,8 @@ namespace FloraSaver.ViewModels
                         TimeOfNextMove = DateTime.Now.TimeOfDay
                         }
                     },
-                    {"PlantGroup", await _databaseService.GetAllPlantGroupAsync() }
+                    {"PlantGroup", await _databaseService.GetAllPlantGroupAsync() },
+                    {"SelectedTab", plantDetailsSetupPageOpenTab }
                 });
             }
             else

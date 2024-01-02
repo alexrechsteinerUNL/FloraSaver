@@ -15,6 +15,7 @@ namespace FloraSaver.ViewModels
 {
     [QueryProperty(nameof(Plant), "Plant")]
     [QueryProperty(nameof(PlantGroup), "PlantGroup")]
+    [QueryProperty("SelectedTab", "SelectedTab")]
     public partial class PlantDetailsSetupViewModel : PlantDetailsViewModel, IQueryAttributable, INotifyPropertyChanged
     {
         public List<string> SetupTabs { get; set; } = new List<string>() { "GroupName", "PlantName", "GivenName", "Water", "Refresh", "Sun" };
@@ -36,6 +37,12 @@ namespace FloraSaver.ViewModels
             SelectedGroupColor = GroupColors[rand.Next(GroupColors.Count)];
             TabPressed(SetupTabs[0]);
             OnPropertyChanged("VisibleTabs");
+        }
+
+        public override void ApplyQueryAttributes(IDictionary<string, object> query)
+        {
+            base.ApplyQueryAttributes(query);
+            if (query.ContainsKey("SelectedTab")) { TabPressed((string)query["SelectedTab"] ?? "GroupName"); }
         }
 
         [RelayCommand]
