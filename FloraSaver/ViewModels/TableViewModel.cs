@@ -47,7 +47,7 @@ namespace FloraSaver.ViewModels
         private async Task AppearingAsync()
         {
             timer = new PeriodicTimer(TimeSpan.FromSeconds(10));
-
+            PeriodicTimerUpdaterBackgroundAsync(() => CheatUpdateAllPlantProgress());
             if (ShouldUpdateCheckService.shouldGetNewGroupDataTable) { ShouldUpdateCheckService.ForceToGetNewGroupData(); await GetPlantGroupsAsync(); ShouldUpdateCheckService.shouldGetNewGroupDataTable = false; }
             if (ShouldUpdateCheckService.shouldGetNewPlantDataTable) { ShouldUpdateCheckService.ForceToGetNewPlantData(); await GetPlantsAsync(); ShouldUpdateCheckService.shouldGetNewPlantDataTable = false; }
         }
@@ -490,39 +490,12 @@ namespace FloraSaver.ViewModels
 
         private async Task GoToSetupDetailsAsync(Plant plant, string plantDetailsSetupPageOpenTab = null)
         {
-            if (plant is null)
-            {
                 await Shell.Current.GoToAsync(nameof(PlantDetailsSetupPage), true, new Dictionary<string, object>
-                {
-                    {"Plant", new Plant {
-                        Id = DataPlants.Any() ? DataPlants.Max(x => x.Id) + 1 : 0,
-                        DateOfBirth = DateTime.Now,
-                        DateOfLastWatering = DateTime.Now,
-                        TimeOfLastWatering = DateTime.Now.TimeOfDay,
-                        DateOfNextWatering = DateTime.Now,
-                        TimeOfNextWatering = DateTime.Now.TimeOfDay,
-                        DateOfLastMisting = DateTime.Now,
-                        TimeOfLastMisting = DateTime.Now.TimeOfDay,
-                        DateOfNextMisting = DateTime.Now,
-                        TimeOfNextMisting = DateTime.Now.TimeOfDay,
-                        DateOfLastMove = DateTime.Now,
-                        TimeOfLastMove = DateTime.Now.TimeOfDay,
-                        DateOfNextMove = DateTime.Now,
-                        TimeOfNextMove = DateTime.Now.TimeOfDay
-                        }
-                    },
-                    {"PlantGroup", await _databaseService.GetAllPlantGroupAsync() }
-                });
-            }
-            else
-            {
-                await Shell.Current.GoToAsync(nameof(PlantDetailsPage), true, new Dictionary<string, object>
                 {
                     {"Plant", plant },
                     {"PlantGroup", await _databaseService.GetAllPlantGroupAsync() },
                     { "SelectedTab", plantDetailsSetupPageOpenTab}
                 });
-            }
             return;
         }
     }

@@ -171,7 +171,11 @@
                                                     Grid.Column="0"
                                                     FontSize="34"
                                                     Text="{Binding GivenName, StringFormat='{0}'}"
-                                                    TextColor="{Binding GroupColor}" />
+                                                    TextColor="{Binding GroupColor}">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToSetupDetailsGivenNameCommand}" CommandParameter="{Binding .}" />
+                                                    </Label.GestureRecognizers>
+                                                </Label>
                                                 <Frame
                                                     Grid.Row="0"
                                                     Grid.Column="1"
@@ -214,149 +218,168 @@
                                                     BorderColor="{Binding GroupColor}"
                                                     HeightRequest="52"
                                                     Scale="1.1538"
-                                                    WidthRequest="52" />
+                                                    WidthRequest="52">
+                                                    <Frame.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToSetupDetailsGivenNameCommand}" CommandParameter="{Binding .}" />
+                                                    </Frame.GestureRecognizers>
+                                                </Frame>
                                                 <Label
                                                     Grid.Row="1"
                                                     Grid.ColumnSpan="2"
                                                     FontAttributes="Italic"
-                                                    Text="{Binding PlantSpecies}" />
+                                                    Text="{Binding PlantSpecies}">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToSetupDetailsPlantNameCommand}" CommandParameter="{Binding .}" />
+                                                    </Label.GestureRecognizers>
+                                                </Label>
                                                 <Label
                                                     Grid.Row="2"
                                                     Grid.ColumnSpan="2"
                                                     Text="{Binding PlantGroupName}"
-                                                    TextColor="{Binding GroupColor}" />
+                                                    TextColor="{Binding GroupColor}">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToSetupDetailsGroupNameCommand}" CommandParameter="{Binding .}" />
+                                                    </Label.GestureRecognizers>
+                                                </Label>
                                                 <Grid
                                                     Grid.Row="3"
                                                     Grid.ColumnSpan="2"
-                                                    ColumnDefinitions="*, 7.75*, *, 7.75*"
-                                                    RowDefinitions="*,*,*,*,*,*">
-                                                    <Image
+                                                    RowDefinitions="*,*,*">
+                                                    <Grid
                                                         Grid.Row="0"
-                                                        Grid.Column="0"
+                                                        ColumnDefinitions="*, 7.75*, *, 7.75*"
                                                         IsVisible="{Binding UseWatering}"
-                                                        Source="interval_timer_visual.png" />
-                                                    <Label
-                                                        Grid.Row="0"
-                                                        Grid.Column="1"
-                                                        Grid.ColumnSpan="3"
-                                                        Padding="2"
-                                                        FontSize="Body"
-                                                        IsVisible="{Binding UseWatering}"
-                                                        Text="{Binding WaterInterval, StringFormat='Water Interval: Every {0} Day(s)'}"
-                                                        VerticalOptions="CenterAndExpand" />
-                                                    <Image
+                                                        RowDefinitions="*,*">
+                                                        <Image
+                                                            Grid.Row="0"
+                                                            Grid.Column="0"
+                                                            Source="interval_timer_visual.png" />
+                                                        <Label
+                                                            Grid.Row="0"
+                                                            Grid.Column="1"
+                                                            Grid.ColumnSpan="3"
+                                                            Padding="2"
+                                                            FontSize="Body"
+                                                            Text="{Binding WaterInterval, StringFormat='Water Interval: Every {0} Day(s)'}"
+                                                            VerticalOptions="CenterAndExpand" />
+                                                        <Image
+                                                            Grid.Row="1"
+                                                            Grid.Column="0"
+                                                            Source="water_timer_visual_inverted.png" />
+                                                        <Label
+                                                            Grid.Row="1"
+                                                            Grid.Column="1"
+                                                            Padding="2"
+                                                            FontSize="Body"
+                                                            HorizontalTextAlignment="Start"
+                                                            Text="{Binding DateOfLastWatering, StringFormat='{0:d} {0:h\:mm tt}'}"
+                                                            VerticalOptions="CenterAndExpand" />
+                                                        <Image
+                                                            Grid.Row="1"
+                                                            Grid.Column="2"
+                                                            Source="water_timer_visual.png" />
+                                                        <Label
+                                                            Grid.Row="1"
+                                                            Grid.Column="3"
+                                                            Padding="2"
+                                                            FontSize="Body"
+                                                            HorizontalTextAlignment="Start"
+                                                            Text="{Binding DateOfNextWatering, StringFormat='{0:d} {0:h\:mm tt}'}"
+                                                            VerticalOptions="CenterAndExpand" />
+                                                        <Grid.GestureRecognizers>
+                                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToSetupDetailsWaterCommand}" CommandParameter="{Binding .}" />
+                                                        </Grid.GestureRecognizers>
+                                                    </Grid>
+                                                    <Grid
                                                         Grid.Row="1"
-                                                        Grid.Column="0"
-                                                        IsVisible="{Binding UseWatering}"
-                                                        Source="water_timer_visual_inverted.png" />
-                                                    <Label
-                                                        Grid.Row="1"
-                                                        Grid.Column="1"
-                                                        Padding="2"
-                                                        FontSize="Body"
-                                                        HorizontalTextAlignment="Start"
-                                                        IsVisible="{Binding UseWatering}"
-                                                        Text="{Binding DateOfLastWatering, StringFormat='{0:d} {0:h\:mm tt}'}"
-                                                        VerticalOptions="CenterAndExpand" />
-                                                    <Image
-                                                        Grid.Row="1"
-                                                        Grid.Column="2"
-                                                        IsVisible="{Binding UseWatering}"
-                                                        Source="water_timer_visual.png" />
-                                                    <Label
-                                                        Grid.Row="1"
-                                                        Grid.Column="3"
-                                                        Padding="2"
-                                                        FontSize="Body"
-                                                        HorizontalTextAlignment="Start"
-                                                        IsVisible="{Binding UseWatering}"
-                                                        Text="{Binding DateOfNextWatering, StringFormat='{0:d} {0:h\:mm tt}'}"
-                                                        VerticalOptions="CenterAndExpand" />
-                                                    <Image
+                                                        ColumnDefinitions="*, 7.75*, *, 7.75*"
+                                                        IsVisible="{Binding UseMisting}"
+                                                        RowDefinitions="*,*">
+                                                        <Image
+                                                            Grid.Row="0"
+                                                            Grid.Column="0"
+                                                            Source="interval_timer_visual.png" />
+                                                        <Label
+                                                            Grid.Row="0"
+                                                            Grid.Column="1"
+                                                            Grid.ColumnSpan="3"
+                                                            Padding="2"
+                                                            FontSize="Body"
+                                                            Text="{Binding MistInterval, StringFormat='Mist Interval: Every {0} Day(s)'}"
+                                                            VerticalOptions="CenterAndExpand" />
+                                                        <Image
+                                                            Grid.Row="1"
+                                                            Grid.Column="0"
+                                                            Source="refresh_timer_visual_inverted.png" />
+                                                        <Label
+                                                            Grid.Row="1"
+                                                            Grid.Column="1"
+                                                            Padding="2"
+                                                            FontSize="Body"
+                                                            HorizontalTextAlignment="Start"
+                                                            Text="{Binding DateOfLastMisting, StringFormat='{0:d} {0:h\:mm tt}'}"
+                                                            VerticalOptions="CenterAndExpand" />
+                                                        <Image
+                                                            Grid.Row="1"
+                                                            Grid.Column="2"
+                                                            Source="refresh_timer_visual.png" />
+                                                        <Label
+                                                            Grid.Row="1"
+                                                            Grid.Column="3"
+                                                            Padding="2"
+                                                            FontSize="Body"
+                                                            HorizontalTextAlignment="Start"
+                                                            Text="{Binding DateOfNextMisting, StringFormat='{0:d} {0:h\:mm tt}'}"
+                                                            VerticalOptions="CenterAndExpand" />
+                                                        <Grid.GestureRecognizers>
+                                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToSetupDetailsRefreshCommand}" CommandParameter="{Binding .}" />
+                                                        </Grid.GestureRecognizers>
+                                                    </Grid>
+                                                    <Grid
                                                         Grid.Row="2"
-                                                        Grid.Column="0"
-                                                        IsVisible="{Binding UseMisting}"
-                                                        Source="interval_timer_visual.png" />
-
-                                                    <Label
-                                                        Grid.Row="2"
-                                                        Grid.Column="1"
-                                                        Grid.ColumnSpan="3"
-                                                        Padding="2"
-                                                        FontSize="Body"
-                                                        IsVisible="{Binding UseMisting}"
-                                                        Text="{Binding MistInterval, StringFormat='Mist Interval: Every {0} Day(s)'}"
-                                                        VerticalOptions="CenterAndExpand" />
-                                                    <Image
-                                                        Grid.Row="3"
-                                                        Grid.Column="0"
-                                                        IsVisible="{Binding UseMisting}"
-                                                        Source="refresh_timer_visual_inverted.png" />
-                                                    <Label
-                                                        Grid.Row="3"
-                                                        Grid.Column="1"
-                                                        Padding="2"
-                                                        FontSize="Body"
-                                                        HorizontalTextAlignment="Start"
-                                                        IsVisible="{Binding UseMisting}"
-                                                        Text="{Binding DateOfLastMisting, StringFormat='{0:d} {0:h\:mm tt}'}"
-                                                        VerticalOptions="CenterAndExpand" />
-                                                    <Image
-                                                        Grid.Row="3"
-                                                        Grid.Column="2"
-                                                        IsVisible="{Binding UseMisting}"
-                                                        Source="refresh_timer_visual.png" />
-                                                    <Label
-                                                        Grid.Row="3"
-                                                        Grid.Column="3"
-                                                        Padding="2"
-                                                        FontSize="Body"
-                                                        HorizontalTextAlignment="Start"
-                                                        IsVisible="{Binding UseMisting}"
-                                                        Text="{Binding DateOfNextMisting, StringFormat='{0:d} {0:h\:mm tt}'}"
-                                                        VerticalOptions="CenterAndExpand" />
-                                                    <Image
-                                                        Grid.Row="4"
-                                                        Grid.Column="0"
+                                                        ColumnDefinitions="*, 7.75*, *, 7.75*"
                                                         IsVisible="{Binding UseMoving}"
-                                                        Source="interval_timer_visual.png" />
-                                                    <Label
-                                                        Grid.Row="4"
-                                                        Grid.Column="1"
-                                                        Grid.ColumnSpan="3"
-                                                        Padding="2"
-                                                        FontSize="Body"
-                                                        IsVisible="{Binding UseMoving}"
-                                                        Text="{Binding SunInterval, StringFormat='Sun Interval: Every {0} Day(s)'}"
-                                                        VerticalOptions="CenterAndExpand" />
-                                                    <Image
-                                                        Grid.Row="5"
-                                                        Grid.Column="0"
-                                                        IsVisible="{Binding UseMoving}"
-                                                        Source="sun_timer_visual_inverted.png" />
-                                                    <Label
-                                                        Grid.Row="5"
-                                                        Grid.Column="1"
-                                                        Padding="2"
-                                                        FontSize="Body"
-                                                        HorizontalTextAlignment="Start"
-                                                        IsVisible="{Binding UseMoving}"
-                                                        Text="{Binding DateOfLastMove, StringFormat='{0:d} {0:h\:mm tt}'}"
-                                                        VerticalOptions="CenterAndExpand" />
-                                                    <Image
-                                                        Grid.Row="5"
-                                                        Grid.Column="2"
-                                                        IsVisible="{Binding UseMoving}"
-                                                        Source="sun_timer_visual.png" />
-                                                    <Label
-                                                        Grid.Row="5"
-                                                        Grid.Column="3"
-                                                        Padding="2"
-                                                        FontSize="Body"
-                                                        HorizontalTextAlignment="Start"
-                                                        IsVisible="{Binding UseMoving}"
-                                                        Text="{Binding DateOfNextMove, StringFormat='{0:d} {0:h\:mm tt}'}"
-                                                        VerticalOptions="CenterAndExpand" />
+                                                        RowDefinitions="*,*">
+                                                        <Image
+                                                            Grid.Row="0"
+                                                            Grid.Column="0"
+                                                            Source="interval_timer_visual.png" />
+                                                        <Label
+                                                            Grid.Row="0"
+                                                            Grid.Column="1"
+                                                            Grid.ColumnSpan="3"
+                                                            Padding="2"
+                                                            FontSize="Body"
+                                                            Text="{Binding SunInterval, StringFormat='Sun Interval: Every {0} Day(s)'}"
+                                                            VerticalOptions="CenterAndExpand" />
+                                                        <Image
+                                                            Grid.Row="1"
+                                                            Grid.Column="0"
+                                                            Source="sun_timer_visual_inverted.png" />
+                                                        <Label
+                                                            Grid.Row="1"
+                                                            Grid.Column="1"
+                                                            Padding="2"
+                                                            FontSize="Body"
+                                                            HorizontalTextAlignment="Start"
+                                                            Text="{Binding DateOfLastMove, StringFormat='{0:d} {0:h\:mm tt}'}"
+                                                            VerticalOptions="CenterAndExpand" />
+                                                        <Image
+                                                            Grid.Row="1"
+                                                            Grid.Column="2"
+                                                            Source="sun_timer_visual.png" />
+                                                        <Label
+                                                            Grid.Row="1"
+                                                            Grid.Column="3"
+                                                            Padding="2"
+                                                            FontSize="Body"
+                                                            HorizontalTextAlignment="Start"
+                                                            Text="{Binding DateOfNextMove, StringFormat='{0:d} {0:h\:mm tt}'}"
+                                                            VerticalOptions="CenterAndExpand" />
+                                                        <Grid.GestureRecognizers>
+                                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToSetupDetailsSunCommand}" CommandParameter="{Binding .}" />
+                                                        </Grid.GestureRecognizers>
+                                                    </Grid>
                                                 </Grid>
                                             </Grid>
                                             <Grid
