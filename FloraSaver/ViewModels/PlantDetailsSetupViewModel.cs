@@ -35,14 +35,14 @@ namespace FloraSaver.ViewModels
             mistingInterval = PickerService.GetWaterIntervals();
             sunInterval = PickerService.GetWaterIntervals();
             SelectedGroupColor = GroupColors[rand.Next(GroupColors.Count)];
-            TabPressed(SetupTabs[0]);
-            OnPropertyChanged("VisibleTabs");
         }
 
         public override void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             base.ApplyQueryAttributes(query);
-            if (query.ContainsKey("SelectedTab")) { TabPressed((string)query["SelectedTab"] ?? "GroupName"); }
+            var startTab = query.ContainsKey("SelectedTab") ? SetupTabs.FirstOrDefault(_ => _ == (string)query["SelectedTab"]) ?? "GroupName" : "GroupName";
+            TabPressed(startTab);
+            OnPropertyChanged("VisibleTabs");
         }
 
         [RelayCommand]
