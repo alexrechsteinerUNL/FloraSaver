@@ -24,7 +24,7 @@
         Padding="0"
         HorizontalOptions="Fill"
         RowDefinitions="40, *, 40, 50, *"
-        RowSpacing="10">
+        RowSpacing="5">
         <HorizontalStackLayout Padding="5,0" HorizontalOptions="Center">
             <Button
                 x:Name="goBack"
@@ -1332,35 +1332,22 @@
                 </Grid>
             </Frame>
         </Grid>
-
-        <HorizontalStackLayout
+        <Grid
             Grid.Row="2"
-            Padding="0"
-            HorizontalOptions="CenterAndExpand">
+            ColumnDefinitions="*,*"
+            HorizontalOptions="FillAndExpand">
             <Button
+                Grid.Column="0"
                 Command="{Binding LastButtonPressedCommand}"
-                HorizontalOptions="Center"
+                HorizontalOptions="FillAndExpand"
                 Text="◄" />
+
             <Button
-                x:Name="addUpdate"
-                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=AddUpdateCommand}"
-                CommandParameter="{Binding Plant}"
-                HorizontalOptions="CenterAndExpand"
-                IsEnabled="{Binding IsNotBusy}"
-                Text="Update"
-                WidthRequest="150" />
-            <Button
-                x:Name="switchToSetup"
-                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SwitchDetailsCommand}"
-                CommandParameter="{StaticResource True}"
-                IsEnabled="{Binding IsNotBusy}"
-                Text="swap"
-                WidthRequest="150" />
-            <Button
+                Grid.Column="1"
                 Command="{Binding NextButtonPressedCommand}"
-                HorizontalOptions="Center"
+                HorizontalOptions="FillAndExpand"
                 Text="►" />
-        </HorizontalStackLayout>
+        </Grid>
 
         <Frame
             Grid.Row="3"
@@ -1389,6 +1376,34 @@
                 Aspect="Fill"
                 Source="up_close_base_clipet.png"
                 VerticalOptions="EndAndExpand" />
+            <VerticalStackLayout
+                Grid.Row="0"
+                Grid.Column="0"
+                Padding="10"
+                Spacing="10">
+                <Button
+                    x:Name="addUpdate"
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=AddUpdateCommand}"
+                    CommandParameter="{Binding Plant}"
+                    HorizontalOptions="CenterAndExpand"
+                    IsEnabled="{Binding IsNotBusy}"
+                    Text="Update"
+                    WidthRequest="200" />
+                <Button
+                    x:Name="switchToSetup"
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SwitchDetailsCommand}"
+                    CommandParameter="{StaticResource True}"
+                    IsEnabled="{Binding IsNotBusy}"
+                    Text="swap"
+                    WidthRequest="200" />
+                <Button
+                    x:Name="resetChanges"
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SwitchDetailsCommand}"
+                    CommandParameter="{StaticResource True}"
+                    IsEnabled="{Binding IsNotBusy}"
+                    Text="Reset Changes"
+                    WidthRequest="200" />
+            </VerticalStackLayout>
             <Grid
                 x:Name="speechSpace"
                 Grid.Row="1"

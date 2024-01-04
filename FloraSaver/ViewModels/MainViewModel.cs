@@ -38,6 +38,7 @@ namespace FloraSaver.ViewModels
         private async Task AppearingHomeAsync()
         {
             if (ShouldUpdateCheckService.shouldGetNewPlantDataMain) { await GetPlantsAsync(); ShouldUpdateCheckService.shouldGetNewPlantDataMain = false; }
+            PeriodicTimerUpdaterBackgroundAsync(() => CheatUpdateAllPlantProgress());
             SetNextPlant();
         }
 
