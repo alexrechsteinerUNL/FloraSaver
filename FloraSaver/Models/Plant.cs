@@ -280,8 +280,8 @@ namespace FloraSaver.Models
         {
             if (nextTime > DateTime.Now && lastTime < DateTime.Now)
             {
-                return (DateTime.Now - lastTime).TotalSeconds /
-                (nextTime - lastTime).TotalSeconds;
+                return Math.Floor(((DateTime.Now - lastTime).TotalSeconds /
+                (nextTime - lastTime).TotalSeconds)*100)/100;
             }
             else
             {

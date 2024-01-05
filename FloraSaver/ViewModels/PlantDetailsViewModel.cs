@@ -324,7 +324,7 @@ namespace FloraSaver.ViewModels
         protected void UndoAll()
         {
             IsBeingUndone = true;
-            AlterPlant = new Plant(InitialPlant);
+            //AlterPlant = new Plant(InitialPlant); This is causing visual bugs 
             OnPropertyChanged("AlterPlant");
             GroupUndoButtonVisible = false;
             ImageUndoButtonVisible = false;
