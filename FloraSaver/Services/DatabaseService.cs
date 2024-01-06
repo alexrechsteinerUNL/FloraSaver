@@ -87,6 +87,10 @@ namespace FloraSaver.Services
                 {
                     await AddUpdateNewPlantGroupAsync(new PlantGroup { GroupId = plantGroups.Count + 1, GroupName = plant.PlantGroupName, GroupColorHex = plant.GroupColor.ToHex() }, false);
                 }
+#if (ANDROID || IOS)
+                var plants = await GetAllPlantAsync();
+                await _plantNotificationService.SetAllNotificationsAsync(plants);
+#endif
             }
             catch (Exception ex)
             {
@@ -105,6 +109,10 @@ namespace FloraSaver.Services
                 result = await conn.DeleteAsync(plant);
 
                 StatusMessage = string.Format("{0} record(s) deleted (Name: {1})", result, plant.GivenName);
+#if (ANDROID || IOS)
+                var plants = await GetAllPlantAsync();
+                await _plantNotificationService.SetAllNotificationsAsync(plants);
+#endif
             }
             catch (Exception ex)
             {
@@ -122,6 +130,9 @@ namespace FloraSaver.Services
                 result = await conn.DeleteAllAsync<Plant>();
 
                 StatusMessage = string.Format("{0} record(s) deleted. Plant database is now empty", result);
+#if (ANDROID || IOS)
+                await _plantNotificationService.SetAllNotificationsAsync(null);
+#endif
             }
             catch (Exception ex)
             {
@@ -140,6 +151,9 @@ namespace FloraSaver.Services
                 result = await conn.DeleteAllAsync<Plant>();
 
                 StatusMessage = string.Format("{0} record(s) deleted. Plant database is now empty", result);
+#if (ANDROID || IOS)
+                await _plantNotificationService.SetAllNotificationsAsync(null);
+#endif
             }
             catch (Exception ex)
             {
@@ -166,6 +180,9 @@ namespace FloraSaver.Services
                 //}
 
                 StatusMessage = string.Format("{0} record(s) deleted. PlantGroup database is now empty", result);
+#if (ANDROID || IOS)
+                await _plantNotificationService.SetAllNotificationsAsync(plants);
+#endif
             }
             catch (Exception ex)
             {
@@ -227,13 +244,16 @@ namespace FloraSaver.Services
                 //    plant.GroupColorHexString = "#A9A9A9";
                 //    await AddUpdateNewPlantAsync(plant);
                 //}
+                var plants = await GetAllPlantAsync();
                 if (setPlants)
                 {
                     var selectGroupName = string.IsNullOrEmpty(oldPlantNameIfApplicable) ? plantGroup.GroupName : oldPlantNameIfApplicable;
-                    var plants = await GetAllPlantAsync();
+
                     await SetPlantsToGroupAsync(plants.Where(_ => _.PlantGroupName == selectGroupName), plantGroup.GroupName, plantGroup.GroupColorHex);
                 }
-
+#if (ANDROID || IOS)
+                await _plantNotificationService.SetAllNotificationsAsync(plants);
+#endif
                 StatusMessage = string.Format("{0} group saved (Name: {1})", result, plantGroup.GroupName);
             }
             catch (Exception ex)
@@ -266,6 +286,9 @@ namespace FloraSaver.Services
 
                 await SetPlantsToGroupAsync(plants.Where(_ => _.PlantGroupName == plantGroup.GroupName));
                 StatusMessage = string.Format("{0} group(s) deleted (Name: {1})", result, plantGroup.GroupName);
+#if (ANDROID || IOS)
+                await _plantNotificationService.SetAllNotificationsAsync(plants);
+#endif
             }
             catch (Exception ex)
             {
@@ -279,13 +302,6 @@ namespace FloraSaver.Services
             {
                 await InitAsync();
                 var allPlants = await conn.Table<Plant>().ToListAsync();
-#if (ANDROID || IOS)
-                allPlants = await _plantNotificationService.SetAllNotificationsAsync(allPlants);
-                foreach (var plant in allPlants)
-                {
-                    await AddUpdateNewPlantAsync(plant);
-                }
-#endif
                 return allPlants;
             }
             catch (Exception ex)
