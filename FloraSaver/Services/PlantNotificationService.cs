@@ -26,8 +26,9 @@ namespace FloraSaver.Services
                 // could maybe set a flag instead of 2 methods that both run a notification.
                 if (plantDateWithExtraTime >= DateTime.Now)
                 {
+
                     plant.IsOverdueWater = false;
-                    await FutureNotificationAsync(plant, "water", plantDateWithExtraTime);
+                    await FutureNotificationAsync(plant, "water", plantDateWithExtraTime,"FloraSaver.Resources.Images.future_notify_water.png");
                 }
                 else
                 {
@@ -37,7 +38,10 @@ namespace FloraSaver.Services
                     {
                         await WarnOverdueAsync(plant, "water", plants
                         .FirstOrDefault(plant => plantDateWithExtraTime > DateTime.Now)?
-                        .DateOfNextWatering.AddDays(plant.ExtraWaterTime) ?? DateTime.Now);
+                        .DateOfNextWatering.AddDays(plant.ExtraWaterTime) ?? DateTime.Now,
+                        "FloraSaver.Resources.Images.overdue_notify_water.png"
+                        );
+
                         plant.PlantWaterOverdueCooldownLastWarned = DateTime.Now;
                     }
                 }
@@ -49,7 +53,7 @@ namespace FloraSaver.Services
                 if (plantDateWithExtraTime >= DateTime.Now)
                 {
                     plant.IsOverdueMist = false;
-                    await FutureNotificationAsync(plant, "mist", plantDateWithExtraTime);
+                    await FutureNotificationAsync(plant, "mist", plantDateWithExtraTime, "FloraSaver.Resources.Images.future_notify_mist.png");
                 }
                 else
                 {
@@ -59,7 +63,9 @@ namespace FloraSaver.Services
                     {
                         await WarnOverdueAsync(plant, "mist", plants
                         .FirstOrDefault(plant => plantDateWithExtraTime > DateTime.Now)?
-                        .DateOfNextMisting.AddDays(plant.ExtraMistTime) ?? DateTime.Now);
+                        .DateOfNextMisting.AddDays(plant.ExtraMistTime) ?? DateTime.Now,
+                        "FloraSaver.Resources.Images.overdue_notify_mist.png"
+                        );
                         plant.PlantMistOverdueCooldownLastWarned = DateTime.Now;
                     }
                 }
@@ -71,7 +77,7 @@ namespace FloraSaver.Services
                 if (plantDateWithExtraTime >= DateTime.Now)
                 {
                     plant.IsOverdueSun = false;
-                    await FutureNotificationAsync(plant, "move", plantDateWithExtraTime);
+                    await FutureNotificationAsync(plant, "move", plantDateWithExtraTime, "FloraSaver.Resources.Images.future_notify_sun.png");
                 }
                 else
                 {
@@ -81,7 +87,9 @@ namespace FloraSaver.Services
                         //this is gross. Fix it!
                         await WarnOverdueAsync(plant, "move", plants
                             .FirstOrDefault(plant => plantDateWithExtraTime > DateTime.Now)?
-                            .DateOfNextMove.AddDays(plant.ExtraMoveTime) ?? DateTime.Now);
+                            .DateOfNextMove.AddDays(plant.ExtraMoveTime) ?? DateTime.Now,
+                            "FloraSaver.Resources.Images.overdue_notify_sun.png"
+                            );
                         plant.PlantMoveOverdueCooldownLastWarned = DateTime.Now;
                     }
                 }
@@ -89,13 +97,16 @@ namespace FloraSaver.Services
             return plants;
         }
 
-        private async Task WarnOverdueAsync(Plant plant, string plantAction, DateTime notifyTime)
+        private async Task WarnOverdueAsync(Plant plant, string plantAction, DateTime notifyTime, string source)
         {
             var notification = new NotificationRequest
             {
                 NotificationId = GenerateNotificationId(plant, plantAction),
                 Title = $"Overdue {(plantAction.EndsWith("e") ? plantAction.Remove(plantAction.Length - 1, 1) : plantAction)}ing on your '{plant.PlantSpecies}', {plant.GivenName}",
                 Description = $"You really should {plantAction} this guy",
+                Image = {
+                    ResourceName = source
+                },
                 ReturningData = "Dummy data", // Returning data when tapped on notification.
                 Schedule =
                 {
@@ -105,13 +116,16 @@ namespace FloraSaver.Services
             await LocalNotificationCenter.Current.Show(notification);
         }
 
-        private async Task FutureNotificationAsync(Plant plant, string plantAction, DateTime notifyTime)
+        private async Task FutureNotificationAsync(Plant plant, string plantAction, DateTime notifyTime, string source)
         {
             var notification = new NotificationRequest
             {
                 NotificationId = GenerateNotificationId(plant, plantAction),
                 Title = $"It's time to {plantAction} your '{plant.PlantSpecies}', {plant.GivenName}",
                 Description = "You really should water this guy",
+                Image = {
+                    FilePath = source
+                },
                 ReturningData = "Dummy data", // Returning data when tapped on notification.
                 Schedule =
                 {
@@ -141,6 +155,20 @@ namespace FloraSaver.Services
                     break;
             }
             return idWithIsOverdueThenType;
+        }
+
+        private async Task<byte[]> GetNotificationImageAsync(string source)
+        {
+
+            var imageSource = ImageSource.FromResource(source);
+            byte[] imageBytes = null;
+            if (imageSource != null)
+            {
+                Stream stream = await ((StreamImageSource)imageSource).Stream(CancellationToken.None);
+                imageBytes = new byte[stream.Length];
+                stream.Read(imageBytes, 0, imageBytes.Length);
+            }
+            return imageBytes;
         }
     }
 }
