@@ -312,16 +312,7 @@ namespace FloraSaver.ViewModels
                     }
                 }
 
-                if (Plants.Count != 0)
-                {
-                    Plants.Clear();
-                }
-                foreach (var plant in plants)
-                {
-                    plant.PlantImageSource = plant.ImageLocation is not null ? Base64ImageConverterService.Base64ToImage(plant.ImageLocation) : null;
-                    Plants.Add(plant);
-                    OnPropertyChanged(nameof(Plants));
-                }
+                RebuildPlantsSafely(plants);
                 DataPlants = new ObservableCollection<Plant>(Plants);
             }
             catch (Exception ex)

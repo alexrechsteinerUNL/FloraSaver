@@ -1398,7 +1398,7 @@
                     WidthRequest="200" />
                 <Button
                     x:Name="resetChanges"
-                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SwitchDetailsCommand}"
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=UndoAllCommand}"
                     CommandParameter="{StaticResource True}"
                     IsEnabled="{Binding IsNotBusy}"
                     Text="Reset Changes"
@@ -1463,7 +1463,7 @@
                         <ImageButton
                             Command="{Binding TabPressedCommand}"
                             CommandParameter="PlantName"
-                            Source="planticon.png" />
+                            Source="planticonwhite.png" />
                     </Frame>
                     <Frame
                         Grid.Column="2"
@@ -1499,7 +1499,7 @@
                         <ImageButton
                             Command="{Binding TabPressedCommand}"
                             CommandParameter="Water"
-                            Source="water_timer_visual.png" />
+                            Source="future_notify_water.png" />
                     </Frame>
                     <Frame
                         Grid.Column="4"
@@ -1517,7 +1517,7 @@
                         <ImageButton
                             Command="{Binding TabPressedCommand}"
                             CommandParameter="Refresh"
-                            Source="refresh_timer_visual.png" />
+                            Source="future_notify_mist.png" />
                     </Frame>
                     <Frame
                         Grid.Column="5"
@@ -1535,7 +1535,7 @@
                         <ImageButton
                             Command="{Binding TabPressedCommand}"
                             CommandParameter="Sun"
-                            Source="sun_timer_visual.png" />
+                            Source="future_notify_sun.png" />
                     </Frame>
                 </Grid>
             </Frame>

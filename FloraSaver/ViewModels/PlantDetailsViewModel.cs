@@ -781,7 +781,7 @@ namespace FloraSaver.ViewModels
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Unable to add or update plants: {ex.Message}");
+                Debug.WriteLine($"Unable to delete plants: {ex.Message}");
                 await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
             }
             finally

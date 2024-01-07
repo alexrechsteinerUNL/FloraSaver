@@ -1,5 +1,7 @@
 ﻿using FloraSaver.Models;
+using Microsoft.VisualStudio.Utilities;
 using Plugin.LocalNotification;
+using System.IO;
 using System.Reflection;
 
 namespace FloraSaver.Services
@@ -162,6 +164,17 @@ namespace FloraSaver.Services
         //Right now this just returns null
         private static async Task<byte[]> GetNotificationImageAsync(string source)
         {
+            //byte[] bytes;
+            //using var stream = await FileSystem.OpenAppPackageFileAsync("overdue_notify_sun.png");
+            //if (stream is not null)
+            //{
+            //    using (var memStream = new MemoryStream())
+            //    {
+            //        await stream.CopyToAsync(memStream);
+            //        bytes = memStream.ToArray();
+            //        return bytes;
+            //    }
+            //}
             return null;
         }
     }
