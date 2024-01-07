@@ -20,6 +20,7 @@ namespace FloraSaver.ViewModels
         public ObservableCollection<Plant> DataPlants { get; set; } = new();
         public ObservableCollection<Plant> Plants { get; set; } = new();
         public ObservableCollection<PlantGroup> PlantGroups { get; set; } = new();
+        bool IsInitialization { get; set; } = true;
         protected bool shouldGetNewData { get; set; } = true;
         protected bool shouldGetNewGroupData { get; set; } = true;
 
@@ -46,10 +47,12 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         private async Task AppearingAsync()
         {
+            IsInitialization = true;
             timer = new PeriodicTimer(TimeSpan.FromSeconds(10));
             PeriodicTimerUpdaterBackgroundAsync(() => CheatUpdateAllPlantProgress());
             if (ShouldUpdateCheckService.shouldGetNewGroupDataTable) { ShouldUpdateCheckService.ForceToGetNewGroupData(); await GetPlantGroupsAsync(); ShouldUpdateCheckService.shouldGetNewGroupDataTable = false; }
             if (ShouldUpdateCheckService.shouldGetNewPlantDataTable) { ShouldUpdateCheckService.ForceToGetNewPlantData(); await GetPlantsAsync(); ShouldUpdateCheckService.shouldGetNewPlantDataTable = false; }
+            IsInitialization = false;
         }
 
         [RelayCommand]
@@ -110,36 +113,50 @@ namespace FloraSaver.ViewModels
             setPlantOrder(value);
         }
 
+        protected void RebuildPlantsSafely(IEnumerable<Plant> plantList)
+        {
+            Plants.Clear();
+            foreach (var plant in plantList)
+            {
+                plant.PlantImageSource = plant.ImageLocation is not null ? Base64ImageConverterService.Base64ToImage(plant.ImageLocation) : null;
+                Plants.Add(plant);
+            }
+            OnPropertyChanged("Plants");
+        }
+
+
         protected void setPlantOrder(string order)
         {
             //this is gross. There has to be a better way.
+            List<Plant> plantList = Plants.ToList();
             switch (order)
             {
                 case "Next Action":
-                    Plants = new ObservableCollection<Plant>(Plants.OrderByDescending(_ => new[] { _.WaterPercent, _.MistPercent, _.SunPercent }.Max()));
+                    RebuildPlantsSafely(plantList.OrderByDescending(_ => new[] { _.WaterPercent, _.MistPercent, _.SunPercent }.Max()));
                     break;
 
                 case "Next Watering":
-                    Plants = new ObservableCollection<Plant>(Plants.OrderByDescending(_ => _.UseWatering).ThenByDescending(_ => _.WaterPercent));
+
+                    RebuildPlantsSafely(plantList.OrderByDescending(_ => _.UseWatering).ThenByDescending(_ => _.WaterPercent));
                     break;
 
                 case "Next Misting":
-                    Plants = new ObservableCollection<Plant>(Plants.OrderByDescending(_ => _.UseMisting).ThenByDescending(_ => _.MistPercent));
+                    RebuildPlantsSafely(plantList.OrderByDescending(_ => _.UseMisting).ThenByDescending(_ => _.MistPercent));
                     break;
 
                 case "Next Moving":
-                    Plants = new ObservableCollection<Plant>(Plants.OrderByDescending(_ => _.UseMoving).ThenByDescending(_ => _.SunPercent));
+                    RebuildPlantsSafely(plantList.OrderByDescending(_ => _.UseMoving).ThenByDescending(_ => _.SunPercent));
                     break;
 
                 case "Alphabetical":
-                    Plants = new ObservableCollection<Plant>(Plants.OrderBy(_ => _.GivenName));
+                    RebuildPlantsSafely(plantList.OrderBy(_ => _.GivenName));
                     break;
 
                 default:
-                    Plants = new ObservableCollection<Plant>(Plants.OrderByDescending(_ => _.UseWatering).ThenByDescending(_ => _.WaterPercent));
+                    RebuildPlantsSafely(plantList.OrderByDescending(_ => _.UseWatering).ThenByDescending(_ => _.WaterPercent));
                     break;
             }
-            OnPropertyChanged("Plants");
+            //OnPropertyChanged("Plants");
         }
 
         //please break these bad boys out into a class of their own so you don't have to rewirte this fun logic ever.
@@ -233,31 +250,37 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         public async Task SearchPlantsAsync(string inputString)
         {
-            try
+            if (!IsInitialization)
             {
-                SearchQuery = inputString;
-                Plants.Replace(DataPlants);
-                foreach (var group in PlantGroups)
+                try
                 {
-                    await ShowHidePlantGroupsAsync(group, false);
-                }
-                if (!string.IsNullOrWhiteSpace(SearchQuery))
-                {
-                    for (int i = Plants.Count - 1; i >= 0; i--)
+                    List<Plant> plantDataList = DataPlants.ToList();
+                    SearchQuery = inputString;
+                    //Plants.Replace(DataPlants);
+                    foreach (var group in PlantGroups)
                     {
-                        if (Plants[i].GivenName.IndexOf(SearchQuery) < 0)
+                        await ShowHidePlantGroupsAsync(group, false);
+                    }
+                    if (!string.IsNullOrWhiteSpace(SearchQuery))
+                    {
+                        for (int i = plantDataList.Count - 1; i >= 0; i--)
                         {
-                            Plants.RemoveAt(i);
+                            if (plantDataList[i].GivenName.IndexOf(SearchQuery) < 0)
+                            {
+                                plantDataList.RemoveAt(i);
+                            }
                         }
                     }
+                    RebuildPlantsSafely(plantDataList);
+                    setPlantOrder(CurrentOrderByValue);
                 }
-                setPlantOrder(CurrentOrderByValue);
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"Unable to search plants: {ex.Message}");
+                    await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
+                }
             }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Unable to search plants: {ex.Message}");
-                await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
-            }
+
         }
 
         [RelayCommand]
@@ -397,18 +420,21 @@ namespace FloraSaver.ViewModels
 
         public virtual async Task ShowHidePlantGroupsAsync(PlantGroup specificGroup, bool awaitSearch = true)
         {
-            foreach (var plant in DataPlants.Where(_ => _.PlantGroupName == specificGroup.GroupName))
+            List<Plant> plantDataList = DataPlants.ToList();
+            List<Plant> plantList = Plants.ToList();
+            foreach (var plant in plantDataList.Where(_ => _.PlantGroupName == specificGroup.GroupName))
             {
-                if (!Plants.Contains(plant) && specificGroup.IsEnabled)
+                if (!plantList.Contains(plant) && specificGroup.IsEnabled)
                 {
-                    Plants.Add(plant);
+                    plantList.Add(plant);
                 }
-                else if (Plants.Contains(plant) && !specificGroup.IsEnabled)
+                else if (plantList.Contains(plant) && !specificGroup.IsEnabled)
                 {
-                    Plants.Remove(plant);
+                    plantList.Remove(plant);
                 }
             }
-            if (awaitSearch)
+            RebuildPlantsSafely(plantList);
+            if (awaitSearch && !String.IsNullOrWhiteSpace(SearchQuery))
             {
                 await SearchPlantsAsync(SearchQuery);
             }

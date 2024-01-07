@@ -1,5 +1,6 @@
 ﻿using FloraSaver.Models;
 using Plugin.LocalNotification;
+using System.Reflection;
 
 namespace FloraSaver.Services
 {
@@ -28,7 +29,7 @@ namespace FloraSaver.Services
                 {
 
                     plant.IsOverdueWater = false;
-                    await FutureNotificationAsync(plant, "water", plantDateWithExtraTime,"FloraSaver.Resources.Images.future_notify_water.png");
+                    await FutureNotificationAsync(plant, "water", plantDateWithExtraTime, await GetNotificationImageAsync("FloraSaver.Resources.Images.future_notify_water.png"));
                 }
                 else
                 {
@@ -39,7 +40,7 @@ namespace FloraSaver.Services
                         await WarnOverdueAsync(plant, "water", plants
                         .FirstOrDefault(plant => plantDateWithExtraTime > DateTime.Now)?
                         .DateOfNextWatering.AddDays(plant.ExtraWaterTime) ?? DateTime.Now,
-                        "FloraSaver.Resources.Images.overdue_notify_water.png"
+                        await GetNotificationImageAsync("FloraSaver.Resources.Images.overdue_notify_water.png")
                         );
 
                         plant.PlantWaterOverdueCooldownLastWarned = DateTime.Now;
@@ -53,7 +54,7 @@ namespace FloraSaver.Services
                 if (plantDateWithExtraTime >= DateTime.Now)
                 {
                     plant.IsOverdueMist = false;
-                    await FutureNotificationAsync(plant, "mist", plantDateWithExtraTime, "FloraSaver.Resources.Images.future_notify_mist.png");
+                    await FutureNotificationAsync(plant, "mist", plantDateWithExtraTime, await GetNotificationImageAsync("FloraSaver.Resources.Images.future_notify_mist.png"));
                 }
                 else
                 {
@@ -64,7 +65,7 @@ namespace FloraSaver.Services
                         await WarnOverdueAsync(plant, "mist", plants
                         .FirstOrDefault(plant => plantDateWithExtraTime > DateTime.Now)?
                         .DateOfNextMisting.AddDays(plant.ExtraMistTime) ?? DateTime.Now,
-                        "FloraSaver.Resources.Images.overdue_notify_mist.png"
+                        await GetNotificationImageAsync("FloraSaver.Resources.Images.overdue_notify_mist.png")
                         );
                         plant.PlantMistOverdueCooldownLastWarned = DateTime.Now;
                     }
@@ -77,7 +78,7 @@ namespace FloraSaver.Services
                 if (plantDateWithExtraTime >= DateTime.Now)
                 {
                     plant.IsOverdueSun = false;
-                    await FutureNotificationAsync(plant, "move", plantDateWithExtraTime, "FloraSaver.Resources.Images.future_notify_sun.png");
+                    await FutureNotificationAsync(plant, "move", plantDateWithExtraTime, await GetNotificationImageAsync("FloraSaver.Resources.Images.future_notify_sun.png"));
                 }
                 else
                 {
@@ -88,7 +89,7 @@ namespace FloraSaver.Services
                         await WarnOverdueAsync(plant, "move", plants
                             .FirstOrDefault(plant => plantDateWithExtraTime > DateTime.Now)?
                             .DateOfNextMove.AddDays(plant.ExtraMoveTime) ?? DateTime.Now,
-                            "FloraSaver.Resources.Images.overdue_notify_sun.png"
+                            await GetNotificationImageAsync("FloraSaver.Resources.Images.overdue_notify_sun.png")
                             );
                         plant.PlantMoveOverdueCooldownLastWarned = DateTime.Now;
                     }
@@ -97,7 +98,7 @@ namespace FloraSaver.Services
             return plants;
         }
 
-        private async Task WarnOverdueAsync(Plant plant, string plantAction, DateTime notifyTime, string source)
+        private async Task WarnOverdueAsync(Plant plant, string plantAction, DateTime notifyTime, byte[] imageBytes = null)
         {
             var notification = new NotificationRequest
             {
@@ -105,7 +106,7 @@ namespace FloraSaver.Services
                 Title = $"Overdue {(plantAction.EndsWith("e") ? plantAction.Remove(plantAction.Length - 1, 1) : plantAction)}ing on your '{plant.PlantSpecies}', {plant.GivenName}",
                 Description = $"You really should {plantAction} this guy",
                 Image = {
-                    ResourceName = source
+                    Binary = imageBytes
                 },
                 ReturningData = "Dummy data", // Returning data when tapped on notification.
                 Schedule =
@@ -116,7 +117,7 @@ namespace FloraSaver.Services
             await LocalNotificationCenter.Current.Show(notification);
         }
 
-        private async Task FutureNotificationAsync(Plant plant, string plantAction, DateTime notifyTime, string source)
+        private async Task FutureNotificationAsync(Plant plant, string plantAction, DateTime notifyTime, byte[] imageBytes = null)
         {
             var notification = new NotificationRequest
             {
@@ -124,7 +125,7 @@ namespace FloraSaver.Services
                 Title = $"It's time to {plantAction} your '{plant.PlantSpecies}', {plant.GivenName}",
                 Description = "You really should water this guy",
                 Image = {
-                    FilePath = source
+                    Binary = imageBytes
                 },
                 ReturningData = "Dummy data", // Returning data when tapped on notification.
                 Schedule =
@@ -156,19 +157,12 @@ namespace FloraSaver.Services
             }
             return idWithIsOverdueThenType;
         }
-
-        private async Task<byte[]> GetNotificationImageAsync(string source)
+        //Hey Why not try creating a static class that tries to get the byte arrays of the images, and just use them in the Notification Service.
+        //That way, you don't have to re-bring up the images!
+        //Right now this just returns null
+        private static async Task<byte[]> GetNotificationImageAsync(string source)
         {
-
-            var imageSource = ImageSource.FromResource(source);
-            byte[] imageBytes = null;
-            if (imageSource != null)
-            {
-                Stream stream = await ((StreamImageSource)imageSource).Stream(CancellationToken.None);
-                imageBytes = new byte[stream.Length];
-                stream.Read(imageBytes, 0, imageBytes.Length);
-            }
-            return imageBytes;
+            return null;
         }
     }
 }

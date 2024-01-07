@@ -31,7 +31,9 @@ namespace FloraSaver.Services
         {
             var bytesOfImage = Convert.FromBase64String(base64String);
             MemoryStream memoryStreamPlaced = new MemoryStream(bytesOfImage);
-            return ImageSource.FromStream(() => memoryStreamPlaced);
+            var source = ImageSource.FromStream(() => memoryStreamPlaced);
+            return source;
+
         }
     }
 }

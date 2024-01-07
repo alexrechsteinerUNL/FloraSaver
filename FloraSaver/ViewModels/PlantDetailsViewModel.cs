@@ -39,6 +39,7 @@ namespace FloraSaver.ViewModels
             GroupPickerValue = AlterPlant.PlantGroupName != null ? PlantGroups.FirstOrDefault(_ => _.GroupName == AlterPlant.PlantGroupName) : PlantGroups.FirstOrDefault(_ => _.GroupName == "Ungrouped");
             OnPropertyChanged("AlterPlant");
             IsBeingUndone = false;
+            groupUndoButtonVisible = false;
         }
 
         [ObservableProperty]
@@ -324,22 +325,22 @@ namespace FloraSaver.ViewModels
         protected void UndoAll()
         {
             IsBeingUndone = true;
-            //AlterPlant = new Plant(InitialPlant); This is causing visual bugs 
+            //AlterPlant = new Plant(InitialPlant); This is causing visual bugs
             OnPropertyChanged("AlterPlant");
-            GroupUndoButtonVisible = false;
-            ImageUndoButtonVisible = false;
-            SpeciesUndoButtonVisible = false;
-            GivenNameUndoButtonVisible = false;
-            DobUndoButtonVisible = false;
-            WaterIntervalUndoButtonVisible = false;
-            LastWateredUndoButtonVisible = false;
-            NextWaterUndoButtonVisible = false;
-            MistIntervalUndoButtonVisible = false;
-            LastMistedUndoButtonVisible = false;
-            NextMistUndoButtonVisible = false;
-            MoveIntervalUndoButtonVisible = false;
-            LastMovedUndoButtonVisible = false;
-            NextMoveUndoButtonVisible = false;
+            GroupSectionUndo();
+            ImageChangedSectionUndo();
+            SpeciesChangedSectionUndo();
+            GivenNameChangedSectionUndo();
+            DobChangedSectionUndo();
+            WaterIntervalChangedSectionUndo();
+            LastWateredChangedSectionUndo();
+            NextWaterChangedSectionUndo();
+            MistIntervalChangedSectionUndo();
+            LastMistedChangedSectionUndo();
+            NextMistChangedSectionUndo();
+            MoveIntervalChangedSectionUndo();
+            LastMovedChangedSectionUndo();
+            NextMoveChangedSectionUndo();
             IsBeingUndone = false;
         }
 
