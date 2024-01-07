@@ -31,7 +31,7 @@ namespace FloraSaver.Services
                 {
 
                     plant.IsOverdueWater = false;
-                    await FutureNotificationAsync(plant, "water", plantDateWithExtraTime, await GetNotificationImageAsync("FloraSaver.Resources.Images.future_notify_water.png"));
+                    await FutureNotificationAsync(plant, "water", plantDateWithExtraTime, "future_notify_water");
                 }
                 else
                 {
@@ -42,7 +42,7 @@ namespace FloraSaver.Services
                         await WarnOverdueAsync(plant, "water", plants
                         .FirstOrDefault(plant => plantDateWithExtraTime > DateTime.Now)?
                         .DateOfNextWatering.AddDays(plant.ExtraWaterTime) ?? DateTime.Now,
-                        await GetNotificationImageAsync("FloraSaver.Resources.Images.overdue_notify_water.png")
+                        "overdue_notify_water"
                         );
 
                         plant.PlantWaterOverdueCooldownLastWarned = DateTime.Now;
@@ -56,7 +56,7 @@ namespace FloraSaver.Services
                 if (plantDateWithExtraTime >= DateTime.Now)
                 {
                     plant.IsOverdueMist = false;
-                    await FutureNotificationAsync(plant, "mist", plantDateWithExtraTime, await GetNotificationImageAsync("FloraSaver.Resources.Images.future_notify_mist.png"));
+                    await FutureNotificationAsync(plant, "mist", plantDateWithExtraTime, "future_notify_mist");
                 }
                 else
                 {
@@ -67,7 +67,7 @@ namespace FloraSaver.Services
                         await WarnOverdueAsync(plant, "mist", plants
                         .FirstOrDefault(plant => plantDateWithExtraTime > DateTime.Now)?
                         .DateOfNextMisting.AddDays(plant.ExtraMistTime) ?? DateTime.Now,
-                        await GetNotificationImageAsync("FloraSaver.Resources.Images.overdue_notify_mist.png")
+                        "overdue_notify_mist"
                         );
                         plant.PlantMistOverdueCooldownLastWarned = DateTime.Now;
                     }
@@ -80,7 +80,7 @@ namespace FloraSaver.Services
                 if (plantDateWithExtraTime >= DateTime.Now)
                 {
                     plant.IsOverdueSun = false;
-                    await FutureNotificationAsync(plant, "move", plantDateWithExtraTime, await GetNotificationImageAsync("FloraSaver.Resources.Images.future_notify_sun.png"));
+                    await FutureNotificationAsync(plant, "move", plantDateWithExtraTime, "future_notify_sun");
                 }
                 else
                 {
@@ -91,7 +91,7 @@ namespace FloraSaver.Services
                         await WarnOverdueAsync(plant, "move", plants
                             .FirstOrDefault(plant => plantDateWithExtraTime > DateTime.Now)?
                             .DateOfNextMove.AddDays(plant.ExtraMoveTime) ?? DateTime.Now,
-                            await GetNotificationImageAsync("FloraSaver.Resources.Images.overdue_notify_sun.png")
+                            "overdue_notify_sun"
                             );
                         plant.PlantMoveOverdueCooldownLastWarned = DateTime.Now;
                     }
@@ -100,15 +100,19 @@ namespace FloraSaver.Services
             return plants;
         }
 
-        private async Task WarnOverdueAsync(Plant plant, string plantAction, DateTime notifyTime, byte[] imageBytes = null)
+        private async Task WarnOverdueAsync(Plant plant, string plantAction, DateTime notifyTime, string iconSource)
         {
             var notification = new NotificationRequest
             {
                 NotificationId = GenerateNotificationId(plant, plantAction),
                 Title = $"Overdue {(plantAction.EndsWith("e") ? plantAction.Remove(plantAction.Length - 1, 1) : plantAction)}ing on your '{plant.PlantSpecies}', {plant.GivenName}",
                 Description = $"You really should {plantAction} this guy",
-                Image = {
-                    Binary = imageBytes
+                Android =
+                {
+                    IconSmallName =
+                    {
+                        ResourceName = iconSource,
+                    }
                 },
                 ReturningData = "Dummy data", // Returning data when tapped on notification.
                 Schedule =
@@ -119,15 +123,19 @@ namespace FloraSaver.Services
             await LocalNotificationCenter.Current.Show(notification);
         }
 
-        private async Task FutureNotificationAsync(Plant plant, string plantAction, DateTime notifyTime, byte[] imageBytes = null)
+        private async Task FutureNotificationAsync(Plant plant, string plantAction, DateTime notifyTime, string iconSource)
         {
             var notification = new NotificationRequest
             {
                 NotificationId = GenerateNotificationId(plant, plantAction),
                 Title = $"It's time to {plantAction} your '{plant.PlantSpecies}', {plant.GivenName}",
                 Description = "You really should water this guy",
-                Image = {
-                    Binary = imageBytes
+                Android =
+                {
+                    IconSmallName =
+                    {
+                        ResourceName = iconSource,
+                    }
                 },
                 ReturningData = "Dummy data", // Returning data when tapped on notification.
                 Schedule =
@@ -164,17 +172,17 @@ namespace FloraSaver.Services
         //Right now this just returns null
         private static async Task<byte[]> GetNotificationImageAsync(string source)
         {
-            //byte[] bytes;
-            //using var stream = await FileSystem.OpenAppPackageFileAsync("overdue_notify_sun.png");
-            //if (stream is not null)
-            //{
-            //    using (var memStream = new MemoryStream())
-            //    {
-            //        await stream.CopyToAsync(memStream);
-            //        bytes = memStream.ToArray();
-            //        return bytes;
-            //    }
-            //}
+            byte[] bytes;
+            using var stream = await FileSystem.OpenAppPackageFileAsync("overdue_notify_sun.png");
+            if (stream is not null)
+            {
+                using (var memStream = new MemoryStream())
+                {
+                    await stream.CopyToAsync(memStream);
+                    bytes = memStream.ToArray();
+                    return bytes;
+                }
+            }
             return null;
         }
     }
