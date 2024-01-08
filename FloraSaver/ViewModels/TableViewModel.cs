@@ -20,6 +20,8 @@ namespace FloraSaver.ViewModels
         public ObservableCollection<Plant> DataPlants { get; set; } = new();
         public ObservableCollection<Plant> Plants { get; set; } = new();
         public ObservableCollection<PlantGroup> PlantGroups { get; set; } = new();
+
+        public List<Plant> BackendPlantList { get; set; } = new();
         bool IsInitialization { get; set; } = true;
         protected bool shouldGetNewData { get; set; } = true;
         protected bool shouldGetNewGroupData { get; set; } = true;
@@ -52,6 +54,7 @@ namespace FloraSaver.ViewModels
             PeriodicTimerUpdaterBackgroundAsync(() => CheatUpdateAllPlantProgress());
             if (ShouldUpdateCheckService.shouldGetNewGroupDataTable) { ShouldUpdateCheckService.ForceToGetNewGroupData(); await GetPlantGroupsAsync(); ShouldUpdateCheckService.shouldGetNewGroupDataTable = false; }
             if (ShouldUpdateCheckService.shouldGetNewPlantDataTable) { ShouldUpdateCheckService.ForceToGetNewPlantData(); await GetPlantsAsync(); ShouldUpdateCheckService.shouldGetNewPlantDataTable = false; }
+            StandardActionsAsync(SearchQuery);
             IsInitialization = false;
         }
 
@@ -128,32 +131,31 @@ namespace FloraSaver.ViewModels
         protected void setPlantOrder(string order)
         {
             //this is gross. There has to be a better way.
-            List<Plant> plantList = Plants.ToList();
             switch (order)
             {
                 case "Next Action":
-                    RebuildPlantsSafely(plantList.OrderByDescending(_ => new[] { _.WaterPercent, _.MistPercent, _.SunPercent }.Max()));
+                    RebuildPlantsSafely(BackendPlantList.OrderByDescending(_ => new[] { _.WaterPercent, _.MistPercent, _.SunPercent }.Max()));
                     break;
 
                 case "Next Watering":
 
-                    RebuildPlantsSafely(plantList.OrderByDescending(_ => _.UseWatering).ThenByDescending(_ => _.WaterPercent));
+                    RebuildPlantsSafely(BackendPlantList.OrderByDescending(_ => _.UseWatering).ThenByDescending(_ => _.WaterPercent));
                     break;
 
                 case "Next Misting":
-                    RebuildPlantsSafely(plantList.OrderByDescending(_ => _.UseMisting).ThenByDescending(_ => _.MistPercent));
+                    RebuildPlantsSafely(BackendPlantList.OrderByDescending(_ => _.UseMisting).ThenByDescending(_ => _.MistPercent));
                     break;
 
                 case "Next Moving":
-                    RebuildPlantsSafely(plantList.OrderByDescending(_ => _.UseMoving).ThenByDescending(_ => _.SunPercent));
+                    RebuildPlantsSafely(BackendPlantList.OrderByDescending(_ => _.UseMoving).ThenByDescending(_ => _.SunPercent));
                     break;
 
                 case "Alphabetical":
-                    RebuildPlantsSafely(plantList.OrderBy(_ => _.GivenName));
+                    RebuildPlantsSafely(BackendPlantList.OrderBy(_ => _.GivenName));
                     break;
 
                 default:
-                    RebuildPlantsSafely(plantList.OrderByDescending(_ => _.UseWatering).ThenByDescending(_ => _.WaterPercent));
+                    RebuildPlantsSafely(BackendPlantList.OrderByDescending(_ => _.UseWatering).ThenByDescending(_ => _.WaterPercent));
                     break;
             }
             //OnPropertyChanged("Plants");
@@ -186,6 +188,7 @@ namespace FloraSaver.ViewModels
                 await GetPlantsAsync();
             }
             ShouldUpdateCheckService.ForceToGetNewPlantData();
+            await StandardActionsAsync(SearchQuery);
         }
 
         [RelayCommand]
@@ -215,6 +218,7 @@ namespace FloraSaver.ViewModels
                 await GetPlantsAsync();
             }
             ShouldUpdateCheckService.ForceToGetNewPlantData();
+            await StandardActionsAsync(SearchQuery);
         }
 
         [RelayCommand]
@@ -245,43 +249,44 @@ namespace FloraSaver.ViewModels
                 await GetPlantsAsync();
             }
             ShouldUpdateCheckService.ForceToGetNewPlantData();
+            await StandardActionsAsync(SearchQuery);
         }
 
-        [RelayCommand]
-        public async Task SearchPlantsAsync(string inputString)
-        {
-            if (!IsInitialization)
-            {
-                try
-                {
-                    List<Plant> plantDataList = DataPlants.ToList();
-                    SearchQuery = inputString;
-                    //Plants.Replace(DataPlants);
-                    foreach (var group in PlantGroups)
-                    {
-                        await ShowHidePlantGroupsAsync(group, false);
-                    }
-                    if (!string.IsNullOrWhiteSpace(SearchQuery))
-                    {
-                        for (int i = plantDataList.Count - 1; i >= 0; i--)
-                        {
-                            if (plantDataList[i].GivenName.IndexOf(SearchQuery) < 0)
-                            {
-                                plantDataList.RemoveAt(i);
-                            }
-                        }
-                    }
-                    RebuildPlantsSafely(plantDataList);
-                    setPlantOrder(CurrentOrderByValue);
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine($"Unable to search plants: {ex.Message}");
-                    await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
-                }
-            }
+        //[RelayCommand]
+        //public async Task SearchPlantsAsync(string inputString)
+        //{
+        //    if (!IsInitialization)
+        //    {
+        //        try
+        //        {
+        //            List<Plant> plantDataList = DataPlants.ToList();
+        //            SearchQuery = inputString;
+        //            //Plants.Replace(DataPlants);
+        //            foreach (var group in PlantGroups)
+        //            {
+        //                await ShowHidePlantGroupsAsync(group, false);
+        //            }
+        //            if (!string.IsNullOrWhiteSpace(SearchQuery))
+        //            {
+        //                for (int i = plantDataList.Count - 1; i >= 0; i--)
+        //                {
+        //                    if (plantDataList[i].GivenName.IndexOf(SearchQuery) < 0)
+        //                    {
+        //                        plantDataList.RemoveAt(i);
+        //                    }
+        //                }
+        //            }
+        //            RebuildPlantsSafely(plantDataList);
+        //            setPlantOrder(CurrentOrderByValue);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Debug.WriteLine($"Unable to search plants: {ex.Message}");
+        //            await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
+        //        }
+        //    }
 
-        }
+        //}
 
         [RelayCommand]
         protected async Task GetPlantsAsync()
@@ -324,11 +329,6 @@ namespace FloraSaver.ViewModels
             {
                 IsBusy = false;
                 IsRefreshing = false;
-                foreach (var group in PlantGroups)
-                {
-                    await ShowHidePlantGroupsAsync(group);
-                }
-                setPlantOrder(CurrentOrderByValue);
             }
             return;
         }
@@ -350,6 +350,31 @@ namespace FloraSaver.ViewModels
             {
                 action();
             }
+        }
+
+        [RelayCommand]
+        protected async Task StandardActionsAsync(string searchText = "")
+        {
+            if (searchText != SearchQuery)
+            {
+                SearchQuery = searchText;
+            }
+            BackendPlantList = DataPlants.ToList();
+            var temporaryBackendPlantList = new List<Plant>(BackendPlantList);
+            foreach (var plant in temporaryBackendPlantList)
+            {
+                var isSavedFromGroups = await ShowHideSingualrPlantGroupsAsync(plant);
+                var isSavedFromSearch = await SearchSingularPlantAsync(plant);
+                if (!isSavedFromGroups || !isSavedFromSearch)
+                {
+                    BackendPlantList.Remove(plant);
+                } else if (BackendPlantList.FirstOrDefault(_ => _.GivenName == plant.GivenName) is null)
+                {
+                    BackendPlantList.Add(plant);
+                }
+
+            }
+            setPlantOrder(CurrentOrderByValue);
         }
 
         [RelayCommand]
@@ -405,31 +430,53 @@ namespace FloraSaver.ViewModels
             var specificGroup = PlantGroups.FirstOrDefault(_ => _.GroupId == plantGroup.GroupId);
             specificGroup.IsEnabled = plantGroup.IsEnabled ? false : true;
             OnPropertyChanged("PlantGroups");
-            await ShowHidePlantGroupsAsync(specificGroup);
-            setPlantOrder(CurrentOrderByValue);
+            await StandardActionsAsync(SearchQuery);
         }
 
-        public virtual async Task ShowHidePlantGroupsAsync(PlantGroup specificGroup, bool awaitSearch = true)
+        public virtual async Task<bool> ShowHideSingualrPlantGroupsAsync(Plant plant)
         {
-            List<Plant> plantDataList = DataPlants.ToList();
-            List<Plant> plantList = Plants.ToList();
-            foreach (var plant in plantDataList.Where(_ => _.PlantGroupName == specificGroup.GroupName))
-            {
-                if (!plantList.Contains(plant) && specificGroup.IsEnabled)
+            var groupEnabled = PlantGroups.FirstOrDefault(_ => _.GroupName == plant.PlantGroupName)?.IsEnabled ?? false;
+                if (!groupEnabled)
                 {
-                    plantList.Add(plant);
+                    return false;
                 }
-                else if (plantList.Contains(plant) && !specificGroup.IsEnabled)
-                {
-                    plantList.Remove(plant);
-                }
-            }
-            RebuildPlantsSafely(plantList);
-            if (awaitSearch && !String.IsNullOrWhiteSpace(SearchQuery))
-            {
-                await SearchPlantsAsync(SearchQuery);
-            }
+                return true;
         }
+
+        public virtual async Task<bool> SearchSingularPlantAsync(Plant plant)
+        {
+            if (plant.GivenName.IndexOf(SearchQuery) < 0)
+            {
+                return false;
+            }
+            return true;
+        }
+
+
+
+        //public virtual async Task ShowHidePlantGroupsAsync(PlantGroup specificGroup, bool awaitSearch = true)
+        //{
+        //    List<Plant> plantList = Plants.ToList();
+        //    foreach (var plant in Plants.Where(_ => _.PlantGroupName == specificGroup.GroupName))
+        //    {
+        //        if (!plantList.Contains(plant) && specificGroup.IsEnabled)
+        //        {
+        //            plantList.Add(plant);
+        //        }
+        //        else if (plantList.Contains(plant) && !specificGroup.IsEnabled)
+        //        {
+        //            plantList.Remove(plant);
+        //        }
+        //    }
+
+        //    if (awaitSearch && !String.IsNullOrWhiteSpace(SearchQuery))
+        //    {
+        //        await SearchPlantsAsync(SearchQuery);
+        //    } else
+        //    {
+        //        RebuildPlantsSafely(plantList);
+        //    }
+        //}
 
         [RelayCommand]
         private async Task GoToSetupDetailsGroupNameAsync(Plant plant)

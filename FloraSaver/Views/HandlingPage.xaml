@@ -35,7 +35,7 @@
                 VerticalTextAlignment="Center">
                 <Entry.Behaviors>
                     <toolkit:EventToCommandBehavior
-                        Command="{Binding SearchPlantsCommand}"
+                        Command="{Binding StandardActionsCommand}"
                         CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
                         EventName="TextChanged" />
                 </Entry.Behaviors>
