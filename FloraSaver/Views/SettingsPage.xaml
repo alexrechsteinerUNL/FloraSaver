@@ -257,6 +257,7 @@
                                                         <ImageButton
                                                             x:Name="_undoNameChange"
                                                             Grid.Column="0"
+                                                            Clicked="ScrollTo_ImageButton_Clicked"
                                                             Command="{Binding Source={x:Reference This}, Path=BindingContext.NameSectionUndoCommand}"
                                                             CommandParameter="{Binding .}"
                                                             IsVisible="{Binding isNameEdited}"
@@ -298,6 +299,7 @@
                                                         <ImageButton
                                                             x:Name="_undoColorChange"
                                                             Grid.Column="0"
+                                                            Clicked="ScrollTo_ImageButton_Clicked"
                                                             Command="{Binding Source={x:Reference This}, Path=BindingContext.ColorSectionUndoCommand}"
                                                             CommandParameter="{Binding .}"
                                                             IsVisible="{Binding isColorEdited}"
@@ -381,6 +383,7 @@
                                                         x:Name="groupChangesSave"
                                                         Grid.Row="3"
                                                         Grid.Column="3"
+                                                        Clicked="ScrollTo_Button_Clicked"
                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SettingsViewModel}}, Path=SaveGroupChangeCommand}"
                                                         CommandParameter="{Binding .}"
                                                         IsVisible="{Binding isEdited}"
