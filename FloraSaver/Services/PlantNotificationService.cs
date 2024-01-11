@@ -100,6 +100,11 @@ namespace FloraSaver.Services
             return plants;
         }
 
+        private async Task RepeatingOverduePlantNotification()
+        {
+            //write out all of the plant actions that need to be complete but set this for like 24 hours after the plants are set. Only don't have it if there are no overdue plants 
+        }
+
         private async Task WarnOverdueAsync(Plant plant, string plantAction, DateTime notifyTime, string iconSource)
         {
             var notification = new NotificationRequest
