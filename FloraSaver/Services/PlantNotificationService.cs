@@ -8,6 +8,8 @@ namespace FloraSaver.Services
 {
     public class PlantNotificationService : IPlantNotificationService
     {
+        private string commonPlantOverdueNotificationDescription = "";
+
         public void PlantNotificationEnder(Plant plant, string plantAction)
         {
             var notificationId = GenerateNotificationId(plant, plantAction);
@@ -18,6 +20,7 @@ namespace FloraSaver.Services
 
         public async Task<List<Plant>> SetAllNotificationsAsync(List<Plant> plants)
         {
+            commonPlantOverdueNotificationDescription = string.Empty;
             if (await LocalNotificationCenter.Current.AreNotificationsEnabled() == false)
             {
                 await LocalNotificationCenter.Current.RequestNotificationPermission();
@@ -97,20 +100,49 @@ namespace FloraSaver.Services
                     }
                 }
             }
+
+            if (!string.IsNullOrEmpty(commonPlantOverdueNotificationDescription))
+            {
+                RepeatingOverduePlantNotification();
+            }
+
             return plants;
         }
 
         private async Task RepeatingOverduePlantNotification()
         {
-            //write out all of the plant actions that need to be complete but set this for like 24 hours after the plants are set. Only don't have it if there are no overdue plants 
+            //write out all of the plant actions that need to be complete but set this for like 24 hours after the plants are set. Only don't have it if there are no overdue plants
+            var notification = new NotificationRequest
+            {
+                NotificationId = 1,
+                Title = $"You have overdue plants:",
+                Description = commonPlantOverdueNotificationDescription,
+                Android =
+                {
+                    IconSmallName =
+                    {
+                        ResourceName = "homeicon",
+                    }
+                },
+                ReturningData = "Dummy data", // Returning data when tapped on notification.
+                Schedule =
+                {
+                    NotifyTime = DateTime.Now.AddDays(1)  // Used for Scheduling local notification, if not specified notification will show immediately.
+                }
+            };
+            await LocalNotificationCenter.Current.Show(notification);
+            commonPlantOverdueNotificationDescription = string.Empty;
+
+
         }
 
         private async Task WarnOverdueAsync(Plant plant, string plantAction, DateTime notifyTime, string iconSource)
         {
+            var title = $"Overdue {(plantAction.EndsWith("e") ? plantAction.Remove(plantAction.Length - 1, 1) : plantAction)}ing on your '{plant.PlantSpecies}', {plant.GivenName}";
             var notification = new NotificationRequest
             {
                 NotificationId = GenerateNotificationId(plant, plantAction),
-                Title = $"Overdue {(plantAction.EndsWith("e") ? plantAction.Remove(plantAction.Length - 1, 1) : plantAction)}ing on your '{plant.PlantSpecies}', {plant.GivenName}",
+                Title = title,
                 Description = $"You really should {plantAction} this guy",
                 Android =
                 {
@@ -125,6 +157,8 @@ namespace FloraSaver.Services
                     NotifyTime = notifyTime // Used for Scheduling local notification, if not specified notification will show immediately.
                 }
             };
+            commonPlantOverdueNotificationDescription += $"{title}\n";
+
             await LocalNotificationCenter.Current.Show(notification);
         }
 
