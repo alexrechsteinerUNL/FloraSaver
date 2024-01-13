@@ -45,5 +45,31 @@ namespace FloraSaver.Services
                 .Select(_ => new GroupColors { ColorName = _.Name, Colors = (Color)_.GetValue(null), ColorsHex = ((Color)_.GetValue(null)).ToArgbHex() });
             return colorFields.ToList();
         }
+        public static Dictionary<string, double> GetCooldownBeforePlantActionsOverdueNotification()
+        {
+            return new Dictionary<string, double>()
+            {
+            {"1 Hour", 1},
+            {"3 Hours", 3  },
+            {"6 Hours", 6  },
+            {"12 Hours", 12 },
+            {"24 Hours", 24 },
+            {"Never", -1 },
+            };
+        }
+
+        public static Dictionary<string, double> GetInActionBeforeMultiOverdueNotification()
+        {
+            return new Dictionary<string, double>()
+            {
+            {"12 Hours", .5 },
+            {"1 Day", 1},
+            {"3 Days", 3  },
+            {"6 Days", 6  },
+            {"Never", -1 },
+            };
+        }
     }
+
+
 }

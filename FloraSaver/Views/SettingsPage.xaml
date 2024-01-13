@@ -58,27 +58,6 @@
                                     WidthRequest="75" />
                             </Frame>
                         </Frame>
-
-
-
-
-                        <!--<Border Grid.Row="1" Grid.Column="2">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Rectangle Grid.Column="0" Background="Black" />
-                                <TimePicker
-                                    x:Name="morningTime"
-                                    Grid.Column="1"
-                                    BackgroundColor="White"
-                                    Format="t"
-                                    Time="{Binding MorningTime, Mode=TwoWay}" />
-                                <Rectangle Grid.Column="2" Background="Black" />
-                            </Grid>
-                        </Border>-->
                     </Grid>
                 </Frame>
                 <Frame
@@ -121,23 +100,6 @@
                                     WidthRequest="75" />
                             </Frame>
                         </Frame>
-                        <!--<Border Grid.Row="1" Grid.Column="2">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Rectangle Grid.Column="0" Background="Black" />
-                                <TimePicker
-                                    x:Name="MiddayTime"
-                                    Grid.Column="1"
-                                    BackgroundColor="White"
-                                    Format="t"
-                                    Time="{Binding MiddayTime, Mode=TwoWay}" />
-                                <Rectangle Grid.Column="2" Background="Black" />
-                            </Grid>
-                        </Border>-->
                     </Grid>
                 </Frame>
                 <Frame
@@ -180,23 +142,6 @@
                                     WidthRequest="75" />
                             </Frame>
                         </Frame>
-                        <!--<Border Grid.Row="1" Grid.Column="2">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Rectangle Grid.Column="0" Background="Black" />
-                                <TimePicker
-                                    x:Name="NightTime"
-                                    Grid.Column="1"
-                                    BackgroundColor="White"
-                                    Format="t"
-                                    Time="{Binding NightTime, Mode=TwoWay}" />
-                                <Rectangle Grid.Column="2" Background="Black" />
-                            </Grid>
-                        </Border>-->
                     </Grid>
                 </Frame>
                 <Button
