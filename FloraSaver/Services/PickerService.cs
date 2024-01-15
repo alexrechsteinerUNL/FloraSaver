@@ -14,14 +14,14 @@ namespace FloraSaver.Services
         {
             return new List<Interval>()
             {
-                new Interval() { DaysFromNow = 0, IntervalText = "None" },
-                new Interval() { DaysFromNow = 1, IntervalText = "Every Day" },
-                new Interval() { DaysFromNow = 2, IntervalText = "Every 2 Days" },
-                new Interval() { DaysFromNow = 3, IntervalText = "Every 3 Days" },
-                new Interval() { DaysFromNow = 7, IntervalText = "Every 7 Days" },
-                new Interval() { DaysFromNow = 14, IntervalText = "Every 14 Days" },
-                new Interval() { DaysFromNow = 28, IntervalText = "Every 28 Days" },
-                new Interval() { DaysFromNow = -1, IntervalText = "Custom" }
+                new Interval() { NumFromNow = 0, IntervalText = "None" },
+                new Interval() { NumFromNow = 1, IntervalText = "Every Day" },
+                new Interval() { NumFromNow = 2, IntervalText = "Every 2 Days" },
+                new Interval() { NumFromNow = 3, IntervalText = "Every 3 Days" },
+                new Interval() { NumFromNow = 7, IntervalText = "Every 7 Days" },
+                new Interval() { NumFromNow = 14, IntervalText = "Every 14 Days" },
+                new Interval() { NumFromNow = 28, IntervalText = "Every 28 Days" },
+                new Interval() { NumFromNow = -1, IntervalText = "Custom" }
             };
         }
 
@@ -45,28 +45,28 @@ namespace FloraSaver.Services
                 .Select(_ => new GroupColors { ColorName = _.Name, Colors = (Color)_.GetValue(null), ColorsHex = ((Color)_.GetValue(null)).ToArgbHex() });
             return colorFields.ToList();
         }
-        public static Dictionary<string, double> GetCooldownBeforePlantActionsOverdueNotification()
+        public static List<Interval> GetCooldownBeforePlantActionsOverdueNotification()
         {
-            return new Dictionary<string, double>()
+            return new List<Interval>
             {
-            {"1 Hour", 1},
-            {"3 Hours", 3  },
-            {"6 Hours", 6  },
-            {"12 Hours", 12 },
-            {"24 Hours", 24 },
-            {"Never", -1 },
+            new Interval() {IntervalText ="1 Hour", NumFromNow = 1},
+            new Interval() {IntervalText ="3 Hours", NumFromNow = 3  },
+            new Interval() {IntervalText ="6 Hours", NumFromNow = 6  },
+            new Interval() {IntervalText = "12 Hours",NumFromNow = 12 },
+            new Interval() {IntervalText ="24 Hours", NumFromNow = 24 },
+            new Interval() {IntervalText = "Never", NumFromNow = -1 },
             };
         }
 
-        public static Dictionary<string, double> GetInActionBeforeMultiOverdueNotification()
+        public static List<Interval> GetInActionBeforeMultiOverdueNotification()
         {
-            return new Dictionary<string, double>()
+            return new List<Interval>
             {
-            {"12 Hours", .5 },
-            {"1 Day", 1},
-            {"3 Days", 3  },
-            {"6 Days", 6  },
-            {"Never", -1 },
+            new Interval(){IntervalText ="12 Hours",NumFromNow =  .5 },
+            new Interval(){IntervalText ="1 Day",NumFromNow =  1},
+            new Interval(){IntervalText ="3 Days",NumFromNow =  3  },
+            new Interval(){IntervalText ="6 Days",NumFromNow =  6  },
+            new Interval(){IntervalText = "Never",NumFromNow =  -1 },
             };
         }
     }

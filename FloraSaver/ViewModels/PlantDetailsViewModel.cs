@@ -17,9 +17,9 @@ namespace FloraSaver.ViewModels
     [QueryProperty(nameof(PlantGroup), "PlantGroup")]
     public partial class PlantDetailsViewModel : BaseViewModel, IQueryAttributable, INotifyPropertyChanged
     {
-        protected int InitialWaterDaysFromNow = 0;
-        protected int InitialMistDaysFromNow = 0;
-        protected int InitialSunDaysFromNow = 0;
+        protected double InitialWaterDaysFromNow = 0;
+        protected double InitialMistDaysFromNow = 0;
+        protected double InitialSunDaysFromNow = 0;
 
         [ObservableProperty]
         protected bool isBeingUndone = false;
@@ -123,10 +123,10 @@ namespace FloraSaver.ViewModels
             IsBeingUndone = true;
             AlterPlant.WaterInterval = InitialPlant.WaterInterval;
             WaterDaysFromNow = AlterPlant.WaterInterval != null ? (int)AlterPlant.WaterInterval : (AlterPlant.DateOfNextWatering.Date - AlterPlant.DateOfLastWatering.Date).Days;
-            WaterIntervalPickerValue = WateringInterval.FirstOrDefault(x => x.DaysFromNow == InitialWaterDaysFromNow);
+            WaterIntervalPickerValue = WateringInterval.FirstOrDefault(x => x.NumFromNow == InitialWaterDaysFromNow);
             if (WaterIntervalPickerValue == null)
             {
-                WaterIntervalPickerValue = WateringInterval.First(x => x.DaysFromNow == -1);
+                WaterIntervalPickerValue = WateringInterval.First(x => x.NumFromNow == -1);
             }
 
             OnPropertyChanged("AlterPlant");
@@ -192,10 +192,10 @@ namespace FloraSaver.ViewModels
             IsBeingUndone = true;
             AlterPlant.MistInterval = InitialPlant.MistInterval;
             MistDaysFromNow = AlterPlant.MistInterval != null ? (int)AlterPlant.MistInterval : (AlterPlant.DateOfNextMisting.Date - AlterPlant.DateOfLastMisting.Date).Days;
-            MistIntervalPickerValue = MistingInterval.FirstOrDefault(x => x.DaysFromNow == InitialMistDaysFromNow);
+            MistIntervalPickerValue = MistingInterval.FirstOrDefault(x => x.NumFromNow == InitialMistDaysFromNow);
             if (MistIntervalPickerValue == null)
             {
-                MistIntervalPickerValue = MistingInterval.First(x => x.DaysFromNow == -1);
+                MistIntervalPickerValue = MistingInterval.First(x => x.NumFromNow == -1);
             }
 
             OnPropertyChanged("AlterPlant");
@@ -261,10 +261,10 @@ namespace FloraSaver.ViewModels
             IsBeingUndone = true;
             AlterPlant.SunInterval = InitialPlant.SunInterval;
             SunDaysFromNow = AlterPlant.SunInterval != null ? (int)AlterPlant.SunInterval : (AlterPlant.DateOfNextMove.Date - AlterPlant.DateOfLastMove.Date).Days;
-            SunIntervalPickerValue = SunInterval.FirstOrDefault(x => x.DaysFromNow == InitialSunDaysFromNow);
+            SunIntervalPickerValue = SunInterval.FirstOrDefault(x => x.NumFromNow == InitialSunDaysFromNow);
             if (SunIntervalPickerValue == null)
             {
-                SunIntervalPickerValue = SunInterval.First(x => x.DaysFromNow == -1);
+                SunIntervalPickerValue = SunInterval.First(x => x.NumFromNow == -1);
             }
 
             OnPropertyChanged("AlterPlant");
@@ -392,24 +392,24 @@ namespace FloraSaver.ViewModels
             GroupPickerValue = AlterPlant.PlantGroupName != null ? PlantGroups.FirstOrDefault(_ => _.GroupName == AlterPlant.PlantGroupName) : PlantGroups.FirstOrDefault(_ => _.GroupName == "Ungrouped");
 
             InitialWaterDaysFromNow = WaterDaysFromNow = AlterPlant.WaterInterval != null ? (int)AlterPlant.WaterInterval : (AlterPlant.DateOfNextWatering.Date - AlterPlant.DateOfLastWatering.Date).Days;
-            WaterIntervalPickerValue = WateringInterval.FirstOrDefault(x => x.DaysFromNow == WaterDaysFromNow);
+            WaterIntervalPickerValue = WateringInterval.FirstOrDefault(x => x.NumFromNow == WaterDaysFromNow);
             if (WaterIntervalPickerValue == null)
             {
-                WaterIntervalPickerValue = WateringInterval.First(x => x.DaysFromNow == -1);
+                WaterIntervalPickerValue = WateringInterval.First(x => x.NumFromNow == -1);
             }
 
             InitialMistDaysFromNow = MistDaysFromNow = AlterPlant.MistInterval != null ? (int)AlterPlant.MistInterval : (AlterPlant.DateOfNextMisting.Date - AlterPlant.DateOfLastMisting.Date).Days;
-            MistIntervalPickerValue = MistingInterval.FirstOrDefault(x => x.DaysFromNow == MistDaysFromNow);
+            MistIntervalPickerValue = MistingInterval.FirstOrDefault(x => x.NumFromNow == MistDaysFromNow);
             if (MistIntervalPickerValue == null)
             {
-                MistIntervalPickerValue = MistingInterval.First(x => x.DaysFromNow == -1);
+                MistIntervalPickerValue = MistingInterval.First(x => x.NumFromNow == -1);
             }
 
             InitialSunDaysFromNow = SunDaysFromNow = AlterPlant.SunInterval != null ? (int)AlterPlant.SunInterval : (AlterPlant.DateOfNextMove.Date - AlterPlant.DateOfLastMove.Date).Days;
-            SunIntervalPickerValue = SunInterval.FirstOrDefault(x => x.DaysFromNow == SunDaysFromNow);
+            SunIntervalPickerValue = SunInterval.FirstOrDefault(x => x.NumFromNow == SunDaysFromNow);
             if (SunIntervalPickerValue == null)
             {
-                SunIntervalPickerValue = SunInterval.First(x => x.DaysFromNow == -1);
+                SunIntervalPickerValue = SunInterval.First(x => x.NumFromNow == -1);
             }
 
             WaterGridText = AlterPlant.UseWatering ? "Do Not Use Watering" : "Use Watering";
@@ -505,13 +505,13 @@ namespace FloraSaver.ViewModels
         public Interval sunIntervalPickerValue;
 
         [ObservableProperty]
-        public int waterDaysFromNow;
+        public double waterDaysFromNow;
 
         [ObservableProperty]
-        public int mistDaysFromNow;
+        public double mistDaysFromNow;
 
         [ObservableProperty]
-        public int sunDaysFromNow;
+        public double sunDaysFromNow;
 
         [RelayCommand]
         private async Task ImageOfPlantToBase64Async()
@@ -541,7 +541,7 @@ namespace FloraSaver.ViewModels
             }
         }
 
-        partial void OnWaterDaysFromNowChanged(int value)
+        partial void OnWaterDaysFromNowChanged(double value)
         {
             if (!IsInitialization)
             {
@@ -554,18 +554,18 @@ namespace FloraSaver.ViewModels
 
         partial void OnWaterIntervalPickerValueChanged(Interval value)
         {
-            if (value is null || value.DaysFromNow == -1)
+            if (value is null || value.NumFromNow == -1)
             {
                 CustomWaterIntervalGridVisible = true;
             }
             else
             {
                 CustomWaterIntervalGridVisible = false;
-                WaterDaysFromNow = value.DaysFromNow;
+                WaterDaysFromNow = value.NumFromNow;
             }
         }
 
-        partial void OnMistDaysFromNowChanged(int value)
+        partial void OnMistDaysFromNowChanged(double value)
         {
             if (!IsInitialization)
             {
@@ -578,18 +578,18 @@ namespace FloraSaver.ViewModels
 
         partial void OnMistIntervalPickerValueChanged(Interval value)
         {
-            if (value is null || value.DaysFromNow == -1)
+            if (value is null || value.NumFromNow == -1)
             {
                 CustomMistIntervalGridVisible = true;
             }
             else
             {
                 CustomMistIntervalGridVisible = false;
-                MistDaysFromNow = value.DaysFromNow;
+                MistDaysFromNow = value.NumFromNow;
             }
         }
 
-        partial void OnSunDaysFromNowChanged(int value)
+        partial void OnSunDaysFromNowChanged(double value)
         {
             if (!IsInitialization)
             {
@@ -602,14 +602,14 @@ namespace FloraSaver.ViewModels
 
         partial void OnSunIntervalPickerValueChanged(Interval value)
         {
-            if (value is null || value.DaysFromNow == -1)
+            if (value is null || value.NumFromNow == -1)
             {
                 CustomSunIntervalGridVisible = true;
             }
             else
             {
                 CustomSunIntervalGridVisible = false;
-                SunDaysFromNow = value.DaysFromNow;
+                SunDaysFromNow = value.NumFromNow;
             }
         }
 

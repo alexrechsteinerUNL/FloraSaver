@@ -208,13 +208,13 @@ namespace FloraSaver.Models
         public double ExtraMoveTime { get; set; } = 0;
 
         [Range(0, 365)]
-        public int? WaterInterval { get; set; }
+        public double? WaterInterval { get; set; }
 
         [Range(0, 365)]
-        public int? MistInterval { get; set; }
+        public double? MistInterval { get; set; }
 
         [Range(0, 365)]
-        public int? SunInterval { get; set; }
+        public double? SunInterval { get; set; }
 
         private string _imageLocation;
 

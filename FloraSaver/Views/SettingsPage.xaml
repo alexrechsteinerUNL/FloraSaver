@@ -49,7 +49,7 @@
                                 BackgroundColor="Transparent"
                                 BorderColor="Transparent"
                                 HorizontalOptions="CenterAndExpand"
-                                VerticalOptions="Center">
+                                VerticalOptions="FillAndExpand">
                                 <TimePicker
                                     x:Name="morningTime"
                                     BackgroundColor="White"
@@ -90,7 +90,7 @@
                                 Padding="0,2"
                                 BackgroundColor="Transparent"
                                 BorderColor="Transparent"
-                                HorizontalOptions="CenterAndExpand"
+                                HorizontalOptions="FillAndExpand"
                                 VerticalOptions="Center">
                                 <TimePicker
                                     x:Name="MiddayTime"
@@ -132,7 +132,7 @@
                                 Padding="0,2"
                                 BackgroundColor="Transparent"
                                 BorderColor="Transparent"
-                                HorizontalOptions="CenterAndExpand"
+                                HorizontalOptions="FillAndExpand"
                                 VerticalOptions="Center">
                                 <TimePicker
                                     x:Name="NightTime"
@@ -144,6 +144,90 @@
                         </Frame>
                     </Grid>
                 </Frame>
+
+                <Frame
+                    x:Name="setOverduePreference"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="8"
+                    Padding="10"
+                    BackgroundColor="Black">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Column="0"
+                            FontAttributes="Bold"
+                            FontSize="18"
+                            HorizontalTextAlignment="Center"
+                            Text="Set When To Warn Overdue Plants:"
+                            VerticalTextAlignment="Center" />
+                        <Frame
+                            Grid.Column="2"
+                            Padding="2,2"
+                            BackgroundColor="Transparent"
+                            HorizontalOptions="FillAndExpand">
+                            <Frame
+                                Padding="0,2"
+                                BackgroundColor="Transparent"
+                                BorderColor="Transparent"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="Center">
+                                <Picker
+                                    x:Name="overduePlantsTimeToPicker"
+                                    HorizontalTextAlignment="Center"
+                                    ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
+                                    ItemsSource="{Binding OverduePlantsInterval, Mode=TwoWay}"
+                                    SelectedItem="{Binding OverduePlantsPickerValue, Mode=TwoWay}" />
+                            </Frame>
+                        </Frame>
+                    </Grid>
+                </Frame>
+
+                <Frame
+                    x:Name="setMultiOverduePreference"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="8"
+                    Padding="10"
+                    BackgroundColor="Black">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Column="0"
+                            FontAttributes="Bold"
+                            FontSize="18"
+                            HorizontalTextAlignment="Center"
+                            Text="Set When To Warn All Overdue Plants:"
+                            VerticalTextAlignment="Center" />
+                        <Frame
+                            Grid.Column="2"
+                            Padding="2,2"
+                            BackgroundColor="Transparent"
+                            HorizontalOptions="FillAndExpand">
+                            <Frame
+                                Padding="0,2"
+                                BackgroundColor="Transparent"
+                                BorderColor="Transparent"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="Center">
+                                <Picker
+                                    x:Name="overduePlantsMultiTimeToPicker"
+                                    HorizontalTextAlignment="Center"
+                                    ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
+                                    ItemsSource="{Binding OverduePlantsMultiInterval, Mode=TwoWay}"
+                                    SelectedItem="{Binding OverduePlantsMultiPickerValue, Mode=TwoWay}" />
+                            </Frame>
+                        </Frame>
+                    </Grid>
+                </Frame>
+
+
                 <Button
                     x:Name="BackupPlants"
                     Grid.Row="1"

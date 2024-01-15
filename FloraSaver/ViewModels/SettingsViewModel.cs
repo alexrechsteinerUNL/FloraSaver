@@ -13,6 +13,17 @@ namespace FloraSaver.ViewModels
     public partial class SettingsViewModel : TableViewModel, INotifyPropertyChanged
     {
         [ObservableProperty]
+        protected List<Interval> overduePlantsInterval;
+        [ObservableProperty]
+        public Interval overduePlantsPickerValue;
+
+        [ObservableProperty]
+        protected List<Interval> overduePlantsMultiInterval;
+        [ObservableProperty]
+        public Interval overduePlantsMultiPickerValue;
+
+
+        [ObservableProperty]
         protected bool isBeingUndone = false;
         [ObservableProperty]
         protected bool nameEntryUndoButtonVisible = false;
@@ -121,12 +132,19 @@ namespace FloraSaver.ViewModels
             databaseService = _databaseService;
             plantNotificationService = _plantNotificationService;
 
+            OverduePlantsInterval = PickerService.GetCooldownBeforePlantActionsOverdueNotification();
+            OverduePlantsMultiInterval = PickerService.GetInActionBeforeMultiOverdueNotification();
+
+
             DateTime morningDate = DateTime.FromBinary(Preferences.Default.Get("morning_time_date", new DateTime(1, 1, 1, 8, 0, 0).ToBinary()));
             morningTime = morningDate.TimeOfDay;
             var middayDate = DateTime.FromBinary(Preferences.Default.Get("midday_time_date", new DateTime(1, 1, 1, 12, 0, 0).ToBinary()));
             middayTime = middayDate.TimeOfDay;
             var nightDate = DateTime.FromBinary(Preferences.Default.Get("night_time_date", new DateTime(1, 1, 1, 16, 0, 0).ToBinary()));
             nightTime = nightDate.TimeOfDay;
+
+            OverduePlantsPickerValue = OverduePlantsInterval.FirstOrDefault(_ => _.NumFromNow == Preferences.Default.Get("overdue_plants_time_to", 1)) ?? new Interval() { IntervalText = "1 Hour", NumFromNow = 1 };
+            OverduePlantsMultiPickerValue = OverduePlantsMultiInterval.FirstOrDefault(_ => _.NumFromNow == Preferences.Default.Get("overdue_plants_multi_time_to", 1)) ?? new Interval() { IntervalText = "1 Day", NumFromNow = 1 };
         }
 
         [ObservableProperty]
@@ -155,6 +173,8 @@ namespace FloraSaver.ViewModels
         //{
         //    OnPropertyChanged(nameof(VisiblePlantGroups));
         //}
+
+
 
         [ObservableProperty]
         private TimeSpan morningTime;
@@ -185,6 +205,20 @@ namespace FloraSaver.ViewModels
             var nightTimeDate = new DateTime().Add(value).ToBinary();
             Preferences.Default.Set("night_time_date", nightTimeDate);
             NightTime = DateTime.FromBinary(Preferences.Default.Get("night_time_date", new DateTime(1, 1, 1, 16, 0, 0).ToBinary())).TimeOfDay;
+        }
+
+        [RelayCommand]
+        partial void OnOverduePlantsPickerValueChanged(Interval value)
+        {
+            Preferences.Default.Set("overdue_plants_time_to", value.NumFromNow);
+            OverduePlantsPickerValue = value;
+        }
+
+        [RelayCommand]
+        partial void OnOverduePlantsMultiPickerValueChanged(Interval value)
+        {
+            Preferences.Default.Set("overdue_plants_multi_time_to", value.NumFromNow);
+            OverduePlantsMultiPickerValue = value;
         }
 
         [RelayCommand]

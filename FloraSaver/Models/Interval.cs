@@ -8,7 +8,7 @@ namespace FloraSaver.Models
 {
     public class Interval
     {
-        public int DaysFromNow { get; set; }
+        public double NumFromNow { get; set; }
         public string IntervalText { get; set; }
     }
 }
