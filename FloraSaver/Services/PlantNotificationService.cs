@@ -16,10 +16,13 @@ namespace FloraSaver.Services
             LocalNotificationCenter.Current.Cancel(notificationId);
         }
 
-        public static double COOLDOWN_HOURS { get; set; } = .10;
+        public static double COOLDOWN_HOURS { get; set; } = 1;
+        public static double COOLDOWN_MULTI_HOURS { get; set; } = 24;
 
         public async Task<List<Plant>> SetAllNotificationsAsync(List<Plant> plants)
         {
+            COOLDOWN_HOURS = Preferences.Default.Get("overdue_plants_time_to", 1);
+            COOLDOWN_MULTI_HOURS = Preferences.Default.Get("overdue_plants_multi_time_to", 24);
             commonPlantOverdueNotificationDescription = string.Empty;
             if (await LocalNotificationCenter.Current.AreNotificationsEnabled() == false)
             {
@@ -40,7 +43,7 @@ namespace FloraSaver.Services
                 {
                     plant.IsOverdueWater = true;
                     //this is gross. Fix it!
-                    if (DateTime.Now.AddHours(COOLDOWN_HOURS) > plant.PlantWaterOverdueCooldownLastWarned)
+                    if (COOLDOWN_HOURS != -1 && DateTime.Now.AddHours(COOLDOWN_HOURS) > plant.PlantWaterOverdueCooldownLastWarned)
                     {
                         await WarnOverdueAsync(plant, "water", plants
                         .FirstOrDefault(plant => plantDateWithExtraTime > DateTime.Now)?
@@ -65,7 +68,7 @@ namespace FloraSaver.Services
                 {
                     plant.IsOverdueMist = true;
                     //this is gross. Fix it!
-                    if (DateTime.Now.AddHours(COOLDOWN_HOURS) > plant.PlantMistOverdueCooldownLastWarned)
+                    if (COOLDOWN_HOURS != -1 && DateTime.Now.AddHours(COOLDOWN_HOURS) > plant.PlantMistOverdueCooldownLastWarned)
                     {
                         await WarnOverdueAsync(plant, "mist", plants
                         .FirstOrDefault(plant => plantDateWithExtraTime > DateTime.Now)?
@@ -88,7 +91,7 @@ namespace FloraSaver.Services
                 else
                 {
                     plant.IsOverdueSun = true;
-                    if (DateTime.Now.AddHours(COOLDOWN_HOURS) > plant.PlantMoveOverdueCooldownLastWarned)
+                    if (COOLDOWN_HOURS != -1 && DateTime.Now.AddHours(COOLDOWN_HOURS) > plant.PlantMoveOverdueCooldownLastWarned)
                     {
                         //this is gross. Fix it!
                         await WarnOverdueAsync(plant, "move", plants
@@ -101,7 +104,7 @@ namespace FloraSaver.Services
                 }
             }
 
-            if (!string.IsNullOrEmpty(commonPlantOverdueNotificationDescription))
+            if (COOLDOWN_MULTI_HOURS != -1 && !string.IsNullOrEmpty(commonPlantOverdueNotificationDescription))
             {
                 RepeatingOverduePlantNotification();
             }
@@ -127,7 +130,7 @@ namespace FloraSaver.Services
                 ReturningData = "Dummy data", // Returning data when tapped on notification.
                 Schedule =
                 {
-                    NotifyTime = DateTime.Now.AddDays(1)  // Used for Scheduling local notification, if not specified notification will show immediately.
+                    NotifyTime = DateTime.Now.AddHours(COOLDOWN_MULTI_HOURS)  // Used for Scheduling local notification, if not specified notification will show immediately.
                 }
             };
             await LocalNotificationCenter.Current.Show(notification);

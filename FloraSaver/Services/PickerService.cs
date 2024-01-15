@@ -62,10 +62,10 @@ namespace FloraSaver.Services
         {
             return new List<Interval>
             {
-            new Interval(){IntervalText ="12 Hours",NumFromNow =  .5 },
-            new Interval(){IntervalText ="1 Day",NumFromNow =  1},
-            new Interval(){IntervalText ="3 Days",NumFromNow =  3  },
-            new Interval(){IntervalText ="6 Days",NumFromNow =  6  },
+            new Interval(){IntervalText ="12 Hours",NumFromNow =  12 },
+            new Interval(){IntervalText ="1 Day",NumFromNow =  24},
+            new Interval(){IntervalText ="3 Days",NumFromNow =  72  },
+            new Interval(){IntervalText ="6 Days",NumFromNow =  144  },
             new Interval(){IntervalText = "Never",NumFromNow =  -1 },
             };
         }

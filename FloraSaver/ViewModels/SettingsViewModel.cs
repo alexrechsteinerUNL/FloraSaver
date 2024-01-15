@@ -144,7 +144,7 @@ namespace FloraSaver.ViewModels
             nightTime = nightDate.TimeOfDay;
 
             OverduePlantsPickerValue = OverduePlantsInterval.FirstOrDefault(_ => _.NumFromNow == Preferences.Default.Get("overdue_plants_time_to", 1)) ?? new Interval() { IntervalText = "1 Hour", NumFromNow = 1 };
-            OverduePlantsMultiPickerValue = OverduePlantsMultiInterval.FirstOrDefault(_ => _.NumFromNow == Preferences.Default.Get("overdue_plants_multi_time_to", 1)) ?? new Interval() { IntervalText = "1 Day", NumFromNow = 1 };
+            OverduePlantsMultiPickerValue = OverduePlantsMultiInterval.FirstOrDefault(_ => _.NumFromNow == Preferences.Default.Get("overdue_plants_multi_time_to", 24)) ?? new Interval() { IntervalText = "1 Day", NumFromNow = 24 };
         }
 
         [ObservableProperty]
