@@ -68,6 +68,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<TrimmerRootAssembly Include="Plugin.LocalNotification"/>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Update="ReusableComponentViews\ClipetOverlayPage.xaml.cs">
 	    <DependentUpon>ClipetOverlayPage.xaml</DependentUpon>
 	  </Compile>
