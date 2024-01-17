@@ -26,6 +26,39 @@ namespace FloraSaver.Services
             return await TestGetAllPlantAsync(testConn);
         }
 
+        private async Task<List<AutoFillPlant>> GetAllAutofillPlantAsync()
+        {
+            try
+            {
+                await InitAsync();
+                var allAutoFillPlants = await conn.Table<AutoFillPlant>().ToListAsync();
+                return allAutoFillPlants;
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Failed to retrieve data from Autofill Database. {0}", ex.Message);
+            }
+
+            return new List<AutoFillPlant>();
+        }
+
+        private async Task<List<AutoFillPlant>> QueryAutofillPlantAsyncFromSearchAsync(string searchQuery)
+        {
+            try
+            {
+                //right about now, these will be ordered by index when they should probably be ordered through some search scoring method
+                await InitAsync();
+                var topTenAutoFillPlants = await conn.Table<AutoFillPlant>().Where(_ => _.PlantSpecies.Contains(searchQuery)).Take(10).ToListAsync();
+                return topTenAutoFillPlants;
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Failed to retrieve data from Autofill Database. {0}", ex.Message);
+            }
+
+            return new List<AutoFillPlant>();
+        }
+
         private async Task<List<Plant>> TestGetAllPlantAsync(SQLiteAsyncConnection testConn)
         {
             try
@@ -52,6 +85,7 @@ namespace FloraSaver.Services
 
             await conn.CreateTableAsync<Plant>();
             await conn.CreateTableAsync<PlantGroup>();
+            await conn.CreateTableAsync<AutoFillPlant>();
         }
 
         public DatabaseService(string dbPath, IPlantNotificationService plantNotificationService, IFileSaver fileSaver)

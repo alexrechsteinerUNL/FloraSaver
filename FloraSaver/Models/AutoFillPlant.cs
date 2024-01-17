@@ -18,5 +18,9 @@ namespace FloraSaver.Models
                 PlantSource = source;
             }
         }
+
+        public AutoFillPlant() : base()
+        {
+        }
     }
 }
