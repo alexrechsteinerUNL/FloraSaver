@@ -7,10 +7,13 @@
     xmlns:custom_components="clr-namespace:FloraSaver"
     xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
     xmlns:model="clr-namespace:FloraSaver.Models"
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
     x:DataType="viewmodel:TableViewModel">
     <ContentPage.Resources>
+        <s:Boolean x:Key="True">True</s:Boolean>
+        <s:Boolean x:Key="False">False</s:Boolean>
         <ResourceDictionary>
             <converter:ConvertToRectangle x:Key="RectConverter" />
         </ResourceDictionary>
@@ -132,6 +135,7 @@
                 Grid.ColumnSpan="3"
                 Padding="0,30"
                 Command="{Binding GetPlantsCommand}"
+                CommandParameter="{StaticResource True}"
                 HorizontalOptions="Center"
                 IsRefreshing="{Binding IsRefreshing}">
                 <CollectionView

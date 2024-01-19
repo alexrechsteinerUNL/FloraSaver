@@ -420,9 +420,33 @@ namespace FloraSaver.Models
             GroupColorHexString = _Plant.GroupColorHexString;
         }
 
+        public Plant(AutoFillPlant _AutoFillPlant)
+        {
+            DateOfBirth = _AutoFillPlant.DateOfBirth;
+            DateOfLastMisting = DateTime.Now.Date;
+            DateOfLastMove = DateTime.Now.Date;
+            DateOfLastWatering = DateTime.Now.Date;
+            //DateOfNextMisting = _AutoFillPlant.DateOfNextMisting;
+            //DateOfNextMove = _AutoFillPlant.DateOfNextMove;
+            //DateOfNextWatering = _AutoFillPlant.DateOfNextWatering;
+            GivenName = _AutoFillPlant.GivenName;
+            ImageLocation = _AutoFillPlant.ImageLocation;
+            MistInterval = _AutoFillPlant.MistInterval;
+            PlantSpecies = _AutoFillPlant.PlantSpecies;
+            SunInterval = _AutoFillPlant.SunInterval;
+            TimeOfLastMisting = DateTime.Now.TimeOfDay;
+            TimeOfLastMove = DateTime.Now.TimeOfDay;
+            TimeOfLastWatering = DateTime.Now.TimeOfDay;
+            //TimeOfNextMisting = _AutoFillPlant.TimeOfNextMisting;
+            //TimeOfNextMove = _AutoFillPlant.TimeOfNextMove;
+            //TimeOfNextWatering = _AutoFillPlant.TimeOfNextWatering;
+            WaterInterval = _AutoFillPlant.WaterInterval;
+            PlantGroupName = _AutoFillPlant.PlantGroupName;
+            GroupColorHexString = _AutoFillPlant.GroupColorHexString;
+        }
+
         public Plant(IPlant _Plant)
         {
-
             DateOfBirth = _Plant.DateOfBirth;
             DateOfLastMisting = _Plant.DateOfLastMisting;
             DateOfLastMove = _Plant.DateOfLastMove;
