@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 
 namespace FloraSaver.Models
 {
-    public class AutoFillPlant : Plant
+    public class AutoFillPlant : IPlant
     {
-        string PlantSource { get; set; }
+        public int Id { get; set; }
+        public string PlantSpecies { get; set; }
+        public double? WaterInterval { get; set; }
+        public double? MistInterval { get; set; }
+        public double? SunInterval { get; set; }
+        public string PlantSource { get; set; }
 
         //maybe don't just do the base and instead use predefinied intervals to construct the plants when they are found from the database.
-        public AutoFillPlant(IPlant _Plant, string source = null) : base(_Plant)
+        public AutoFillPlant(IPlant _Plant, string source = null)
         {
             if (!string.IsNullOrEmpty(source))
             {

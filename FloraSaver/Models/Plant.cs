@@ -422,15 +422,12 @@ namespace FloraSaver.Models
 
         public Plant(AutoFillPlant _AutoFillPlant)
         {
-            DateOfBirth = _AutoFillPlant.DateOfBirth;
             DateOfLastMisting = DateTime.Now.Date;
             DateOfLastMove = DateTime.Now.Date;
             DateOfLastWatering = DateTime.Now.Date;
             //DateOfNextMisting = _AutoFillPlant.DateOfNextMisting;
             //DateOfNextMove = _AutoFillPlant.DateOfNextMove;
             //DateOfNextWatering = _AutoFillPlant.DateOfNextWatering;
-            GivenName = _AutoFillPlant.GivenName;
-            ImageLocation = _AutoFillPlant.ImageLocation;
             MistInterval = _AutoFillPlant.MistInterval;
             PlantSpecies = _AutoFillPlant.PlantSpecies;
             SunInterval = _AutoFillPlant.SunInterval;
@@ -441,30 +438,13 @@ namespace FloraSaver.Models
             //TimeOfNextMove = _AutoFillPlant.TimeOfNextMove;
             //TimeOfNextWatering = _AutoFillPlant.TimeOfNextWatering;
             WaterInterval = _AutoFillPlant.WaterInterval;
-            PlantGroupName = _AutoFillPlant.PlantGroupName;
-            GroupColorHexString = _AutoFillPlant.GroupColorHexString;
         }
 
         public Plant(IPlant _Plant)
         {
-            DateOfBirth = _Plant.DateOfBirth;
-            DateOfLastMisting = _Plant.DateOfLastMisting;
-            DateOfLastMove = _Plant.DateOfLastMove;
-            DateOfLastWatering = _Plant.DateOfLastWatering;
-            DateOfNextMisting = _Plant.DateOfNextMisting;
-            DateOfNextMove = _Plant.DateOfNextMove;
-            DateOfNextWatering = _Plant.DateOfNextWatering;
-            GivenName = _Plant.GivenName;
-            ImageLocation = _Plant.ImageLocation;
             MistInterval = _Plant.MistInterval;
             PlantSpecies = _Plant.PlantSpecies;
             SunInterval = _Plant.SunInterval;
-            TimeOfLastMisting = _Plant.TimeOfLastMisting;
-            TimeOfLastMove = _Plant.TimeOfLastMove;
-            TimeOfLastWatering = _Plant.TimeOfLastWatering;
-            TimeOfNextMisting = _Plant.TimeOfNextMisting;
-            TimeOfNextMove = _Plant.TimeOfNextMove;
-            TimeOfNextWatering = _Plant.TimeOfNextWatering;
             WaterInterval = _Plant.WaterInterval;
         }
     }

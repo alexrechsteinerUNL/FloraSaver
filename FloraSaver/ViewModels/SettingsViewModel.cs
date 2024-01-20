@@ -143,8 +143,8 @@ namespace FloraSaver.ViewModels
             var nightDate = DateTime.FromBinary(Preferences.Default.Get("night_time_date", new DateTime(1, 1, 1, 16, 0, 0).ToBinary()));
             nightTime = nightDate.TimeOfDay;
 
-            OverduePlantsPickerValue = OverduePlantsInterval.FirstOrDefault(_ => _.NumFromNow == Preferences.Default.Get("overdue_plants_time_to", 1)) ?? new Interval() { IntervalText = "1 Hour", NumFromNow = 1 };
-            OverduePlantsMultiPickerValue = OverduePlantsMultiInterval.FirstOrDefault(_ => _.NumFromNow == Preferences.Default.Get("overdue_plants_multi_time_to", 24)) ?? new Interval() { IntervalText = "1 Day", NumFromNow = 24 };
+            OverduePlantsPickerValue = OverduePlantsInterval.FirstOrDefault(_ => _.NumFromNow == double.Parse(Preferences.Default.Get("overdue_plants_time_to", "1"))) ?? new Interval() { IntervalText = "1 Hour", NumFromNow = 1 };
+            OverduePlantsMultiPickerValue = OverduePlantsMultiInterval.FirstOrDefault(_ => _.NumFromNow == double.Parse(Preferences.Default.Get("overdue_plants_multi_time_to", "24"))) ?? new Interval() { IntervalText = "1 Day", NumFromNow = 24 };
         }
 
         [ObservableProperty]
@@ -204,7 +204,7 @@ namespace FloraSaver.ViewModels
         {
             var nightTimeDate = new DateTime().Add(value).ToBinary();
             Preferences.Default.Set("night_time_date", nightTimeDate);
-            NightTime = DateTime.FromBinary(Preferences.Default.Get("night_time_date", new DateTime(1, 1, 1, 16, 0, 0).ToBinary())).TimeOfDay;
+            //NightTime = DateTime.FromBinary(Preferences.Default.Get("night_time_date", new DateTime(1, 1, 1, 16, 0, 0).ToBinary())).TimeOfDay;
         }
 
         [RelayCommand]
