@@ -1,12 +1,3 @@
-CREATE TABLE AutoFillPlant (
-    Id INTEGER PRIMARY KEY,
-    PlantSpecies TEXT,
-    WaterInterval INTEGER,
-    MistInterval INTEGER,
-    SunInterval INTEGER,
-    Source TEXT
-);
-
 INSERT INTO AutoFillPlant (Id, PlantSpecies, WaterInterval, MistInterval, SunInterval, Source)
 VALUES
 (0, 'African violet', 7, 3, 28, 'https://www.thespruce.com/how-to-care-for-african-violets-1902776'),
