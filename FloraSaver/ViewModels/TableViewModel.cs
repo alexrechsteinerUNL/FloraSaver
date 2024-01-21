@@ -54,7 +54,7 @@ namespace FloraSaver.ViewModels
             PeriodicTimerUpdaterBackgroundAsync(() => CheatUpdateAllPlantProgress());
             if (ShouldUpdateCheckService.shouldGetNewGroupDataTable) { ShouldUpdateCheckService.ForceToGetNewGroupData(); await GetPlantGroupsAsync(); ShouldUpdateCheckService.shouldGetNewGroupDataTable = false; }
             if (ShouldUpdateCheckService.shouldGetNewPlantDataTable) { ShouldUpdateCheckService.ForceToGetNewPlantData(); await GetPlantsAsync(); ShouldUpdateCheckService.shouldGetNewPlantDataTable = false; }
-            StandardActionsAsync(SearchQuery);
+            await StandardActionsAsync(SearchQuery);
             IsInitialization = false;
         }
 
