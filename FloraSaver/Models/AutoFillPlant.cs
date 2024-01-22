@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace FloraSaver.Models
 {
     public class AutoFillPlant : IPlant
     {
+        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public string PlantSpecies { get; set; }
         public double? WaterInterval { get; set; }
@@ -22,6 +24,15 @@ namespace FloraSaver.Models
             {
                 PlantSource = source;
             }
+        }
+
+        public AutoFillPlant(string plantSpecies, double? waterInterval, double? mistInterval, double? sunInterval, string plantSource)
+        {
+            PlantSpecies = plantSpecies;
+            WaterInterval = waterInterval;
+            MistInterval = mistInterval;
+            SunInterval = sunInterval;
+            PlantSource = plantSource;
         }
 
         public AutoFillPlant() : base()

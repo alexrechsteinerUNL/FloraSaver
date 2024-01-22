@@ -4,6 +4,7 @@ using FloraSaver.Models;
 using Plugin.LocalNotification;
 using System.Numerics;
 using CommunityToolkit.Maui.Storage;
+using FloraSaver.Utilities;
 
 namespace FloraSaver.Services
 {
@@ -30,7 +31,7 @@ namespace FloraSaver.Services
         {
             try
             {
-                await InitAsync();
+                //await InitAsync();
                 var allAutoFillPlants = await conn.Table<AutoFillPlant>().ToListAsync();
                 return allAutoFillPlants;
             }
@@ -40,6 +41,18 @@ namespace FloraSaver.Services
             }
 
             return new List<AutoFillPlant>();
+        }
+
+        private async Task PopulateAutoFillPlantTableAsync()
+        {
+            var autoFillPlantCount = int.Parse(Preferences.Default.Get("AutoFillPlantCount", "0"));
+            var autoFillData = await conn.Table<AutoFillPlant>().ToListAsync();
+            if (autoFillPlantCount != 0 && autoFillPlantCount == autoFillData.Count)
+            {
+                return;
+            }
+            AutoFillPlantGeneratorUtility.GenerateAutoFillPlants();
+            await conn.InsertAllAsync(AutoFillPlantGeneratorUtility.AllAutoFillPlants, true);
         }
 
         private async Task<List<AutoFillPlant>> QueryAutofillPlantAsyncFromSearchAsync(string searchQuery)
@@ -78,14 +91,21 @@ namespace FloraSaver.Services
         //End Testing
         private async Task InitAsync()
         {
+            //Testing
             if (conn != null)
+            {
+                var autoFillData = await conn.Table<AutoFillPlant>().ToListAsync();
                 return;
+            }
+                
 
             conn = new SQLiteAsyncConnection(_dbPath);
 
             await conn.CreateTableAsync<Plant>();
             await conn.CreateTableAsync<PlantGroup>();
             await conn.CreateTableAsync<AutoFillPlant>();
+            await PopulateAutoFillPlantTableAsync();
+            //Testing
         }
 
         public DatabaseService(string dbPath, IPlantNotificationService plantNotificationService, IFileSaver fileSaver)
