@@ -21,6 +21,8 @@ namespace FloraSaver.ViewModels
         public ObservableCollection<Plant> Plants { get; set; } = new();
         public ObservableCollection<PlantGroup> PlantGroups { get; set; } = new();
 
+        public ObservableCollection<AutoFillPlant> PlantSuggestions { get; set; } = new();
+
         public List<Plant> BackendPlantList { get; set; } = new();
         bool IsInitialization { get; set; } = true;
         protected bool shouldGetNewData { get; set; } = true;
@@ -66,6 +68,9 @@ namespace FloraSaver.ViewModels
 
         protected PeriodicTimer timer = new PeriodicTimer(TimeSpan.FromSeconds(10));
 
+
+        [ObservableProperty]
+        private bool showSearchSuggestionsBox = false;
         [ObservableProperty]
         private List<string> orderByValues = PickerService.GetOrderByValues();
 
