@@ -434,6 +434,18 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
+        protected void ShowSearchSuggestionBox()
+        {
+            ShowSearchSuggestionsBox = true;
+        }
+
+        [RelayCommand]
+        protected void HideSearchSuggestionBox()
+        {
+            ShowSearchSuggestionsBox = false;
+        }
+
+        [RelayCommand]
         private async Task GroupSelectionAsync(PlantGroup plantGroup)
         {
             var specificGroup = PlantGroups.FirstOrDefault(_ => _.GroupId == plantGroup.GroupId);
@@ -460,6 +472,8 @@ namespace FloraSaver.ViewModels
             }
             return true;
         }
+
+
 
 
 

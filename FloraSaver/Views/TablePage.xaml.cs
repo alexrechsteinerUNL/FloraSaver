@@ -18,4 +18,9 @@ public partial class TablePage : ContentPage
         entry.IsEnabled = false;
         entry.IsEnabled = true;
     }
+
+    private void deadSpaceButtonHideSuggestion_Clicked(object sender, EventArgs e)
+    {
+        searchBar.Unfocus();
+    }
 }

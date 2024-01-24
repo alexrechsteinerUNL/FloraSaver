@@ -95,7 +95,6 @@ namespace FloraSaver.Services
             //Testing
             if (conn != null)
             {
-                var autoFillData = await conn.Table<AutoFillPlant>().ToListAsync();
                 return;
             }
 
