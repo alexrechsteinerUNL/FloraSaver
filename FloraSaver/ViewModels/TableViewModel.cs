@@ -23,6 +23,8 @@ namespace FloraSaver.ViewModels
 
         public ObservableCollection<AutoFillPlant> PlantSuggestions { get; set; } = new();
 
+        public ObservableCollection<AutoFillPlant> TopTenAutoFillPlants { get; set; } = new();
+
         public List<Plant> BackendPlantList { get; set; } = new();
         bool IsInitialization { get; set; } = true;
         protected bool shouldGetNewData { get; set; } = true;
@@ -36,6 +38,7 @@ namespace FloraSaver.ViewModels
             _databaseService = databaseService;
             IsPlantTypeIncluded = true;
             WaterRectangle = new Rect(0, 20, 105, 105);
+
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -52,6 +55,7 @@ namespace FloraSaver.ViewModels
         private async Task AppearingAsync()
         {
             IsInitialization = true;
+            PlantSuggestions = PlantSuggestions.Count > 0 ? PlantSuggestions : new(await _databaseService.GetAllAutofillPlantAsync());
             timer = new PeriodicTimer(TimeSpan.FromSeconds(10));
             PeriodicTimerUpdaterBackgroundAsync(() => CheatUpdateAllPlantProgress());
             if (ShouldUpdateCheckService.shouldGetNewGroupDataTable) { ShouldUpdateCheckService.ForceToGetNewGroupData(); await GetPlantGroupsAsync(); ShouldUpdateCheckService.shouldGetNewGroupDataTable = false; }

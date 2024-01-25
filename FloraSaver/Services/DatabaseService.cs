@@ -27,7 +27,7 @@ namespace FloraSaver.Services
             return await TestGetAllPlantAsync(testConn);
         }
 
-        private async Task<List<AutoFillPlant>> GetAllAutofillPlantAsync()
+        public async Task<List<AutoFillPlant>> GetAllAutofillPlantAsync()
         {
             try
             {
