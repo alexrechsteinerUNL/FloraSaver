@@ -42,7 +42,7 @@
                         Command="{Binding StandardActionsCommand}"
                         CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
                         EventName="TextChanged" />
-                    <toolkit:EventToCommandBehavior Command="{Binding ShowSearchSuggestionBox}" EventName="Focused" />
+                    <toolkit:EventToCommandBehavior Command="{Binding ShowSearchSuggestionBoxCommand}" EventName="Focused" />
                 </Entry.Behaviors>
             </Entry>
         </Frame>
@@ -537,31 +537,29 @@
 
         <Grid
             Grid.Row="1"
-            Padding="1"
+            Padding="10,0"
+            ColumnDefinitions="*"
+            HorizontalOptions="CenterAndExpand"
             IsVisible="{Binding ShowSearchSuggestionsBox}"
             RowDefinitions="*, 2*">
-            <RefreshView
-                x:Name="_SuggestionView"
+            <CollectionView
+                x:Name="plantSuggestionDeck"
                 Grid.Row="0"
-                HorizontalOptions="Center">
-                <CollectionView
-                    x:Name="plantSuggestionDeck"
-                    ItemsSource="{Binding PlantSuggestions}"
-                    SelectionMode="None"
-                    VerticalScrollBarVisibility="Always">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:Name="bloop0" x:DataType="model:AutoFillPlant">
-                            <Frame>
-                                <Grid ColumnDefinitions="6*, *">
-                                    <Label Grid.Column="0" Text="{Binding PlantSpecies}" />
-                                    <Button Grid.Column="1" Text="+" />
-                                </Grid>
-                            </Frame>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
+                ItemsSource="{Binding TopTenAutoFillPlants}"
+                SelectionMode="None"
+                VerticalScrollBarVisibility="Always">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:Name="bloop0" x:DataType="model:IPlant">
+                        <Frame Background="Black" BackgroundColor="Black">
+                            <Grid ColumnDefinitions="6*, *">
+                                <Label Grid.Column="0" Text="{Binding PlantSpecies}" />
+                                <Button Grid.Column="1" Text="+" />
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
 
-                </CollectionView>
-            </RefreshView>
+            </CollectionView>
             <Button
                 x:Name="deadSpaceButtonHideSuggestion"
                 Grid.Row="1"

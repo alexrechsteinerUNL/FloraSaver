@@ -21,9 +21,9 @@ namespace FloraSaver.ViewModels
         public ObservableCollection<Plant> Plants { get; set; } = new();
         public ObservableCollection<PlantGroup> PlantGroups { get; set; } = new();
 
-        public ObservableCollection<AutoFillPlant> PlantSuggestions { get; set; } = new();
+        public List<AutoFillPlant> PlantSuggestions { get; set; } = new();
 
-        public ObservableCollection<AutoFillPlant> TopTenAutoFillPlants { get; set; } = new();
+        public ObservableCollection<IPlant> TopTenAutoFillPlants { get; set; } = new();
 
         public List<Plant> BackendPlantList { get; set; } = new();
         bool IsInitialization { get; set; } = true;
@@ -366,12 +366,28 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
+        protected void QueryAutofillPlantAsyncFromSearch(string searchQuery)
+        {
+            TopTenAutoFillPlants = new ObservableCollection<IPlant>(PlantSuggestions.Where(_ => _.PlantSpecies.Contains(searchQuery)).Take(10).Distinct());
+            OnPropertyChanged("TopTenAutoFillPlants");
+            ShowSearchSuggestionBox();
+        }
+
+
+        [RelayCommand]
         protected async Task StandardActionsAsync(string searchText = "")
         {
             if (searchText != SearchQuery)
             {
                 SearchQuery = searchText;
+
             }
+
+            if (ShowSearchSuggestionsBox)
+            {
+                QueryAutofillPlantAsyncFromSearch(SearchQuery);
+            }
+
             BackendPlantList = DataPlants.ToList();
             var temporaryBackendPlantList = new List<Plant>(BackendPlantList);
             foreach (var plant in temporaryBackendPlantList)
