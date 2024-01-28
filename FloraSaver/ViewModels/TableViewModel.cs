@@ -368,7 +368,7 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         protected void QueryAutofillPlantAsyncFromSearch(string searchQuery)
         {
-            TopTenAutoFillPlants = new ObservableCollection<IPlant>(PlantSuggestions.Where(_ => _.PlantSpecies.Contains(searchQuery)).Take(10).Distinct());
+            TopTenAutoFillPlants = new ObservableCollection<IPlant>(PlantSuggestions.Where(_ => _.PlantSpecies.Contains(searchQuery)).Take(10));
             OnPropertyChanged("TopTenAutoFillPlants");
             ShowSearchSuggestionBox();
         }
