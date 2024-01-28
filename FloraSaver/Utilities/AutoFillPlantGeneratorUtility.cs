@@ -11,7 +11,7 @@ namespace FloraSaver.Utilities
     {
         public static List<AutoFillPlant> AllAutoFillPlants;
 
-        public static bool ShouldRefillDatabase = false;
+        public static int ManuallySetCount = 1;
         public static void GenerateAutoFillPlants()
         {
             var autoFillPlants = new List<AutoFillPlant>();

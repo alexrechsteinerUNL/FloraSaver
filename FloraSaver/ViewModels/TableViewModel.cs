@@ -20,7 +20,6 @@ namespace FloraSaver.ViewModels
         public ObservableCollection<Plant> DataPlants { get; set; } = new();
         public ObservableCollection<Plant> Plants { get; set; } = new();
         public ObservableCollection<PlantGroup> PlantGroups { get; set; } = new();
-
         public List<AutoFillPlant> PlantSuggestions { get; set; } = new();
 
         public ObservableCollection<IPlant> TopTenAutoFillPlants { get; set; } = new();
@@ -368,7 +367,7 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         protected void QueryAutofillPlantAsyncFromSearch(string searchQuery)
         {
-            TopTenAutoFillPlants = new ObservableCollection<IPlant>(PlantSuggestions.Where(_ => _.PlantSpecies.Contains(searchQuery)).Take(10));
+            TopTenAutoFillPlants = new ObservableCollection<IPlant>(PlantSuggestions.Where(_ => _.PlantSpecies.Contains(searchQuery, StringComparison.CurrentCultureIgnoreCase)).Take(10));
             OnPropertyChanged("TopTenAutoFillPlants");
             ShowSearchSuggestionBox();
         }
