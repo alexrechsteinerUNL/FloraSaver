@@ -25,13 +25,38 @@ namespace FloraSaver.Models
             SunInterval = _plant.SunInterval;
         }
 
+        SearchedPlants(Plant _plant, string searchQuery)
+        {
+            Id = _plant.Id;
+            PlantSpecies = _plant.PlantSpecies;
+            WaterInterval = _plant.WaterInterval;
+            MistInterval = _plant.MistInterval;
+            SunInterval = _plant.SunInterval;
+            IsPlantExisting = true;
+        }
+
+        SearchedPlants(Plant _plant)
+        {
+            Id = _plant.Id;
+            PlantSpecies = _plant.PlantSpecies;
+            WaterInterval = _plant.WaterInterval;
+            MistInterval = _plant.MistInterval;
+            SunInterval = _plant.SunInterval;
+            IsPlantExisting = true;
+        }
+
+
+
+
         public int Id { get; set; }
         public string PlantSpecies { get; set; }
         public double? WaterInterval { get; set; }
         public double? MistInterval { get; set; }
         public double? SunInterval { get; set; }
         public double SearchScore { get; set; } = 0.0;
+        public bool IsPlantExisting { get; set; } = false;
 
+        public char ConnectedIcon => IsPlantExisting ? '+' : '⎘';
         public double GenerateSearchScore()
         {
             return (double)SearchScore;
