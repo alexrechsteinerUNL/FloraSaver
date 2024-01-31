@@ -56,7 +56,7 @@ namespace FloraSaver.Models
         public double SearchScore { get; set; } = 0.0;
         public bool IsPlantExisting { get; set; } = false;
 
-        public char ConnectedIcon => IsPlantExisting ? '+' : '⎘';
+        public string ConnectedIcon => IsPlantExisting ? "+" : "🗐";
         public double GenerateSearchScore()
         {
             return (double)SearchScore;
