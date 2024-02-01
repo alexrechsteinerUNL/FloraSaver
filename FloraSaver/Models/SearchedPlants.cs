@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FloraSaver.Models
 {
-    class SearchedPlants : IPlant
+    public class SearchedPlants : IPlant
     {
         SearchedPlants(IPlant _plant)
         {
@@ -16,23 +16,26 @@ namespace FloraSaver.Models
             MistInterval = _plant.MistInterval;
             SunInterval = _plant.SunInterval;
         }
-        SearchedPlants(IPlant _plant, string searchQuery)
+        SearchedPlants(IPlant _plant, double searchScore)
         {
             Id = _plant.Id;
             PlantSpecies = _plant.PlantSpecies;
             WaterInterval = _plant.WaterInterval;
             MistInterval = _plant.MistInterval;
             SunInterval = _plant.SunInterval;
+            SearchScore = searchScore;
         }
 
-        SearchedPlants(Plant _plant, string searchQuery)
+        SearchedPlants(Plant _plant, double searchScore)
         {
             Id = _plant.Id;
             PlantSpecies = _plant.PlantSpecies;
             WaterInterval = _plant.WaterInterval;
             MistInterval = _plant.MistInterval;
             SunInterval = _plant.SunInterval;
+            GivenName = _plant.GivenName;
             IsPlantExisting = true;
+            SearchScore = searchScore;
         }
 
         SearchedPlants(Plant _plant)
@@ -42,6 +45,7 @@ namespace FloraSaver.Models
             WaterInterval = _plant.WaterInterval;
             MistInterval = _plant.MistInterval;
             SunInterval = _plant.SunInterval;
+            GivenName = _plant.GivenName;
             IsPlantExisting = true;
         }
 
@@ -55,11 +59,8 @@ namespace FloraSaver.Models
         public double? SunInterval { get; set; }
         public double SearchScore { get; set; } = 0.0;
         public bool IsPlantExisting { get; set; } = false;
+        public string GivenName { get; set; }
 
         public string ConnectedIcon => IsPlantExisting ? "+" : "🗐";
-        public double GenerateSearchScore()
-        {
-            return (double)SearchScore;
-        }
     }
 }
