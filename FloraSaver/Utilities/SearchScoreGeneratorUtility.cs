@@ -9,56 +9,41 @@ namespace FloraSaver.Utilities
 {
     public static class SearchScoreGeneratorUtility
     {
+
         public static List<SearchedPlants> GenerateSearchScore(List<SearchedPlants> databasePlants, string searchQuery, List<Plant> existingPlants = null)
         {
             searchQuery = searchQuery.ToLower();
             return databasePlants;
         }
 
-        private static List<SearchedPlants> SearchIfSearchQueryOneLetter(List<SearchedPlants> databasePlants, string searchQuery, bool isStartingLetter, List<Plant> existingPlants = null)
+        private static List<SearchedPlants> RecursiveSearch(List<SearchedPlants> databasePlants, string searchQuery, bool isStartingLetter, List<Plant> existingPlants = null, int desiredResultAmount = 15)
         {
             var plantSpecies = databasePlants.Select(_ => _.PlantSpecies.ToLower());
             Parallel.ForEach(databasePlants, plant =>
             {
                 if (isStartingLetter && plant.PlantSpecies.StartsWith(searchQuery))
                 {
-                    plant.SearchScore += 50;
+                    plant.SearchScore += 50 + 10 * searchQuery.Length;
                 }
                 if (plant.PlantSpecies.Contains(searchQuery))
                 {
-                    plant.SearchScore += 20;
+                    plant.SearchScore += 20 + 10 * searchQuery.Length;
                 }
             });
-            return databasePlants;
-        }
 
-        private static List<SearchedPlants> SearchIfSearchQueryMultipleLetters(List<SearchedPlants> databasePlants, string searchQuery, List<Plant> existingPlants = null)
-        {
-            var plantSpecies = databasePlants.Select(_ => _.PlantSpecies.ToLower());
-            Parallel.ForEach(databasePlants, plant =>
+            if (databasePlants.Where(_ => _.SearchScore > 0).Count() > desiredResultAmount || searchQuery.Length == 1)
             {
-                if (plant.PlantSpecies.StartsWith(searchQuery))
-                {
-                    plant.SearchScore += 75 + 5 * searchQuery.Length;
-                }
-                if (plant.PlantSpecies.Contains(searchQuery))
-                {
-                    plant.SearchScore += 40 + 5 * searchQuery.Length; ;
-                }
-            });
-            var isStartingLetter = true;
-            Parallel.ForEach(searchQuery, character =>
-            {
-                SearchIfSearchQueryOneLetter(databasePlants, character.ToString(), isStartingLetter, existingPlants);
-                isStartingLetter = false;
-            });
+                return databasePlants;
+            }
+
+            var firstHalf = (searchQuery.Length % 2 == 0) ? searchQuery.Substring(0, searchQuery.Length / 2) : searchQuery.Substring(0, searchQuery.Length / 2 + 1);
+            var secondHalf = (searchQuery.Length % 2 == 0) ? searchQuery.Substring(searchQuery.Length / 2, searchQuery.Length) : searchQuery.Substring(searchQuery.Length / 2 + 1, searchQuery.Length);
 
 
-            return databasePlants;
-        }
+            databasePlants = RecursiveSearch(databasePlants, firstHalf, true, existingPlants, desiredResultAmount);
+            databasePlants = RecursiveSearch(databasePlants, secondHalf, false, existingPlants, desiredResultAmount);
 
-        private static List<SearchedPlants> SearchIfSearchQueryThreeLettersOrMore(List<SearchedPlants> databasePlants, string searchQuery, List<Plant> existingPlants = null)
-        {
+
             return databasePlants;
         }
     }
