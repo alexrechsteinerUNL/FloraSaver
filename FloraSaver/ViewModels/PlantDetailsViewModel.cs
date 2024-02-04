@@ -516,9 +516,18 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         private async Task ImageOfPlantToBase64Async()
         {
-            AlterPlant.ImageLocation = await Base64ImageConverterService.PickedImageToBase64Async();
-            OnPropertyChanged("AlterPlant");
-            SetImageSourceOfPlant();
+            try
+            {
+                AlterPlant.ImageLocation = await Base64ImageConverterService.PickedImageToBase64Async();
+                OnPropertyChanged("AlterPlant");
+                SetImageSourceOfPlant();
+            } 
+            catch(Exception ex) 
+            {
+                AlterPlant.ImageLocation = AlterPlant.ImageLocation;
+                OnPropertyChanged("AlterPlant");
+            }
+            
         }
 
         [RelayCommand]

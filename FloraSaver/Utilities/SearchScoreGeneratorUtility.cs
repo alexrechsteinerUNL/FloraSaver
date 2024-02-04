@@ -10,9 +10,10 @@ namespace FloraSaver.Utilities
     public static class SearchScoreGeneratorUtility
     {
 
-        public static List<SearchedPlants> GenerateSearchScore(List<SearchedPlants> databasePlants, string searchQuery, List<Plant> existingPlants = null)
+        public static List<SearchedPlants> GenerateSearchScore(List<SearchedPlants> databasePlants, string searchQuery, List<Plant> existingPlants = null, int desiredResultAmount = 15)
         {
             searchQuery = searchQuery.ToLower();
+            databasePlants = RecursiveSearch(databasePlants, searchQuery, true, existingPlants, desiredResultAmount);
             return databasePlants;
         }
 

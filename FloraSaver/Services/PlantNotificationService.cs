@@ -21,8 +21,8 @@ namespace FloraSaver.Services
 
         public async Task<List<Plant>> SetAllNotificationsAsync(List<Plant> plants)
         {
-            COOLDOWN_HOURS = Preferences.Default.Get("overdue_plants_time_to", 1);
-            COOLDOWN_MULTI_HOURS = Preferences.Default.Get("overdue_plants_multi_time_to", 24);
+            COOLDOWN_HOURS = int.Parse(Preferences.Default.Get("overdue_plants_time_to", "1"));
+            COOLDOWN_MULTI_HOURS = int.Parse(Preferences.Default.Get("overdue_plants_multi_time_to", "24"));
             commonPlantOverdueNotificationDescription = string.Empty;
             if (await LocalNotificationCenter.Current.AreNotificationsEnabled() == false)
             {
