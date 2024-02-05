@@ -22,7 +22,7 @@ namespace FloraSaver.ViewModels
         public ObservableCollection<PlantGroup> PlantGroups { get; set; } = new();
         public List<AutoFillPlant> PlantSuggestions { get; set; } = new();
 
-        public ObservableCollection<IPlant> TopTenAutoFillPlants { get; set; } = new();
+        public ObservableCollection<SearchedPlants> TopTenAutoFillPlants { get; set; } = new();
 
         public List<Plant> BackendPlantList { get; set; } = new();
         bool IsInitialization { get; set; } = true;
@@ -367,9 +367,20 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         protected void QueryAutofillPlantAsyncFromSearch(string searchQuery)
         {
-            TopTenAutoFillPlants = new ObservableCollection<IPlant>(PlantSuggestions.Where(_ => _.PlantSpecies.Contains(searchQuery, StringComparison.CurrentCultureIgnoreCase)).Take(10));
+            var TopTenPlants = PlantSuggestions.Where(_ => _.PlantSpecies.Contains(searchQuery, StringComparison.CurrentCultureIgnoreCase)).Take(10);
+
+            TopTenAutoFillPlants = new ObservableCollection<SearchedPlants>();
+            foreach(var plant in TopTenPlants)
+            {
+                TopTenAutoFillPlants.Add(ConvertToSearchedPlant(plant));
+            }
             OnPropertyChanged("TopTenAutoFillPlants");
             ShowSearchSuggestionBox();
+        }
+
+        protected SearchedPlants ConvertToSearchedPlant(IPlant plant)
+        {
+           return new SearchedPlants(plant);
         }
 
 
@@ -554,6 +565,12 @@ namespace FloraSaver.ViewModels
         private async Task GoToSetupDetailsSunAsync(Plant plant)
         {
             await GoToSetupDetailsAsync(plant, "Sun");
+        }
+
+        [RelayCommand]
+        private async Task GoToDetailsSuggestionPlantAsync(SearchedPlants searchedPlant)
+        {
+            await GoToDetailsAsync(new Plant(searchedPlant) { Id = DataPlants.Any() ? DataPlants.Max(x => x.Id) + 1 : 0});
         }
 
         [RelayCommand]

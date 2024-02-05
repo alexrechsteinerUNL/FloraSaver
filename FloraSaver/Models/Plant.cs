@@ -420,24 +420,28 @@ namespace FloraSaver.Models
             GroupColorHexString = _Plant.GroupColorHexString;
         }
 
-        public Plant(AutoFillPlant _AutoFillPlant)
+        public Plant(SearchedPlants _SearchedPlants)
         {
             DateOfLastMisting = DateTime.Now.Date;
             DateOfLastMove = DateTime.Now.Date;
             DateOfLastWatering = DateTime.Now.Date;
-            //DateOfNextMisting = _AutoFillPlant.DateOfNextMisting;
-            //DateOfNextMove = _AutoFillPlant.DateOfNextMove;
-            //DateOfNextWatering = _AutoFillPlant.DateOfNextWatering;
-            MistInterval = _AutoFillPlant.MistInterval;
-            PlantSpecies = _AutoFillPlant.PlantSpecies;
-            SunInterval = _AutoFillPlant.SunInterval;
+            MistInterval = _SearchedPlants.MistInterval;
+            PlantSpecies = _SearchedPlants.PlantSpecies;
+            SunInterval = _SearchedPlants.SunInterval;
             TimeOfLastMisting = DateTime.Now.TimeOfDay;
             TimeOfLastMove = DateTime.Now.TimeOfDay;
             TimeOfLastWatering = DateTime.Now.TimeOfDay;
-            //TimeOfNextMisting = _AutoFillPlant.TimeOfNextMisting;
-            //TimeOfNextMove = _AutoFillPlant.TimeOfNextMove;
-            //TimeOfNextWatering = _AutoFillPlant.TimeOfNextWatering;
-            WaterInterval = _AutoFillPlant.WaterInterval;
+            DateOfBirth = DateTime.Now;
+            WaterInterval = _SearchedPlants.WaterInterval;
+            DateOfNextMisting = DateOfLastMisting.AddDays((double)MistInterval);
+            DateOfNextWatering = DateOfLastWatering.AddDays((double)WaterInterval);
+            DateOfNextMove = DateOfLastMove.AddDays((double)SunInterval);
+            TimeOfNextMisting = DateOfNextMisting.TimeOfDay;
+            TimeOfNextMove = DateOfNextMove.TimeOfDay;
+            TimeOfNextWatering = DateOfNextWatering.TimeOfDay;
+            UseWatering = true;
+            UseMisting = true;
+            UseMoving = false;
         }
 
         public Plant(IPlant _Plant)

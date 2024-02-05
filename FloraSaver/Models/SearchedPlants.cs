@@ -8,7 +8,7 @@ namespace FloraSaver.Models
 {
     public class SearchedPlants : IPlant
     {
-        SearchedPlants(IPlant _plant)
+        public SearchedPlants(IPlant _plant)
         {
             Id = _plant.Id;
             PlantSpecies = _plant.PlantSpecies;
@@ -16,7 +16,7 @@ namespace FloraSaver.Models
             MistInterval = _plant.MistInterval;
             SunInterval = _plant.SunInterval;
         }
-        SearchedPlants(IPlant _plant, double searchScore)
+        public SearchedPlants(IPlant _plant, double searchScore)
         {
             Id = _plant.Id;
             PlantSpecies = _plant.PlantSpecies;
@@ -26,7 +26,7 @@ namespace FloraSaver.Models
             SearchScore = searchScore;
         }
 
-        SearchedPlants(Plant _plant, double searchScore)
+        public SearchedPlants(Plant _plant, double searchScore)
         {
             Id = _plant.Id;
             PlantSpecies = _plant.PlantSpecies;
@@ -38,7 +38,7 @@ namespace FloraSaver.Models
             SearchScore = searchScore;
         }
 
-        SearchedPlants(Plant _plant)
+        public SearchedPlants(Plant _plant)
         {
             Id = _plant.Id;
             PlantSpecies = _plant.PlantSpecies;
@@ -61,6 +61,6 @@ namespace FloraSaver.Models
         public bool IsPlantExisting { get; set; } = false;
         public string GivenName { get; set; }
 
-        public string ConnectedIcon => IsPlantExisting ? "+" : "🗐";
+        public string ConnectedIcon => IsPlantExisting ? "🗐" : "+";
     }
 }

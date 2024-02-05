@@ -58,9 +58,9 @@
 
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Common" Version="8.2.2" />
-	  <PackageReference Include="CommunityToolkit.Maui" Version="7.0.0" />
+	  <PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-	  <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
+	  <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.6" />
 	  <PackageReference Include="Microsoft.VisualStudio.Utilities" Version="17.8.37221" />
 	  <PackageReference Include="Plugin.LocalNotification" Version="10.1.8" />
 	  <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
@@ -68,7 +68,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<TrimmerRootAssembly Include="Plugin.LocalNotification"/>
+		<TrimmerRootAssembly Include="Plugin.LocalNotification" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -133,6 +133,10 @@
 	  <MauiAsset Update="Resources\Raw\WelcomeMessage.txt">
 	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
 	  </MauiAsset>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="8.0.6" />
 	</ItemGroup>
 
 </Project>
