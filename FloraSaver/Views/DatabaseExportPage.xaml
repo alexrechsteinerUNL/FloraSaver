@@ -48,6 +48,39 @@
                 Command="{Binding BackupDatabaseCommand}"
                 CommandParameter="{Binding FileName}"
                 Text="Backup" />
+            <Grid
+                Padding="0,215,0,0"
+                ColumnDefinitions="250,*"
+                HorizontalOptions="FillAndExpand"
+                RowDefinitions="*, 130, 30"
+                RowSpacing="0"
+                VerticalOptions="EndAndExpand">
+                <Image
+                    x:Name="clipet"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Aspect="Fill"
+                    Source="up_close_base_clipet.png"
+                    VerticalOptions="EndAndExpand" />
+                <Grid
+                    x:Name="speechSpace"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2">
+                    <Image
+                        Aspect="Fill"
+                        HeightRequest="140"
+                        Source="speech_bubble.png"
+                        WidthRequest="400" />
+                    <!--  162 characters allowed per box before it's gotta be split  -->
+                    <Label
+                        x:Name="speech"
+                        FontSize="22"
+                        HeightRequest="120"
+                        Text="{Binding ClipetBackupText}"
+                        TextColor="Orange"
+                        WidthRequest="375" />
+                </Grid>
+            </Grid>
         </VerticalStackLayout>
     </Grid>
 </ContentPage>

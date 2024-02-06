@@ -57,7 +57,6 @@
                         Text="TestDatabase" />
                 </HorizontalStackLayout>
                 <ScrollView Grid.Row="1">
-
                     <VerticalStackLayout Spacing="10">
                         <Grid
                             x:Name="groupGrid"

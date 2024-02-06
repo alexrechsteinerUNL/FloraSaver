@@ -19,6 +19,9 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         public string fileName = $"Plants_{DateTime.Now}.db3";
 
+        [ObservableProperty]
+        public string clipetBackupText = "Backup Your Plants!";
+
         public ObservableCollection<Plant> NewPlantsFromFile { get; set; } = new();
 
         public ObservableCollection<Plant> OldPlants { get; set; } = new();
@@ -41,9 +44,18 @@ namespace FloraSaver.ViewModels
 
             if (databaseFileName.Length < 4 || databaseFileName.Substring(databaseFileName.Length - 4) != FileExtension)
             {
+                databaseFileName.Replace(".", "");
                 databaseFileName += FileExtension;
             }
-            await _databaseService.BackupDatabaseAsync(databaseFileName);
+            try
+            {
+                await _databaseService.BackupDatabaseAsync(databaseFileName);
+                ClipetBackupText = "You have backed up your plants!";
+            } catch (Exception ex)
+            {
+                ClipetBackupText = "Oh no! That didn't work! Please try a different name or location";
+            }
+            
         }
 
         [RelayCommand]
