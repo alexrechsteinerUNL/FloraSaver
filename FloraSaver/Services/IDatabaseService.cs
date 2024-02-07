@@ -1,4 +1,5 @@
-﻿using FloraSaver.Models;
+﻿using CommunityToolkit.Maui.Storage;
+using FloraSaver.Models;
 
 namespace FloraSaver.Services
 {
@@ -6,7 +7,7 @@ namespace FloraSaver.Services
     {
         string StatusMessage { get; set; }
 
-        Task BackupDatabaseAsync(string databaseFileName);
+        Task<FileSaverResult> BackupDatabaseAsync(string databaseFileName);
 
         Task<List<Plant>> TestDbConnectionFromFileAsync(string filePath);
 

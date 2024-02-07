@@ -115,10 +115,10 @@ namespace FloraSaver.Services
             _fileSaver = fileSaver;
         }
 
-        public async Task BackupDatabaseAsync(string databaseFileName)
+        public async Task<FileSaverResult> BackupDatabaseAsync(string databaseFileName)
         {
             await InitAsync();
-            await _fileSaver.SaveAsync(databaseFileName, File.OpenRead(_dbPath), cancellationTokenSource.Token);
+            return await _fileSaver.SaveAsync(databaseFileName, File.OpenRead(_dbPath), cancellationTokenSource.Token);
         }
 
         public async Task AddUpdateNewPlantAsync(Plant plant)

@@ -49,11 +49,17 @@ namespace FloraSaver.ViewModels
             }
             try
             {
-                await _databaseService.BackupDatabaseAsync(databaseFileName);
-                ClipetBackupText = "You have backed up your plants!";
+                var result = await _databaseService.BackupDatabaseAsync(databaseFileName);
+                if (!result.IsSuccessful)
+                {
+                    ClipetBackupText = "Oh no! That didn't work! Please try a different name or location, and make sure you hit that save button!";
+                } else
+                {
+                    ClipetBackupText = $"You have backed up your plants with the filename '{databaseFileName}'";
+                }
             } catch (Exception ex)
             {
-                ClipetBackupText = "Oh no! That didn't work! Please try a different name or location";
+                ClipetBackupText = "Oh no! That didn't work! Please try a different name or location, and make sure you hit that save button!";
             }
             
         }
