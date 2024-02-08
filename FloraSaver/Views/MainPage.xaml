@@ -36,6 +36,7 @@
                 Grid.Row="3"
                 Padding="5,5"
                 BackgroundColor="Black"
+                IsVisible="{Binding ArePlants}"
                 Opacity=".98">
                 <Grid>
                     <Grid.ColumnDefinitions>

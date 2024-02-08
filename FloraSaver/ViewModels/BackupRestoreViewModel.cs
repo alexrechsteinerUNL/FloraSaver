@@ -22,6 +22,9 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         public string clipetBackupText = "Backup Your Plants!";
 
+        [ObservableProperty]
+        public bool showCurrentPlants = false;
+
         public ObservableCollection<Plant> NewPlantsFromFile { get; set; } = new();
 
         public ObservableCollection<Plant> OldPlants { get; set; } = new();
@@ -33,7 +36,6 @@ namespace FloraSaver.ViewModels
             OldPlants = Plants;
         }
 
-        //Testing
         [RelayCommand]
         private async Task BackupDatabaseAsync(string databaseFileName)
         {
@@ -76,6 +78,7 @@ namespace FloraSaver.ViewModels
 
             NewPlantsFromFile = new(await _databaseService.TestDbConnectionFromFileAsync(result.FullPath));
             OnPropertyChanged(nameof(NewPlantsFromFile));
+            if (NewPlantsFromFile.Count > 0 ) { ShowCurrentPlants = true; }
             return;
         }
 

@@ -43,19 +43,21 @@
                             Grid.Column="2"
                             Padding="2,2"
                             BackgroundColor="Transparent"
-                            HorizontalOptions="FillAndExpand">
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand">
                             <Frame
                                 Padding="0,2"
                                 BackgroundColor="Transparent"
                                 BorderColor="Transparent"
                                 HorizontalOptions="CenterAndExpand"
-                                VerticalOptions="FillAndExpand">
+                                VerticalOptions="CenterAndExpand">
                                 <TimePicker
                                     x:Name="morningTime"
                                     BackgroundColor="White"
                                     Format="t"
+                                    HorizontalOptions="FillAndExpand"
                                     Time="{Binding MorningTime, Mode=TwoWay}"
-                                    WidthRequest="75" />
+                                    VerticalOptions="FillAndExpand" />
                             </Frame>
                         </Frame>
                     </Grid>
@@ -254,6 +256,19 @@
                             Grid.Row="0"
                             HorizontalOptions="Start"
                             Text="Edit Groups:" />
+                        <Grid
+                            Grid.Row="1"
+                            Padding="0,5"
+                            HorizontalOptions="CenterAndExpand"
+                            IsVisible="{Binding AreNoGroups}"
+                            VerticalOptions="CenterAndExpand">
+                            <Label
+                                HorizontalOptions="CenterAndExpand"
+                                IsVisible="{Binding IsNotBusy}"
+                                Text="There are no groups yet."
+                                VerticalOptions="CenterAndExpand" />
+                        </Grid>
+
                         <RefreshView
                             x:Name="PlantGroupRefresh"
                             Grid.Row="1"

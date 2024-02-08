@@ -208,6 +208,7 @@
                 <RefreshView
                     Command="{Binding GetPlantsCommand}"
                     IsRefreshing="{Binding IsRefreshing}"
+                    IsVisible="{Binding ShowCurrentPlants}"
                     VerticalOptions="CenterAndExpand">
                     <CollectionView
                         x:Name="oldPlantDeck"

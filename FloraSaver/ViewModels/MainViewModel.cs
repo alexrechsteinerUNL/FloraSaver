@@ -28,6 +28,8 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         public bool isNextSun = false;
 
+        
+
         public MainViewModel(IDatabaseService databaseService, IPlantNotificationService plantNotificationService) : base(databaseService, plantNotificationService)
         {
             databaseService = _databaseService;
@@ -39,6 +41,14 @@ namespace FloraSaver.ViewModels
         {
             if (ShouldUpdateCheckService.shouldGetNewPlantDataMain) { await GetPlantsAsync(); ShouldUpdateCheckService.shouldGetNewPlantDataMain = false; }
             PeriodicTimerUpdaterBackgroundAsync(() => CheatUpdateAllPlantProgress());
+            if (DataPlants.Count > 0)
+            {
+                AreNoPlants = false;
+            }
+            else
+            {
+                AreNoPlants = true;
+            }
             SetNextPlant();
         }
 

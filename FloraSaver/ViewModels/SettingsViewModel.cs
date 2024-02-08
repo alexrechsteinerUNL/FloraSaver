@@ -21,7 +21,8 @@ namespace FloraSaver.ViewModels
         protected List<Interval> overduePlantsMultiInterval;
         [ObservableProperty]
         public Interval overduePlantsMultiPickerValue;
-
+        [ObservableProperty]
+        protected bool areNoGroups = true;
 
         [ObservableProperty]
         protected bool isBeingUndone = false;
@@ -165,7 +166,23 @@ namespace FloraSaver.ViewModels
 
             }
             if (ShouldUpdateCheckService.shouldGetNewGroupDataSettings) { await GetVisiblePlantGroupsAsync(); ShouldUpdateCheckService.shouldGetNewGroupDataSettings = false; }
-
+            if (initialPlantGroups.Count > 0)
+            {
+                AreNoGroups = false;
+            } else
+            {
+                AreNoGroups = true;
+            }
+            // This is to resolve the fact that TimePicker cannot have its time centered which would cut off the correct values
+            MorningTime = new TimeSpan(0, 0, 0);
+            MiddayTime = new TimeSpan(0, 0, 0);
+            NightTime = new TimeSpan(0, 0, 0);
+            DateTime morningDate = DateTime.FromBinary(Preferences.Default.Get("morning_time_date", new DateTime(1, 1, 1, 8, 0, 0).ToBinary()));
+            MorningTime = morningDate.TimeOfDay;
+            var middayDate = DateTime.FromBinary(Preferences.Default.Get("midday_time_date", new DateTime(1, 1, 1, 12, 0, 0).ToBinary()));
+            MiddayTime = middayDate.TimeOfDay;
+            var nightDate = DateTime.FromBinary(Preferences.Default.Get("night_time_date", new DateTime(1, 1, 1, 16, 0, 0).ToBinary()));
+            NightTime = nightDate.TimeOfDay;
             IsInitialization = false;
         }
 
@@ -188,23 +205,35 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         partial void OnMorningTimeChanged(TimeSpan value)
         {
-            var morningTimeDate = new DateTime().Add(value).ToBinary();
-            Preferences.Default.Set("morning_time_date", morningTimeDate);
+            if (!IsInitialization)
+            {
+                var morningTimeDate = new DateTime().Add(value).ToBinary();
+                Preferences.Default.Set("morning_time_date", morningTimeDate);
+            }
+            
         }
 
         [RelayCommand]
         partial void OnMiddayTimeChanged(TimeSpan value)
         {
-            var middayTimeDate = new DateTime().Add(value).ToBinary();
-            Preferences.Default.Set("midday_time_date", middayTimeDate);
+            if (!IsInitialization)
+            {
+                var middayTimeDate = new DateTime().Add(value).ToBinary();
+                Preferences.Default.Set("midday_time_date", middayTimeDate);
+            }
+            
         }
 
         [RelayCommand]
         partial void OnNightTimeChanged(TimeSpan value)
         {
-            var nightTimeDate = new DateTime().Add(value).ToBinary();
-            Preferences.Default.Set("night_time_date", nightTimeDate);
-            //NightTime = DateTime.FromBinary(Preferences.Default.Get("night_time_date", new DateTime(1, 1, 1, 16, 0, 0).ToBinary())).TimeOfDay;
+            if (!IsInitialization)
+            {
+                var nightTimeDate = new DateTime().Add(value).ToBinary();
+                Preferences.Default.Set("night_time_date", nightTimeDate);
+                //NightTime = DateTime.FromBinary(Preferences.Default.Get("night_time_date", new DateTime(1, 1, 1, 16, 0, 0).ToBinary())).TimeOfDay;
+            }
+
         }
 
         [RelayCommand]
@@ -273,6 +302,7 @@ namespace FloraSaver.ViewModels
             PickerPlantGroups.FirstOrDefault(_ => _.Equals(plantGroup)).isColorEdited = false;
             SetItem();
             ShouldUpdateCheckService.ForceToGetNewGroupData();
+            ShouldUpdateCheckService.ForceToGetNewPlantData();
         }
 
         [RelayCommand]
@@ -303,6 +333,7 @@ namespace FloraSaver.ViewModels
                 IsBusy = false;
                 OnPropertyChanged("PlantGroup");
                 ShouldUpdateCheckService.ForceToGetNewGroupData();
+                ShouldUpdateCheckService.ForceToGetNewPlantData();
             }
         }
 
@@ -330,6 +361,7 @@ namespace FloraSaver.ViewModels
             {
                 IsBusy = false;
                 ShouldUpdateCheckService.ForceToGetNewGroupData();
+                ShouldUpdateCheckService.ForceToGetNewPlantData();
             }
         }
 

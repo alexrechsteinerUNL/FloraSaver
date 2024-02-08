@@ -21,6 +21,8 @@ namespace FloraSaver.ViewModels
         protected double InitialMistDaysFromNow = 0;
         protected double InitialSunDaysFromNow = 0;
 
+        public List<AutoFillPlant> PlantSuggestions { get; set; } = new();
+
         [ObservableProperty]
         protected bool isBeingUndone = false;
 
@@ -39,7 +41,7 @@ namespace FloraSaver.ViewModels
             GroupPickerValue = AlterPlant.PlantGroupName != null ? PlantGroups.FirstOrDefault(_ => _.GroupName == AlterPlant.PlantGroupName) : PlantGroups.FirstOrDefault(_ => _.GroupName == "Ungrouped");
             OnPropertyChanged("AlterPlant");
             IsBeingUndone = false;
-            groupUndoButtonVisible = false;
+            GroupUndoButtonVisible = false;
         }
 
         [ObservableProperty]
@@ -384,10 +386,28 @@ namespace FloraSaver.ViewModels
             SelectedGroupColor = GroupColors[rand.Next(GroupColors.Count)];
         }
 
+        public void correctlySizeTimePickerBoxes()
+        {
+            AlterPlant.TimeOfLastMisting = new TimeSpan(0, 0, 0);
+            AlterPlant.TimeOfLastWatering = new TimeSpan(0, 0, 0);
+            AlterPlant.TimeOfLastMove = new TimeSpan(0, 0, 0);
+            AlterPlant.TimeOfNextMisting = new TimeSpan(0, 0, 0);
+            AlterPlant.TimeOfNextWatering = new TimeSpan(0, 0, 0);
+            AlterPlant.TimeOfNextMove = new TimeSpan(0, 0, 0);
+
+            AlterPlant.TimeOfLastMisting = InitialPlant.TimeOfLastMisting;
+            AlterPlant.TimeOfLastWatering = InitialPlant.TimeOfLastWatering;
+            AlterPlant.TimeOfLastMove = InitialPlant.TimeOfLastMove;
+            AlterPlant.TimeOfNextMisting = InitialPlant.TimeOfNextMisting;
+            AlterPlant.TimeOfNextWatering = InitialPlant.TimeOfNextWatering;
+            AlterPlant.TimeOfNextMove = InitialPlant.TimeOfNextMove;
+        }
+
         [RelayCommand]
         public void Appearing()
         {
             IsInitialization = true;
+            correctlySizeTimePickerBoxes();
             // extract to its own reusable method with reflection DRY!
             GroupPickerValue = AlterPlant.PlantGroupName != null ? PlantGroups.FirstOrDefault(_ => _.GroupName == AlterPlant.PlantGroupName) : PlantGroups.FirstOrDefault(_ => _.GroupName == "Ungrouped");
 
@@ -404,7 +424,6 @@ namespace FloraSaver.ViewModels
             {
                 MistIntervalPickerValue = MistingInterval.First(x => x.NumFromNow == -1);
             }
-
             InitialSunDaysFromNow = SunDaysFromNow = AlterPlant.SunInterval != null ? (int)AlterPlant.SunInterval : (AlterPlant.DateOfNextMove.Date - AlterPlant.DateOfLastMove.Date).Days;
             SunIntervalPickerValue = SunInterval.FirstOrDefault(x => x.NumFromNow == SunDaysFromNow);
             if (SunIntervalPickerValue == null)

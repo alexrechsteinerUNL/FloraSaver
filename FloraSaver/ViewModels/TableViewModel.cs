@@ -60,6 +60,13 @@ namespace FloraSaver.ViewModels
             if (ShouldUpdateCheckService.shouldGetNewGroupDataTable) { ShouldUpdateCheckService.ForceToGetNewGroupData(); await GetPlantGroupsAsync(); ShouldUpdateCheckService.shouldGetNewGroupDataTable = false; }
             if (ShouldUpdateCheckService.shouldGetNewPlantDataTable) { ShouldUpdateCheckService.ForceToGetNewPlantData(); await GetPlantsAsync(); ShouldUpdateCheckService.shouldGetNewPlantDataTable = false; }
             await StandardActionsAsync(SearchQuery);
+            if (DataPlants.Count > 0)
+            {
+                AreNoPlants = false;
+            } else
+            {
+                AreNoPlants = true;
+            }
             IsInitialization = false;
         }
 
@@ -71,7 +78,10 @@ namespace FloraSaver.ViewModels
 
         protected PeriodicTimer timer = new PeriodicTimer(TimeSpan.FromSeconds(10));
 
-
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(ArePlants))]
+        public bool areNoPlants = true;
+        public bool ArePlants => !AreNoPlants;
         [ObservableProperty]
         private bool showSearchSuggestionsBox = false;
         [ObservableProperty]

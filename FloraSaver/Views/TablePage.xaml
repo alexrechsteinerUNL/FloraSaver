@@ -92,16 +92,17 @@
                             Grid.Column="1"
                             Padding="3"
                             BackgroundColor="Black"
-                            HorizontalOptions="FillAndExpand">
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand">
                             <Picker
                                 x:Name="orderByPicker"
                                 Title="Choose Order By"
-                                HorizontalOptions="FillAndExpand"
+                                HorizontalOptions="Center"
                                 HorizontalTextAlignment="Center"
                                 ItemsSource="{Binding OrderByValues, Mode=TwoWay}"
                                 SelectedItem="{Binding CurrentOrderByValue, Mode=TwoWay}"
                                 TextColor="White"
-                                VerticalOptions="Center"
+                                VerticalOptions="FillAndExpand"
                                 VerticalTextAlignment="Center" />
                         </Frame>
                     </Grid>
@@ -138,7 +139,23 @@
                     </CollectionView>
                 </Frame>
             </Grid>
-
+            <Grid
+                Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Padding="0,30"
+                HorizontalOptions="CenterAndExpand"
+                IsVisible="{Binding AreNoPlants}"
+                VerticalOptions="CenterAndExpand">
+                <Label
+                    Padding="3"
+                    HorizontalOptions="CenterAndExpand"
+                    HorizontalTextAlignment="Center"
+                    IsVisible="{Binding IsNotBusy}"
+                    Text="There are no plants now. &#10; Start adding some!"
+                    VerticalOptions="CenterAndExpand"
+                    VerticalTextAlignment="Center" />
+            </Grid>
             <RefreshView
                 Grid.Row="2"
                 Grid.Column="0"
@@ -498,21 +515,21 @@
                 x:Name="addPlants"
                 Grid.Row="4"
                 Grid.Column="1"
-                Margin="8"
+                Margin="2,8"
                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}"
                 HeightRequest="60"
                 IsEnabled="{Binding IsNotBusy}"
-                Text="Add New Plant"
+                Text="Add Plant"
                 VerticalOptions="End" />
             <Button
                 x:Name="addGroups"
                 Grid.Row="4"
                 Grid.Column="2"
-                Margin="8"
+                Margin="2,8"
                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}"
                 HeightRequest="60"
                 IsEnabled="{Binding IsNotBusy}"
-                Text="Add New Group"
+                Text="Add Group"
                 VerticalOptions="End" />
 
             <!--<custom_components:ClipetOverlay

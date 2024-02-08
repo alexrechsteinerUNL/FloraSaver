@@ -91,7 +91,7 @@
                                 ItemsSource="{Binding OrderByValues, Mode=TwoWay}"
                                 SelectedItem="{Binding CurrentOrderByValue, Mode=TwoWay}"
                                 TextColor="White"
-                                VerticalOptions="Center"
+                                VerticalOptions="FillAndExpand"
                                 VerticalTextAlignment="Center" />
                         </Frame>
                     </Grid>
@@ -381,7 +381,8 @@
                 x:Name="selectNone"
                 Grid.Row="5"
                 Grid.Column="1"
-                Margin="8"
+                Margin="1,8"
+                Padding="0"
                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=AllPlantUnselectionCommand}"
                 HeightRequest="60"
                 IsEnabled="{Binding IsNotBusy}"
@@ -391,7 +392,8 @@
                 x:Name="selectAll"
                 Grid.Row="5"
                 Grid.Column="2"
-                Margin="8"
+                Margin="1,8"
+                Padding="0"
                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=AllPlantSelectionCommand}"
                 HeightRequest="60"
                 IsEnabled="{Binding IsNotBusy}"
