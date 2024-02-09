@@ -73,7 +73,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <FlexLayout Grid.Row="0" Grid.ColumnSpan="2">
-                                <Label Text="Plant Group: " />
+                                <Label Text="*Plant Group: " />
                                 <ImageButton
                                     x:Name="_undoGroupChange"
                                     Grid.Column="0"
@@ -217,7 +217,7 @@
                                 <RowDefinition Height="50" />
                             </Grid.RowDefinitions>
                             <FlexLayout Grid.Row="0">
-                                <Label Text="Plant Species: " />
+                                <Label Text="*Plant Species: " />
                                 <ImageButton
                                     x:Name="_undoSpeciesChange"
                                     Grid.Column="0"
@@ -257,7 +257,7 @@
                                 <RowDefinition Height="50" />
                             </Grid.RowDefinitions>
                             <FlexLayout Grid.Row="0">
-                                <Label Text="Given Name: " />
+                                <Label Text="*Given Name: " />
                                 <ImageButton
                                     x:Name="_undoNameChange"
                                     Grid.Column="0"
