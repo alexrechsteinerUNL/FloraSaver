@@ -621,6 +621,17 @@ namespace FloraSaver.ViewModels
             return;
         }
 
+        [RelayCommand]
+        private async Task GoToAddGroupAsync()
+        {
+            await Shell.Current.GoToAsync(nameof(AddGroupPage), true, new Dictionary<string, object>
+                {
+                    {"Plant", new Plant() },
+                    {"PlantGroup", await _databaseService.GetAllPlantGroupAsync() }
+                });
+            return;
+        }
+
         private async Task GoToSetupDetailsAsync(Plant plant, string plantDetailsSetupPageOpenTab = null)
         {
                 await Shell.Current.GoToAsync(nameof(PlantDetailsSetupPage), true, new Dictionary<string, object>

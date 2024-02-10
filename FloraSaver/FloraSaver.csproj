@@ -81,6 +81,9 @@
 	  <Compile Update="Views\DatabaseExportPage.xaml.cs">
 	    <DependentUpon>DatabaseExportPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\AddGroupPage.xaml.cs">
+	    <DependentUpon>AddGroupPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\PlantDetailsSetupPage.xaml.cs">
 	    <DependentUpon>PlantDetailsSetupPage.xaml</DependentUpon>
 	  </Compile>
@@ -106,6 +109,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\DatabaseExportPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\AddGroupPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\PlantDetailsSetupPage.xaml">

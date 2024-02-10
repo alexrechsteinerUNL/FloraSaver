@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="FloraSaver.AddGroupPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:custom_components="clr-namespace:FloraSaver"
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    xmlns:model="clr-namespace:FloraSaver.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
+    x:DataType="viewmodel:PlantDetailsViewModel"
+    BackgroundColor="Transparent"
+    Shell.NavBarIsVisible="false"
+    Shell.PresentationMode="Modal">
+    <ContentPage.Behaviors>
+        <!--<toolkit:EventToCommandBehavior Command="{Binding AppearingHomeCommand}" EventName="Appearing" />
+        <toolkit:EventToCommandBehavior Command="{Binding DisappearingHomeCommand}" EventName="Disappearing" />-->
+    </ContentPage.Behaviors>
+    <VerticalStackLayout Padding="10">
+
+        <Frame
+            Padding="20"
+            BackgroundColor="Black"
+            BorderColor="{Binding AlterPlant.GroupColor}"
+            HeightRequest="300"
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="CenterAndExpand">
+            <Grid RowSpacing="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Button
+                    x:Name="goBack"
+                    Grid.Row="0"
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=GoToTableCommand}"
+                    HorizontalOptions="Start"
+                    IsEnabled="{Binding IsNotBusy}"
+                    Text="Go Back" />
+                <VerticalStackLayout Grid.Row="1" Spacing="10">
+                    <Grid
+                        x:Name="groupGrid"
+                        ColumnSpacing="5"
+                        RowSpacing="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="2*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="220" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <FlexLayout Grid.Row="0" Grid.ColumnSpan="2">
+                            <Label Text="Add Plant Group: " />
+                        </FlexLayout>
+                        <!--  There's no reason why we shouldn't be able to set the current group color here as well if you want that implemented here is a start  -->
+                        <Frame
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Padding="2,2"
+                            BackgroundColor="Transparent">
+                            <Frame
+                                Padding="0,2"
+                                BackgroundColor="Transparent"
+                                BorderColor="Transparent"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand">
+                                <Entry
+                                    x:Name="_groupAdd"
+                                    Completed="Entry_Completed"
+                                    HorizontalOptions="FillAndExpand"
+                                    Placeholder="Enter new plant group"
+                                    VerticalOptions="CenterAndExpand" />
+                            </Frame>
+                        </Frame>
+                        <Frame
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Padding="-10"
+                            BackgroundColor="{Binding SelectedGroupColor.Colors}">
+                            <Picker
+                                x:Name="NewGroupColorPicker"
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                BackgroundColor="{Binding SelectedGroupColor.Colors, Mode=TwoWay}"
+                                HorizontalOptions="FillAndExpand"
+                                ItemDisplayBinding="{Binding ColorName, Mode=TwoWay}"
+                                ItemsSource="{Binding GroupColors, Mode=TwoWay}"
+                                SelectedItem="{Binding SelectedGroupColor, Mode=TwoWay}"
+                                TextColor="{Binding SelectedGroupColor.Colors, Mode=TwoWay}"
+                                VerticalOptions="FillAndExpand" />
+                        </Frame>
+                        <Button
+                            x:Name="addNewGroupButton"
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Padding="0"
+                            Command="{Binding AddNewGroupCommand}"
+                            CommandParameter="{Binding Source={x:Reference _groupAdd}, Path=Text}"
+                            Text="✓" />
+                        <!--<Frame
+                            Grid.Row="2"
+                            Padding="2,2"
+                            BackgroundColor="Transparent"
+                            BorderColor="{Binding AlterPlant.GroupColor}">
+                            <Frame
+                                Padding="0,2"
+                                BackgroundColor="Transparent"
+                                BorderColor="White"
+                                HorizontalOptions="CenterAndExpand"
+                                VerticalOptions="FillAndExpand">
+
+                                <Picker
+                                    x:Name="groupPicker"
+                                    Title="Select Plant Group"
+                                    Grid.Column="1"
+                                    HorizontalTextAlignment="Center"
+                                    ItemDisplayBinding="{Binding GroupName, Mode=TwoWay}"
+                                    ItemsSource="{Binding PlantGroups, Mode=TwoWay}"
+                                    SelectedItem="{Binding GroupPickerValue, Mode=TwoWay}">
+                                    <Picker.Behaviors>
+                                        <toolkit:EventToCommandBehavior Command="{Binding GroupPickerChangedCommand}" EventName="SelectedIndexChanged" />
+                                    </Picker.Behaviors>
+                                </Picker>
+                            </Frame>
+                        </Frame>-->
+                    </Grid>
+                </VerticalStackLayout>
+            </Grid>
+        </Frame>
+        <Frame
+            BackgroundColor="DimGray"
+            IsVisible="{Binding IsFriendlyLabelVisible}"
+            Opacity=".9"
+            WidthRequest="300">
+            <Label
+                x:Name="friendlyNotification"
+                IsVisible="{Binding IsFriendlyLabelVisible}"
+                Text="{Binding FriendlyLabel}" />
+        </Frame>
+    </VerticalStackLayout>
+</ContentPage>

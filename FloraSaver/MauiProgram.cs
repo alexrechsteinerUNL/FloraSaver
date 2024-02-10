@@ -55,6 +55,7 @@ public static class MauiProgram
         builder.Services.AddTransient<ClipetOverlayPage>();
         builder.Services.AddTransient<DatabaseExportPage>();
         builder.Services.AddTransient<DatabaseImportPage>();
+        builder.Services.AddTransient<AddGroupPage>();
 
         return builder.Build();
     }

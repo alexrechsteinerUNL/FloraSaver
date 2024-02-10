@@ -526,7 +526,7 @@
                 Grid.Row="4"
                 Grid.Column="2"
                 Margin="2,8"
-                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToAddGroupCommand}"
                 HeightRequest="60"
                 IsEnabled="{Binding IsNotBusy}"
                 Text="Add Group"
