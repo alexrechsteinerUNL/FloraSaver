@@ -250,14 +250,21 @@
                     Margin="8"
                     Padding="10"
                     BackgroundColor="Black"
-                    HeightRequest="300">
-                    <Grid HorizontalOptions="CenterAndExpand" RowDefinitions="30, *">
+                    HeightRequest="330">
+                    <Grid HorizontalOptions="CenterAndExpand" RowDefinitions="30, 45, *">
                         <Label
                             Grid.Row="0"
                             HorizontalOptions="Start"
                             Text="Edit Groups:" />
-                        <Grid
+                        <Button
+                            x:Name="addGroupsAgain"
                             Grid.Row="1"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToAddGroupCommand}"
+                            IsEnabled="{Binding IsNotBusy}"
+                            Text="Add Group"
+                            VerticalOptions="End" />
+                        <Grid
+                            Grid.Row="2"
                             Padding="0,5"
                             HorizontalOptions="CenterAndExpand"
                             IsVisible="{Binding AreNoGroups}"
@@ -271,7 +278,7 @@
 
                         <RefreshView
                             x:Name="PlantGroupRefresh"
-                            Grid.Row="1"
+                            Grid.Row="2"
                             Padding="0,5"
                             Command="{Binding GetVisiblePlantGroupsCommand}"
                             IsRefreshing="{Binding IsRefreshing}">

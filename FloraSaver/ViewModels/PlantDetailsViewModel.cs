@@ -832,6 +832,17 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
+        protected async Task GoBackAsync()
+        {
+            await Shell.Current.GoToAsync($"..", true, new Dictionary<string, object>
+            {
+                {"ShouldGetNewData", ShouldGetNewData },
+                {"ShouldGetNewGroupData", true }
+            });
+            return;
+        }
+
+        [RelayCommand]
         protected void SetToDefaultMorningTime(string timeValue)
         {
             AlterPlant.GetType().GetProperty(timeValue).SetValue(AlterPlant, DateTime.FromBinary(Preferences.Default.Get("morning_time_date", new DateTime(1, 1, 1, 8, 0, 0).ToBinary())).TimeOfDay);
