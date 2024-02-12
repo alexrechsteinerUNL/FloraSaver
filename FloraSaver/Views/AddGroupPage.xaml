@@ -16,19 +16,22 @@
         <!--<toolkit:EventToCommandBehavior Command="{Binding AppearingHomeCommand}" EventName="Appearing" />
         <toolkit:EventToCommandBehavior Command="{Binding DisappearingHomeCommand}" EventName="Disappearing" />-->
     </ContentPage.Behaviors>
-    <VerticalStackLayout Padding="10">
+    <VerticalStackLayout
+        Padding="10"
+        HorizontalOptions="Center"
+        VerticalOptions="Center">
 
         <Frame
             Padding="20"
             BackgroundColor="Black"
             BorderColor="{Binding AlterPlant.GroupColor}"
-            HeightRequest="300"
+            HeightRequest="500"
             HorizontalOptions="CenterAndExpand"
             VerticalOptions="CenterAndExpand">
             <Grid RowSpacing="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="5*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Button
@@ -46,7 +49,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30" />
                             <RowDefinition Height="*" />
-                            <RowDefinition Height="2*" />
+                            <RowDefinition Height="5*" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="220" />
@@ -102,32 +105,18 @@
                             Command="{Binding AddNewGroupCommand}"
                             CommandParameter="{Binding Source={x:Reference _groupAdd}, Path=Text}"
                             Text="✓" />
-                        <!--<Frame
-                            Grid.Row="2"
-                            Padding="2,2"
-                            BackgroundColor="Transparent"
-                            BorderColor="{Binding AlterPlant.GroupColor}">
-                            <Frame
-                                Padding="0,2"
-                                BackgroundColor="Transparent"
-                                BorderColor="White"
-                                HorizontalOptions="CenterAndExpand"
-                                VerticalOptions="FillAndExpand">
 
-                                <Picker
-                                    x:Name="groupPicker"
-                                    Title="Select Plant Group"
-                                    Grid.Column="1"
-                                    HorizontalTextAlignment="Center"
-                                    ItemDisplayBinding="{Binding GroupName, Mode=TwoWay}"
-                                    ItemsSource="{Binding PlantGroups, Mode=TwoWay}"
-                                    SelectedItem="{Binding GroupPickerValue, Mode=TwoWay}">
-                                    <Picker.Behaviors>
-                                        <toolkit:EventToCommandBehavior Command="{Binding GroupPickerChangedCommand}" EventName="SelectedIndexChanged" />
-                                    </Picker.Behaviors>
-                                </Picker>
-                            </Frame>
-                        </Frame>-->
+                        <CollectionView
+                            x:Name="plantGroupViewer"
+                            Grid.Row="2"
+                            ItemsLayout="VerticalList"
+                            ItemsSource="{Binding PlantGroups}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:Name="plantGroups" x:DataType="model:PlantGroup">
+                                    <Label Text="{Binding GroupName}" TextColor="{Binding GroupColor}" />
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
                     </Grid>
                 </VerticalStackLayout>
             </Grid>

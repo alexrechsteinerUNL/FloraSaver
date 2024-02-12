@@ -385,51 +385,6 @@
                                                     </Frame>
 
 
-                                                    <!--<Border
-                                                        Grid.Row="3"
-                                                        Grid.Column="0"
-                                                        BackgroundColor="White"
-                                                        HeightRequest="40"
-                                                        HorizontalOptions="Start"
-                                                        VerticalOptions="Start"
-                                                        WidthRequest="50">
-                                                        <Grid Grid.Row="2" Grid.Column="1">
-
-                                                            <Picker
-                                                                x:Name="ColorIntervalPicker"
-                                                                Grid.Row="0"
-                                                                Grid.Column="0"
-                                                                Grid.ColumnSpan="2"
-                                                                BackgroundColor="{Binding GroupColorDetails.Colors, Mode=TwoWay}"
-                                                                ItemDisplayBinding="{Binding ColorName, Mode=TwoWay}"
-                                                                ItemsSource="{Binding PossibleGroupColors, Mode=TwoWay}"
-                                                                SelectedIndexChanged="ColorIntervalPicker_SelectedIndexChanged"
-                                                                SelectedItem="{Binding GroupColorDetails}"
-                                                                TextColor="{Binding GroupColorDetails.Colors, Mode=TwoWay}">
-                                                                <Picker.Behaviors>
-                                                                    <toolkit:EventToCommandBehavior
-                                                                        Command="{Binding SetColorCommand}"
-                                                                        CommandParameter="{Binding SelectedItem, Source={x:Reference ColorIntervalPicker}}"
-                                                                        EventName="SelectedIndexChanged" />
-                                                                </Picker.Behaviors>
-                                                            </Picker>
-                                                            <Rectangle
-                                                                Grid.Row="0"
-                                                                Grid.Column="0"
-                                                                BackgroundColor="{Binding GroupColorDetails.Colors, Mode=TwoWay}"
-                                                                HeightRequest="1000"
-                                                                WidthRequest="1000" />
-                                                        </Grid>
-                                                    </Border>-->
-                                                    <!--<Button
-                                                        x:Name="groupChangesReset"
-                                                        Grid.Row="3"
-                                                        Grid.Column="2"
-                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SettingsViewModel}}, Path=ResetGroupChangeCommand}"
-                                                        CommandParameter="{Binding .}"
-                                                        IsVisible="{Binding isEdited}"
-                                                        Text="x" />-->
-                                                    <!--  you gotta write these out!!!  -->
                                                     <Button
                                                         x:Name="groupChangesSave"
                                                         Grid.Row="3"
@@ -439,9 +394,6 @@
                                                         CommandParameter="{Binding .}"
                                                         IsVisible="{Binding isEdited}"
                                                         Text="✓" />
-                                                    <!--<Rectangle Grid.Column="2" Background="Black" />-->
-                                                    <!--</Grid>
-                            </Border>-->
                                                     <Button
                                                         x:Name="DeleteButton"
                                                         Grid.Row="0"
