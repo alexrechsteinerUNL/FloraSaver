@@ -371,7 +371,8 @@
                 WidthRequest="60">
                 <ImageButton
                     x:Name="getPlants"
-                    Command="{Binding GetPlantsCommand}"
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GetPlantsCommand}"
+                    CommandParameter="{StaticResource True}"
                     HeightRequest="36"
                     IsEnabled="{Binding IsNotBusy}"
                     Source="reload_icon.png"

@@ -307,7 +307,7 @@ namespace FloraSaver.ViewModels
         //}
 
         [RelayCommand]
-        protected async Task GetPlantsAsync(bool shouldSort = false)
+        public async Task GetPlantsAsync(bool shouldSort = false)
         {
             //This is a bad place for it, but this is testing for the Utility that separates elements into textboxes. This would be covered by something real software engineers call a UNIT TEST!
             //this is testing data for loading from a file.
@@ -345,12 +345,12 @@ namespace FloraSaver.ViewModels
             }
             finally
             {
-                IsBusy = false;
-                IsRefreshing = false;
                 if (shouldSort)
                 {
                     await StandardActionsAsync(SearchQuery);
                 }
+                IsBusy = false;
+                IsRefreshing = false;
             }
             return;
         }
