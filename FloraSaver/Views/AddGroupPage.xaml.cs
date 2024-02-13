@@ -22,4 +22,10 @@ public partial class AddGroupPage : ContentPage
         entry.IsEnabled = false;
         entry.IsEnabled = true;
     }
+
+    private void addNewGroupButton_Pressed(object sender, EventArgs e)
+    {
+        _groupAdd.IsEnabled = false;
+        _groupAdd.IsEnabled = true;
+    }
 }

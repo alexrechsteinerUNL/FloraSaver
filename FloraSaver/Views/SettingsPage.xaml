@@ -250,8 +250,8 @@
                     Margin="8"
                     Padding="10"
                     BackgroundColor="Black"
-                    HeightRequest="330">
-                    <Grid HorizontalOptions="CenterAndExpand" RowDefinitions="30, 45, *">
+                    HeightRequest="375">
+                    <Grid HorizontalOptions="CenterAndExpand" RowDefinitions="30, 45, *, 45">
                         <Label
                             Grid.Row="0"
                             HorizontalOptions="Start"
@@ -414,9 +414,22 @@
                                 </CollectionView.ItemTemplate>
                             </CollectionView>
                         </RefreshView>
+                        <Frame
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            BackgroundColor="Black">
+                            <ImageButton
+                                x:Name="getGroups"
+                                Command="{Binding GetVisiblePlantGroupsCommand}"
+                                HeightRequest="20"
+                                HorizontalOptions="CenterAndExpand"
+                                IsEnabled="{Binding IsNotBusy}"
+                                Source="reload_icon.png"
+                                WidthRequest="20" />
+                        </Frame>
                         <ActivityIndicator
                             Grid.Row="0"
-                            Grid.RowSpan="2"
+                            Grid.RowSpan="3"
                             HorizontalOptions="CenterAndExpand"
                             IsRunning="{Binding IsBusy}"
                             IsVisible="{Binding IsBusy}"

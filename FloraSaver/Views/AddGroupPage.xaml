@@ -104,6 +104,7 @@
                             Padding="0"
                             Command="{Binding AddNewGroupCommand}"
                             CommandParameter="{Binding Source={x:Reference _groupAdd}, Path=Text}"
+                            Pressed="addNewGroupButton_Pressed"
                             Text="✓" />
                         <Frame
                             Grid.Row="2"

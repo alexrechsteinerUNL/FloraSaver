@@ -12,6 +12,32 @@ namespace FloraSaver.ViewModels
 {
     public partial class SettingsViewModel : TableViewModel, INotifyPropertyChanged
     {
+        private ObservableCollection<PlantGroup> visiblePlantGroups = new();
+
+        public ObservableCollection<PlantGroup> VisiblePlantGroups
+        {
+            get { return visiblePlantGroups; }
+            set
+            {
+                SetObservableProperty(ref visiblePlantGroups, value);
+            }
+        }
+
+        private List<PlantGroup> initialPlantGroups = new();
+
+
+
+        private List<PlantGroup> pickerPlantGroups;
+
+        public List<PlantGroup> PickerPlantGroups
+        {
+            get { return pickerPlantGroups; }
+            set
+            {
+                SetObservableProperty(ref pickerPlantGroups, value);
+            }
+        }
+
         [ObservableProperty]
         protected List<Interval> overduePlantsInterval;
         [ObservableProperty]
@@ -84,29 +110,7 @@ namespace FloraSaver.ViewModels
             OnPropertyChanged(nameof(VisiblePlantGroups));
         }
 
-        private List<PlantGroup> initialPlantGroups = new();
-
-        private ObservableCollection<PlantGroup> visiblePlantGroups = new();
-
-        public ObservableCollection<PlantGroup> VisiblePlantGroups
-        {
-            get { return visiblePlantGroups; }
-            set
-            {
-                SetObservableProperty(ref visiblePlantGroups, value);
-            }
-        }
-
-        private List<PlantGroup> pickerPlantGroups;
-
-        public List<PlantGroup> PickerPlantGroups
-        {
-            get { return pickerPlantGroups; }
-            set
-            {
-                SetObservableProperty(ref pickerPlantGroups, value);
-            }
-        }
+        
 
         [ObservableProperty]
         public Plant alterPlant;
@@ -165,7 +169,7 @@ namespace FloraSaver.ViewModels
                 }
 
             }
-            if (ShouldUpdateCheckService.shouldGetNewGroupDataSettings) { await GetVisiblePlantGroupsAsync(); ShouldUpdateCheckService.shouldGetNewGroupDataSettings = false; }
+            await GetVisiblePlantGroupsAsync(); ShouldUpdateCheckService.shouldGetNewGroupDataSettings = false; 
             if (initialPlantGroups.Count > 0)
             {
                 AreNoGroups = false;
