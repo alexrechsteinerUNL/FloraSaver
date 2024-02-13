@@ -105,18 +105,29 @@
                             Command="{Binding AddNewGroupCommand}"
                             CommandParameter="{Binding Source={x:Reference _groupAdd}, Path=Text}"
                             Text="✓" />
-
-                        <CollectionView
-                            x:Name="plantGroupViewer"
+                        <Frame
                             Grid.Row="2"
-                            ItemsLayout="VerticalList"
-                            ItemsSource="{Binding PlantGroups}">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate x:Name="plantGroups" x:DataType="model:PlantGroup">
-                                    <Label Text="{Binding GroupName}" TextColor="{Binding GroupColor}" />
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
+                            Grid.ColumnSpan="3"
+                            BackgroundColor="Black"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Fill">
+                            <CollectionView
+                                x:Name="plantGroupViewer"
+                                HorizontalOptions="CenterAndExpand"
+                                ItemsLayout="VerticalList"
+                                ItemsSource="{Binding PlantGroups}"
+                                MaximumHeightRequest="250">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:Name="plantGroups" x:DataType="model:PlantGroup">
+                                        <Label
+                                            HorizontalOptions="CenterAndExpand"
+                                            HorizontalTextAlignment="Center"
+                                            Text="{Binding GroupName}"
+                                            TextColor="{Binding GroupColor}" />
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </Frame>
                     </Grid>
                 </VerticalStackLayout>
             </Grid>
