@@ -437,12 +437,6 @@
                             Color="#e1ad01" />
                     </Grid>
                 </Frame>
-                <Button
-                    x:Name="notificationSettings"
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    Margin="8"
-                    Text="Notification Settings" />
 
                 <Button
                     x:Name="clearAllPlantGroupDataCommand"
