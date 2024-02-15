@@ -106,7 +106,7 @@ namespace FloraSaver.Services
 
             if (COOLDOWN_MULTI_HOURS != -1 && !string.IsNullOrEmpty(commonPlantOverdueNotificationDescription))
             {
-                RepeatingOverduePlantNotification();
+                await RepeatingOverduePlantNotification();
             }
 
             return plants;
@@ -157,7 +157,7 @@ namespace FloraSaver.Services
                 ReturningData = "Dummy data", // Returning data when tapped on notification.
                 Schedule =
                 {
-                    NotifyTime = notifyTime // Used for Scheduling local notification, if not specified notification will show immediately.
+                    NotifyTime = notifyTime.AddHours(COOLDOWN_HOURS) // Used for Scheduling local notification, if not specified notification will show immediately.
                 }
             };
             commonPlantOverdueNotificationDescription += $"{title}\n";
