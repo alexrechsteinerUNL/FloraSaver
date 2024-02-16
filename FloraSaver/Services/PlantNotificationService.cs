@@ -154,7 +154,7 @@ namespace FloraSaver.Services
                         ResourceName = iconSource,
                     }
                 },
-                ReturningData = "Dummy data", // Returning data when tapped on notification.
+                ReturningData = plant.GivenName, // Returning data when tapped on notification.
                 Schedule =
                 {
                     NotifyTime = notifyTime.AddHours(COOLDOWN_HOURS) // Used for Scheduling local notification, if not specified notification will show immediately.
@@ -179,7 +179,7 @@ namespace FloraSaver.Services
                         ResourceName = iconSource,
                     }
                 },
-                ReturningData = "Dummy data", // Returning data when tapped on notification.
+                ReturningData = plant.GivenName, // Returning data when tapped on notification.
                 Schedule =
                 {
                     NotifyTime = notifyTime  // Used for Scheduling local notification, if not specified notification will show immediately.

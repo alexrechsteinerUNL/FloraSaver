@@ -552,7 +552,11 @@
                 VerticalOptions="CenterAndExpand"
                 Color="#e1ad01" />
         </Grid>
-
+        <Label
+            x:Name="hiddenSpacerForAppearingScrollTo"
+            IsVisible="False"
+            PropertyChanged="hiddenSpacerForAppearingScrollTo_PropertyChanged"
+            Text="{Binding ScrollToValue}" />
         <Grid
             Grid.Row="1"
             Padding="10,0"

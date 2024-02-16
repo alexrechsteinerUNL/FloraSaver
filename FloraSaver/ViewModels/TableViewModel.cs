@@ -13,6 +13,7 @@ namespace FloraSaver.ViewModels
 {
     [QueryProperty(nameof(shouldGetNewData), "ShouldGetNewData")]
     [QueryProperty(nameof(shouldGetNewGroupData), "ShouldGetNewGroupData")]
+    [QueryProperty(nameof(scrollToSelectedPlant), "ScrollToPlant")]
     public partial class TableViewModel : BaseViewModel, INotifyPropertyChanged, IQueryAttributable
     {
         private readonly int percentageButtonSize = 105;
@@ -28,7 +29,7 @@ namespace FloraSaver.ViewModels
         bool IsInitialization { get; set; } = true;
         protected bool shouldGetNewData { get; set; } = true;
         protected bool shouldGetNewGroupData { get; set; } = true;
-
+        protected string scrollToSelectedPlant { get; set; } = "";
         // I moved the _databaseService to the base viewmodel because just about every page was going to use it.
         public TableViewModel(IDatabaseService databaseService, IPlantNotificationService plantNotificationService)
         {
@@ -48,6 +49,10 @@ namespace FloraSaver.ViewModels
             }
             ShouldUpdateCheckService.shouldGetNewPlantDataTable = (bool)(query["ShouldGetNewData"] ?? false);
             ShouldUpdateCheckService.shouldGetNewGroupDataTable = (bool)(query["ShouldGetNewGroupData"] ?? false);
+            if (query.ContainsKey("ScrollToPlant"))
+            {
+                scrollToSelectedPlant = (string)(query["ScrollToPlant"] ?? "");
+            }
         }
 
         [RelayCommand]
@@ -60,6 +65,11 @@ namespace FloraSaver.ViewModels
             if (ShouldUpdateCheckService.shouldGetNewGroupDataTable) { ShouldUpdateCheckService.ForceToGetNewGroupData(); await GetPlantGroupsAsync(); ShouldUpdateCheckService.shouldGetNewGroupDataTable = false; }
             if (ShouldUpdateCheckService.shouldGetNewPlantDataTable) { ShouldUpdateCheckService.ForceToGetNewPlantData(); await GetPlantsAsync(); ShouldUpdateCheckService.shouldGetNewPlantDataTable = false; }
             await StandardActionsAsync(SearchQuery);
+            if (!string.IsNullOrEmpty(scrollToSelectedPlant))
+            {
+                var plantIndex = Plants.IndexOf(Plants.FirstOrDefault(_ => _.GivenName ==  scrollToSelectedPlant));
+                ScrollToValue = plantIndex > 0 ? plantIndex : 0;
+            }
             if (DataPlants.Count > 0)
             {
                 AreNoPlants = false;
@@ -74,10 +84,14 @@ namespace FloraSaver.ViewModels
         public void Disappearing()
         {
             timer.Dispose();
+            scrollToSelectedPlant = "";
+            ScrollToValue = 0;
         }
 
         protected PeriodicTimer timer = new PeriodicTimer(TimeSpan.FromSeconds(10));
 
+        [ObservableProperty]
+        protected int scrollToValue = 0;
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(ArePlants))]
         public bool areNoPlants = true;

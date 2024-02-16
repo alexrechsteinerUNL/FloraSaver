@@ -27,7 +27,8 @@ public partial class App : Application
             Shell.Current.GoToAsync($"///{nameof(TablePage)}", true, new Dictionary<string, object>
             {
                 {"ShouldGetNewData", true },
-                {"ShouldGetNewGroupData", true }
+                {"ShouldGetNewGroupData", true },
+                {"ScrollToPlant", e.Request.ReturningData }
             });
             return;
         }

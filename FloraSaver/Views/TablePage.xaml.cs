@@ -23,4 +23,10 @@ public partial class TablePage : ContentPage
     {
         searchBar.Unfocus();
     }
+
+    private void hiddenSpacerForAppearingScrollTo_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        var result = sender as Label;
+        plantDeck.ScrollTo(Int32.Parse(result.Text));
+    }
 }
