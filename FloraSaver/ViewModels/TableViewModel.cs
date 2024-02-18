@@ -428,10 +428,11 @@ namespace FloraSaver.ViewModels
             {
                 var isSavedFromGroups = await ShowHideSingualrPlantGroupsAsync(plant);
                 var isSavedFromSearch = await SearchSingularPlantAsync(plant);
-                if (!isSavedFromGroups || !isSavedFromSearch)
+                if (!isSavedFromGroups)
                 {
                     BackendPlantList.Remove(plant);
-                } else if (BackendPlantList.FirstOrDefault(_ => _.GivenName == plant.GivenName) is null)
+                }
+                else if (BackendPlantList.FirstOrDefault(_ => _.GivenName == plant.GivenName) is null)
                 {
                     BackendPlantList.Add(plant);
                 }

@@ -27,6 +27,40 @@ namespace FloraSaver.ViewModels
             if (ShouldUpdateCheckService.shouldGetNewGroupDataHandling) { await GetPlantGroupsAsync(); ShouldUpdateCheckService.shouldGetNewGroupDataHandling = false; }
             if (ShouldUpdateCheckService.shouldGetNewPlantDataHandling) { await GetPlantsAsync(); ShouldUpdateCheckService.shouldGetNewPlantDataHandling = false; }
             PeriodicTimerUpdaterBackgroundAsync(() => CheatUpdateAllPlantProgress());
+            //await StandardActionsHandlingAsync(SearchQuery);
+        }
+
+        [RelayCommand]
+        public async Task StandardActionsHandlingAsync(string searchText = "")
+        {
+            if (searchText != SearchQuery)
+            {
+                SearchQuery = searchText;
+
+            }
+
+            if (ShowSearchSuggestionsBox)
+            {
+                QueryAutofillPlantAsyncFromSearch(SearchQuery);
+            }
+
+            BackendPlantList = DataPlants.ToList();
+            var temporaryBackendPlantList = new List<Plant>(BackendPlantList);
+            foreach (var plant in temporaryBackendPlantList)
+            {
+                var isSavedFromGroups = await ShowHideSingualrPlantGroupsAsync(plant);
+                var isSavedFromSearch = await SearchSingularPlantAsync(plant);
+                if (!isSavedFromGroups || !isSavedFromSearch)
+                {
+                    BackendPlantList.Remove(plant);
+                }
+                else if (BackendPlantList.FirstOrDefault(_ => _.GivenName == plant.GivenName) is null)
+                {
+                    BackendPlantList.Add(plant);
+                }
+
+            }
+            setPlantOrder(CurrentOrderByValue);
         }
 
         [RelayCommand]

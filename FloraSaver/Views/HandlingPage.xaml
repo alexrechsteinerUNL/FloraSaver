@@ -34,11 +34,11 @@
                 Completed="Entry_Completed"
                 FontSize="25"
                 HorizontalTextAlignment="Start"
-                Placeholder="Search Plants..."
+                Placeholder="Filter Plants..."
                 VerticalTextAlignment="Center">
                 <Entry.Behaviors>
                     <toolkit:EventToCommandBehavior
-                        Command="{Binding StandardActionsCommand}"
+                        Command="{Binding StandardActionsHandlingCommand}"
                         CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
                         EventName="TextChanged" />
                 </Entry.Behaviors>
