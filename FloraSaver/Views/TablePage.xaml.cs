@@ -22,6 +22,8 @@ public partial class TablePage : ContentPage
     private void deadSpaceButtonHideSuggestion_Clicked(object sender, EventArgs e)
     {
         searchBar.Unfocus();
+        searchBar.IsEnabled = false;
+        searchBar.IsEnabled = true;
     }
 
     private void hiddenSpacerForAppearingScrollTo_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

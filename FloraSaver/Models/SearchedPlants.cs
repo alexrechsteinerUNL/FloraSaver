@@ -10,7 +10,6 @@ namespace FloraSaver.Models
     {
         public SearchedPlants(IPlant _plant)
         {
-            Id = _plant.Id;
             PlantSpecies = _plant.PlantSpecies;
             WaterInterval = _plant.WaterInterval;
             MistInterval = _plant.MistInterval;
@@ -18,7 +17,6 @@ namespace FloraSaver.Models
         }
         public SearchedPlants(IPlant _plant, double searchScore)
         {
-            Id = _plant.Id;
             PlantSpecies = _plant.PlantSpecies;
             WaterInterval = _plant.WaterInterval;
             MistInterval = _plant.MistInterval;
@@ -28,7 +26,6 @@ namespace FloraSaver.Models
 
         public SearchedPlants(Plant _plant, double searchScore)
         {
-            Id = _plant.Id;
             PlantSpecies = _plant.PlantSpecies;
             WaterInterval = _plant.WaterInterval;
             MistInterval = _plant.MistInterval;
@@ -36,31 +33,39 @@ namespace FloraSaver.Models
             GivenName = _plant.GivenName;
             IsPlantExisting = true;
             SearchScore = searchScore;
+            PlantGroupName = _plant.PlantGroupName;
+            GroupColorHexString = _plant.GroupColorHexString;
+            GroupColor = _plant.GroupColor;
         }
 
         public SearchedPlants(Plant _plant)
         {
-            Id = _plant.Id;
             PlantSpecies = _plant.PlantSpecies;
             WaterInterval = _plant.WaterInterval;
             MistInterval = _plant.MistInterval;
             SunInterval = _plant.SunInterval;
             GivenName = _plant.GivenName;
             IsPlantExisting = true;
+            PlantGroupName = _plant.PlantGroupName;
+            GroupColorHexString = _plant.GroupColorHexString;
+            GroupColor = _plant.GroupColor;
         }
 
 
 
 
-        public int Id { get; set; }
-        public string PlantSpecies { get; set; }
-        public double? WaterInterval { get; set; }
-        public double? MistInterval { get; set; }
-        public double? SunInterval { get; set; }
+        public int Id { get; set; } = 0;
+        public string PlantSpecies { get; set; } = "";
+        public double? WaterInterval { get; set; } = 0.0;
+        public double? MistInterval { get; set; } = 0.0;
+        public double? SunInterval { get; set; } = 0.0;
         public double SearchScore { get; set; } = 0.0;
         public bool IsPlantExisting { get; set; } = false;
-        public string GivenName { get; set; }
+        public string GivenName { get; set; } = "";
+        public string PlantGroupName { get; set; } = "Ungrouped";
+        public Color GroupColor { get; set; } = Colors.Transparent;
+        public string GroupColorHexString { get; set; } = "#A9A9A9";
 
-        public string ConnectedIcon => IsPlantExisting ? "🗐" : "+";
+        public string ConnectedIcon => IsPlantExisting ? "♢" : "+";
     }
 }

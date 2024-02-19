@@ -433,12 +433,43 @@ namespace FloraSaver.Models
             TimeOfLastWatering = DateTime.Now.TimeOfDay;
             DateOfBirth = DateTime.Now;
             WaterInterval = _SearchedPlants.WaterInterval;
-            DateOfNextMisting = DateOfLastMisting.AddDays((double)MistInterval);
-            DateOfNextWatering = DateOfLastWatering.AddDays((double)WaterInterval);
-            DateOfNextMove = DateOfLastMove.AddDays((double)SunInterval);
-            TimeOfNextMisting = DateOfNextMisting.TimeOfDay;
-            TimeOfNextMove = DateOfNextMove.TimeOfDay;
-            TimeOfNextWatering = DateOfNextWatering.TimeOfDay;
+            
+            if (WaterInterval != null)
+            {
+                DateOfNextWatering = DateOfLastWatering.AddDays((double)WaterInterval);
+                TimeOfNextWatering = DateOfNextWatering.TimeOfDay;
+            } 
+            else
+            {
+                DateOfNextWatering = DateOfLastWatering;
+                TimeOfNextWatering = TimeOfLastWatering;
+            }
+
+            if (MistInterval != null)
+            {
+                DateOfNextMisting = DateOfLastMisting.AddDays((double)MistInterval);
+                TimeOfNextMisting = DateOfNextMisting.TimeOfDay;
+            }
+            else
+            {
+                DateOfNextMisting = DateOfLastMisting;
+                TimeOfNextMisting = TimeOfLastMisting;
+            }
+
+            if (SunInterval != null)
+            {
+                DateOfNextMove = DateOfLastMove.AddDays((double)SunInterval);
+                TimeOfNextMove = DateOfNextMove.TimeOfDay;
+            }
+            else
+            {
+                DateOfNextMove = DateOfLastMove;
+                TimeOfNextMove = TimeOfLastMove;
+            }
+
+
+            PlantGroupName = _SearchedPlants.PlantGroupName;
+            GroupColorHexString = _SearchedPlants.GroupColorHexString;
             UseWatering = true;
             UseMisting = true;
             UseMoving = false;
