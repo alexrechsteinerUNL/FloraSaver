@@ -452,9 +452,6 @@
                                                     Source="water_timer_visual.png" />
 
 
-                                                <!--  switch out your fancy rectangle clippings for the humble progress bar you dolt  -->
-
-
                                                 <ProgressBar
                                                     x:Name="MistProgress"
                                                     Grid.Row="0"
@@ -603,11 +600,5 @@
                 Clicked="deadSpaceButtonHideSuggestion_Clicked"
                 Command="{Binding HideSearchSuggestionBoxCommand}" />
         </Grid>
-
-
-
-
-
-
     </Grid>
 </ContentPage>

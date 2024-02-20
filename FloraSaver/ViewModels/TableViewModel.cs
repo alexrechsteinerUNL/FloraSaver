@@ -400,17 +400,11 @@ namespace FloraSaver.ViewModels
             var topTenSuggestionPlants = PlantSuggestions.Where(_ => _.PlantSpecies.Contains(searchQuery, StringComparison.CurrentCultureIgnoreCase)).Take(10);
             foreach(var plant in topTenSuggestionPlants)
             {
-                TopTenAutoFillPlants.Add(ConvertToSearchedPlant(plant));
+                TopTenAutoFillPlants.Add(new SearchedPlants(plant));
             }
             OnPropertyChanged("TopTenAutoFillPlants");
             ShowSearchSuggestionBox();
         }
-
-        protected SearchedPlants ConvertToSearchedPlant(IPlant plant)
-        {
-           return new SearchedPlants(plant);
-        }
-
 
         [RelayCommand]
         protected async Task StandardActionsAsync(string searchText = "")
@@ -531,34 +525,6 @@ namespace FloraSaver.ViewModels
             }
             return true;
         }
-
-
-
-
-
-        //public virtual async Task ShowHidePlantGroupsAsync(PlantGroup specificGroup, bool awaitSearch = true)
-        //{
-        //    List<Plant> plantList = Plants.ToList();
-        //    foreach (var plant in Plants.Where(_ => _.PlantGroupName == specificGroup.GroupName))
-        //    {
-        //        if (!plantList.Contains(plant) && specificGroup.IsEnabled)
-        //        {
-        //            plantList.Add(plant);
-        //        }
-        //        else if (plantList.Contains(plant) && !specificGroup.IsEnabled)
-        //        {
-        //            plantList.Remove(plant);
-        //        }
-        //    }
-
-        //    if (awaitSearch && !String.IsNullOrWhiteSpace(SearchQuery))
-        //    {
-        //        await SearchPlantsAsync(SearchQuery);
-        //    } else
-        //    {
-        //        RebuildPlantsSafely(plantList);
-        //    }
-        //}
 
         [RelayCommand]
         private async Task GoToSetupDetailsGroupNameAsync(Plant plant)
