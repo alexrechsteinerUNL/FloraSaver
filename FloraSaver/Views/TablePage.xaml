@@ -433,17 +433,20 @@
                                                 <ProgressBar
                                                     Grid.Row="0"
                                                     Grid.Column="0"
+                                                    BackgroundColor="Transparent"
+                                                    HorizontalOptions="Fill"
                                                     IsVisible="{Binding UseWatering}"
                                                     Progress="{Binding WaterPercent}"
+                                                    ProgressColor="DarkSlateBlue"
                                                     ScaleY="2" />
                                                 <ImageButton
                                                     Grid.Row="1"
                                                     Grid.Column="0"
                                                     Padding="0"
-                                                    Aspect="AspectFit"
                                                     BackgroundColor="Black"
                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=ResetWateringCommand}"
                                                     CommandParameter="{Binding .}"
+                                                    HorizontalOptions="Fill"
                                                     IsEnabled="{Binding UseWatering}"
                                                     Opacity="{Binding WaterOpacity}"
                                                     Source="water_timer_visual.png" />
@@ -456,6 +459,8 @@
                                                     x:Name="MistProgress"
                                                     Grid.Row="0"
                                                     Grid.Column="1"
+                                                    BackgroundColor="Transparent"
+                                                    HorizontalOptions="Fill"
                                                     IsVisible="{Binding UseMisting}"
                                                     Progress="{Binding MistPercent}"
                                                     ProgressColor="LightBlue"
@@ -465,6 +470,7 @@
                                                     Grid.Column="1"
                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=ResetMistingCommand}"
                                                     CommandParameter="{Binding .}"
+                                                    HorizontalOptions="Fill"
                                                     IsEnabled="{Binding UseMisting}"
                                                     Opacity="{Binding MistOpacity}"
                                                     Source="refresh_timer_visual.png" />
@@ -472,6 +478,8 @@
                                                 <ProgressBar
                                                     Grid.Row="0"
                                                     Grid.Column="2"
+                                                    BackgroundColor="Transparent"
+                                                    HorizontalOptions="Fill"
                                                     IsVisible="{Binding UseMoving}"
                                                     Progress="{Binding SunPercent}"
                                                     ProgressColor="Orange"
@@ -481,6 +489,7 @@
                                                     Grid.Column="2"
                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=ResetMovingCommand}"
                                                     CommandParameter="{Binding .}"
+                                                    HorizontalOptions="Fill"
                                                     IsEnabled="{Binding UseMoving}"
                                                     Opacity="{Binding MoveOpacity}"
                                                     Source="sun_timer_visual.png" />
@@ -533,17 +542,6 @@
                 IsEnabled="{Binding IsNotBusy}"
                 Text="Add Group"
                 VerticalOptions="End" />
-
-            <!--<custom_components:ClipetOverlay
-                x:Name="Clipet"
-                Grid.RowSpan="5"
-                Grid.ColumnSpan="3"
-                ClipetData="{Binding ClipetDialog}"
-                IsEnabled="{Binding IsBusy}"
-                isBlurEnabled="{Binding IsBusy}"
-                isClipetEnabled="False"
-                isDisplaySpaceEnabled="False"
-                isSpeechSpaceEnabled="False" />-->
             <ActivityIndicator
                 Grid.RowSpan="5"
                 Grid.ColumnSpan="3"
