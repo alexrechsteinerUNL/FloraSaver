@@ -13,9 +13,11 @@
         <toolkit:EventToCommandBehavior Command="{Binding AppearingHandlingCommand}" EventName="Appearing" />
         <toolkit:EventToCommandBehavior Command="{Binding DisappearingHandlingCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
-    <Grid RowDefinitions="370,380">
+    <Grid>
+        <Image Aspect="Fill" Source="card_background_page.png" />
+        <Grid RowDefinitions="370,380">
 
-        <!--<Grid Grid.Row="0">
+            <!--<Grid Grid.Row="0">
             <ActivityIndicator
                 Grid.RowSpan="2"
                 HorizontalOptions="FillAndExpand"
@@ -24,195 +26,16 @@
                 VerticalOptions="CenterAndExpand"
                 Color="#e1ad01" />
         </Grid>-->
-        <VerticalStackLayout Grid.Row="0">
-            <Button Command="{Binding ImportDatabaseCommand}" Text="Import" />
-            <Frame
-                BackgroundColor="Black"
-                HeightRequest="280"
-                VerticalOptions="CenterAndExpand"
-                WidthRequest="380">
-                <CollectionView
-                    x:Name="newPlantDeck"
-                    ItemsSource="{Binding NewPlantsFromFile}"
-                    SelectionMode="Multiple"
-                    VerticalOptions="CenterAndExpand">
-                    <CollectionView.ItemsLayout>
-                        <GridItemsLayout
-                            HorizontalItemSpacing="10"
-                            Orientation="Vertical"
-                            Span="1"
-                            VerticalItemSpacing="10" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:Name="singleNewPlant" x:DataType="model:Plant">
-                            <Frame
-                                Padding="10,5"
-                                BackgroundColor="{Binding SelectedColor}"
-                                BorderColor="{Binding GroupColor}"
-                                HeightRequest="130">
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=PlantSelectionNewCommand}" CommandParameter="{Binding .}" />
-                                </Frame.GestureRecognizers>
-                                <Grid ColumnDefinitions="*, *, *, 30" RowDefinitions="35, *">
-                                    <Label
-                                        Grid.Row="0"
-                                        Grid.ColumnSpan="3"
-                                        FontAttributes="Bold"
-                                        FontSize="24"
-                                        HorizontalTextAlignment="Start"
-                                        Text="{Binding GivenName}"
-                                        TextColor="{Binding SelectedTextColor}" />
-                                    <Grid
-                                        Grid.Row="1"
-                                        Grid.Column="0"
-                                        RowDefinitions="26, 23, 23">
-
-                                        <Label
-                                            Grid.Row="0"
-                                            FontAttributes="Italic"
-                                            FontSize="20"
-                                            HorizontalTextAlignment="Start"
-                                            Text="{Binding PlantSpecies}"
-                                            TextColor="{Binding SelectedTextColor}" />
-                                        <Label
-                                            Grid.Row="1"
-                                            FontSize="20"
-                                            HorizontalTextAlignment="Start"
-                                            Text="{Binding PlantGroupName}"
-                                            TextColor="{Binding SelectedTextColor}" />
-                                    </Grid>
-
-                                    <Grid
-                                        Grid.Row="1"
-                                        Grid.Column="1"
-                                        ColumnDefinitions="30, *"
-                                        RowDefinitions="25,25,25"
-                                        VerticalOptions="CenterAndExpand">
-                                        <Image
-                                            Grid.Row="0"
-                                            Grid.Column="0"
-                                            IsVisible="{Binding UseWatering}"
-                                            Source="water_timer_visual.png"
-                                            WidthRequest="20" />
-                                        <Label
-                                            Grid.Row="0"
-                                            Grid.Column="1"
-                                            FontSize="16"
-                                            HorizontalTextAlignment="Start"
-                                            IsVisible="{Binding UseWatering}"
-                                            Text="{Binding DateOfNextWatering, StringFormat='{0:d}'}"
-                                            TextColor="{Binding SelectedTextColor}"
-                                            VerticalTextAlignment="Center" />
-                                        <Image
-                                            Grid.Row="1"
-                                            Grid.Column="0"
-                                            IsVisible="{Binding UseMisting}"
-                                            Source="refresh_timer_visual.png"
-                                            WidthRequest="20" />
-                                        <Label
-                                            Grid.Row="1"
-                                            Grid.Column="1"
-                                            FontSize="16"
-                                            HorizontalTextAlignment="Start"
-                                            IsVisible="{Binding UseMisting}"
-                                            Text="{Binding DateOfNextMisting, StringFormat='{0:d}'}"
-                                            TextColor="{Binding SelectedTextColor}"
-                                            VerticalTextAlignment="Center" />
-                                        <Image
-                                            Grid.Row="2"
-                                            Grid.Column="0"
-                                            IsVisible="{Binding UseMoving}"
-                                            Source="sun_timer_visual.png"
-                                            WidthRequest="20" />
-                                        <Label
-                                            Grid.Row="2"
-                                            Grid.Column="1"
-                                            FontSize="16"
-                                            HorizontalTextAlignment="Start"
-                                            IsVisible="{Binding UseMoving}"
-                                            Text="{Binding DateOfNextMove, StringFormat='{0:d}'}"
-                                            TextColor="{Binding SelectedTextColor}"
-                                            VerticalTextAlignment="Center" />
-                                    </Grid>
-                                    <Frame
-                                        Grid.Row="1"
-                                        Grid.Column="2"
-                                        Grid.ColumnSpan="2"
-                                        Padding="5"
-                                        BackgroundColor="Black"
-                                        HeightRequest="75">
-                                        <Frame.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=PlantSelectionNewCommand}" CommandParameter="{Binding .}" />
-                                        </Frame.GestureRecognizers>
-                                        <Grid ColumnDefinitions="*, 30" RowDefinitions="25,25,25">
-                                            <ProgressBar
-                                                Grid.Row="0"
-                                                Grid.Column="0"
-                                                IsVisible="{Binding UseWatering}"
-                                                Progress="{Binding WaterPercent}"
-                                                ScaleY="2"
-                                                VerticalOptions="Start" />
-                                            <Label
-                                                Grid.Row="0"
-                                                Grid.Column="1"
-                                                FontSize="14"
-                                                IsVisible="{Binding UseWatering}"
-                                                Text="{Binding WaterPercent, StringFormat='{0:P0}'}"
-                                                VerticalOptions="Start" />
-                                            <ProgressBar
-                                                Grid.Row="1"
-                                                Grid.Column="0"
-                                                IsVisible="{Binding UseMisting}"
-                                                Progress="{Binding MistPercent}"
-                                                ProgressColor="LightBlue"
-                                                ScaleY="2"
-                                                VerticalOptions="Start" />
-                                            <Label
-                                                Grid.Row="1"
-                                                Grid.Column="1"
-                                                FontSize="14"
-                                                IsVisible="{Binding UseMisting}"
-                                                Text="{Binding MistPercent, StringFormat='{0:P0}'}"
-                                                VerticalOptions="Start" />
-                                            <ProgressBar
-                                                Grid.Row="2"
-                                                Grid.Column="0"
-                                                IsVisible="{Binding UseMoving}"
-                                                Progress="{Binding SunPercent}"
-                                                ProgressColor="Orange"
-                                                ScaleY="2"
-                                                VerticalOptions="Start" />
-                                            <Label
-                                                Grid.Row="2"
-                                                Grid.Column="1"
-                                                FontSize="14"
-                                                IsVisible="{Binding UseMoving}"
-                                                Text="{Binding SunPercent, StringFormat='{0:P0}'}"
-                                                VerticalOptions="Start" />
-                                        </Grid>
-                                    </Frame>
-                                </Grid>
-                            </Frame>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </Frame>
-            <Button Text="Select All" />
-        </VerticalStackLayout>
-        <VerticalStackLayout Grid.Row="1">
-            <Frame
-                BackgroundColor="Black"
-                HeightRequest="280"
-                VerticalOptions="CenterAndExpand"
-                WidthRequest="380">
-                <RefreshView
-                    Command="{Binding GetPlantsCommand}"
-                    IsRefreshing="{Binding IsRefreshing}"
-                    IsVisible="{Binding ShowCurrentPlants}"
-                    VerticalOptions="CenterAndExpand">
+            <VerticalStackLayout Grid.Row="0">
+                <Button Command="{Binding ImportDatabaseCommand}" Text="Import" />
+                <Frame
+                    BackgroundColor="Black"
+                    HeightRequest="280"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="380">
                     <CollectionView
-                        x:Name="oldPlantDeck"
-                        ItemsSource="{Binding OldPlants}"
+                        x:Name="newPlantDeck"
+                        ItemsSource="{Binding NewPlantsFromFile}"
                         SelectionMode="Multiple"
                         VerticalOptions="CenterAndExpand">
                         <CollectionView.ItemsLayout>
@@ -223,14 +46,14 @@
                                 VerticalItemSpacing="10" />
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
-                            <DataTemplate x:Name="singleOldPlant" x:DataType="model:Plant">
+                            <DataTemplate x:Name="singleNewPlant" x:DataType="model:Plant">
                                 <Frame
                                     Padding="10,5"
                                     BackgroundColor="{Binding SelectedColor}"
                                     BorderColor="{Binding GroupColor}"
                                     HeightRequest="130">
                                     <Frame.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:BackupRestoreViewModel}}, Path=PlantSelectionOldCommand}" CommandParameter="{Binding .}" />
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=PlantSelectionNewCommand}" CommandParameter="{Binding .}" />
                                     </Frame.GestureRecognizers>
                                     <Grid ColumnDefinitions="*, *, *, 30" RowDefinitions="35, *">
                                         <Label
@@ -321,7 +144,7 @@
                                             BackgroundColor="Black"
                                             HeightRequest="75">
                                             <Frame.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:BackupRestoreViewModel}}, Path=PlantSelectionOldCommand}" CommandParameter="{Binding .}" />
+                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=PlantSelectionNewCommand}" CommandParameter="{Binding .}" />
                                             </Frame.GestureRecognizers>
                                             <Grid ColumnDefinitions="*, 30" RowDefinitions="25,25,25">
                                                 <ProgressBar
@@ -375,9 +198,189 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
-                </RefreshView>
-            </Frame>
-            <Button Command="{Binding AcceptMergeCommand}" Text="Accept Merge" />
-        </VerticalStackLayout>
+                </Frame>
+                <Button Text="Select All" />
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="1">
+                <Frame
+                    BackgroundColor="Black"
+                    HeightRequest="280"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="380">
+                    <RefreshView
+                        Command="{Binding GetPlantsCommand}"
+                        IsRefreshing="{Binding IsRefreshing}"
+                        IsVisible="{Binding ShowCurrentPlants}"
+                        VerticalOptions="CenterAndExpand">
+                        <CollectionView
+                            x:Name="oldPlantDeck"
+                            ItemsSource="{Binding OldPlants}"
+                            SelectionMode="Multiple"
+                            VerticalOptions="CenterAndExpand">
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout
+                                    HorizontalItemSpacing="10"
+                                    Orientation="Vertical"
+                                    Span="1"
+                                    VerticalItemSpacing="10" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:Name="singleOldPlant" x:DataType="model:Plant">
+                                    <Frame
+                                        Padding="10,5"
+                                        BackgroundColor="{Binding SelectedColor}"
+                                        BorderColor="{Binding GroupColor}"
+                                        HeightRequest="130">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:BackupRestoreViewModel}}, Path=PlantSelectionOldCommand}" CommandParameter="{Binding .}" />
+                                        </Frame.GestureRecognizers>
+                                        <Grid ColumnDefinitions="*, *, *, 30" RowDefinitions="35, *">
+                                            <Label
+                                                Grid.Row="0"
+                                                Grid.ColumnSpan="3"
+                                                FontAttributes="Bold"
+                                                FontSize="24"
+                                                HorizontalTextAlignment="Start"
+                                                Text="{Binding GivenName}"
+                                                TextColor="{Binding SelectedTextColor}" />
+                                            <Grid
+                                                Grid.Row="1"
+                                                Grid.Column="0"
+                                                RowDefinitions="26, 23, 23">
+
+                                                <Label
+                                                    Grid.Row="0"
+                                                    FontAttributes="Italic"
+                                                    FontSize="20"
+                                                    HorizontalTextAlignment="Start"
+                                                    Text="{Binding PlantSpecies}"
+                                                    TextColor="{Binding SelectedTextColor}" />
+                                                <Label
+                                                    Grid.Row="1"
+                                                    FontSize="20"
+                                                    HorizontalTextAlignment="Start"
+                                                    Text="{Binding PlantGroupName}"
+                                                    TextColor="{Binding SelectedTextColor}" />
+                                            </Grid>
+
+                                            <Grid
+                                                Grid.Row="1"
+                                                Grid.Column="1"
+                                                ColumnDefinitions="30, *"
+                                                RowDefinitions="25,25,25"
+                                                VerticalOptions="CenterAndExpand">
+                                                <Image
+                                                    Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    IsVisible="{Binding UseWatering}"
+                                                    Source="water_timer_visual.png"
+                                                    WidthRequest="20" />
+                                                <Label
+                                                    Grid.Row="0"
+                                                    Grid.Column="1"
+                                                    FontSize="16"
+                                                    HorizontalTextAlignment="Start"
+                                                    IsVisible="{Binding UseWatering}"
+                                                    Text="{Binding DateOfNextWatering, StringFormat='{0:d}'}"
+                                                    TextColor="{Binding SelectedTextColor}"
+                                                    VerticalTextAlignment="Center" />
+                                                <Image
+                                                    Grid.Row="1"
+                                                    Grid.Column="0"
+                                                    IsVisible="{Binding UseMisting}"
+                                                    Source="refresh_timer_visual.png"
+                                                    WidthRequest="20" />
+                                                <Label
+                                                    Grid.Row="1"
+                                                    Grid.Column="1"
+                                                    FontSize="16"
+                                                    HorizontalTextAlignment="Start"
+                                                    IsVisible="{Binding UseMisting}"
+                                                    Text="{Binding DateOfNextMisting, StringFormat='{0:d}'}"
+                                                    TextColor="{Binding SelectedTextColor}"
+                                                    VerticalTextAlignment="Center" />
+                                                <Image
+                                                    Grid.Row="2"
+                                                    Grid.Column="0"
+                                                    IsVisible="{Binding UseMoving}"
+                                                    Source="sun_timer_visual.png"
+                                                    WidthRequest="20" />
+                                                <Label
+                                                    Grid.Row="2"
+                                                    Grid.Column="1"
+                                                    FontSize="16"
+                                                    HorizontalTextAlignment="Start"
+                                                    IsVisible="{Binding UseMoving}"
+                                                    Text="{Binding DateOfNextMove, StringFormat='{0:d}'}"
+                                                    TextColor="{Binding SelectedTextColor}"
+                                                    VerticalTextAlignment="Center" />
+                                            </Grid>
+                                            <Frame
+                                                Grid.Row="1"
+                                                Grid.Column="2"
+                                                Grid.ColumnSpan="2"
+                                                Padding="5"
+                                                BackgroundColor="Black"
+                                                HeightRequest="75">
+                                                <Frame.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:BackupRestoreViewModel}}, Path=PlantSelectionOldCommand}" CommandParameter="{Binding .}" />
+                                                </Frame.GestureRecognizers>
+                                                <Grid ColumnDefinitions="*, 30" RowDefinitions="25,25,25">
+                                                    <ProgressBar
+                                                        Grid.Row="0"
+                                                        Grid.Column="0"
+                                                        IsVisible="{Binding UseWatering}"
+                                                        Progress="{Binding WaterPercent}"
+                                                        ScaleY="2"
+                                                        VerticalOptions="Start" />
+                                                    <Label
+                                                        Grid.Row="0"
+                                                        Grid.Column="1"
+                                                        FontSize="14"
+                                                        IsVisible="{Binding UseWatering}"
+                                                        Text="{Binding WaterPercent, StringFormat='{0:P0}'}"
+                                                        VerticalOptions="Start" />
+                                                    <ProgressBar
+                                                        Grid.Row="1"
+                                                        Grid.Column="0"
+                                                        IsVisible="{Binding UseMisting}"
+                                                        Progress="{Binding MistPercent}"
+                                                        ProgressColor="LightBlue"
+                                                        ScaleY="2"
+                                                        VerticalOptions="Start" />
+                                                    <Label
+                                                        Grid.Row="1"
+                                                        Grid.Column="1"
+                                                        FontSize="14"
+                                                        IsVisible="{Binding UseMisting}"
+                                                        Text="{Binding MistPercent, StringFormat='{0:P0}'}"
+                                                        VerticalOptions="Start" />
+                                                    <ProgressBar
+                                                        Grid.Row="2"
+                                                        Grid.Column="0"
+                                                        IsVisible="{Binding UseMoving}"
+                                                        Progress="{Binding SunPercent}"
+                                                        ProgressColor="Orange"
+                                                        ScaleY="2"
+                                                        VerticalOptions="Start" />
+                                                    <Label
+                                                        Grid.Row="2"
+                                                        Grid.Column="1"
+                                                        FontSize="14"
+                                                        IsVisible="{Binding UseMoving}"
+                                                        Text="{Binding SunPercent, StringFormat='{0:P0}'}"
+                                                        VerticalOptions="Start" />
+                                                </Grid>
+                                            </Frame>
+                                        </Grid>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </RefreshView>
+                </Frame>
+                <Button Command="{Binding AcceptMergeCommand}" Text="Accept Merge" />
+            </VerticalStackLayout>
+        </Grid>
     </Grid>
 </ContentPage>

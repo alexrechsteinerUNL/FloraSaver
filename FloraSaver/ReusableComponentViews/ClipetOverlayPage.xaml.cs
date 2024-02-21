@@ -48,6 +48,23 @@ public partial class ClipetOverlayPage : ContentPage
         BindingContext = viewModel;
     }
 
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        blur.IsVisible = true;
+        blur.FadeTo(1, 2000);
+        clipet.IsVisible = true;
+
+    }
+
+    protected override void OnDisappearing()
+    {
+        blur.FadeTo(0, 2000);
+        base.OnDisappearing();
+        
+    }
+
+
     public bool? isClipetEnabled
     {
         get => GetValue(isClipetEnabledProperty) as bool?;

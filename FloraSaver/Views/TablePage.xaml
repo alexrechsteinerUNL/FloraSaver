@@ -184,9 +184,10 @@
                                     </Frame.GestureRecognizers>
                                     <Grid Padding="0">
                                         <Image
+                                            Grid.Row="0"
                                             Aspect="Fill"
-                                            Opacity=".1"
-                                            Source="card_background.png" />
+                                            Opacity=".2"
+                                            Source="card_background_fix.png" />
                                         <Grid
                                             Padding="0"
                                             HorizontalOptions="StartAndExpand"

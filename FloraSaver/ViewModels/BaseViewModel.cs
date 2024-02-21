@@ -77,11 +77,11 @@ namespace FloraSaver.ViewModels
         {
             if (speechBubbles == null)
             {
-                await Shell.Current.GoToAsync(nameof(ClipetOverlayPage), true, new Dictionary<string, object>());
+                await Shell.Current.GoToAsync(nameof(ClipetOverlayPage), false, new Dictionary<string, object>());
             }
             else
             {
-                await Shell.Current.GoToAsync(nameof(ClipetOverlayPage), true, new Dictionary<string, object> { { "ClipetSpeechBubbles", speechBubbles } });
+                await Shell.Current.GoToAsync(nameof(ClipetOverlayPage), false, new Dictionary<string, object> { { "ClipetSpeechBubbles", speechBubbles } });
             }
             return;
         }

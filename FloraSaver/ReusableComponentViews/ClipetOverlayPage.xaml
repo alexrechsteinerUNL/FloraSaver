@@ -24,7 +24,8 @@
         <Image
             x:Name="blur"
             Aspect="Fill"
-            Opacity=".93"
+            IsVisible="false"
+            Opacity=".1"
             Source="frosted_shade_green.png" />
         <Grid
             Padding="0"
@@ -44,6 +45,7 @@
                 Grid.Row="0"
                 Grid.Column="1"
                 Aspect="AspectFit"
+                IsVisible="false"
                 Scale="1.1"
                 Source="{Binding CurrentClipetDialog.ClipetEmotion}"
                 VerticalOptions="End" />
