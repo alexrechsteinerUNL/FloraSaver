@@ -26,9 +26,15 @@ public partial class TablePage : ContentPage
         searchBar.IsEnabled = true;
     }
 
+    //This could be causing issues in release mode 
     private void hiddenSpacerForAppearingScrollTo_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
         var result = sender as Label;
-        plantDeck.ScrollTo(Int32.Parse(result.Text));
+        int tryGetInt = new();
+        var shouldScroll = Int32.TryParse(result.Text, out tryGetInt);
+        if (shouldScroll && tryGetInt > 0)
+        {
+            plantDeck.ScrollTo(tryGetInt);
+        }
     }
 }

@@ -62,13 +62,13 @@
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 	  <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.6" />
 	  <PackageReference Include="Microsoft.VisualStudio.Utilities" Version="17.8.37221" />
-	  <PackageReference Include="Plugin.LocalNotification" Version="10.1.8" />
+	  <PackageReference Include="Plugin.LocalNotification" Version="11.1.0" />
 	  <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
 	  <PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.7" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<TrimmerRootAssembly Include="Plugin.LocalNotification" />
+		<TrimmerRootAssembly Include="Plugin.LocalNotification" RootMode="library" />
 	</ItemGroup>
 
 	<ItemGroup>

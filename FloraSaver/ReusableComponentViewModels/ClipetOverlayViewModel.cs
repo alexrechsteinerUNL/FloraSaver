@@ -51,7 +51,7 @@ namespace FloraSaver.ViewModels
                 ClipetDialog = null;
                 CurrentClipetDialog = null;
                 OnPropertyChanged("ClipetSpeechBubble");
-                await Shell.Current.GoToAsync("..");
+                await Shell.Current.GoToAsync("..", true);
             }
             else
             {

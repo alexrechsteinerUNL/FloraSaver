@@ -48,20 +48,22 @@ public partial class ClipetOverlayPage : ContentPage
         BindingContext = viewModel;
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
         blur.IsVisible = true;
-        blur.FadeTo(1, 2000);
+        blur.FadeTo(1, 1000);
+        await clipet.TranslateTo(0, 500, 10);
         clipet.IsVisible = true;
+        await clipet.TranslateTo(0, 0, 500);
 
     }
 
-    protected override void OnDisappearing()
+    protected override async void OnDisappearing()
     {
-        blur.FadeTo(0, 2000);
+        await blur.FadeTo(0, 1000);
+        await clipet.TranslateTo(0, 500, 500);
         base.OnDisappearing();
-        
     }
 
 

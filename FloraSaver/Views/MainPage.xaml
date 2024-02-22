@@ -64,7 +64,7 @@
                             <Label
                                 Grid.Row="0"
                                 Grid.Column="1"
-                                FontSize="14"
+                                FontSize="12"
                                 IsVisible="{Binding IsNextWater}"
                                 Text="{Binding NextPlant.WaterPercent, StringFormat='{0:P0}'}"
                                 VerticalOptions="Center" />

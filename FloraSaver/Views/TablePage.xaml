@@ -149,6 +149,7 @@
                 VerticalOptions="CenterAndExpand">
                 <Label
                     Padding="3"
+                    BackgroundColor="Black"
                     HorizontalOptions="CenterAndExpand"
                     HorizontalTextAlignment="Center"
                     IsVisible="{Binding IsNotBusy}"
