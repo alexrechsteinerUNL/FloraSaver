@@ -387,8 +387,7 @@
                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=AllPlantUnselectionCommand}"
                 HeightRequest="60"
                 IsEnabled="{Binding IsNotBusy}"
-                Text="Unselect All"
-                WidthRequest="150" />
+                Text="Unselect All" />
             <Button
                 x:Name="selectAll"
                 Grid.Row="5"
@@ -398,8 +397,7 @@
                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=AllPlantSelectionCommand}"
                 HeightRequest="60"
                 IsEnabled="{Binding IsNotBusy}"
-                Text="Select All"
-                WidthRequest="150" />
+                Text="Select All" />
 
             <ActivityIndicator
                 Grid.RowSpan="6"
