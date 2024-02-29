@@ -84,7 +84,7 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="5*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
@@ -112,7 +112,6 @@
                                 <Picker
                                     x:Name="groupPicker"
                                     Title="Select Plant Group"
-                                    Grid.Column="1"
                                     HorizontalTextAlignment="Center"
                                     ItemDisplayBinding="{Binding GroupName, Mode=TwoWay}"
                                     ItemsSource="{Binding PlantGroups, Mode=TwoWay}"
@@ -1366,6 +1365,7 @@
                     Grid.Row="0"
                     Grid.Column="1"
                     Aspect="Fill"
+                    MaximumWidthRequest="150"
                     Source="up_close_base_clipet.png"
                     VerticalOptions="EndAndExpand" />
                 <VerticalStackLayout
