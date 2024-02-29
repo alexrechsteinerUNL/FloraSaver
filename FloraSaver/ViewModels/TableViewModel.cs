@@ -16,7 +16,6 @@ namespace FloraSaver.ViewModels
     [QueryProperty(nameof(scrollToSelectedPlant), "ScrollToPlant")]
     public partial class TableViewModel : BaseViewModel, INotifyPropertyChanged, IQueryAttributable
     {
-        private readonly int percentageButtonSize = 105;
         protected readonly IPlantNotificationService _plantNotificationService;
         public ObservableCollection<Plant> DataPlants { get; set; } = new();
         public ObservableCollection<Plant> Plants { get; set; } = new();
