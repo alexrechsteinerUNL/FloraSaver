@@ -48,7 +48,7 @@
         </Frame>
         <Image
             Grid.Row="1"
-            Aspect="Fill"
+            Aspect="AspectFit"
             Source="plantpagebackgroundfirstpass.png" />
 
 

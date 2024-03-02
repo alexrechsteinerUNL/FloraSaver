@@ -17,7 +17,10 @@
     <Grid>
         <Image Aspect="AspectFill" Source="plants_background.png" />
         <ScrollView>
-            <VerticalStackLayout Padding="20" Spacing="15">
+            <VerticalStackLayout
+                Padding="20"
+                MaximumWidthRequest="400"
+                Spacing="15">
                 <Frame
                     x:Name="setMorningPreference"
                     Grid.Row="1"
