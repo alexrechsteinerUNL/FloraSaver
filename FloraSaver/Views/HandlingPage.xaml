@@ -366,44 +366,47 @@
                         WidthRequest="105" />
                 </Grid>
             </Frame>
-            <Frame
+            <Grid
                 Grid.Row="5"
-                Grid.Column="0"
-                Margin="8"
-                BackgroundColor="Black"
-                HeightRequest="60"
-                HorizontalOptions="Center"
-                WidthRequest="60">
-                <ImageButton
-                    x:Name="getPlants"
-                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GetPlantsCommand}"
-                    CommandParameter="{StaticResource True}"
-                    HeightRequest="36"
+                Grid.ColumnSpan="3"
+                ColumnDefinitions="*,Auto,Auto"
+                HorizontalOptions="FillAndExpand">
+                <Frame
+                    Grid.Column="0"
+                    BackgroundColor="Black"
+                    HeightRequest="60"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"
+                    WidthRequest="60">
+                    <ImageButton
+                        x:Name="getPlants"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GetPlantsCommand}"
+                        CommandParameter="{StaticResource True}"
+                        HeightRequest="36"
+                        IsEnabled="{Binding IsNotBusy}"
+                        Source="reload_icon.png"
+                        WidthRequest="36" />
+                </Frame>
+                <Button
+                    x:Name="selectNone"
+                    Grid.Column="1"
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=AllPlantUnselectionCommand}"
+                    HeightRequest="60"
+                    HorizontalOptions="EndAndExpand"
                     IsEnabled="{Binding IsNotBusy}"
-                    Source="reload_icon.png"
-                    WidthRequest="36" />
-            </Frame>
-            <Button
-                x:Name="selectNone"
-                Grid.Row="5"
-                Grid.Column="1"
-                Margin="1,8"
-                Padding="0"
-                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=AllPlantUnselectionCommand}"
-                HeightRequest="60"
-                HorizontalOptions="FillAndExpand"
-                IsEnabled="{Binding IsNotBusy}"
-                Text="Unselect All" />
-            <Button
-                x:Name="selectAll"
-                Grid.Row="5"
-                Grid.Column="2"
-                Margin="1,8"
-                Padding="0"
-                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=AllPlantSelectionCommand}"
-                HeightRequest="60"
-                IsEnabled="{Binding IsNotBusy}"
-                Text="Select All" />
+                    Text="Unselect All"
+                    VerticalOptions="Start" />
+                <Button
+                    x:Name="selectAll"
+                    Grid.Column="2"
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=AllPlantSelectionCommand}"
+                    HeightRequest="60"
+                    HorizontalOptions="EndAndExpand"
+                    IsEnabled="{Binding IsNotBusy}"
+                    Text="Select All"
+                    VerticalOptions="Start" />
+            </Grid>
+
 
             <ActivityIndicator
                 Grid.RowSpan="6"
