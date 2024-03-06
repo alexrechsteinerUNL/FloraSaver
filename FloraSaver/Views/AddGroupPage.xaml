@@ -19,6 +19,7 @@
     <VerticalStackLayout
         Padding="10"
         HorizontalOptions="Center"
+        MaximumWidthRequest="500"
         VerticalOptions="Center">
 
         <Frame
@@ -52,7 +53,7 @@
                             <RowDefinition Height="5*" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="220" />
+                            <ColumnDefinition Width="5*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>

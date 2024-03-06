@@ -15,6 +15,11 @@
     </ContentPage.Behaviors>
 
     <Grid>
+
+        <Image
+            Grid.Row="1"
+            Aspect="AspectFill"
+            Source="spaced_background.jpg" />
         <Image Aspect="AspectFit" Source="homepagebackgroundsecondpassnoflowers.png" />
         <Grid
             Padding="10,0"
@@ -37,6 +42,7 @@
                 Padding="5,5"
                 BackgroundColor="Black"
                 IsVisible="{Binding ArePlants}"
+                MaximumWidthRequest="400"
                 Opacity=".98">
                 <Grid>
                     <Grid.ColumnDefinitions>

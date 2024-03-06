@@ -8,7 +8,7 @@ namespace FloraSaver.ViewModels
     [QueryProperty(nameof(List<ClipetSpeechBubble>), "ClipetSpeechBubble")]
     public partial class ClipetOverlayViewModel : BaseViewModel, IQueryAttributable, INotifyPropertyChanged
     {
-        private readonly string DEFAULT_CLIPET_EMOTION_SOURCE = "up_close_base_clipet.png";
+        private readonly string DEFAULT_CLIPET_EMOTION_SOURCE = "clipet_flowers_sitting_color.png";
         private int TEXTBOXINDEX = 0;
 
         [ObservableProperty]

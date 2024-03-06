@@ -29,6 +29,7 @@
             Source="frosted_shade_green.png" />
         <Grid
             Padding="0"
+            WidthRequest="400"
             ColumnDefinitions="1.1538*,*"
             HorizontalOptions="FillAndExpand"
             RowDefinitions="*, .2*"
@@ -46,7 +47,7 @@
                 Grid.Column="1"
                 Aspect="AspectFit"
                 IsVisible="false"
-                Scale="1.1"
+                Scale="1.15"
                 Source="{Binding CurrentClipetDialog.ClipetEmotion}"
                 VerticalOptions="End" />
             <Grid
@@ -58,7 +59,8 @@
                 <Image
                     Aspect="Fill"
                     IsVisible="{Binding IsSpeechBubbleVisible}"
-                    Source="speech_bubble.png" />
+                    Source="speech_bubble.png"
+                     />
                 <!--  162 characters allowed per box before it's gotta be split  -->
                 <Label
                     x:Name="speech"

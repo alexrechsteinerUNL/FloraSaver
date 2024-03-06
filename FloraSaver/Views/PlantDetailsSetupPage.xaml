@@ -1366,7 +1366,8 @@
                     Grid.Column="1"
                     Aspect="Fill"
                     MaximumWidthRequest="150"
-                    Source="up_close_base_clipet.png"
+                    Scale="1.15"
+                    Source="clipet_flowers_sitting_color.png"
                     VerticalOptions="EndAndExpand" />
                 <VerticalStackLayout
                     Grid.Row="0"

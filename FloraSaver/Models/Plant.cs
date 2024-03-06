@@ -341,6 +341,13 @@ namespace FloraSaver.Models
         }
 
         [Ignore]
+        public string WaterIntervalText => WaterInterval == 1.0 ? "Every Day" : $"Every {WaterInterval} Days";
+        [Ignore]
+        public string MistIntervalText => MistInterval == 1.0 ? "Every Day" : $"Every {MistInterval} Days";
+        [Ignore]
+        public string SunIntervalText => SunInterval == 1.0 ? "Every Day" : $"Every {SunInterval} Days";
+        
+        [Ignore]
         public ImageSource PlantImageSource { get; set; }
 
         [Ignore]

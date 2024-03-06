@@ -55,7 +55,7 @@
         <Grid
             Grid.Row="1"
             Padding="2"
-            ColumnDefinitions="*,2.6*,2.6*"
+            ColumnDefinitions="2*,2.6*,2.6*"
             HorizontalOptions="CenterAndExpand"
             RowSpacing="2">
             <Grid.RowDefinitions>
@@ -65,11 +65,42 @@
                 <RowDefinition Height=".35*" />
                 <RowDefinition Height=".2*" />
             </Grid.RowDefinitions>
-
             <Grid
                 Grid.Row="0"
                 Grid.ColumnSpan="3"
                 HorizontalOptions="FillAndExpand">
+                <Frame
+                    Padding="5"
+                    BackgroundColor="Black"
+                    HorizontalOptions="FillAndExpand">
+                    <CollectionView
+                        x:Name="groupdeck"
+                        ItemsLayout="HorizontalList"
+                        ItemsSource="{Binding PlantGroups}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:Name="groups" x:DataType="model:PlantGroup">
+                                <Button
+                                    Padding="5"
+                                    BackgroundColor="{Binding SelectedColor}"
+                                    BorderColor="{Binding GroupColor}"
+                                    BorderWidth="2"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GroupSelectionCommand}"
+                                    CommandParameter="{Binding .}"
+                                    HeightRequest="40"
+                                    Text="{Binding GroupName}"
+                                    TextColor="{Binding SelectedTextColor}"
+                                    WidthRequest="200" />
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Frame>
+            </Grid>
+
+            <Grid
+                Grid.Row="1"
+                Grid.ColumnSpan="3"
+                HorizontalOptions="StartAndExpand"
+                WidthRequest="380">
 
                 <Frame Padding="10,5" BackgroundColor="Black">
                     <Grid ColumnSpacing="0">
@@ -102,48 +133,17 @@
                 </Frame>
             </Grid>
 
-            <Grid
-                Grid.Row="1"
-                Grid.ColumnSpan="3"
-                HorizontalOptions="FillAndExpand">
-                <Frame
-                    Padding="5"
-                    BackgroundColor="Black"
-                    HorizontalOptions="FillAndExpand">
-                    <CollectionView
-                        x:Name="groupdeck"
-                        ItemsLayout="HorizontalList"
-                        ItemsSource="{Binding PlantGroups}">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:Name="groups" x:DataType="model:PlantGroup">
-                                <Button
-                                    Padding="5"
-                                    BackgroundColor="{Binding SelectedColor}"
-                                    BorderColor="{Binding GroupColor}"
-                                    BorderWidth="2"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GroupSelectionCommand}"
-                                    CommandParameter="{Binding .}"
-                                    HeightRequest="40"
-                                    Text="{Binding GroupName}"
-                                    TextColor="{Binding SelectedTextColor}"
-                                    WidthRequest="200" />
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </Frame>
-            </Grid>
+
 
             <Frame
                 Grid.Row="2"
                 Grid.ColumnSpan="3"
-                BackgroundColor="Black"
-                VerticalOptions="CenterAndExpand"
-                WidthRequest="380">
+                BackgroundColor="Transparent"
+                VerticalOptions="CenterAndExpand">
                 <RefreshView
-                    Grid.Row="4"
-                    Grid.ColumnSpan="3"
                     Command="{Binding GetPlantsCommand}"
                     CommandParameter="{StaticResource True}"
+                    HorizontalOptions="Center"
                     IsRefreshing="{Binding IsRefreshing}"
                     VerticalOptions="CenterAndExpand">
                     <CollectionView
@@ -164,7 +164,8 @@
                                     Padding="10,5"
                                     BackgroundColor="{Binding SelectedColor}"
                                     BorderColor="{Binding GroupColor}"
-                                    HeightRequest="140">
+                                    HeightRequest="140"
+                                    MaximumWidthRequest="400">
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=PlantSelectionCommand}" CommandParameter="{Binding .}" />
                                     </Frame.GestureRecognizers>
@@ -194,7 +195,7 @@
                                                 FontSize="20"
                                                 HorizontalTextAlignment="Start"
                                                 Text="{Binding PlantGroupName}"
-                                                TextColor="{Binding SelectedTextColor}" />
+                                                TextColor="{Binding GroupColor}" />
                                         </Grid>
 
                                         <Grid

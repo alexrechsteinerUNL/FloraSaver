@@ -22,7 +22,7 @@
     </ContentPage.Behaviors>
 
 
-    <VerticalStackLayout Padding="10">
+    <VerticalStackLayout Padding="10" MaximumWidthRequest="450">
 
         <Frame
             Padding="20"
