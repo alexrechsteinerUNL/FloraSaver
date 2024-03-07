@@ -189,7 +189,8 @@
                                     BackgroundColor="Black"
                                     BorderColor="{Binding GroupColor}"
                                     HeightRequest="420"
-                                    MaximumWidthRequest="400">
+                                    MaximumWidthRequest="350"
+                                    WidthRequest="350">
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}" CommandParameter="{Binding .}" />
                                     </Frame.GestureRecognizers>
@@ -452,7 +453,7 @@
                                                     IsVisible="{Binding UseWatering}"
                                                     Progress="{Binding WaterPercent}"
                                                     ProgressColor="DarkSlateBlue"
-                                                    ScaleX=".9"
+                                                    ScaleX="1"
                                                     ScaleY="2" />
                                                 <ImageButton
                                                     Grid.Row="1"
@@ -464,7 +465,7 @@
                                                     HorizontalOptions="Fill"
                                                     IsEnabled="{Binding UseWatering}"
                                                     Opacity="{Binding WaterOpacity}"
-                                                    ScaleY="1.03"
+                                                    ScaleY="1.04"
                                                     Source="water_timer_visual.png" />
 
 
@@ -477,7 +478,7 @@
                                                     IsVisible="{Binding UseMisting}"
                                                     Progress="{Binding MistPercent}"
                                                     ProgressColor="LightBlue"
-                                                    ScaleX=".9"
+                                                    ScaleX="1"
                                                     ScaleY="2" />
                                                 <ImageButton
                                                     Grid.Row="1"
@@ -488,7 +489,7 @@
                                                     HorizontalOptions="Fill"
                                                     IsEnabled="{Binding UseMisting}"
                                                     Opacity="{Binding MistOpacity}"
-                                                    ScaleY="1.03"
+                                                    ScaleY="1.04"
                                                     Source="refresh_timer_visual.png" />
 
                                                 <ProgressBar
@@ -499,7 +500,7 @@
                                                     IsVisible="{Binding UseMoving}"
                                                     Progress="{Binding SunPercent}"
                                                     ProgressColor="Orange"
-                                                    ScaleX=".9"
+                                                    ScaleX="1"
                                                     ScaleY="2" />
                                                 <ImageButton
                                                     Grid.Row="1"
@@ -509,7 +510,7 @@
                                                     HorizontalOptions="Fill"
                                                     IsEnabled="{Binding UseMoving}"
                                                     Opacity="{Binding MoveOpacity}"
-                                                    ScaleY="1.03"
+                                                    ScaleY="1.04"
                                                     Source="sun_timer_visual.png" />
                                             </Grid>
                                         </Grid>
