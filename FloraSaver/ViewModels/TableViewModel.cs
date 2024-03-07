@@ -88,7 +88,8 @@ namespace FloraSaver.ViewModels
         }
 
         protected PeriodicTimer timer = new PeriodicTimer(TimeSpan.FromSeconds(10));
-
+        [ObservableProperty]
+        public double elementSpan = 1;
         [ObservableProperty]
         protected int scrollToValue = 0;
         [ObservableProperty]
@@ -141,6 +142,19 @@ namespace FloraSaver.ViewModels
 
         [ObservableProperty]
         private int moveOpacity;
+
+        public void ReconfigureSpanForScreenSize(double width, double height)
+        {
+            var widthAllowance = Math.Floor(width / 400);
+            if (widthAllowance > 1)
+            {
+                ElementSpan = widthAllowance;
+            }
+            else
+            {
+                ElementSpan = 1;
+            }
+        }
 
         partial void OnCurrentOrderByValueChanged(string value)
         {

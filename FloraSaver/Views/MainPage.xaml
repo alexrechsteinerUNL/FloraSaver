@@ -52,14 +52,15 @@
                     </Grid.ColumnDefinitions>
                     <Label
                         Grid.Column="0"
-                        FontSize="16"
+                        FontSize="18"
                         Text="{Binding NextPlant.GivenName, StringFormat='Next: {0}'}"
                         VerticalOptions="Center" />
                     <Frame
                         Grid.Column="1"
                         Padding="5,0"
-                        BackgroundColor="Black">
-                        <Grid ColumnDefinitions="*, 30" RowDefinitions="50">
+                        BackgroundColor="Black"
+                        VerticalOptions="Center">
+                        <Grid ColumnDefinitions="*, 35" RowDefinitions="50">
                             <ProgressBar
                                 Grid.Row="0"
                                 Grid.Column="0"

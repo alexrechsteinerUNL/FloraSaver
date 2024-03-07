@@ -22,13 +22,15 @@
     </ContentPage.Behaviors>
 
 
-    <VerticalStackLayout Padding="10" MaximumWidthRequest="450">
+    <Grid MaximumWidthRequest="450" RowDefinitions="*,100">
+
 
         <Frame
+            Grid.Row="0"
             Padding="20"
             BackgroundColor="Black"
             BorderColor="{Binding AlterPlant.GroupColor}"
-            HeightRequest="660">
+            MaximumHeightRequest="1600">
             <Grid RowSpacing="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
@@ -1252,7 +1254,14 @@
 
             </Grid>
         </Frame>
+
+
+
+
+
+
         <Frame
+            Grid.Row="1"
             BackgroundColor="DimGray"
             IsVisible="{Binding IsFriendlyLabelVisible}"
             Opacity=".9"
@@ -1262,5 +1271,5 @@
                 IsVisible="{Binding IsFriendlyLabelVisible}"
                 Text="{Binding FriendlyLabel}" />
         </Frame>
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>

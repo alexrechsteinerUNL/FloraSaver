@@ -12,6 +12,12 @@ public partial class TablePage : ContentPage
         BindingContext = viewModel;
     }
 
+    protected override void OnSizeAllocated(double width, double height)
+    {
+        base.OnSizeAllocated(width, height);
+        ((TableViewModel)(this.BindingContext)).ReconfigureSpanForScreenSize(width, height);
+    }
+
     private static void Entry_Completed(object sender, EventArgs e)
     {
         var entry = sender as Entry;

@@ -190,13 +190,6 @@ namespace FloraSaver.ViewModels
             IsInitialization = false;
         }
 
-        //public void OnPlantGroupChanged()
-        //{
-        //    OnPropertyChanged(nameof(VisiblePlantGroups));
-        //}
-
-
-
         [ObservableProperty]
         private TimeSpan morningTime;
 

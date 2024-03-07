@@ -36,6 +36,7 @@
                 FontSize="25"
                 HorizontalTextAlignment="Start"
                 Placeholder="Search Plants..."
+                VerticalOptions="CenterAndExpand"
                 VerticalTextAlignment="Center">
                 <Entry.Behaviors>
                     <toolkit:EventToCommandBehavior
@@ -138,7 +139,7 @@
                                 ItemsSource="{Binding OrderByValues, Mode=TwoWay}"
                                 SelectedItem="{Binding CurrentOrderByValue, Mode=TwoWay}"
                                 TextColor="White"
-                                VerticalOptions="FillAndExpand"
+                                VerticalOptions="CenterAndExpand"
                                 VerticalTextAlignment="Center" />
                         </Frame>
                     </Grid>
@@ -177,6 +178,9 @@
                     ItemsSource="{Binding Plants}"
                     SelectionMode="None"
                     VerticalScrollBarVisibility="Always">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="{Binding ElementSpan}" />
+                    </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:Name="bloop" x:DataType="model:Plant">
                             <Grid Padding="15,15,15,0">
@@ -601,6 +605,7 @@
 
                                 <Button
                                     Grid.Column="1"
+                                    Clicked="deadSpaceButtonHideSuggestion_Clicked"
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsSuggestionPlantCommand}"
                                     CommandParameter="{Binding .}"
                                     Text="{Binding ConnectedIcon}" />
