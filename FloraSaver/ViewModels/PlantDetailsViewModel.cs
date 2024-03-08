@@ -23,6 +23,8 @@ namespace FloraSaver.ViewModels
 
         public List<AutoFillPlant> PlantSuggestions { get; set; } = new();
 
+        public List<string> UnsafePlantNames { get; set; }  
+
         [ObservableProperty]
         protected bool isBeingUndone = false;
 
@@ -753,12 +755,26 @@ namespace FloraSaver.ViewModels
                 //plant = SetPlantValues(plant);
 
                 IsBusy = true;
-                await _databaseService.AddUpdateNewPlantAsync(plant);
-                InitialPlant = new Plant(AlterPlant);
-                InitialWaterDaysFromNow = WaterDaysFromNow;
-                InitialMistDaysFromNow = MistDaysFromNow;
-                InitialSunDaysFromNow = SunDaysFromNow;
-                UndoAll();
+                if (UnsafePlantNames is null)
+                {
+                    var plants = await _databaseService.GetAllPlantAsync();
+                    var plantNames = plants.Select(_ => _.GivenName);
+                    UnsafePlantNames = plantNames.Where(_ => _ != InitialPlant.GivenName).ToList();
+                }
+                plant.Validate(UnsafePlantNames);
+                if (plant.Validation.IsSuccessful)
+                {
+                    await _databaseService.AddUpdateNewPlantAsync(plant);
+                    InitialPlant = new Plant(AlterPlant);
+                    InitialWaterDaysFromNow = WaterDaysFromNow;
+                    InitialMistDaysFromNow = MistDaysFromNow;
+                    InitialSunDaysFromNow = SunDaysFromNow;
+                    UndoAll();
+                } else
+                {
+                    var bloop = plant.Validation.Message;
+                }
+                
             }
             catch (Exception ex)
             {

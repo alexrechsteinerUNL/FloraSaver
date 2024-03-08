@@ -10,11 +10,81 @@ namespace FloraSaver.Models
     {
         public string Message { get; set; } = "";
 
-        public bool IsNameSectionInvalid { get; set; } = false;
-        public bool IsGroupSectionInvalid { get; set; } = false;
-        public bool IsSpeciesSectionInvalid { get; set; } = false;
-        public bool IsBirthdaySectionInvalid { get; set; } = false;
-        public bool IsDateTimeNextWateringSectionInvalid { get; set; } = false;
+        private bool _isNameSectionInvalid = false;
+        public bool IsNameSectionInvalid
+        {
+            get { return _isNameSectionInvalid; }
+            set
+            {
+                if (value)
+                {
+                    Message += "Plant Name cannot be empty or the same as another plant!\n";
+                }
+                _isNameSectionInvalid = value;
+            }
+        }
+        public Color NameSectionColor => (IsNameSectionInvalid) ? Colors.OrangeRed : Colors.White;
+
+        private bool _isGroupSectionInvalid = false;
+        public bool IsGroupSectionInvalid
+        {
+            get { return _isGroupSectionInvalid; }
+            set
+            {
+                if (value)
+                {
+                    Message += "Plant Group must exist and have a color!\n";
+                }
+                _isGroupSectionInvalid = value;
+            }
+        }
+        public Color GroupSectionColor => (IsGroupSectionInvalid) ? Colors.OrangeRed : Colors.White;
+
+
+        private bool _isSpeciesSectionInvalid = false;
+        public bool IsSpeciesSectionInvalid
+        {
+            get { return _isSpeciesSectionInvalid; }
+            set
+            {
+                if (value)
+                {
+                    Message += "Plant Species cannot be empty\n";
+                }
+                _isSpeciesSectionInvalid = value;
+            }
+        }
+        public Color SpeciesSectionColor => (IsSpeciesSectionInvalid) ? Colors.OrangeRed : Colors.White;
+
+        private bool _isBirthdaySectionInvalid = false;
+        public bool IsBirthdaySectionInvalid
+        {
+            get { return _isBirthdaySectionInvalid; }
+            set
+            {
+                if (value)
+                {
+                    Message += "Birthday cannot be in the future!\n";
+                }
+                _isBirthdaySectionInvalid = value;
+            }
+        }
+        public Color BirthdaySectionColor => (IsBirthdaySectionInvalid) ? Colors.OrangeRed : Colors.White;
+
+        private bool _isDateTimeNextWateringSectionInvalid = false;
+        public bool IsDateTimeNextWateringSectionInvalid
+        {
+            get { return _isDateTimeNextWateringSectionInvalid; }
+            set
+            {
+                if (value)
+                {
+                    Message += "Next Watering time cannot be before Last Misting Time\n";
+                }
+                _isDateTimeNextWateringSectionInvalid = value;
+            }
+        }
+        public Color DateTimeNextWateringSectionColor => (IsDateTimeNextWateringSectionInvalid) ? Colors.OrangeRed : Colors.White;
 
         private bool _isDateTimeNextMistingSectionInvalid = false;
         public bool IsDateTimeNextMistingSectionInvalid
@@ -24,38 +94,40 @@ namespace FloraSaver.Models
             {
                 if (value)
                 {
-                    Message += "Next Misting time cannot be before Last Misting Time";
+                    Message += "Next Misting time cannot be before Last Misting Time\n";
                 }
                 _isDateTimeNextMistingSectionInvalid = value;
             }
         }
+        public Color DateTimeNextMistingSectionColor => (IsDateTimeNextMistingSectionInvalid) ? Colors.OrangeRed : Colors.White;
 
         private bool _isDateTimeNextMovingSectionInvalid = false;
         public bool IsDateTimeNextMovingSectionInvalid { get { return _isDateTimeNextMovingSectionInvalid; }
             set {
             if (value)
                 {
-                    Message += "Next moving time cannot be before Last Moving Time";
+                    Message += "Next Moving time cannot be before Last Moving Time\n";
                 }
                 _isDateTimeNextMovingSectionInvalid = value;
             } 
         }
+        public Color DateTimeNextMovingSectionColor => (IsDateTimeNextMovingSectionInvalid) ? Colors.OrangeRed : Colors.White;
 
-        public bool IsSuccessful {  get; set; } = false;
+        public bool IsSuccessful => string.IsNullOrEmpty(Message);
 
-        public PlantValidationArgs(Plant plant)
+        public void Validate(Plant plant, List<string> unsafePlantNames)
         {
+            Message = string.Empty;
             IsSpeciesSectionInvalid = string.IsNullOrEmpty(plant.PlantSpecies);
-            IsNameSectionInvalid = string.IsNullOrEmpty(plant.PlantGroupName);
-            IsGroupSectionInvalid = (string.IsNullOrEmpty(plant.PlantGroupName) || string.IsNullOrEmpty(plant.GroupColorHexString);
-            IsBirthdaySectionInvalid = CheckIfLastPlantDateIsFurtherThanPlantNextDate(plant.DateOfBirth, DateTime.Now);
-            IsDateTimeNextWateringSectionInvalid = CheckIfLastPlantDateIsFurtherThanPlantNextDate(plant.DateOfLastWatering, plant.DateOfNextWatering);
-            IsDateTimeNextMistingSectionInvalid = CheckIfLastPlantDateIsFurtherThanPlantNextDate(plant.DateOfLastMisting, plant.DateOfNextMisting);
-            IsDateTimeNextMovingSectionInvalid = CheckIfLastPlantDateIsFurtherThanPlantNextDate(plant.DateOfLastMove, plant.DateOfNextMove);
-
+            IsNameSectionInvalid = string.IsNullOrEmpty(plant.GivenName) || unsafePlantNames.Contains(plant.GivenName);
+            IsGroupSectionInvalid = (string.IsNullOrEmpty(plant.PlantGroupName) || string.IsNullOrEmpty(plant.GroupColorHexString));
+            IsBirthdaySectionInvalid = CheckIfLastDateFurtherThanNextDate(plant.DateOfBirth, DateTime.Now);
+            IsDateTimeNextWateringSectionInvalid = CheckIfLastDateFurtherThanNextDate(plant.DateOfLastWatering, plant.DateOfNextWatering);
+            IsDateTimeNextMistingSectionInvalid = CheckIfLastDateFurtherThanNextDate(plant.DateOfLastMisting, plant.DateOfNextMisting);
+            IsDateTimeNextMovingSectionInvalid = CheckIfLastDateFurtherThanNextDate(plant.DateOfLastMove, plant.DateOfNextMove);
         }
 
-        public bool CheckIfLastPlantDateIsFurtherThanPlantNextDate(DateTime lastDate, DateTime nextDate)
+        public bool CheckIfLastDateFurtherThanNextDate(DateTime lastDate, DateTime nextDate)
         {
             if (lastDate > nextDate) { return true; } else { return false; }
         }

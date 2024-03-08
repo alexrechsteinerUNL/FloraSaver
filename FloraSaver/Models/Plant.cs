@@ -401,6 +401,14 @@ namespace FloraSaver.Models
             }
         }
 
+        [Ignore]
+        public PlantValidationArgs Validation { get; set; } = new PlantValidationArgs();
+
+        public void Validate(List<string> unsafePlantNames)
+        {
+            Validation.Validate(this, unsafePlantNames);
+        }
+
         public Plant(Plant _Plant)
         {
 
