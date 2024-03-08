@@ -42,7 +42,7 @@
             <ImageButton
                 Grid.Row="2"
                 Command="{Binding TalkToClipetCommand}"
-                CommandParameter="WelcomeMessage.txt"
+                CommandParameter="WelcomeMessage0.txt"
                 HorizontalOptions="Center"
                 Source="clipet_flowers_standing_color.png" />
             <Frame

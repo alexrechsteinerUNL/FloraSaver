@@ -53,7 +53,10 @@
 	  <None Remove="Resources\Fonts\CALIFI.TTF" />
 	  <None Remove="Resources\Fonts\CALIFR.TTF" />
 	  <None Remove="Resources\Fonts\PRISMA.TTF" />
-	  <None Remove="Resources\Raw\WelcomeMessage.txt" />
+	  <None Remove="Resources\Raw\JustKeepClicking1.txt" />
+	  <None Remove="Resources\Raw\TUTAutomaticWatering.txt" />
+	  <None Remove="Resources\Raw\TUTCopyingPlants.txt" />
+	  <None Remove="Resources\Raw\WelcomeMessage0.txt" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -136,7 +139,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiAsset Update="Resources\Raw\WelcomeMessage.txt">
+	  <MauiAsset Update="Resources\Raw\TUTAutomaticWatering.txt">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </MauiAsset>
+	  <MauiAsset Update="Resources\Raw\TUTCopyingPlants.txt">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </MauiAsset>
+	  <MauiAsset Update="Resources\Raw\JustKeepClicking1.txt">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </MauiAsset>
+	  <MauiAsset Update="Resources\Raw\WelcomeMessage0.txt">
 	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
 	  </MauiAsset>
 	</ItemGroup>
