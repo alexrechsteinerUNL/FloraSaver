@@ -20,7 +20,7 @@ namespace FloraSaver.ViewModels
         public ObservableCollection<Plant> DataPlants { get; set; } = new();
         public ObservableCollection<Plant> Plants { get; set; } = new();
         public ObservableCollection<PlantGroup> PlantGroups { get; set; } = new();
-        public List<AutoFillPlant> PlantSuggestions { get; set; } = new();
+        
 
         public ObservableCollection<SearchedPlants> TopTenAutoFillPlants { get; set; } = new();
 

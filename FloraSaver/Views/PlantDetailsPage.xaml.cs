@@ -27,4 +27,9 @@ public partial class PlantDetailsPage : ContentPage
         entry.IsEnabled = false;
         entry.IsEnabled = true;
     }
+
+    private void Validate(object sender, EventArgs e)
+    {
+        ((PlantDetailsViewModel)(this.BindingContext)).ValidateAlterPlantAsync();
+    }
 }

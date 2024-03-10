@@ -744,6 +744,24 @@ namespace FloraSaver.ViewModels
             return result;
         }
 
+        public async Task FillUnsafePlantsAsync()
+        {
+            var plants = await _databaseService.GetAllPlantAsync();
+            var plantNames = plants.Select(_ => _.GivenName);
+            UnsafePlantNames = plantNames.Where(_ => _ != InitialPlant.GivenName).ToList();
+        }
+
+        [RelayCommand]
+        public async Task ValidateAlterPlantAsync()
+        {
+            if (UnsafePlantNames is null)
+            {
+                await FillUnsafePlantsAsync();
+            }
+            AlterPlant.Validate(UnsafePlantNames);
+            OnPropertyChanged(nameof(AlterPlant));
+        }
+
         [RelayCommand]
         protected async Task AddUpdateAsync(Plant plant)
         {
@@ -757,9 +775,7 @@ namespace FloraSaver.ViewModels
                 IsBusy = true;
                 if (UnsafePlantNames is null)
                 {
-                    var plants = await _databaseService.GetAllPlantAsync();
-                    var plantNames = plants.Select(_ => _.GivenName);
-                    UnsafePlantNames = plantNames.Where(_ => _ != InitialPlant.GivenName).ToList();
+                    await FillUnsafePlantsAsync();
                 }
                 plant.Validate(UnsafePlantNames);
                 if (plant.Validation.IsSuccessful)
@@ -772,7 +788,7 @@ namespace FloraSaver.ViewModels
                     UndoAll();
                 } else
                 {
-                    var bloop = plant.Validation.Message;
+                    await Application.Current.MainPage.DisplayAlert("OH HOLD ON!", plant.Validation.Message, "Gotcha");
                 }
                 
             }
@@ -784,9 +800,12 @@ namespace FloraSaver.ViewModels
             finally
             {
                 IsBusy = false;
-                FriendlyLabel = _databaseService.StatusMessage;
-                ShouldGetNewData = true;
-                await FriendlyLabelToastAsync();
+                if (plant.Validation.IsSuccessful)
+                {
+                    FriendlyLabel = _databaseService.StatusMessage;
+                    ShouldGetNewData = true;
+                    await FriendlyLabelToastAsync();
+                }
             }
         }
 

@@ -11,6 +11,8 @@ namespace FloraSaver.ViewModels
         public bool shouldUpdateGroupFromDB = false;
         public bool shouldUpdatePlantsFromDB = false;
 
+        public List<AutoFillPlant> PlantSuggestions { get; set; } = new();
+
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsNotBusy))]
         public bool isBusy;
