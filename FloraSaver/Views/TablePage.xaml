@@ -28,7 +28,8 @@
             Padding="10,5"
             BackgroundColor="Black"
             BorderColor="Black"
-            CornerRadius="0">
+            CornerRadius="0"
+            HeightRequest="180">
             <Entry
                 x:Name="searchBar"
                 Grid.Column="1"
@@ -84,11 +85,13 @@
                 <Frame
                     Padding="5"
                     BackgroundColor="Black"
-                    HorizontalOptions="FillAndExpand">
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Center">
                     <CollectionView
                         x:Name="groupdeck"
                         ItemsLayout="HorizontalList"
-                        ItemsSource="{Binding PlantGroups}">
+                        ItemsSource="{Binding PlantGroups}"
+                        VerticalOptions="Fill">
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:Name="groups" x:DataType="model:PlantGroup">
                                 <Button
@@ -101,6 +104,7 @@
                                     HeightRequest="40"
                                     Text="{Binding GroupName}"
                                     TextColor="{Binding SelectedTextColor}"
+                                    VerticalOptions="Fill"
                                     WidthRequest="200" />
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
@@ -127,14 +131,14 @@
                             VerticalOptions="Center" />
                         <Frame
                             Grid.Column="1"
-                            Padding="3"
+                            Padding="2"
                             BackgroundColor="Black"
-                            HorizontalOptions="FillAndExpand"
-                            VerticalOptions="FillAndExpand">
+                            HorizontalOptions="FillAndExpand">
                             <Picker
                                 x:Name="orderByPicker"
                                 Title="Choose Order By"
-                                HorizontalOptions="Center"
+                                HeightRequest="40"
+                                HorizontalOptions="FillAndExpand"
                                 HorizontalTextAlignment="Center"
                                 ItemsSource="{Binding OrderByValues, Mode=TwoWay}"
                                 SelectedItem="{Binding CurrentOrderByValue, Mode=TwoWay}"

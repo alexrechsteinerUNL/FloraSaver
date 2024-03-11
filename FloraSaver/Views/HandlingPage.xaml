@@ -33,6 +33,7 @@
                 Grid.Column="1"
                 Completed="Entry_Completed"
                 FontSize="25"
+                HeightRequest="180"
                 HorizontalTextAlignment="Start"
                 Placeholder="Filter Plants..."
                 VerticalOptions="Center"
@@ -77,7 +78,8 @@
                     <CollectionView
                         x:Name="groupdeck"
                         ItemsLayout="HorizontalList"
-                        ItemsSource="{Binding PlantGroups}">
+                        ItemsSource="{Binding PlantGroups}"
+                        VerticalOptions="Center">
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:Name="groups" x:DataType="model:PlantGroup">
                                 <Button
@@ -116,12 +118,13 @@
                             VerticalOptions="Center" />
                         <Frame
                             Grid.Column="1"
-                            Padding="3"
+                            Padding="2"
                             BackgroundColor="Black"
                             HorizontalOptions="FillAndExpand">
                             <Picker
                                 x:Name="orderByPicker"
                                 Title="Choose Order By"
+                                HeightRequest="40"
                                 HorizontalOptions="FillAndExpand"
                                 HorizontalTextAlignment="Center"
                                 ItemsSource="{Binding OrderByValues, Mode=TwoWay}"
@@ -192,12 +195,19 @@
                                                 HorizontalTextAlignment="Start"
                                                 Text="{Binding PlantSpecies}"
                                                 TextColor="{Binding SelectedTextColor}" />
-                                            <Label
+                                            <Frame
                                                 Grid.Row="1"
-                                                FontSize="20"
-                                                HorizontalTextAlignment="Start"
-                                                Text="{Binding PlantGroupName}"
-                                                TextColor="{Binding GroupColor}" />
+                                                Padding="0"
+                                                BackgroundColor="Black">
+                                                <Label
+                                                    FontSize="18"
+                                                    HorizontalOptions="Center"
+                                                    HorizontalTextAlignment="Start"
+                                                    Text="{Binding PlantGroupName}"
+                                                    TextColor="{Binding GroupColor}"
+                                                    VerticalOptions="Center" />
+                                            </Frame>
+
                                         </Grid>
 
                                         <Grid

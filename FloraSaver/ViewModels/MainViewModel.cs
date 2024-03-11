@@ -28,7 +28,12 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         public bool isNextSun = false;
 
-        
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(UseFullImage))]
+        public bool useStretchedImage = false;
+        public bool UseFullImage => !UseStretchedImage;
+
+        private double ImageRatio = .5625;
 
         public MainViewModel(IDatabaseService databaseService, IPlantNotificationService plantNotificationService) : base(databaseService, plantNotificationService)
         {
@@ -50,6 +55,17 @@ namespace FloraSaver.ViewModels
                 AreNoPlants = true;
             }
             SetNextPlant();
+        }
+
+        public void ReconfigureValuesForScreenSize(double width, double height)
+        {
+            if (width/height < ImageRatio)
+            {
+                UseStretchedImage = true;
+            } else
+            {
+                UseStretchedImage = false;
+            }
         }
 
         public void SetNextPlant()

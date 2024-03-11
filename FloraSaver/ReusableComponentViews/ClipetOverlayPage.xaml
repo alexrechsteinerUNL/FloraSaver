@@ -29,11 +29,11 @@
             Source="frosted_shade_green.png" />
         <Grid
             Padding="0"
-            WidthRequest="400"
             ColumnDefinitions="1.1538*,*"
             HorizontalOptions="FillAndExpand"
             RowDefinitions="*, .2*"
-            RowSpacing="0">
+            RowSpacing="0"
+            WidthRequest="400">
             <Image
                 x:Name="displaySpace"
                 Grid.Row="0"
@@ -56,19 +56,29 @@
                 Grid.ColumnSpan="2"
                 Padding="0"
                 ScaleX="1.011">
-                <Image
+                <!--<Image
                     Aspect="Fill"
+                    HorizontalOptions="Fill"
                     IsVisible="{Binding IsSpeechBubbleVisible}"
                     Source="speech_bubble.png"
-                     />
+                    VerticalOptions="Fill" />-->
+                <Frame
+                    Padding="4"
+                    BackgroundColor="#4A0023"
+                    BorderColor="Orange">
+                    <Frame
+                        BackgroundColor="#4A0023"
+                        BorderColor="Orange"
+                        SizeChanged="Frame_SizeChanged">
+                        <Label
+                            x:Name="speech"
+                            Text="{Binding CurrentClipetDialog.DialogString}"
+                            TextColor="Orange"
+                            WidthRequest="375" />
+                    </Frame>
+                </Frame>
                 <!--  162 characters allowed per box before it's gotta be split  -->
-                <Label
-                    x:Name="speech"
-                    FontSize="22"
-                    HeightRequest="120"
-                    Text="{Binding CurrentClipetDialog.DialogString}"
-                    TextColor="Orange"
-                    WidthRequest="375" />
+
             </Grid>
         </Grid>
     </Grid>

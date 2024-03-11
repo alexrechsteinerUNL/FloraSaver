@@ -96,4 +96,22 @@ public partial class ClipetOverlayPage : ContentPage
         get => GetValue(isSpeechSpaceEnabledProperty) as bool?;
         set => SetValue(isSpeechSpaceEnabledProperty, value);
     }
+
+    //https://stackoverflow.com/questions/77150403/how-to-add-controls-for-the-auto-resizing-label-based-on-height-and-width-in-ne Alter this so it isn't like that dude's
+    private void Frame_SizeChanged(object sender, EventArgs e)
+    {
+        var frameWidth = Frame.Width;
+        var frameHeight = Frame.Height;
+        var minFontSize = 8;
+        var maxFontSize = 24;
+        //My brain is shot here. Head empty. Fix this tomorrow.
+
+
+
+        //The fontsize can be adjusted according to the width of the frame, '10' means the ratio and you could change the ratio according to your needs.
+        var fontSize = Math.Min(maxFontSize, Math.Max(minFontSize, frameWidth / 10));
+
+        // Set the font size of the label
+        speech.FontSize = fontSize;
+    }
 }

@@ -251,133 +251,136 @@
                             <Setter Property="IsVisible" Value="True" />
                         </DataTrigger>
                     </Frame.Triggers>
-                    <VerticalStackLayout>
-                        <Grid x:Name="givenNameGrid" RowSpacing="5">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="30" />
-                                <RowDefinition Height="50" />
-                            </Grid.RowDefinitions>
-                            <FlexLayout Grid.Row="0">
-                                <Label Text="Given Name: " />
-                                <ImageButton
-                                    x:Name="_undoNameChange"
-                                    Grid.Column="0"
-                                    Command="{Binding GivenNameChangedSectionUndoCommand}"
-                                    IsVisible="{Binding GivenNameUndoButtonVisible}"
-                                    Source="undo_button.png"
-                                    WidthRequest="40" />
-                            </FlexLayout>
-                            <Frame
-                                Grid.Row="1"
-                                Padding="2,2"
-                                BackgroundColor="Transparent">
+                    <ScrollView>
+                        <VerticalStackLayout>
+                            <Grid x:Name="givenNameGrid" RowSpacing="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="50" />
+                                </Grid.RowDefinitions>
+                                <FlexLayout Grid.Row="0">
+                                    <Label Text="Given Name: " />
+                                    <ImageButton
+                                        x:Name="_undoNameChange"
+                                        Grid.Column="0"
+                                        Command="{Binding GivenNameChangedSectionUndoCommand}"
+                                        IsVisible="{Binding GivenNameUndoButtonVisible}"
+                                        Source="undo_button.png"
+                                        WidthRequest="40" />
+                                </FlexLayout>
                                 <Frame
-                                    Padding="0,2"
-                                    BackgroundColor="Transparent"
-                                    BorderColor="Transparent"
-                                    HorizontalOptions="FillAndExpand"
-                                    VerticalOptions="FillAndExpand">
-                                    <Entry
-                                        x:Name="_GivenName"
-                                        Completed="Entry_Completed"
+                                    Grid.Row="1"
+                                    Padding="2,2"
+                                    BackgroundColor="Transparent">
+                                    <Frame
+                                        Padding="0,2"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Transparent"
                                         HorizontalOptions="FillAndExpand"
-                                        Placeholder="Give your plant a name!"
-                                        Text="{Binding AlterPlant.GivenName, StringFormat='{0}', Mode=TwoWay}"
-                                        VerticalOptions="CenterAndExpand">
-                                        <Entry.Behaviors>
-                                            <toolkit:EventToCommandBehavior Command="{Binding GivenNameChangedCommand}" EventName="Unfocused" />
-                                        </Entry.Behaviors>
-                                    </Entry>
+                                        VerticalOptions="FillAndExpand">
+                                        <Entry
+                                            x:Name="_GivenName"
+                                            Completed="Entry_Completed"
+                                            HorizontalOptions="FillAndExpand"
+                                            Placeholder="Give your plant a name!"
+                                            Text="{Binding AlterPlant.GivenName, StringFormat='{0}', Mode=TwoWay}"
+                                            VerticalOptions="CenterAndExpand">
+                                            <Entry.Behaviors>
+                                                <toolkit:EventToCommandBehavior Command="{Binding GivenNameChangedCommand}" EventName="Unfocused" />
+                                            </Entry.Behaviors>
+                                        </Entry>
+                                    </Frame>
                                 </Frame>
-                            </Frame>
-                        </Grid>
-
-                        <Grid
-                            x:Name="dobGrid"
-                            ColumnDefinitions="*,*"
-                            RowSpacing="5">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="30" />
-                                <RowDefinition Height="50" />
-                            </Grid.RowDefinitions>
-                            <FlexLayout Grid.Row="0" Grid.ColumnSpan="2">
-                                <Label Text="Date Of Birth: " />
-                                <ImageButton
-                                    x:Name="_undoDobChange"
-                                    Grid.Column="0"
-                                    Command="{Binding DobChangedSectionUndoCommand}"
-                                    IsVisible="{Binding DobUndoButtonVisible}"
-                                    Source="undo_button.png"
-                                    WidthRequest="40" />
-                            </FlexLayout>
-                            <Frame
-                                Grid.Row="1"
-                                Grid.Column="0"
-                                Padding="2,2"
-                                BackgroundColor="Transparent">
-                                <Frame
-                                    Padding="0,2"
-                                    BackgroundColor="Transparent"
-                                    BorderColor="Transparent"
-                                    HorizontalOptions="CenterAndExpand"
-                                    VerticalOptions="FillAndExpand">
-                                    <DatePicker
-                                        x:Name="_DateOfBirth"
-                                        Grid.Column="1"
-                                        Date="{Binding AlterPlant.DateOfBirth, Mode=TwoWay}"
-                                        HorizontalOptions="FillAndExpand">
-                                        <DatePicker.Behaviors>
-                                            <toolkit:EventToCommandBehavior Command="{Binding DobChangedCommand}" EventName="PropertyChanged" />
-                                        </DatePicker.Behaviors>
-                                    </DatePicker>
-                                </Frame>
-                            </Frame>
-                        </Grid>
-
-                        <Grid x:Name="PlantImageGrid">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="30" />
-                                <RowDefinition Height="50" />
-                            </Grid.RowDefinitions>
-                            <FlexLayout Grid.Row="0">
-                                <Label Text="Upload Plant Image: " />
-                                <ImageButton
-                                    x:Name="_undoImageChange"
-                                    Grid.Column="0"
-                                    Command="{Binding ImageChangedSectionUndoCommand}"
-                                    IsVisible="{Binding ImageUndoButtonVisible}"
-                                    Source="undo_button.png"
-                                    WidthRequest="40" />
-                            </FlexLayout>
-                            <Button
-                                x:Name="PlantImageButton"
-                                Grid.Row="1"
-                                Command="{Binding ImageOfPlantToBase64Command}"
-                                Text="Upload" />
-                            <Grid
-                                Grid.Row="1"
-                                ColumnDefinitions="*, 70, 40"
-                                IsVisible="{Binding IsImageSelected}">
-                                <Button
-                                    x:Name="_ChangeImageButton"
-                                    Grid.Column="0"
-                                    Command="{Binding ImageOfPlantToBase64Command}"
-                                    Text="Change Image" />
-                                <ImageButton
-                                    x:Name="_ChangeImagePreview"
-                                    Grid.Column="1"
-                                    Command="{Binding ImageOfPlantToBase64Command}"
-                                    Source="{Binding AlterPlant.PlantImageSource}"
-                                    WidthRequest="60" />
-                                <Button
-                                    x:Name="_ClearImage"
-                                    Grid.Column="2"
-                                    Command="{Binding ClearImageCommand}"
-                                    Text="X"
-                                    WidthRequest="40" />
                             </Grid>
-                        </Grid>
-                    </VerticalStackLayout>
+
+                            <Grid
+                                x:Name="dobGrid"
+                                ColumnDefinitions="*,*"
+                                RowSpacing="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="50" />
+                                </Grid.RowDefinitions>
+                                <FlexLayout Grid.Row="0" Grid.ColumnSpan="2">
+                                    <Label Text="Date Of Birth: " />
+                                    <ImageButton
+                                        x:Name="_undoDobChange"
+                                        Grid.Column="0"
+                                        Command="{Binding DobChangedSectionUndoCommand}"
+                                        IsVisible="{Binding DobUndoButtonVisible}"
+                                        Source="undo_button.png"
+                                        WidthRequest="40" />
+                                </FlexLayout>
+                                <Frame
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Padding="2,2"
+                                    BackgroundColor="Transparent">
+                                    <Frame
+                                        Padding="0,2"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Transparent"
+                                        HorizontalOptions="CenterAndExpand"
+                                        VerticalOptions="FillAndExpand">
+                                        <DatePicker
+                                            x:Name="_DateOfBirth"
+                                            Grid.Column="1"
+                                            Date="{Binding AlterPlant.DateOfBirth, Mode=TwoWay}"
+                                            HorizontalOptions="FillAndExpand">
+                                            <DatePicker.Behaviors>
+                                                <toolkit:EventToCommandBehavior Command="{Binding DobChangedCommand}" EventName="PropertyChanged" />
+                                            </DatePicker.Behaviors>
+                                        </DatePicker>
+                                    </Frame>
+                                </Frame>
+                            </Grid>
+
+                            <Grid x:Name="PlantImageGrid">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="50" />
+                                </Grid.RowDefinitions>
+                                <FlexLayout Grid.Row="0">
+                                    <Label Text="Upload Plant Image: " />
+                                    <ImageButton
+                                        x:Name="_undoImageChange"
+                                        Grid.Column="0"
+                                        Command="{Binding ImageChangedSectionUndoCommand}"
+                                        IsVisible="{Binding ImageUndoButtonVisible}"
+                                        Source="undo_button.png"
+                                        WidthRequest="40" />
+                                </FlexLayout>
+                                <Button
+                                    x:Name="PlantImageButton"
+                                    Grid.Row="1"
+                                    Command="{Binding ImageOfPlantToBase64Command}"
+                                    Text="Upload" />
+                                <Grid
+                                    Grid.Row="1"
+                                    ColumnDefinitions="*, 70, 40"
+                                    IsVisible="{Binding IsImageSelected}">
+                                    <Button
+                                        x:Name="_ChangeImageButton"
+                                        Grid.Column="0"
+                                        Command="{Binding ImageOfPlantToBase64Command}"
+                                        Text="Change Image" />
+                                    <ImageButton
+                                        x:Name="_ChangeImagePreview"
+                                        Grid.Column="1"
+                                        Command="{Binding ImageOfPlantToBase64Command}"
+                                        Source="{Binding AlterPlant.PlantImageSource}"
+                                        WidthRequest="60" />
+                                    <Button
+                                        x:Name="_ClearImage"
+                                        Grid.Column="2"
+                                        Command="{Binding ClearImageCommand}"
+                                        Text="X"
+                                        WidthRequest="40" />
+                                </Grid>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </ScrollView>
+
                 </Frame>
 
                 <Frame
