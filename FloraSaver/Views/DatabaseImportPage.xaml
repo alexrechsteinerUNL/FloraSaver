@@ -10,8 +10,8 @@
     xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
     x:DataType="viewmodel:BackupRestoreViewModel">
     <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior Command="{Binding AppearingHandlingCommand}" EventName="Appearing" />
-        <toolkit:EventToCommandBehavior Command="{Binding DisappearingHandlingCommand}" EventName="Disappearing" />
+        <toolkit:EventToCommandBehavior Command="{Binding AppearingImportCommand}" EventName="Appearing" />
+        <toolkit:EventToCommandBehavior Command="{Binding DisappearingImportCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
     <Grid>
         <Image Aspect="Fill" Source="card_background_page.png" />
@@ -210,10 +210,10 @@
                     <RefreshView
                         Command="{Binding GetPlantsCommand}"
                         IsRefreshing="{Binding IsRefreshing}"
-                        IsVisible="{Binding ShowCurrentPlants}"
                         VerticalOptions="CenterAndExpand">
                         <CollectionView
                             x:Name="oldPlantDeck"
+                            IsVisible="{Binding ShowCurrentPlants}"
                             ItemsSource="{Binding OldPlants}"
                             SelectionMode="Multiple"
                             VerticalOptions="CenterAndExpand">

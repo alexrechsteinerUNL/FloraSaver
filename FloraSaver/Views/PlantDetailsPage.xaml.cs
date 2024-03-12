@@ -32,4 +32,15 @@ public partial class PlantDetailsPage : ContentPage
     {
         ((PlantDetailsViewModel)(this.BindingContext)).ValidateAlterPlantAsync();
     }
+    //Alter this so that if the frame's width and height are smaller than 600 a "compact mode" is engaged. Where the inside layout is 4* instead of 10*
+    private void Frame_SizeChanged(object sender, EventArgs e)
+    {
+        var frameWidth = Frame.Width;
+        var frameHeight = Frame.Height;
+
+        if (frameWidth < 600 && frameHeight < 600)
+        {
+
+        }
+    }
 }

@@ -30,8 +30,9 @@
             Padding="20"
             BackgroundColor="Black"
             BorderColor="{Binding AlterPlant.GroupColor}"
-            MaximumHeightRequest="1600">
-            <Grid RowSpacing="10">
+            MaximumHeightRequest="1600"
+            SizeChanged="Frame_SizeChanged">
+            <Grid RowSpacing="10" x:Name="spacingRows">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="10*" />
@@ -254,7 +255,7 @@
                                 </Frame>
                             </Frame>
                         </Grid>
-                        
+
                         <Grid x:Name="givenNameGrid" RowSpacing="5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="30" />

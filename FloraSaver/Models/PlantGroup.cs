@@ -66,6 +66,8 @@ namespace FloraSaver.Models
 
         [Ignore]
         public bool isEdited => isNameEdited || isColorEdited;
+        [Ignore]
+        GroupValidationArgs validationArgs { get; set; }
 
         public PlantGroup() { }
 

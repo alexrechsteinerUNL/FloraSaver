@@ -37,6 +37,14 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
+        private async Task AppearingImportAsync()
+        {
+            ShouldUpdateCheckService.ForceToGetNewGroupData(); await GetPlantGroupsAsync();
+            ShouldUpdateCheckService.ForceToGetNewPlantData(); await GetPlantsAsync(); 
+            OldPlants = new ObservableCollection<Plant>(DataPlants);
+        }
+
+        [RelayCommand]
         private async Task BackupDatabaseAsync(string databaseFileName)
         {
             if (string.IsNullOrWhiteSpace(databaseFileName))
