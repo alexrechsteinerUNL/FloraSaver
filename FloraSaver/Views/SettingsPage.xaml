@@ -334,7 +334,6 @@
                                                             <Entry
                                                                 x:Name="_GroupName"
                                                                 Grid.Column="1"
-                                                                toolkit:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference _GroupName}"
                                                                 Completed="Entry_Completed"
                                                                 FontSize="16"
                                                                 Placeholder="Enter plant species"

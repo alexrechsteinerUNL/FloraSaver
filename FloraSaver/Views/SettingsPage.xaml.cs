@@ -29,14 +29,22 @@ public partial class SettingsPage : ContentPage
 
     }
 
+    private void Validate(object sender, EventArgs e)
+    {
+        ((SettingsViewModel)(this.BindingContext)).ValidateGroupAsync();
+    }
+
     private void Entry_Completed(object sender, EventArgs e)
     {
         var entry = sender as Entry;
         entry.IsEnabled = false;
         entry.IsEnabled = true;
-        ((SettingsViewModel)(this.BindingContext)).GroupNameEdit();
+        
+        //((SettingsViewModel)(this.BindingContext)).GroupNameEdit();
         var entryContext = (PlantGroup)entry.BindingContext;
         plantGroupDeck.ScrollTo(entryContext, animate: false);
+
+        
     }
 
     private void ScrollTo_ImageButton_Clicked(object sender, EventArgs e)

@@ -67,7 +67,12 @@ namespace FloraSaver.Models
         [Ignore]
         public bool isEdited => isNameEdited || isColorEdited;
         [Ignore]
-        GroupValidationArgs validationArgs { get; set; }
+        public GroupValidationArgs Validation { get; set; } = new GroupValidationArgs();
+
+        public void Validate(List<string> unsafeGroupNames)
+        {
+            Validation.Validate(this, unsafeGroupNames);
+        }
 
         public PlantGroup() { }
 

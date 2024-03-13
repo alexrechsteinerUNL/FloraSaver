@@ -25,8 +25,6 @@ namespace FloraSaver.ViewModels
 
         private List<PlantGroup> initialPlantGroups = new();
 
-
-
         private List<PlantGroup> pickerPlantGroups;
 
         public List<PlantGroup> PickerPlantGroups
@@ -54,6 +52,7 @@ namespace FloraSaver.ViewModels
         protected bool isBeingUndone = false;
         [ObservableProperty]
         protected bool nameEntryUndoButtonVisible = false;
+        
         [RelayCommand]
         public void GroupNameEdit()
         {
@@ -200,6 +199,22 @@ namespace FloraSaver.ViewModels
         private TimeSpan nightTime;
 
         [RelayCommand]
+        public async Task ValidateGroupAsync(string includedGroupName = null)
+        {
+            foreach(var group in PickerPlantGroups)
+            {
+                if (includedGroupName != null)
+                {
+                    group.Validate(initialPlantGroups.Where(_ => _.GroupName != includedGroupName).Select(_ => _.GroupName).ToList());
+                } else
+                {
+                    group.Validate(new());
+                }
+                
+            }
+        }
+
+        [RelayCommand]
         partial void OnMorningTimeChanged(TimeSpan value)
         {
             if (!IsInitialization)
@@ -259,12 +274,6 @@ namespace FloraSaver.ViewModels
             await Shell.Current.GoToAsync($"{nameof(DatabaseImportPage)}", true);
         }
 
-        [RelayCommand]
-        public void UpdateColor(GroupColors value)
-        {
-            Console.WriteLine("bloop");
-        }
-
 
         [RelayCommand]
         protected void VisiblePlantAttentionGetter()
@@ -292,14 +301,22 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         private async Task SaveGroupChangeAsync(PlantGroup plantGroup)
         {
-            await _databaseService.AddUpdateNewPlantGroupAsync(plantGroup, true, initialPlantGroups.FirstOrDefault(_ => _.GroupId == plantGroup.GroupId).GroupName);
-            initialPlantGroups.FirstOrDefault(_ => _.GroupId == plantGroup.GroupId).GroupName = plantGroup.GroupName;
-            initialPlantGroups.FirstOrDefault(_ => _.GroupId == plantGroup.GroupId).GroupColorHex = plantGroup.GroupColorHex;
-            PickerPlantGroups.FirstOrDefault(_ => _.Equals(plantGroup)).isNameEdited = false;
-            PickerPlantGroups.FirstOrDefault(_ => _.Equals(plantGroup)).isColorEdited = false;
-            SetItem();
-            ShouldUpdateCheckService.ForceToGetNewGroupData();
-            ShouldUpdateCheckService.ForceToGetNewPlantData();
+            plantGroup.Validate(initialPlantGroups.Where(_ => _.GroupName != plantGroup.GroupName).Select(_ => _.GroupName).ToList());
+            if (plantGroup.Validation.IsSuccessful)
+            {
+                await _databaseService.AddUpdateNewPlantGroupAsync(plantGroup, true, initialPlantGroups.FirstOrDefault(_ => _.GroupId == plantGroup.GroupId).GroupName);
+                initialPlantGroups.FirstOrDefault(_ => _.GroupId == plantGroup.GroupId).GroupName = plantGroup.GroupName;
+                initialPlantGroups.FirstOrDefault(_ => _.GroupId == plantGroup.GroupId).GroupColorHex = plantGroup.GroupColorHex;
+                PickerPlantGroups.FirstOrDefault(_ => _.Equals(plantGroup)).isNameEdited = false;
+                PickerPlantGroups.FirstOrDefault(_ => _.Equals(plantGroup)).isColorEdited = false;
+                SetItem();
+                ShouldUpdateCheckService.ForceToGetNewGroupData();
+                ShouldUpdateCheckService.ForceToGetNewPlantData();
+            } else
+            {
+                await Application.Current.MainPage.DisplayAlert("OH HOLD ON!", plantGroup.Validation.Message, "Gotcha");
+            }
+            
         }
 
         [RelayCommand]
