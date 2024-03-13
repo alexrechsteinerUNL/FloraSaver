@@ -87,6 +87,7 @@ namespace FloraSaver.ViewModels
             NewPlantsFromFile = new(await _databaseService.TestDbConnectionFromFileAsync(result.FullPath));
             OnPropertyChanged(nameof(NewPlantsFromFile));
             if (NewPlantsFromFile.Count > 0 ) { ShowCurrentPlants = true; }
+            OnPropertyChanged(nameof(OldPlants));
             return;
         }
 
@@ -149,6 +150,17 @@ namespace FloraSaver.ViewModels
                 ShouldUpdateCheckService.ForceToGetNewGroupData();
                 ShouldUpdateCheckService.ForceToGetNewPlantData();
             }
+        }
+
+        [RelayCommand]
+        protected async Task GoBackAsync()
+        {
+            await Shell.Current.GoToAsync($"..", true, new Dictionary<string, object>
+            {
+                {"ShouldGetNewData", true },
+                {"ShouldGetNewGroupData", true }
+            });
+            return;
         }
 
         //End Testing

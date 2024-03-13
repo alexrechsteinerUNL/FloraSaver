@@ -8,12 +8,110 @@
     xmlns:model="clr-namespace:FloraSaver.Models"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
-    x:DataType="viewmodel:BackupRestoreViewModel">
+    x:DataType="viewmodel:BackupRestoreViewModel"
+    BackgroundColor="Transparent"
+    Shell.NavBarIsVisible="false"
+    Shell.PresentationMode="Modal">
     <!--<ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding AppearingHandlingCommand}" EventName="Appearing" />
         <toolkit:EventToCommandBehavior Command="{Binding DisappearingHandlingCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>-->
-    <Grid>
+    <VerticalStackLayout
+        Padding="10"
+        HorizontalOptions="Center"
+        MaximumWidthRequest="500"
+        VerticalOptions="Center">
+        <Frame
+            Padding="20"
+            BackgroundColor="Black"
+            HeightRequest="200"
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="CenterAndExpand">
+            <Grid RowSpacing="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Button
+                    x:Name="goBack"
+                    Grid.Row="0"
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:BackupRestoreViewModel}}, Path=GoBackCommand}"
+                    HorizontalOptions="Start"
+                    IsEnabled="{Binding IsNotBusy}"
+                    Text="Go Back" />
+                <VerticalStackLayout
+                    Grid.Row="1"
+                    Spacing="10"
+                    VerticalOptions="Center">
+                    <Grid
+                        x:Name="ExportGrid"
+                        ColumnSpacing="5"
+                        RowSpacing="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <FlexLayout Grid.Row="0" Grid.ColumnSpan="2">
+                            <Label Text="Export Plants: " />
+                        </FlexLayout>
+                        <Frame
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Padding="2,2"
+                            BackgroundColor="Transparent"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+                            <Frame
+                                Padding="0,2"
+                                BackgroundColor="Transparent"
+                                BorderColor="Transparent"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand">
+                                <Entry
+                                    x:Name="_exportName"
+                                    Completed="Entry_Completed"
+                                    HorizontalOptions="FillAndExpand"
+                                    Placeholder="{Binding DefaultFileName}"
+                                    ReturnType="Send"
+                                    Text="{Binding FileName, StringFormat='{0}', Mode=TwoWay}"
+                                    VerticalOptions="CenterAndExpand" />
+                            </Frame>
+                        </Frame>
+                        <Button
+                            x:Name="exportButton"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Padding="0"
+                            Command="{Binding BackupDatabaseCommand}"
+                            CommandParameter="{Binding Source={x:Reference _exportName}, Path=Text}"
+                            Text="✓" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Grid>
+        </Frame>
+        <Frame
+            BackgroundColor="DimGray"
+            IsVisible="{Binding IsFriendlyLabelVisible}"
+            Opacity=".9"
+            WidthRequest="300">
+            <Label
+                x:Name="friendlyNotification"
+                IsVisible="{Binding IsFriendlyLabelVisible}"
+                Text="{Binding FriendlyLabel}" />
+        </Frame>
+    </VerticalStackLayout>
+
+
+
+
+
+
+
+    <!--<Grid>
         <Image Aspect="Fill" Source="card_background_page.png" />
         <Grid RowDefinitions="*,*">
 
@@ -74,7 +172,9 @@
                             HeightRequest="140"
                             Source="speech_bubble.png"
                             WidthRequest="400" />
-                        <!--  162 characters allowed per box before it's gotta be split  -->
+    -->
+    <!--  162 characters allowed per box before it's gotta be split  -->
+    <!--
                         <Label
                             x:Name="speech"
                             FontSize="22"
@@ -85,6 +185,6 @@
                     </Grid>
                 </Grid>
             </VerticalStackLayout>
-        </Grid>
-    </Grid>
+        </Grid>-->
+    <!--</Grid>-->
 </ContentPage>
