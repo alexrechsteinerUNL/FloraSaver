@@ -324,6 +324,7 @@
                                                         Grid.ColumnSpan="2"
                                                         Padding="2,2"
                                                         BackgroundColor="Transparent"
+                                                        BorderColor="{Binding Validation.NameSectionColor}"
                                                         HorizontalOptions="FillAndExpand">
                                                         <Frame
                                                             Padding="0,2"
@@ -335,7 +336,6 @@
                                                                 x:Name="_GroupName"
                                                                 Grid.Column="1"
                                                                 Completed="Entry_Completed"
-                                                                Focused="_GroupName_Focused"
                                                                 FontSize="16"
                                                                 Placeholder="Enter plant group name"
                                                                 Text="{Binding GroupName, StringFormat='{0}', Mode=TwoWay}"

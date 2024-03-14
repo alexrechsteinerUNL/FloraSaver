@@ -61,11 +61,11 @@
             HorizontalOptions="CenterAndExpand"
             RowSpacing="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height=".16*" />
-                <RowDefinition Height=".16*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height=".35*" />
-                <RowDefinition Height=".2*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid
                 Grid.Row="0"
@@ -74,7 +74,9 @@
                 <Frame
                     Padding="5"
                     BackgroundColor="Black"
-                    HorizontalOptions="FillAndExpand">
+                    HorizontalOptions="FillAndExpand"
+                    MaximumHeightRequest="60"
+                    VerticalOptions="Start">
                     <CollectionView
                         x:Name="groupdeck"
                         ItemsLayout="HorizontalList"
@@ -103,6 +105,8 @@
                 Grid.Row="1"
                 Grid.ColumnSpan="3"
                 HorizontalOptions="StartAndExpand"
+                MaximumHeightRequest="70"
+                VerticalOptions="Start"
                 WidthRequest="380">
 
                 <Frame Padding="10,5" BackgroundColor="Black">
@@ -140,6 +144,7 @@
 
 
             <Frame
+                x:Name="_RefreshViewSpace"
                 Grid.Row="2"
                 Grid.ColumnSpan="3"
                 BackgroundColor="Transparent"
@@ -341,6 +346,7 @@
                 </RefreshView>
             </Frame>
             <Frame
+                x:Name="_bigButtonSpace"
                 Grid.Row="3"
                 Grid.ColumnSpan="3"
                 Padding="10"
@@ -399,6 +405,41 @@
                         IsEnabled="{Binding IsNotBusy}"
                         Source="reload_icon.png"
                         WidthRequest="36" />
+                </Frame>
+                <Frame
+                    x:Name="_littleButtonSpace"
+                    Grid.Column="0"
+                    Padding="10"
+                    BackgroundColor="Black"
+                    HeightRequest="60"
+                    HorizontalOptions="Start"
+                    MaximumWidthRequest="360"
+                    VerticalOptions="Start">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ImageButton
+                            Grid.Column="0"
+                            Aspect="AspectFit"
+                            BackgroundColor="Black"
+                            Command="{Binding CheckAllSelectedWaterCommand}"
+                            Source="water_timer_visual.png" />
+                        <ImageButton
+                            Grid.Column="1"
+                            Aspect="AspectFit"
+                            BackgroundColor="Black"
+                            Command="{Binding CheckAllSelectedMistCommand}"
+                            Source="refresh_timer_visual.png" />
+                        <ImageButton
+                            Grid.Column="2"
+                            Aspect="AspectFit"
+                            BackgroundColor="Black"
+                            Command="{Binding CheckAllSelectedMoveCommand}"
+                            Source="sun_timer_visual.png" />
+                    </Grid>
                 </Frame>
                 <Button
                     x:Name="selectNone"

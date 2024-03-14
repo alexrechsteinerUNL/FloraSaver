@@ -8,15 +8,16 @@
     xmlns:model="clr-namespace:FloraSaver.Models"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
-    x:DataType="viewmodel:BackupRestoreViewModel">
+    x:DataType="viewmodel:BackupRestoreViewModel"
+    BackgroundColor="Transparent"
+    Shell.PresentationMode="Modal">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding AppearingImportCommand}" EventName="Appearing" />
         <toolkit:EventToCommandBehavior Command="{Binding DisappearingImportCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
     <Grid>
-        <Image Aspect="Fill" Source="card_background_page.png" />
-        <Grid RowDefinitions="*,*">
-            <Grid Grid.Row="0" RowDefinitions="Auto, 5*, Auto">
+        <Grid Grid.Row="0" RowDefinitions=".8*,.1*,.8*">
+            <Grid Grid.Row="0" RowDefinitions="Auto, *">
                 <Button
                     Grid.Row="0"
                     Command="{Binding ImportDatabaseCommand}"
@@ -191,17 +192,17 @@
                         </CollectionView.ItemTemplate>
                     </CollectionView>
                 </Frame>
-                <Frame
-                    Grid.Row="2"
-                    Padding="0"
-                    BackgroundColor="Black"
-                    HeightRequest="40">
-                    <Label HorizontalOptions="Center">
-                        ▲New ▼Current
-                    </Label>
-                </Frame>
             </Grid>
-            <Grid Grid.Row="1" RowDefinitions="*,Auto">
+            <Frame
+                Grid.Row="1"
+                Padding="0"
+                BackgroundColor="Black"
+                VerticalOptions="Fill">
+                <Label HorizontalOptions="Center" VerticalOptions="Center">
+                    ▲New ▼Current
+                </Label>
+            </Frame>
+            <Grid Grid.Row="2" RowDefinitions="*,Auto">
                 <Frame
                     Grid.Row="0"
                     BackgroundColor="Black"
@@ -376,7 +377,8 @@
                 <Button
                     Grid.Row="1"
                     Command="{Binding AcceptMergeCommand}"
-                    Text="Accept Merge" />
+                    Text="Accept Merge"
+                    VerticalOptions="Start" />
             </Grid>
 
         </Grid>

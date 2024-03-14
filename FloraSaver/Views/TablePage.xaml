@@ -72,10 +72,10 @@
             HorizontalOptions="CenterAndExpand"
             RowSpacing="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="8.8*" />
-                <RowDefinition Height="1.16*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid
@@ -86,7 +86,8 @@
                     Padding="5"
                     BackgroundColor="Black"
                     HorizontalOptions="FillAndExpand"
-                    VerticalOptions="Center">
+                    MaximumHeightRequest="60"
+                    VerticalOptions="Start">
                     <CollectionView
                         x:Name="groupdeck"
                         ItemsLayout="HorizontalList"
@@ -116,9 +117,14 @@
                 Grid.Row="1"
                 Grid.ColumnSpan="3"
                 HorizontalOptions="StartAndExpand"
+                MaximumHeightRequest="70"
+                VerticalOptions="Start"
                 WidthRequest="380">
 
-                <Frame Padding="10,5" BackgroundColor="Black">
+                <Frame
+                    Padding="10,5"
+                    BackgroundColor="Black"
+                    VerticalOptions="Start">
                     <Grid ColumnSpacing="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />

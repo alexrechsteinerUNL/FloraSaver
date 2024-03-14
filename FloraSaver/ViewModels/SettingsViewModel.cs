@@ -35,8 +35,6 @@ namespace FloraSaver.ViewModels
                 SetObservableProperty(ref pickerPlantGroups, value);
             }
         }
-        [ObservableProperty]
-        public bool isEntryCheckPassed = true;
 
         [ObservableProperty]
         protected List<Interval> overduePlantsInterval;
@@ -58,16 +56,16 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         public void GroupNameEdit()
         {
-            if (!IsInitialization && !IsBeingUndone && PickerPlantGroups is not null && IsEntryCheckPassed)
+            if (!IsInitialization && !IsBeingUndone && PickerPlantGroups is not null)
             {
-                foreach (var plant in PickerPlantGroups.Where(_ => !initialPlantGroups.Select(_ => _.GroupName).Contains(_.GroupName)))
+                foreach (var group in PickerPlantGroups.Where(_ => !initialPlantGroups.Select(_ => _.GroupName).Contains(_.GroupName)))
                 {
-                    plant.isNameEdited = true;
+                    group.isNameEdited = true;
+                    group.Validate(initialPlantGroups.Select(_ => _.GroupName).ToList());
                 }
                 NameEntryUndoButtonVisible = true;
                 SetItem();
                 OnPropertyChanged(nameof(VisiblePlantGroups));
-                IsEntryCheckPassed = false;
             }
             return;
         }
@@ -79,6 +77,7 @@ namespace FloraSaver.ViewModels
             IsBeingUndone = false;
             group.isNameEdited = false;
             NameEntryUndoButtonVisible = false;
+            group.Validate(initialPlantGroups.Where(_ => _.GroupId != group.GroupId).Select(_ => _.GroupName).ToList());
             SetItem();
             OnPropertyChanged(nameof(VisiblePlantGroups));
         }
@@ -90,9 +89,10 @@ namespace FloraSaver.ViewModels
         {
             if (!IsInitialization && !IsBeingUndone)
             {
-                foreach (var plant in PickerPlantGroups.Where(_ => !initialPlantGroups.Select(_ => _.GroupColorHex).Contains(_.GroupColorHex)))
+                foreach (var group in PickerPlantGroups.Where(_ => !initialPlantGroups.Select(_ => _.GroupColorHex).Contains(_.GroupColorHex)))
                 {
-                    plant.isColorEdited = true;
+                    group.isColorEdited = true;
+                    group.Validate(initialPlantGroups.Select(_ => _.GroupName).ToList());
                 }
                 ColorEntryUndoButtonVisible = true;
                 SetItem();
@@ -107,6 +107,7 @@ namespace FloraSaver.ViewModels
             PickerPlantGroups.FirstOrDefault(_ => _.GroupId == group.GroupId).GroupColorHex = initialPlantGroups?.FirstOrDefault(_ => _.GroupId == group.GroupId).GroupColorHex ?? PickerPlantGroups.FirstOrDefault(_ => _.GroupId == group.GroupId).GroupColorHex;
             IsBeingUndone = false;
             group.isColorEdited = false;
+            group.Validate(initialPlantGroups.Where(_ => _.GroupId != group.GroupId).Select(_ => _.GroupName).ToList());
             ColorEntryUndoButtonVisible = false;
             SetItem();
             OnPropertyChanged(nameof(VisiblePlantGroups));
@@ -202,13 +203,13 @@ namespace FloraSaver.ViewModels
         private TimeSpan nightTime;
 
         [RelayCommand]
-        public async Task ValidateGroupAsync(string includedGroupName = null)
+        public async Task ValidateGroupAsync(int includedGroupId = -1)
         {
             foreach(var group in PickerPlantGroups)
             {
-                if (includedGroupName != null)
+                if (includedGroupId != -1)
                 {
-                    group.Validate(initialPlantGroups.Where(_ => _.GroupName != includedGroupName).Select(_ => _.GroupName).ToList());
+                    group.Validate(initialPlantGroups.Where(_ => _.GroupId != includedGroupId).Select(_ => _.GroupName).ToList());
                 } else
                 {
                     group.Validate(new());
@@ -304,7 +305,7 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         private async Task SaveGroupChangeAsync(PlantGroup plantGroup)
         {
-            plantGroup.Validate(initialPlantGroups.Where(_ => _.GroupName != plantGroup.GroupName).Select(_ => _.GroupName).ToList());
+            plantGroup.Validate(initialPlantGroups.Where(_ => _.GroupId != plantGroup.GroupId).Select(_ => _.GroupName).ToList());
             if (plantGroup.Validation.IsSuccessful)
             {
                 await _databaseService.AddUpdateNewPlantGroupAsync(plantGroup, true, initialPlantGroups.FirstOrDefault(_ => _.GroupId == plantGroup.GroupId).GroupName);
