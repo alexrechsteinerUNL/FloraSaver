@@ -35,6 +35,8 @@ namespace FloraSaver.ViewModels
                 SetObservableProperty(ref pickerPlantGroups, value);
             }
         }
+        [ObservableProperty]
+        public bool isEntryCheckPassed = true;
 
         [ObservableProperty]
         protected List<Interval> overduePlantsInterval;
@@ -56,7 +58,7 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         public void GroupNameEdit()
         {
-            if (!IsInitialization && !IsBeingUndone)
+            if (!IsInitialization && !IsBeingUndone && PickerPlantGroups is not null && IsEntryCheckPassed)
             {
                 foreach (var plant in PickerPlantGroups.Where(_ => !initialPlantGroups.Select(_ => _.GroupName).Contains(_.GroupName)))
                 {
@@ -65,6 +67,7 @@ namespace FloraSaver.ViewModels
                 NameEntryUndoButtonVisible = true;
                 SetItem();
                 OnPropertyChanged(nameof(VisiblePlantGroups));
+                IsEntryCheckPassed = false;
             }
             return;
         }

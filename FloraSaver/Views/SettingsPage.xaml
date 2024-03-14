@@ -335,11 +335,10 @@
                                                                 x:Name="_GroupName"
                                                                 Grid.Column="1"
                                                                 Completed="Entry_Completed"
+                                                                Focused="_GroupName_Focused"
                                                                 FontSize="16"
-                                                                Placeholder="Enter plant species"
-                                                                ReturnType="Send"
+                                                                Placeholder="Enter plant group name"
                                                                 Text="{Binding GroupName, StringFormat='{0}', Mode=TwoWay}"
-                                                                Unfocused="Entry_Completed"
                                                                 VerticalOptions="CenterAndExpand"
                                                                 WidthRequest="180" />
                                                         </Frame>
@@ -466,6 +465,15 @@
             Text="">
             <Label.Behaviors>
                 <toolkit:EventToCommandBehavior Command="{Binding SetItemCommand}" EventName="PropertyChanged" />
+            </Label.Behaviors>
+        </Label>
+
+        <Label
+            x:Name="hiddenSpacerForEntryUpdate"
+            IsVisible="False"
+            Text="">
+            <Label.Behaviors>
+                <toolkit:EventToCommandBehavior Command="{Binding GroupNameEditCommand}" EventName="PropertyChanged" />
             </Label.Behaviors>
         </Label>
         <!--<Label
