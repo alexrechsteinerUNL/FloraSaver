@@ -22,6 +22,7 @@
             Source="spaced_background.jpg" />
         <Image
             Aspect="AspectFit"
+            
             IsVisible="{Binding UseFullImage}"
             Source="homepagebackgroundsecondpassnoflowers.png"
             VerticalOptions="FillAndExpand" />

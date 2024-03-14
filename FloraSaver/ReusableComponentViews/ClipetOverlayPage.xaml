@@ -17,7 +17,7 @@
         <toolkit:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
 
-    <Grid Padding="0">
+    <Grid>
         <Grid.GestureRecognizers>
             <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ClipetOverlayViewModel}}, Path=MoveToNextTextBoxCommand}" />
         </Grid.GestureRecognizers>
@@ -33,7 +33,7 @@
             HorizontalOptions="FillAndExpand"
             RowDefinitions="*, .2*"
             RowSpacing="0"
-            WidthRequest="400">
+            WidthRequest="390">
             <Image
                 x:Name="displaySpace"
                 Grid.Row="0"

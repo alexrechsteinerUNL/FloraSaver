@@ -10,6 +10,13 @@ public partial class DatabaseImportPage : ContentPage
         BindingContext = viewModel;
     }
 
+    protected override void OnSizeAllocated(double width, double height)
+    {
+        base.OnSizeAllocated(width, height);
+        ((BackupRestoreViewModel)(this.BindingContext)).ReconfigureSpanForScreenSize(width - 40, height - 40);
+        
+    }
+
     private static void Entry_Completed(object sender, EventArgs e)
     {
         var entry = sender as Entry;

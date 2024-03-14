@@ -212,7 +212,6 @@
                                                     TextColor="{Binding GroupColor}"
                                                     VerticalOptions="Center" />
                                             </Frame>
-
                                         </Grid>
 
                                         <Grid
