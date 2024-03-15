@@ -16,7 +16,7 @@ public partial class HandlingPage : ContentPage
     {
         base.OnSizeAllocated(width, height);
         ((TableViewModel)(this.BindingContext)).ReconfigureSpanForScreenSize(width, height);
-        if (_RefreshViewSpace.Height < _RefreshViewSpace.Width && _RefreshViewSpace.Width / _RefreshViewSpace.Height > 1.333333333 && _RefreshViewSpace.Height < 500)
+        if (height < 400)
         {
             _bigButtonSpace.IsVisible = false;
             _littleButtonSpace.IsVisible = true;

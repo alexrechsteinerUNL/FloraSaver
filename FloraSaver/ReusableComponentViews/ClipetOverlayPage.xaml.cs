@@ -120,10 +120,6 @@ public partial class ClipetOverlayPage : ContentPage
             }
             
         }
-
-        //The fontsize can be adjusted according to the width of the frame, '10' means the ratio and you could change the ratio according to your needs.
-        
-        // Set the font size of the label
         speech.FontSize = fontSize;
     }
 }

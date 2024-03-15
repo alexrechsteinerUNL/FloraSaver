@@ -66,6 +66,8 @@ namespace FloraSaver.ViewModels
             {
                 UseStretchedImage = false;
             }
+
+
         }
 
         public void SetNextPlant()

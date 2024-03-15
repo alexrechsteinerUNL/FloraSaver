@@ -13,6 +13,17 @@ public partial class MainPage : ContentPage
     {
         base.OnSizeAllocated(width, height);
         ((MainViewModel)(this.BindingContext)).ReconfigureValuesForScreenSize(width, height);
+        
+        if (height < 600)
+        {
+            _FullMode.IsVisible = false;
+            _CompactMode.IsVisible = true;
+            
+        } else
+        {
+            _FullMode.IsVisible = true;
+            _CompactMode.IsVisible = false;
+        }
     }
 
     protected override void OnAppearing()
