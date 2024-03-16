@@ -15,7 +15,7 @@
     </ContentPage.Behaviors>
 
     <Grid>
-        <Image Aspect="AspectFill" Source="plants_background.png" />
+        <Image Aspect="AspectFill" Source="spaced_background.jpg" />
         <ScrollView>
             <VerticalStackLayout
                 Padding="20"

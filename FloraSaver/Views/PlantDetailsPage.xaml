@@ -32,33 +32,35 @@
             BorderColor="{Binding AlterPlant.GroupColor}"
             MaximumHeightRequest="1600"
             SizeChanged="Frame_SizeChanged">
-            <Grid RowSpacing="10" x:Name="spacingRows">
+            <Grid x:Name="spacingRows" RowSpacing="10">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="10*" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <HorizontalStackLayout Grid.Row="0" Spacing="10">
+
+
+
+
+                <Grid Grid.Row="0" RowDefinitions="Auto">
                     <Button
                         x:Name="goBack"
                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=GoToTableCommand}"
+                        HeightRequest="60"
                         HorizontalOptions="Start"
                         IsEnabled="{Binding IsNotBusy}"
-                        Text="Go Back" />
+                        Text="Go Back"
+                        WidthRequest="90" />
                     <Button
                         x:Name="deletePlants"
                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=DeleteCommand}"
                         CommandParameter="{Binding Plant}"
+                        HeightRequest="60"
                         HorizontalOptions="End"
                         IsEnabled="{Binding IsNotBusy}"
-                        Text="Delete" />
-                    <!--<Button
-                        x:Name="testBackup"
-                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=TestFilesaverCommand}"
-                        HorizontalOptions="End"
-                        IsEnabled="{Binding IsNotBusy}"
-                        Text="TestDatabase" />-->
-                </HorizontalStackLayout>
+                        Text="Delete"
+                        WidthRequest="90" />
+                </Grid>
                 <ScrollView Grid.Row="1">
                     <VerticalStackLayout Spacing="10">
                         <Grid
@@ -306,7 +308,7 @@
                                 <RowDefinition Height="50" />
                             </Grid.RowDefinitions>
                             <FlexLayout Grid.Row="0" Grid.ColumnSpan="2">
-                                <Label Text="Date Of Birth: " TextColor="{Binding AlterPlant.Validation.BirthdaySectionColor}" />
+                                <Label Text="*Date Of Birth: " TextColor="{Binding AlterPlant.Validation.BirthdaySectionColor}" />
                                 <ImageButton
                                     x:Name="_undoDobChange"
                                     Grid.Column="0"
@@ -1257,20 +1259,26 @@
                     </VerticalStackLayout>
                 </ScrollView>
 
-                <HorizontalStackLayout Grid.Row="2" Spacing="10">
+                <Grid Grid.Row="2" RowDefinitions="Auto">
                     <Button
                         x:Name="addUpdate"
                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=AddUpdateCommand}"
                         CommandParameter="{Binding Plant}"
+                        HeightRequest="60"
+                        HorizontalOptions="Start"
                         IsEnabled="{Binding IsNotBusy}"
-                        Text="Update" />
+                        Text="Update"
+                        WidthRequest="90" />
                     <Button
                         x:Name="switchToSetup"
                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SwitchDetailsCommand}"
                         CommandParameter="{StaticResource False}"
+                        HeightRequest="60"
+                        HorizontalOptions="End"
                         IsEnabled="{Binding IsNotBusy}"
-                        Text="swap" />
-                </HorizontalStackLayout>
+                        Text="swap"
+                        WidthRequest="90" />
+                </Grid>
 
             </Grid>
         </Frame>

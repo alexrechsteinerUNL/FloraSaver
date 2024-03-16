@@ -76,6 +76,7 @@ namespace FloraSaver.ViewModels
             {
                 AreNoPlants = true;
             }
+            HideSearchSuggestionBox();
             IsInitialization = false;
         }
 

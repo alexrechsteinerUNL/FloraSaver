@@ -122,9 +122,9 @@ namespace FloraSaver.Models
             IsNameSectionInvalid = string.IsNullOrEmpty(plant.GivenName) || unsafePlantNames.Contains(plant.GivenName);
             IsGroupSectionInvalid = (string.IsNullOrEmpty(plant.PlantGroupName) || string.IsNullOrEmpty(plant.GroupColorHexString));
             IsBirthdaySectionInvalid = CheckIfLastDateFurtherThanNextDate(plant.DateOfBirth, DateTime.Now);
-            IsDateTimeNextWateringSectionInvalid = CheckIfLastDateFurtherThanNextDate(plant.DateOfLastWatering, plant.DateOfNextWatering);
-            IsDateTimeNextMistingSectionInvalid = CheckIfLastDateFurtherThanNextDate(plant.DateOfLastMisting, plant.DateOfNextMisting);
-            IsDateTimeNextMovingSectionInvalid = CheckIfLastDateFurtherThanNextDate(plant.DateOfLastMove, plant.DateOfNextMove);
+            IsDateTimeNextWateringSectionInvalid = CheckIfLastDateFurtherThanNextDate(plant.DateOfLastWatering + plant.TimeOfLastWatering, plant.DateOfNextWatering + plant.TimeOfNextWatering);
+            IsDateTimeNextMistingSectionInvalid = CheckIfLastDateFurtherThanNextDate(plant.DateOfLastMisting + plant.TimeOfLastMisting, plant.DateOfNextMisting + plant.TimeOfNextMisting);
+            IsDateTimeNextMovingSectionInvalid = CheckIfLastDateFurtherThanNextDate(plant.DateOfLastMove + plant.TimeOfLastMove, plant.DateOfNextMove + plant.TimeOfNextMove);
         }
 
         public bool CheckIfLastDateFurtherThanNextDate(DateTime lastDate, DateTime nextDate)
