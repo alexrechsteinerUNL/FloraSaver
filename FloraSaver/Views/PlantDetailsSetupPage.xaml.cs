@@ -18,16 +18,16 @@ public partial class PlantDetailsSetupPage : ContentPage
         base.OnSizeAllocated(width, height);
         //((MainViewModel)(this.BindingContext)).ReconfigureValuesForScreenSize(width, height);
 
-        if (height < 600)
+        if (height < 700)
         {
-            _FullMode.IsVisible = false;
-            _CompactMode.IsVisible = true;
+            clipet.IsVisible = false;
+            speechSpace.IsVisible = false;
 
         }
         else
         {
-            _FullMode.IsVisible = true;
-            _CompactMode.IsVisible = false;
+            clipet.IsVisible = true;
+            speechSpace.IsVisible = true;
         }
     }
 
