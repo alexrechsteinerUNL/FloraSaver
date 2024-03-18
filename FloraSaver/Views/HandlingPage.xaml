@@ -32,6 +32,7 @@
                 x:Name="searchBar"
                 Grid.Column="1"
                 Completed="Entry_Completed"
+                Focused="searchBar_Focused"
                 FontSize="25"
                 HeightRequest="180"
                 HorizontalTextAlignment="Start"
@@ -68,6 +69,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid
+                x:Name="_GroupSelector"
                 Grid.Row="0"
                 Grid.ColumnSpan="3"
                 HorizontalOptions="FillAndExpand">
@@ -102,6 +104,7 @@
             </Grid>
 
             <Grid
+                x:Name="_OrderBySelector"
                 Grid.Row="1"
                 Grid.ColumnSpan="3"
                 HorizontalOptions="StartAndExpand"
@@ -151,8 +154,7 @@
                 BorderColor="Transparent"
                 VerticalOptions="CenterAndExpand">
                 <RefreshView
-                    Command="{Binding GetPlantsCommand}"
-                    CommandParameter="{StaticResource True}"
+                    Command="{Binding RefreshPlantsCommand}"
                     HorizontalOptions="Center"
                     IsRefreshing="{Binding IsRefreshing}"
                     VerticalOptions="CenterAndExpand">
@@ -412,6 +414,7 @@
                     BackgroundColor="Black"
                     HeightRequest="60"
                     HorizontalOptions="Start"
+                    IsVisible="false"
                     MaximumWidthRequest="360"
                     VerticalOptions="Start">
                     <Grid>
@@ -461,6 +464,7 @@
             </Grid>
 
 
+
             <ActivityIndicator
                 Grid.RowSpan="6"
                 Grid.ColumnSpan="3"
@@ -470,5 +474,12 @@
                 VerticalOptions="CenterAndExpand"
                 Color="#e1ad01" />
         </Grid>
+        <Button
+            x:Name="_DeadSpaceButtonHideSuggestion"
+            Grid.Row="1"
+            BackgroundColor="Transparent"
+            BorderColor="Transparent"
+            Clicked="_DeadSpaceButtonHideSuggestion_Clicked"
+            IsVisible="false" />
     </Grid>
 </ContentPage>

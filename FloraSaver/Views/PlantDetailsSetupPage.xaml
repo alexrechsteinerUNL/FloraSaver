@@ -31,8 +31,8 @@
                 Grid.RowSpan="2"
                 Padding="0"
                 HorizontalOptions="Fill"
-                RowDefinitions="Auto, 1.5*, Auto, 50, Auto"
-                RowSpacing="5">
+                RowDefinitions="Auto, 2*, Auto, Auto"
+                RowSpacing="2">
                 <Grid Padding="5,0">
                     <Button
                         x:Name="goBack"
@@ -1392,29 +1392,34 @@
                         Text="►" />
                 </Grid>
                 <Grid
-                    Grid.Row="4"
+                    Grid.Row="3"
                     Padding="0"
                     ColumnDefinitions="Auto,*"
                     HorizontalOptions="FillAndExpand"
                     RowDefinitions="Auto, Auto, 40"
                     RowSpacing="0"
                     VerticalOptions="EndAndExpand">
-                    <Image
+                    <Frame
                         x:Name="clipet"
                         Grid.Row="0"
                         Grid.Column="1"
-                        Aspect="Fill"
-                        IsVisible="False"
-                        MaximumWidthRequest="150"
-                        Scale="1.15"
-                        Source="clipet_flowers_sitting_color.png"
-                        VerticalOptions="EndAndExpand" />
+                        Padding="0,-10,0,-10"
+                        BackgroundColor="Transparent"
+                        BorderColor="Transparent">
+                        <Image
+                            Aspect="Fill"
+                            MaximumWidthRequest="150"
+                            Scale="1"
+                            Source="clipet_flowers_sitting_color.png"
+                            VerticalOptions="EndAndExpand" />
+                    </Frame>
                     <VerticalStackLayout
                         Grid.Row="0"
                         Grid.Column="0"
-                        Padding="10"
+                        Padding="5,0"
                         HorizontalOptions="Center"
-                        Spacing="10">
+                        Spacing="5"
+                        VerticalOptions="Center">
                         <Button
                             x:Name="addUpdate"
                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=AddUpdateCommand}"
@@ -1442,6 +1447,7 @@
                         x:Name="speechSpace"
                         Grid.Row="1"
                         Grid.ColumnSpan="2"
+                        Padding="0,-5"
                         IsVisible="False">
                         <Image
                             Aspect="Fill"

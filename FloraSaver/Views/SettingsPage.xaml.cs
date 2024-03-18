@@ -40,7 +40,6 @@ public partial class SettingsPage : ContentPage
         entry.IsEnabled = false;
         entry.IsEnabled = true;
         ((SettingsViewModel)(this.BindingContext)).GroupNameEdit();
-
         var entryContext = (PlantGroup)entry.BindingContext;
         plantGroupDeck.ScrollTo(entryContext, animate: false);
     }

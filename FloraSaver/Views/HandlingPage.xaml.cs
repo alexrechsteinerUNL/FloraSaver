@@ -16,11 +16,13 @@ public partial class HandlingPage : ContentPage
     {
         base.OnSizeAllocated(width, height);
         ((TableViewModel)(this.BindingContext)).ReconfigureSpanForScreenSize(width, height);
+        
         if (height < 400)
         {
             _bigButtonSpace.IsVisible = false;
             _littleButtonSpace.IsVisible = true;
-        } else
+        }
+        else
         {
             _bigButtonSpace.IsVisible = true;
             _littleButtonSpace.IsVisible = false;
@@ -32,5 +34,17 @@ public partial class HandlingPage : ContentPage
         var entry = sender as Entry;
         entry.IsEnabled = false;
         entry.IsEnabled = true;
+    }
+
+    private void _DeadSpaceButtonHideSuggestion_Clicked(object sender, EventArgs e)
+    {
+        searchBar.IsEnabled = false;
+        searchBar.IsEnabled = true;
+        _DeadSpaceButtonHideSuggestion.IsVisible = false;
+    }
+
+    private void searchBar_Focused(object sender, FocusEventArgs e)
+    {
+        _DeadSpaceButtonHideSuggestion.IsVisible = true;
     }
 }

@@ -157,5 +157,12 @@ namespace FloraSaver.ViewModels
                 OnPropertyChanged("Plants");
             }
         }
+
+        [RelayCommand]
+        public async Task RefreshPlantsAsync()
+        {
+            await GetPlantsAsync(false);
+            await StandardActionsHandlingAsync(SearchQuery);
+        }
     }
 }

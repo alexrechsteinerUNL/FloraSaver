@@ -23,17 +23,34 @@ namespace FloraSaver.ViewModels
 
         public List<AutoFillPlant> PlantSuggestions { get; set; } = new();
 
-        public List<string> UnsafePlantNames { get; set; }  
+        public List<string> UnsafePlantNames { get; set; }
+
+
+
 
         [ObservableProperty]
         protected bool isBeingUndone = false;
 
+        public string NewGroupValidation(PlantGroup plantGroup)
+        {
+            if (!IsInitialization && !IsBeingUndone)
+            {
+                plantGroup.Validate(PlantGroups.Select(_ => _.GroupName).ToList());
+            }
+            return plantGroup.Validation.Message;
+        }
+
 
         // I moved the _databaseService to the base viewmodel because just about every page was going to use it.
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(GroupPickerUnsavedChangesWarning))]
         protected bool groupUndoButtonVisible = false;
         [RelayCommand]
-        protected void GroupPickerChanged() { GroupUndoButtonVisible = (!IsInitialization && !IsBeingUndone) ? true : false; }
+        protected void GroupPickerChanged() { GroupUndoButtonVisible = (!IsInitialization && !IsBeingUndone) ? true : false;}
+        public string GroupPickerUnsavedChangesWarning => GroupUndoButtonVisible ? "• Plant Group\n" : "";
+
+
+
         [RelayCommand]
         protected void GroupSectionUndo()
         {
@@ -46,10 +63,14 @@ namespace FloraSaver.ViewModels
             GroupUndoButtonVisible = false;
         }
 
+        
+
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(ImageUnsavedChangesWarning))]
         protected bool imageUndoButtonVisible = false;
         [RelayCommand]
-        protected void ImageChanged() { ImageUndoButtonVisible = (!IsInitialization && !IsBeingUndone) ? true : false; }
+        protected void ImageChanged() { ImageUndoButtonVisible = (!IsInitialization && !IsBeingUndone) ? true : false;}
+        public string ImageUnsavedChangesWarning => ImageUndoButtonVisible ? "• Plant Image\n" : "";
         [RelayCommand]
         protected void ImageChangedSectionUndo()
         {
@@ -66,61 +87,65 @@ namespace FloraSaver.ViewModels
             {
                 IsImageSelected = false;
             }
-
             OnPropertyChanged("AlterPlant");
             IsBeingUndone = false;
             ImageUndoButtonVisible = false;
         }
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(SpeciesUnsavedChangesWarning))]
         protected bool speciesUndoButtonVisible = false;
         [RelayCommand]
-        protected void SpeciesChanged() { SpeciesUndoButtonVisible = (!IsInitialization && !IsBeingUndone && AlterPlant.PlantSpecies != InitialPlant.PlantSpecies) ? true : false; }
+        protected void SpeciesChanged() { SpeciesUndoButtonVisible = (!IsInitialization && !IsBeingUndone && AlterPlant.PlantSpecies != InitialPlant.PlantSpecies) ? true : false;}
+        public string SpeciesUnsavedChangesWarning => SpeciesUndoButtonVisible ? "• Plant Species\n" : "";
         [RelayCommand]
         protected void SpeciesChangedSectionUndo()
         {
             IsBeingUndone = true;
             AlterPlant.PlantSpecies = InitialPlant.PlantSpecies;
-
             OnPropertyChanged("AlterPlant");
             IsBeingUndone = false;
             SpeciesUndoButtonVisible = false;
         }
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(GivenNameUnsavedChangesWarning))]
         protected bool givenNameUndoButtonVisible = false;
         [RelayCommand]
         protected void GivenNameChanged() { GivenNameUndoButtonVisible = (!IsInitialization && !IsBeingUndone && AlterPlant.GivenName != InitialPlant.GivenName) ? true : false; }
+        public string GivenNameUnsavedChangesWarning => GivenNameUndoButtonVisible ? "• Plant Name\n" : "";
         [RelayCommand]
         protected void GivenNameChangedSectionUndo()
         {
             IsBeingUndone = true;
             AlterPlant.GivenName = InitialPlant.GivenName;
-
             OnPropertyChanged("AlterPlant");
             IsBeingUndone = false;
             GivenNameUndoButtonVisible = false;
         }
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(DateOfBirthUnsavedChangesWarning))]
         protected bool dobUndoButtonVisible = false;
         [RelayCommand]
         protected void DobChanged() { DobUndoButtonVisible = (!IsInitialization && !IsBeingUndone && AlterPlant.DateOfBirth != InitialPlant.DateOfBirth) ? true : false; }
+        public string DateOfBirthUnsavedChangesWarning => DobUndoButtonVisible ? "• Date of Birth\n" : "";
         [RelayCommand]
         protected void DobChangedSectionUndo()
         {
             IsBeingUndone = true;
             AlterPlant.DateOfBirth = InitialPlant.DateOfBirth;
-
             OnPropertyChanged("AlterPlant");
             IsBeingUndone = false;
             DobUndoButtonVisible = false;
         }
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(WaterIntervalUnsavedChangesWarning))]
         protected bool waterIntervalUndoButtonVisible = false;
         [RelayCommand]
         protected void WaterIntervalChanged() { WaterIntervalUndoButtonVisible = (!IsInitialization && !IsBeingUndone) ? true : false; }
+        public string WaterIntervalUnsavedChangesWarning => WaterIntervalUndoButtonVisible ? "• Water Interval\n" : "";
         [RelayCommand]
         protected void WaterIntervalChangedSectionUndo()
         {
@@ -132,13 +157,13 @@ namespace FloraSaver.ViewModels
             {
                 WaterIntervalPickerValue = WateringInterval.First(x => x.NumFromNow == -1);
             }
-
             OnPropertyChanged("AlterPlant");
             IsBeingUndone = false;
             WaterIntervalUndoButtonVisible = false;
         }
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(LastWateredUnsavedChangesWarning))]
         protected bool lastWateredUndoButtonVisible = false;
         [RelayCommand]
         protected void LastWateredChanged()
@@ -149,6 +174,7 @@ namespace FloraSaver.ViewModels
                                                                             || AlterPlant.TimeOfLastWatering != InitialPlant.TimeOfLastWatering))
                                                                             ? true : false;
         }
+        public string LastWateredUnsavedChangesWarning => LastWateredUndoButtonVisible ? "• Last Watering\n" : "";
         [RelayCommand]
         protected void LastWateredChangedSectionUndo()
         {
@@ -156,13 +182,13 @@ namespace FloraSaver.ViewModels
 
             AlterPlant.DateOfLastWatering = InitialPlant.DateOfLastWatering;
             AlterPlant.TimeOfLastWatering = InitialPlant.TimeOfLastWatering;
-
             OnPropertyChanged("AlterPlant");
             IsBeingUndone = false;
             LastWateredUndoButtonVisible = false;
         }
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(NextWateringUnsavedChangesWarning))]
         protected bool nextWaterUndoButtonVisible = false;
         [RelayCommand]
         protected void NextWaterChanged()
@@ -173,6 +199,7 @@ namespace FloraSaver.ViewModels
                                                                             || AlterPlant.TimeOfNextWatering != InitialPlant.TimeOfNextWatering))
                                                                             ? true : false;
         }
+        public string NextWateringUnsavedChangesWarning => NextWaterUndoButtonVisible ? "• Next Watering\n" : "";
         [RelayCommand]
         protected void NextWaterChangedSectionUndo()
         {
@@ -180,16 +207,17 @@ namespace FloraSaver.ViewModels
 
             AlterPlant.DateOfNextWatering = InitialPlant.DateOfNextWatering;
             AlterPlant.TimeOfNextWatering = InitialPlant.TimeOfNextWatering;
-
             OnPropertyChanged("AlterPlant");
             IsBeingUndone = false;
             NextWaterUndoButtonVisible = false;
         }
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(MistIntervalUnsavedChangesWarning))]
         protected bool mistIntervalUndoButtonVisible = false;
         [RelayCommand]
         protected void MistIntervalChanged() { MistIntervalUndoButtonVisible = (!IsInitialization && !IsBeingUndone) ? true : false; }
+        public string MistIntervalUnsavedChangesWarning => MistIntervalUndoButtonVisible ? "• Mist Interval\n" : "";
         [RelayCommand]
         protected void MistIntervalChangedSectionUndo()
         {
@@ -208,6 +236,7 @@ namespace FloraSaver.ViewModels
         }
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(LastMistingUnsavedChangesWarning))]
         protected bool lastMistedUndoButtonVisible = false;
         [RelayCommand]
         protected void LastMistedChanged()
@@ -218,6 +247,7 @@ namespace FloraSaver.ViewModels
                                             || AlterPlant.TimeOfLastMisting != InitialPlant.TimeOfLastMisting))
                                             ? true : false;
         }
+        public string LastMistingUnsavedChangesWarning => LastMistedUndoButtonVisible ? "• Last Misting\n" : "";
         [RelayCommand]
         protected void LastMistedChangedSectionUndo()
         {
@@ -232,6 +262,7 @@ namespace FloraSaver.ViewModels
         }
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(NextMistingUnsavedChangesWarning))]
         protected bool nextMistUndoButtonVisible = false;
         [RelayCommand]
         protected void NextMistChanged()
@@ -242,6 +273,7 @@ namespace FloraSaver.ViewModels
                                         || AlterPlant.TimeOfNextMisting != InitialPlant.TimeOfNextMisting))
                                         ? true : false;
         }
+        public string NextMistingUnsavedChangesWarning => NextMistUndoButtonVisible ? "• Next Misting\n" : "";
         [RelayCommand]
         protected void NextMistChangedSectionUndo()
         {
@@ -256,9 +288,11 @@ namespace FloraSaver.ViewModels
         }
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(MoveIntervalUnsavedChangesWarning))]
         protected bool moveIntervalUndoButtonVisible = false;
         [RelayCommand]
         protected void MoveIntervalChanged() { MoveIntervalUndoButtonVisible = (!IsInitialization && !IsBeingUndone) ? true : false; }
+        public string MoveIntervalUnsavedChangesWarning => MoveIntervalUndoButtonVisible ? "• Moving Interval\n" : "";
         [RelayCommand]
         protected void MoveIntervalChangedSectionUndo()
         {
@@ -277,6 +311,7 @@ namespace FloraSaver.ViewModels
         }
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(LastMovedUnsavedChangesWarning))]
         protected bool lastMovedUndoButtonVisible = false;
         [RelayCommand]
         protected void LastMovedChanged()
@@ -287,6 +322,7 @@ namespace FloraSaver.ViewModels
                                             || AlterPlant.TimeOfLastMove != InitialPlant.TimeOfLastMove))
                                             ? true : false;
         }
+        public string LastMovedUnsavedChangesWarning => LastMovedUndoButtonVisible ? "• Last Move\n" : "";
         [RelayCommand]
         protected void LastMovedChangedSectionUndo()
         {
@@ -301,6 +337,7 @@ namespace FloraSaver.ViewModels
         }
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(NextMoveUnsavedChangesWarning))]
         protected bool nextMoveUndoButtonVisible = false;
         [RelayCommand]
         protected void NextMoveChanged()
@@ -311,6 +348,7 @@ namespace FloraSaver.ViewModels
                                         || AlterPlant.TimeOfNextMove != InitialPlant.TimeOfNextMove))
                                         ? true : false;
         }
+        public string NextMoveUnsavedChangesWarning => NextMoveUndoButtonVisible ? "• Next Move\n" : "";
         [RelayCommand]
         protected void NextMoveChangedSectionUndo()
         {
@@ -669,14 +707,22 @@ namespace FloraSaver.ViewModels
                 GroupName = newPlantGroupName,
                 GroupColorHex = $"{SelectedGroupColor.ColorsHex}",
             };
-            var result = await AddUpdateGroupAsync(newPlantGroup);
-            if (result)
+            var message = NewGroupValidation(newPlantGroup);
+            if (string.IsNullOrEmpty(message))
             {
-                PlantGroups.Add(newPlantGroup);
-                OnPropertyChanged("PlantGroups");
-                AddGroupShowPressed();
-                GroupPickerValue = newPlantGroup;
+                var result = await AddUpdateGroupAsync(newPlantGroup);
+                if (result)
+                {
+                    PlantGroups.Add(newPlantGroup);
+                    OnPropertyChanged("PlantGroups");
+                    AddGroupShowPressed();
+                    GroupPickerValue = newPlantGroup;
+                }
+            } else
+            {
+                await Application.Current.MainPage.DisplayAlert("OH HOLD ON!", message, "Gotcha");
             }
+            
         }
 
         [RelayCommand]
@@ -858,11 +904,25 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         protected async Task GoToTableAsync()
         {
-            await Shell.Current.GoToAsync($"///{nameof(TablePage)}", true, new Dictionary<string, object>
+            var accept = true;
+            var message = GroupPickerUnsavedChangesWarning + ImageUnsavedChangesWarning + SpeciesUnsavedChangesWarning + GivenNameUnsavedChangesWarning +
+                DateOfBirthUnsavedChangesWarning + WaterIntervalUnsavedChangesWarning + LastWateredUnsavedChangesWarning + NextWateringUnsavedChangesWarning +
+                MistIntervalUnsavedChangesWarning + LastMistingUnsavedChangesWarning + NextMistingUnsavedChangesWarning + MoveIntervalUnsavedChangesWarning +
+                LastMovedUnsavedChangesWarning + NextMoveUnsavedChangesWarning;
+            
+            if (!string.IsNullOrEmpty(message))
+            {
+                accept = await Application.Current.MainPage.DisplayAlert("You have unsaved changes? Are you sure you want to go back?", message, "Go Back", "Stay");
+            }
+            if (accept)
+            {
+                await Shell.Current.GoToAsync($"///{nameof(TablePage)}", true, new Dictionary<string, object>
             {
                 {"ShouldGetNewData", ShouldGetNewData },
                 {"ShouldGetNewGroupData", ShouldGetNewGroupData }
             });
+            }
+            
             return;
         }
 

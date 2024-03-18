@@ -58,7 +58,8 @@ namespace FloraSaver.ViewModels
         {
             if (!IsInitialization && !IsBeingUndone && PickerPlantGroups is not null)
             {
-                foreach (var group in PickerPlantGroups.Where(_ => !initialPlantGroups.Select(_ => _.GroupName).Contains(_.GroupName)))
+                //foreach (var group in PickerPlantGroups.Where(_ => !initialPlantGroups.Select(_ => _.GroupName).Contains(_.GroupName)))
+                foreach (var group in PickerPlantGroups.Where(_ => initialPlantGroups.FirstOrDefault(x => x.GroupId == _.GroupId).GroupName != _.GroupName))
                 {
                     group.isNameEdited = true;
                     group.Validate(initialPlantGroups.Select(_ => _.GroupName).ToList());
