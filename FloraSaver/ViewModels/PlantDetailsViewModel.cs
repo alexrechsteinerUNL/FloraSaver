@@ -21,8 +21,6 @@ namespace FloraSaver.ViewModels
         protected double InitialMistDaysFromNow = 0;
         protected double InitialSunDaysFromNow = 0;
 
-        public List<AutoFillPlant> PlantSuggestions { get; set; } = new();
-
         public List<string> UnsafePlantNames { get; set; }
 
 
@@ -448,6 +446,7 @@ namespace FloraSaver.ViewModels
         {
             IsInitialization = true;
             await GetPlantsAsync();
+            PlantSuggestions = PlantSuggestions.Count > 0 ? PlantSuggestions : new(await _databaseService.GetAllAutofillPlantAsync());
             correctlySizeTimePickerBoxes();
             // extract to its own reusable method with reflection DRY!
             GroupPickerValue = AlterPlant.PlantGroupName != null ? PlantGroups.FirstOrDefault(_ => _.GroupName == AlterPlant.PlantGroupName) : PlantGroups.FirstOrDefault(_ => _.GroupName == "Ungrouped");
@@ -508,7 +507,7 @@ namespace FloraSaver.ViewModels
         public async Task AutoFillPlantSpeciesAsync(SearchedPlants searchedPlant)
         {
             var accept = true;
-            var message = SpeciesUnsavedChangesWarning + WaterIntervalUnsavedChangesWarning + LastWateredUnsavedChangesWarning + NextWateringUnsavedChangesWarning +
+            var message = WaterIntervalUnsavedChangesWarning + LastWateredUnsavedChangesWarning + NextWateringUnsavedChangesWarning +
                 MistIntervalUnsavedChangesWarning + LastMistingUnsavedChangesWarning + NextMistingUnsavedChangesWarning + MoveIntervalUnsavedChangesWarning +
                 LastMovedUnsavedChangesWarning + NextMoveUnsavedChangesWarning;
             if (!string.IsNullOrEmpty(message))

@@ -214,7 +214,7 @@
                         <Grid
                             x:Name="_EntrySuggestionSpace"
                             MaximumWidthRequest="500"
-                            RowDefinitions="90,Auto">
+                            RowDefinitions="90,200">
                             <Grid
                                 x:Name="plantSpeciesGrid"
                                 Grid.Row="0"
@@ -271,7 +271,7 @@
                                 ColumnDefinitions="*"
                                 HorizontalOptions="CenterAndExpand"
                                 IsVisible="{Binding ShowSearchSuggestionsBox}"
-                                RowDefinitions="*, 2*">
+                                RowDefinitions="*, Auto">
                                 <CollectionView
                                     x:Name="plantSuggestionDeck"
                                     Grid.Row="0"
@@ -308,10 +308,9 @@
                                 <Button
                                     x:Name="deadSpaceButtonHideSuggestion"
                                     Grid.Row="1"
-                                    BackgroundColor="Transparent"
-                                    BorderColor="Transparent"
                                     Clicked="deadSpaceButtonHideSuggestion_Clicked"
-                                    Command="{Binding HideSearchSuggestionBoxCommand}" />
+                                    Command="{Binding HideSearchSuggestionBoxCommand}"
+                                    Text="Hide Suggestions" />
                             </Grid>
                         </Grid>
 

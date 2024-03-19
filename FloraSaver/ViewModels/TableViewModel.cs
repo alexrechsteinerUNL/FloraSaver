@@ -97,7 +97,6 @@ namespace FloraSaver.ViewModels
         [NotifyPropertyChangedFor(nameof(ArePlants))]
         public bool areNoPlants = true;
         public bool ArePlants => !AreNoPlants;
-        
         [ObservableProperty]
         private List<string> orderByValues = PickerService.GetOrderByValues();
 

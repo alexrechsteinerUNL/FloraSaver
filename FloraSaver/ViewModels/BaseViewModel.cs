@@ -12,7 +12,7 @@ namespace FloraSaver.ViewModels
         public bool shouldUpdateGroupFromDB = false;
         public bool shouldUpdatePlantsFromDB = false;
 
-        public List<AutoFillPlant> PlantSuggestions { get; set; } = new();
+        public static List<AutoFillPlant> PlantSuggestions { get; set; } = new();
         public ObservableCollection<Plant> DataPlants { get; set; } = new();
         public ObservableCollection<SearchedPlants> TopTenAutoFillPlants { get; set; } = new();
 
@@ -33,8 +33,6 @@ namespace FloraSaver.ViewModels
             OnPropertyChanged("TopTenAutoFillPlants");
             ShowSearchSuggestionBox();
         }
-
-
 
         [RelayCommand]
         protected void ShowSearchSuggestionBox()
