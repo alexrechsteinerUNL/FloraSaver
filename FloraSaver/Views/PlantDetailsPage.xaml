@@ -1290,14 +1290,21 @@
 
         <Frame
             Grid.Row="1"
+            Padding="5"
             BackgroundColor="DimGray"
+            HorizontalOptions="Center"
             IsVisible="{Binding IsFriendlyLabelVisible}"
+            MaximumHeightRequest="250"
+            MaximumWidthRequest="250"
             Opacity=".9"
-            WidthRequest="300">
+            VerticalOptions="Center">
             <Label
                 x:Name="friendlyNotification"
+                FontSize="16"
+                HorizontalOptions="Center"
                 IsVisible="{Binding IsFriendlyLabelVisible}"
-                Text="{Binding FriendlyLabel}" />
+                Text="{Binding FriendlyLabel}"
+                VerticalOptions="Center" />
         </Frame>
     </Grid>
 </ContentPage>

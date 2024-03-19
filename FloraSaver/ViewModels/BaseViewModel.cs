@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using FloraSaver.Models;
 using FloraSaver.Services;
 using FloraSaver.Utilities;
+using System.Collections.ObjectModel;
 
 namespace FloraSaver.ViewModels
 {
@@ -12,7 +13,42 @@ namespace FloraSaver.ViewModels
         public bool shouldUpdatePlantsFromDB = false;
 
         public List<AutoFillPlant> PlantSuggestions { get; set; } = new();
+        public ObservableCollection<Plant> DataPlants { get; set; } = new();
+        public ObservableCollection<SearchedPlants> TopTenAutoFillPlants { get; set; } = new();
 
+        [RelayCommand]
+        protected void QueryAutofillPlantAsyncFromSearch(string searchQuery)
+        {
+            TopTenAutoFillPlants = new ObservableCollection<SearchedPlants>();
+            var topPlants = DataPlants.Where(_ => _.GivenName.Contains(searchQuery, StringComparison.CurrentCultureIgnoreCase) || _.PlantSpecies.Contains(searchQuery, StringComparison.CurrentCultureIgnoreCase));
+            foreach (var plant in topPlants)
+            {
+                TopTenAutoFillPlants.Add(new SearchedPlants(plant));
+            }
+            var topTenSuggestionPlants = PlantSuggestions.Where(_ => _.PlantSpecies.Contains(searchQuery, StringComparison.CurrentCultureIgnoreCase)).Take(10);
+            foreach (var plant in topTenSuggestionPlants)
+            {
+                TopTenAutoFillPlants.Add(new SearchedPlants(plant));
+            }
+            OnPropertyChanged("TopTenAutoFillPlants");
+            ShowSearchSuggestionBox();
+        }
+
+
+
+        [RelayCommand]
+        protected void ShowSearchSuggestionBox()
+        {
+            ShowSearchSuggestionsBox = true;
+        }
+
+        [RelayCommand]
+        protected void HideSearchSuggestionBox()
+        {
+            ShowSearchSuggestionsBox = false;
+        }
+        [ObservableProperty]
+        private bool showSearchSuggestionsBox = false;
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsNotBusy))]
         public bool isBusy;

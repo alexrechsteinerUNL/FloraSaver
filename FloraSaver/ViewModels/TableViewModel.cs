@@ -17,12 +17,12 @@ namespace FloraSaver.ViewModels
     public partial class TableViewModel : BaseViewModel, INotifyPropertyChanged, IQueryAttributable
     {
         protected readonly IPlantNotificationService _plantNotificationService;
-        public ObservableCollection<Plant> DataPlants { get; set; } = new();
+        
         public ObservableCollection<Plant> Plants { get; set; } = new();
         public ObservableCollection<PlantGroup> PlantGroups { get; set; } = new();
         
 
-        public ObservableCollection<SearchedPlants> TopTenAutoFillPlants { get; set; } = new();
+        
 
         public List<Plant> BackendPlantList { get; set; } = new();
         bool IsInitialization { get; set; } = true;
@@ -97,8 +97,7 @@ namespace FloraSaver.ViewModels
         [NotifyPropertyChangedFor(nameof(ArePlants))]
         public bool areNoPlants = true;
         public bool ArePlants => !AreNoPlants;
-        [ObservableProperty]
-        private bool showSearchSuggestionsBox = false;
+        
         [ObservableProperty]
         private List<string> orderByValues = PickerService.GetOrderByValues();
 
@@ -402,23 +401,7 @@ namespace FloraSaver.ViewModels
             }
         }
 
-        [RelayCommand]
-        protected void QueryAutofillPlantAsyncFromSearch(string searchQuery)
-        {
-            TopTenAutoFillPlants = new ObservableCollection<SearchedPlants>();
-            var topPlants = DataPlants.Where(_ => _.GivenName.Contains(searchQuery, StringComparison.CurrentCultureIgnoreCase) || _.PlantSpecies.Contains(searchQuery, StringComparison.CurrentCultureIgnoreCase));
-            foreach (var plant in topPlants)
-            {
-                TopTenAutoFillPlants.Add(new SearchedPlants(plant));
-            }
-            var topTenSuggestionPlants = PlantSuggestions.Where(_ => _.PlantSpecies.Contains(searchQuery, StringComparison.CurrentCultureIgnoreCase)).Take(10);
-            foreach(var plant in topTenSuggestionPlants)
-            {
-                TopTenAutoFillPlants.Add(new SearchedPlants(plant));
-            }
-            OnPropertyChanged("TopTenAutoFillPlants");
-            ShowSearchSuggestionBox();
-        }
+        
 
         [RelayCommand]
         protected async Task StandardActionsAsync(string searchText = "")
@@ -500,17 +483,7 @@ namespace FloraSaver.ViewModels
             return;
         }
 
-        [RelayCommand]
-        protected void ShowSearchSuggestionBox()
-        {
-            ShowSearchSuggestionsBox = true;
-        }
-
-        [RelayCommand]
-        protected void HideSearchSuggestionBox()
-        {
-            ShowSearchSuggestionsBox = false;
-        }
+        
 
         [RelayCommand]
         private async Task GroupSelectionAsync(PlantGroup plantGroup)

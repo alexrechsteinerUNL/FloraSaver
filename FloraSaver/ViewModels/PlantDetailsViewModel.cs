@@ -444,9 +444,10 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        public void Appearing()
+        public async Task AppearingAsync()
         {
             IsInitialization = true;
+            await GetPlantsAsync();
             correctlySizeTimePickerBoxes();
             // extract to its own reusable method with reflection DRY!
             GroupPickerValue = AlterPlant.PlantGroupName != null ? PlantGroups.FirstOrDefault(_ => _.GroupName == AlterPlant.PlantGroupName) : PlantGroups.FirstOrDefault(_ => _.GroupName == "Ungrouped");
@@ -492,6 +493,82 @@ namespace FloraSaver.ViewModels
             }
 
             IsInitialization = false;
+        }
+
+        [RelayCommand]
+        public void SpeciesSearchAction(string searchQuery)
+        {
+            if (ShowSearchSuggestionsBox)
+            {
+                QueryAutofillPlantAsyncFromSearch(searchQuery);
+            }
+        }
+
+        [RelayCommand]
+        public async Task AutoFillPlantSpeciesAsync(SearchedPlants searchedPlant)
+        {
+            var accept = true;
+            var message = SpeciesUnsavedChangesWarning + WaterIntervalUnsavedChangesWarning + LastWateredUnsavedChangesWarning + NextWateringUnsavedChangesWarning +
+                MistIntervalUnsavedChangesWarning + LastMistingUnsavedChangesWarning + NextMistingUnsavedChangesWarning + MoveIntervalUnsavedChangesWarning +
+                LastMovedUnsavedChangesWarning + NextMoveUnsavedChangesWarning;
+            if (!string.IsNullOrEmpty(message))
+            {
+                accept = await Application.Current.MainPage.DisplayAlert("You have a pending plant! Are you sure you want to autofill this new plant species?", message, "Do It!", "Please Don't");
+            }
+            if (accept)
+            {
+                var saveName = AlterPlant.GivenName;
+                var saveGroup = AlterPlant.PlantGroupName;
+                var saveGroupColorHexString = AlterPlant.GroupColorHexString;
+                var saveImage = AlterPlant.PlantImageSource;
+                var saveImageLocation = AlterPlant.ImageLocation;
+                var saveDOB = AlterPlant.DateOfBirth;
+                AlterPlant = new Plant(searchedPlant);
+                AlterPlant.GivenName = saveName;
+                AlterPlant.PlantGroupName = saveGroup;
+                AlterPlant.GroupColorHexString = saveGroupColorHexString;
+                AlterPlant.PlantImageSource = saveImage;
+                AlterPlant.ImageLocation = saveImageLocation;
+                AlterPlant.DateOfBirth = saveDOB;
+            }
+        }
+
+        [RelayCommand]
+        public async Task GetPlantsAsync(bool shouldSort = false)
+        {
+            if (IsBusy)
+                return;
+
+            try
+            {
+                IsBusy = true;
+                var plants = await _databaseService.GetAllPlantAsync();
+
+                // checking if there are really 0 plants or if an issue occured.
+                if (plants.Count == 0)
+                {
+                    plants = await _databaseService.GetAllPlantAsync();
+                    // small buffer for plant count
+                    for (var i = 0; i < 2; i++)
+                    {
+                        if (plants.Count != 0)
+                        {
+                            break;
+                        }
+                    }
+                }
+                DataPlants = new ObservableCollection<Plant>(plants);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Unable to get plants: {ex.Message}");
+                await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+            return;
         }
 
         public virtual void ApplyQueryAttributes(IDictionary<string, object> query)

@@ -16,18 +16,20 @@
         <!--<toolkit:EventToCommandBehavior Command="{Binding AppearingHomeCommand}" EventName="Appearing" />
         <toolkit:EventToCommandBehavior Command="{Binding DisappearingHomeCommand}" EventName="Disappearing" />-->
     </ContentPage.Behaviors>
-    <VerticalStackLayout
+    <Grid
         Padding="10"
         HorizontalOptions="Center"
         MaximumWidthRequest="500"
+        RowDefinitions="*,150"
         VerticalOptions="Center">
 
         <Frame
+            Grid.Row="0"
             Padding="20"
             BackgroundColor="Black"
             BorderColor="{Binding AlterPlant.GroupColor}"
             HorizontalOptions="CenterAndExpand"
-            MaximumHeightRequest="500"
+            MaximumHeightRequest="700"
             VerticalOptions="CenterAndExpand">
             <Grid RowSpacing="10">
                 <Grid.RowDefinitions>
@@ -118,7 +120,7 @@
                                 HorizontalOptions="CenterAndExpand"
                                 ItemsLayout="VerticalList"
                                 ItemsSource="{Binding PlantGroups}"
-                                MaximumHeightRequest="250">
+                                MaximumHeightRequest="150">
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate x:Name="plantGroups" x:DataType="model:PlantGroup">
                                         <Label
@@ -135,14 +137,21 @@
             </Grid>
         </Frame>
         <Frame
+            Grid.Row="1"
             BackgroundColor="DimGray"
+            HorizontalOptions="Center"
             IsVisible="{Binding IsFriendlyLabelVisible}"
+            MaximumHeightRequest="250"
+            MaximumWidthRequest="250"
             Opacity=".9"
-            WidthRequest="300">
+            VerticalOptions="Center">
             <Label
                 x:Name="friendlyNotification"
+                FontSize="16"
+                HorizontalOptions="Center"
                 IsVisible="{Binding IsFriendlyLabelVisible}"
-                Text="{Binding FriendlyLabel}" />
+                Text="{Binding FriendlyLabel}"
+                VerticalOptions="Center" />
         </Frame>
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>

@@ -46,10 +46,10 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        private void AppearingSetup()
+        private async Task AppearingSetupAsync()
         {
             IsInitialization = true;
-            Appearing();
+            await AppearingAsync();
             IsInitialization = false;
         }
 
