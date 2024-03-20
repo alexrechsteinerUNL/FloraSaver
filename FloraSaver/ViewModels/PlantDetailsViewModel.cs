@@ -529,6 +529,8 @@ namespace FloraSaver.ViewModels
                 AlterPlant.PlantImageSource = saveImage;
                 AlterPlant.ImageLocation = saveImageLocation;
                 AlterPlant.DateOfBirth = saveDOB;
+                OnPropertyChanged(nameof(AlterPlant));
+                HideSearchSuggestionBox();
             }
         }
 
@@ -899,10 +901,10 @@ namespace FloraSaver.ViewModels
                 {
                     await FillUnsafePlantsAsync();
                 }
-                plant.Validate(UnsafePlantNames);
-                if (plant.Validation.IsSuccessful)
+                AlterPlant.Validate(UnsafePlantNames);
+                if (AlterPlant.Validation.IsSuccessful)
                 {
-                    await _databaseService.AddUpdateNewPlantAsync(plant);
+                    await _databaseService.AddUpdateNewPlantAsync(AlterPlant);
                     InitialPlant = new Plant(AlterPlant);
                     InitialWaterDaysFromNow = WaterDaysFromNow;
                     InitialMistDaysFromNow = MistDaysFromNow;
@@ -962,7 +964,8 @@ namespace FloraSaver.ViewModels
             try
             {
                 IsBusy = true;
-                await _databaseService.DeletePlantAsync(plant);
+                await _databaseService.DeletePlantAsync(InitialPlant);
+                UndoAll();
             }
             catch (Exception ex)
             {
@@ -992,6 +995,7 @@ namespace FloraSaver.ViewModels
             }
             if (accept)
             {
+                UndoAll();
                 await Shell.Current.GoToAsync($"///{nameof(TablePage)}", true, new Dictionary<string, object>
             {
                 {"ShouldGetNewData", ShouldGetNewData },

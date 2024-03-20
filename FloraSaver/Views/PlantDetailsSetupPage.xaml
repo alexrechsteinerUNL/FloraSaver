@@ -264,54 +264,6 @@
                                     </Frame>
                                 </Frame>
                             </Grid>
-                            <Grid
-                                x:Name="_SearchSuggestionBox"
-                                Grid.Row="1"
-                                Padding="10,0"
-                                ColumnDefinitions="*"
-                                HorizontalOptions="CenterAndExpand"
-                                IsVisible="{Binding ShowSearchSuggestionsBox}"
-                                RowDefinitions="*, Auto">
-                                <CollectionView
-                                    x:Name="plantSuggestionDeck"
-                                    Grid.Row="0"
-                                    ItemsSource="{Binding TopTenAutoFillPlants}"
-                                    SelectionMode="None"
-                                    VerticalScrollBarVisibility="Always">
-                                    <CollectionView.ItemTemplate>
-                                        <DataTemplate x:Name="bloop0" x:DataType="model:SearchedPlants">
-                                            <Frame
-                                                Background="Black"
-                                                BackgroundColor="Black"
-                                                BorderColor="{Binding GroupColor}">
-                                                <Grid ColumnDefinitions="6*, *">
-                                                    <VerticalStackLayout Grid.Column="0">
-                                                        <Label
-                                                            IsVisible="{Binding IsPlantExisting}"
-                                                            Text="{Binding GivenName}"
-                                                            TextColor="{Binding GroupColor}" />
-                                                        <Label Text="{Binding PlantSpecies}" />
-                                                    </VerticalStackLayout>
-
-                                                    <Button
-                                                        Grid.Column="1"
-                                                        Clicked="deadSpaceButtonHideSuggestion_Clicked"
-                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=AutoFillPlantSpeciesCommand}"
-                                                        CommandParameter="{Binding .}"
-                                                        Text="{Binding ConnectedIcon}" />
-                                                </Grid>
-                                            </Frame>
-                                        </DataTemplate>
-                                    </CollectionView.ItemTemplate>
-
-                                </CollectionView>
-                                <Button
-                                    x:Name="deadSpaceButtonHideSuggestion"
-                                    Grid.Row="1"
-                                    Clicked="deadSpaceButtonHideSuggestion_Clicked"
-                                    Command="{Binding HideSearchSuggestionBoxCommand}"
-                                    Text="Hide Suggestions" />
-                            </Grid>
                         </Grid>
 
                     </Frame>
@@ -1660,6 +1612,59 @@
                     Text="{Binding FriendlyLabel}"
                     VerticalOptions="Center" />
             </Frame>
+        </Grid>
+        <Grid
+            x:Name="_SearchSuggestionBox"
+            Padding="10,170,10,0"
+            ColumnDefinitions="*"
+            HorizontalOptions="Fill"
+            IsVisible="{Binding ShowSearchSuggestionsBox}"
+            MaximumWidthRequest="500"
+            RowDefinitions="Auto, 50">
+            <CollectionView
+                x:Name="plantSuggestionDeck"
+                Grid.Row="0"
+                Grid.Column="1"
+                HorizontalOptions="FillAndExpand"
+                ItemsSource="{Binding TopTenAutoFillPlants}"
+                MaximumHeightRequest="200"
+                SelectionMode="None"
+                VerticalScrollBarVisibility="Always"
+                WidthRequest="500">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:Name="bloop0" x:DataType="model:SearchedPlants">
+                        <Frame
+                            Background="Black"
+                            BackgroundColor="Black"
+                            BorderColor="{Binding GroupColor}">
+                            <Grid ColumnDefinitions="6*, *">
+                                <VerticalStackLayout Grid.Column="0">
+                                    <Label
+                                        IsVisible="{Binding IsPlantExisting}"
+                                        Text="{Binding GivenName}"
+                                        TextColor="{Binding GroupColor}" />
+                                    <Label Text="{Binding PlantSpecies}" />
+                                </VerticalStackLayout>
+
+                                <Button
+                                    Grid.Column="1"
+                                    Clicked="deadSpaceButtonHideSuggestion_Clicked"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=AutoFillPlantSpeciesCommand}"
+                                    CommandParameter="{Binding .}"
+                                    Text="{Binding ConnectedIcon}" />
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+            <Button
+                x:Name="deadSpaceButtonHideSuggestion"
+                Grid.Row="1"
+                Grid.Column="1"
+                Clicked="deadSpaceButtonHideSuggestion_Clicked"
+                Command="{Binding HideSearchSuggestionBoxCommand}"
+                Text="Hide Suggestions" />
         </Grid>
     </Grid>
 </ContentPage>

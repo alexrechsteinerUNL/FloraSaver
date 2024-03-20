@@ -28,6 +28,13 @@ public partial class PlantDetailsPage : ContentPage
         entry.IsEnabled = true;
     }
 
+    private void deadSpaceButtonHideSuggestion_Clicked(object sender, EventArgs e)
+    {
+        _PlantSpecies.Unfocus();
+        _PlantSpecies.IsEnabled = false;
+        _PlantSpecies.IsEnabled = true;
+    }
+
     private void Validate(object sender, EventArgs e)
     {
         ((PlantDetailsViewModel)(this.BindingContext)).ValidateAlterPlantAsync();

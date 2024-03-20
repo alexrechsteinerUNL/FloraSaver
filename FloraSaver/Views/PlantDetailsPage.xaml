@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    xmlns:model="clr-namespace:FloraSaver.Models"
     xmlns:s="clr-namespace:System;assembly=mscorlib"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
@@ -251,104 +252,169 @@
                                         Unfocused="Validate"
                                         VerticalOptions="CenterAndExpand">
                                         <Entry.Behaviors>
+                                            <toolkit:EventToCommandBehavior Command="{Binding ShowSearchSuggestionBoxCommand}" EventName="Focused" />
                                             <toolkit:EventToCommandBehavior Command="{Binding SpeciesChangedCommand}" EventName="Unfocused" />
+                                            <toolkit:EventToCommandBehavior
+                                                Command="{Binding SpeciesSearchActionCommand}"
+                                                CommandParameter="{Binding Text, Source={x:Reference _PlantSpecies}}"
+                                                EventName="TextChanged" />
                                         </Entry.Behaviors>
                                     </Entry>
                                 </Frame>
                             </Frame>
                         </Grid>
-
-                        <Grid x:Name="givenNameGrid" RowSpacing="5">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="30" />
-                                <RowDefinition Height="50" />
-                            </Grid.RowDefinitions>
-                            <FlexLayout Grid.Row="0">
-                                <Label Text="*Given Name: " TextColor="{Binding AlterPlant.Validation.NameSectionColor}" />
-                                <ImageButton
-                                    x:Name="_undoNameChange"
-                                    Grid.Column="0"
-                                    Command="{Binding GivenNameChangedSectionUndoCommand}"
-                                    IsVisible="{Binding GivenNameUndoButtonVisible}"
-                                    Source="undo_button.png"
-                                    WidthRequest="40" />
-                            </FlexLayout>
-                            <Frame
-                                Grid.Row="1"
-                                Padding="2,2"
-                                BackgroundColor="Transparent">
-                                <Frame
-                                    Padding="0,2"
-                                    BackgroundColor="Transparent"
-                                    BorderColor="Transparent"
-                                    HorizontalOptions="FillAndExpand"
-                                    VerticalOptions="FillAndExpand">
-                                    <Entry
-                                        x:Name="_GivenName"
-                                        Completed="Entry_Completed"
-                                        HorizontalOptions="FillAndExpand"
-                                        Placeholder="Give your plant a name!"
-                                        Text="{Binding AlterPlant.GivenName, StringFormat='{0}', Mode=TwoWay}"
-                                        Unfocused="Validate"
-                                        VerticalOptions="CenterAndExpand">
-                                        <Entry.Behaviors>
-                                            <toolkit:EventToCommandBehavior Command="{Binding GivenNameChangedCommand}" EventName="Unfocused" />
-                                        </Entry.Behaviors>
-                                    </Entry>
-                                </Frame>
-                            </Frame>
-                        </Grid>
-
                         <Grid
-                            x:Name="dobGrid"
-                            ColumnDefinitions="*,*"
-                            RowSpacing="5">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="30" />
-                                <RowDefinition Height="50" />
-                            </Grid.RowDefinitions>
-                            <FlexLayout Grid.Row="0" Grid.ColumnSpan="2">
-                                <Label Text="*Date Of Birth: " TextColor="{Binding AlterPlant.Validation.BirthdaySectionColor}" />
-                                <ImageButton
-                                    x:Name="_undoDobChange"
-                                    Grid.Column="0"
-                                    Command="{Binding DobChangedSectionUndoCommand}"
-                                    IsVisible="{Binding DobUndoButtonVisible}"
-                                    Source="undo_button.png"
-                                    WidthRequest="40" />
-                            </FlexLayout>
-                            <Frame
-                                Grid.Row="1"
-                                Grid.Column="0"
-                                Padding="2,2"
-                                BackgroundColor="Transparent">
+                            x:Name="_SuggestionZone"
+                            RowDefinitions="*,*,*"
+                            RowSpacing="10">
+                            <Grid
+                                x:Name="givenNameGrid"
+                                Grid.Row="0"
+                                RowSpacing="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="50" />
+                                </Grid.RowDefinitions>
+                                <FlexLayout Grid.Row="0">
+                                    <Label Text="*Given Name: " TextColor="{Binding AlterPlant.Validation.NameSectionColor}" />
+                                    <ImageButton
+                                        x:Name="_undoNameChange"
+                                        Grid.Column="0"
+                                        Command="{Binding GivenNameChangedSectionUndoCommand}"
+                                        IsVisible="{Binding GivenNameUndoButtonVisible}"
+                                        Source="undo_button.png"
+                                        WidthRequest="40" />
+                                </FlexLayout>
                                 <Frame
-                                    Padding="0,2"
-                                    BackgroundColor="Transparent"
-                                    BorderColor="Transparent"
-                                    HorizontalOptions="CenterAndExpand"
-                                    VerticalOptions="FillAndExpand">
-                                    <DatePicker
-                                        x:Name="_DateOfBirth"
-                                        Grid.Column="1"
-                                        Date="{Binding AlterPlant.DateOfBirth, Mode=TwoWay}"
+                                    Grid.Row="1"
+                                    Padding="2,2"
+                                    BackgroundColor="Transparent">
+                                    <Frame
+                                        Padding="0,2"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Transparent"
                                         HorizontalOptions="FillAndExpand"
-                                        PropertyChanged="Validate">
-                                        <DatePicker.Behaviors>
-                                            <toolkit:EventToCommandBehavior Command="{Binding DobChangedCommand}" EventName="PropertyChanged" />
-                                        </DatePicker.Behaviors>
-                                    </DatePicker>
+                                        VerticalOptions="FillAndExpand">
+                                        <Entry
+                                            x:Name="_GivenName"
+                                            Completed="Entry_Completed"
+                                            HorizontalOptions="FillAndExpand"
+                                            Placeholder="Give your plant a name!"
+                                            Text="{Binding AlterPlant.GivenName, StringFormat='{0}', Mode=TwoWay}"
+                                            Unfocused="Validate"
+                                            VerticalOptions="CenterAndExpand">
+                                            <Entry.Behaviors>
+                                                <toolkit:EventToCommandBehavior Command="{Binding GivenNameChangedCommand}" EventName="Unfocused" />
+                                            </Entry.Behaviors>
+                                        </Entry>
+                                    </Frame>
                                 </Frame>
-                            </Frame>
+                            </Grid>
+
+                            <Grid
+                                x:Name="dobGrid"
+                                Grid.Row="1"
+                                ColumnDefinitions="*,*"
+                                RowSpacing="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="50" />
+                                </Grid.RowDefinitions>
+                                <FlexLayout Grid.Row="0" Grid.ColumnSpan="2">
+                                    <Label Text="*Date Of Birth: " TextColor="{Binding AlterPlant.Validation.BirthdaySectionColor}" />
+                                    <ImageButton
+                                        x:Name="_undoDobChange"
+                                        Grid.Column="0"
+                                        Command="{Binding DobChangedSectionUndoCommand}"
+                                        IsVisible="{Binding DobUndoButtonVisible}"
+                                        Source="undo_button.png"
+                                        WidthRequest="40" />
+                                </FlexLayout>
+                                <Frame
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Padding="2,2"
+                                    BackgroundColor="Transparent">
+                                    <Frame
+                                        Padding="0,2"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Transparent"
+                                        HorizontalOptions="CenterAndExpand"
+                                        VerticalOptions="FillAndExpand">
+                                        <DatePicker
+                                            x:Name="_DateOfBirth"
+                                            Grid.Column="1"
+                                            Date="{Binding AlterPlant.DateOfBirth, Mode=TwoWay}"
+                                            HorizontalOptions="FillAndExpand"
+                                            PropertyChanged="Validate">
+                                            <DatePicker.Behaviors>
+                                                <toolkit:EventToCommandBehavior Command="{Binding DobChangedCommand}" EventName="PropertyChanged" />
+                                            </DatePicker.Behaviors>
+                                        </DatePicker>
+                                    </Frame>
+                                </Frame>
+                            </Grid>
+
+                            <Button
+                                x:Name="useWater"
+                                Grid.Row="2"
+                                BorderColor="MediumPurple"
+                                BorderWidth="2.5"
+                                Command="{Binding UseWateringPressedCommand}"
+                                CommandParameter="{Binding AlterPlant.UseWatering}"
+                                Text="{Binding WaterGridText}" />
+                            <Grid
+                                x:Name="_SearchSuggestionBox"
+                                Grid.Row="0"
+                                Grid.RowSpan="3"
+                                Padding="10,-10"
+                                ColumnDefinitions="*"
+                                HorizontalOptions="Fill"
+                                IsVisible="{Binding ShowSearchSuggestionsBox}"
+                                MaximumHeightRequest="250"
+                                RowDefinitions="Auto, 50">
+                                <CollectionView
+                                    x:Name="plantSuggestionDeck"
+                                    Grid.Row="0"
+                                    ItemsSource="{Binding TopTenAutoFillPlants}"
+                                    SelectionMode="None"
+                                    VerticalScrollBarVisibility="Always">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate x:Name="bloop0" x:DataType="model:SearchedPlants">
+                                            <Frame
+                                                Background="Black"
+                                                BackgroundColor="Black"
+                                                BorderColor="{Binding GroupColor}">
+                                                <Grid ColumnDefinitions="6*, *">
+                                                    <VerticalStackLayout Grid.Column="0">
+                                                        <Label
+                                                            IsVisible="{Binding IsPlantExisting}"
+                                                            Text="{Binding GivenName}"
+                                                            TextColor="{Binding GroupColor}" />
+                                                        <Label Text="{Binding PlantSpecies}" />
+                                                    </VerticalStackLayout>
+
+                                                    <Button
+                                                        Grid.Column="1"
+                                                        Clicked="deadSpaceButtonHideSuggestion_Clicked"
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=AutoFillPlantSpeciesCommand}"
+                                                        CommandParameter="{Binding .}"
+                                                        Text="{Binding ConnectedIcon}" />
+                                                </Grid>
+                                            </Frame>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+
+                                </CollectionView>
+                                <Button
+                                    x:Name="deadSpaceButtonHideSuggestion"
+                                    Grid.Row="1"
+                                    Clicked="deadSpaceButtonHideSuggestion_Clicked"
+                                    Command="{Binding HideSearchSuggestionBoxCommand}"
+                                    Text="Hide Suggestions" />
+                            </Grid>
                         </Grid>
 
-                        <Button
-                            x:Name="useWater"
-                            BorderColor="MediumPurple"
-                            BorderWidth="2.5"
-                            Command="{Binding UseWateringPressedCommand}"
-                            CommandParameter="{Binding AlterPlant.UseWatering}"
-                            Text="{Binding WaterGridText}" />
 
                         <VerticalStackLayout x:Name="WateringGrids" IsVisible="{Binding AlterPlant.UseWatering}">
                             <Grid x:Name="wateringIntervalGrid" RowSpacing="5">
