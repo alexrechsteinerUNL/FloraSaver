@@ -11,7 +11,7 @@ namespace FloraSaver.Utilities
     {
         public static List<AutoFillPlant> AllAutoFillPlants;
 
-        public static int ManuallySetCount = 1;
+        public static int ManualPlantCount = 115;
         public static void GenerateAutoFillPlants()
         {
             var autoFillPlants = new List<AutoFillPlant>();
@@ -95,6 +95,43 @@ namespace FloraSaver.Utilities
             autoFillPlants.Add(new AutoFillPlant("Zebra plant", 7, 3, 28, "https://www.thespruce.com/grow-zebra-plants-indoors-1902616"));
             autoFillPlants.Add(new AutoFillPlant("ZZ plant", 14, 1, 56, "https://www.thespruce.com/grow-zz-plant-indoors-1902615"));
             autoFillPlants.Add(new AutoFillPlant("African mask plant", 14, 1, 56, "https://www.thespruce.com/grow-african-mask-plant-indoors-1902614"));
+            autoFillPlants.Add(new AutoFillPlant("Cactus", 10, 4, 40, "https://cactusway.com/cactus-care-11-essential-tips-for-beginners/"));
+            autoFillPlants.Add(new AutoFillPlant("Parsley", 7, 3, 28, "https://balconygardenweb.com/list-of-common-herbs-for-cooking/#parsley"));
+            autoFillPlants.Add(new AutoFillPlant("Cilantro", 7, 3, 28, "https://balconygardenweb.com/list-of-common-herbs-for-cooking/#cilantro"));
+            autoFillPlants.Add(new AutoFillPlant("Chives", 7, 3, 28, "https://balconygardenweb.com/list-of-common-herbs-for-cooking/#chives"));
+            autoFillPlants.Add(new AutoFillPlant("Sage", 14, 1, 56, "https://balconygardenweb.com/list-of-common-herbs-for-cooking/#sage"));
+            autoFillPlants.Add(new AutoFillPlant("Mint", 7, 3, 28, "https://balconygardenweb.com/list-of-common-herbs-for-cooking/#mint"));
+            autoFillPlants.Add(new AutoFillPlant("Basil", 7, 3, 28, "https://balconygardenweb.com/list-of-common-herbs-for-cooking/#sweet-basil"));
+            autoFillPlants.Add(new AutoFillPlant("Cayenne Pepper", 14, 1, 56, "https://balconygardenweb.com/list-of-common-herbs-for-cooking/#cayenne-pepper"));
+            autoFillPlants.Add(new AutoFillPlant("Chamomile", 14, 1, 56, "https://balconygardenweb.com/list-of-common-herbs-for-cooking/#chamomile"));
+            autoFillPlants.Add(new AutoFillPlant("Lemon Balm", 7, 3, 28, "https://balconygardenweb.com/list-of-common-herbs-for-cooking/#lemon-balm"));
+            autoFillPlants.Add(new AutoFillPlant("Tarragon", 14, 1, 56, "https://balconygardenweb.com/list-of-common-herbs-for-cooking/#tarragon"));
+            autoFillPlants.Add(new AutoFillPlant("Cumin", 14, 1, 56, "https://balconygardenweb.com/list-of-common-herbs-for-cooking/#cumin"));
+            autoFillPlants.Add(new AutoFillPlant("Coriander", 14, 1, 56, "https://balconygardenweb.com/list-of-common-herbs-for-cooking/#coriander"));
+            autoFillPlants.Add(new AutoFillPlant("Fennel", 14, 1, 56, "https://balconygardenweb.com/list-of-common-herbs-for-cooking/#fennel"));
+            autoFillPlants.Add(new AutoFillPlant("Chervil", 7, 3, 28, "https://balconygardenweb.com/list-of-common-herbs-for-cooking/#chervil"));
+            autoFillPlants.Add(new AutoFillPlant("Marigolds", 7, 3, 28, "https://balconygardenweb.com/list-of-common-herbs-for-cooking/#marigolds"));
+            autoFillPlants.Add(new AutoFillPlant("Petunias", 7, 3, 28, "https://balconygardenweb.com/list-of-common-herbs-for-cooking/#petunias"));
+            autoFillPlants.Add(new AutoFillPlant("Zinnias", 7, 3, 28, "https://balconygardenweb.com/list-of-common-herbs-for-cooking/#zinnias"));
+            autoFillPlants.Add(new AutoFillPlant("Pansies", 7, 3, 28, "https://balconygardenweb.com/list-of-common-herbs-for-cooking/#pansies"));
+            autoFillPlants.Add(new AutoFillPlant("Sunflowers", 14, 1, 56, "https://balconygardenweb.com/list-of-common-herbs-for-cooking/#sunflowers"));
+            autoFillPlants.Add(new AutoFillPlant("Marjoram", 7, 3, 28, "https://www.thespruce.com/perennial-flower-garden-layout-5219484"));
+            autoFillPlants.Add(new AutoFillPlant("Foxgloves", 7, 3, 28, "https://www.thespruce.com/perennial-flower-garden-layout-5219484"));
+            autoFillPlants.Add(new AutoFillPlant("Alliums", 7, 3, 28, "https://www.thespruce.com/perennial-flower-garden-layout-5219484"));
+            autoFillPlants.Add(new AutoFillPlant("Irises", 7, 3, 28, "https://www.thespruce.com/perennial-flower-garden-layout-5219484"));
+            autoFillPlants.Add(new AutoFillPlant("Heucheras", 7, 3, 28, "https://www.thespruce.com/perennial-flower-garden-layout-5219484"));
+            autoFillPlants.Add(new AutoFillPlant("Aglaonema", 7, 3, 28, "https://hortiadvisor.com/list-of-common-herbs-for-cooking/#aglaonema"));
+            autoFillPlants.Add(new AutoFillPlant("Clivia", 7, 3, 28, "https://hortiadvisor.com/list-of-common-herbs-for-cooking/#clivia"));
+            autoFillPlants.Add(new AutoFillPlant("Monstera", 7, 3, 28, "https://www.thespruce.com/how-to-grow-monstera-deliciosa-5072671"));
+            autoFillPlants.Add(new AutoFillPlant("Forsythia", 7, 3, 28, "https://www.bobvila.com/slideshow/50-plants-that-thrive-in-any-yard-52743"));
+            autoFillPlants.Add(new AutoFillPlant("Creeping Jenny", 14, 1, 56, "https://www.bobvila.com/slideshow/50-plants-that-thrive-in-any-yard-52743"));
+            autoFillPlants.Add(new AutoFillPlant("Fountain Grass", 7, 3, 28, "https://www.bobvila.com/slideshow/50-plants-that-thrive-in-any-yard-52743"));
+            autoFillPlants.Add(new AutoFillPlant("Black-Eyed Susan", 14, 1, 56, "https://www.bobvila.com/slideshow/50-plants-that-thrive-in-any-yard-52743"));
+            autoFillPlants.Add(new AutoFillPlant("Indian Hawthorn", 7, 3, 28, "https://www.bobvila.com/slideshow/50-plants-that-thrive-in-any-yard-52743"));
+            autoFillPlants.Add(new AutoFillPlant("Vinca Minor", 14, 1, 56, "https://www.bobvila.com/slideshow/50-plants-that-thrive-in-any-yard-52743"));
+            autoFillPlants.Add(new AutoFillPlant("Fiddle Leaf Fig", 7, 3, 28, "https://www.thespruce.com/grow-fiddle-leaf-fig-indoors-1902756"));
+            autoFillPlants.Add(new AutoFillPlant("Chinese Money Plant", 7, 3, 28, "https://www.thespruce.com/growing-pilea-peperomioides-5090425"));
+            autoFillPlants.Add(new AutoFillPlant("Air Plant", 7, 3, 28, "https://www.thespruce.com/air-plant-care-guide-5211052"));
             Preferences.Default.Set("AutoFillPlantCount", autoFillPlants.Count);
             AllAutoFillPlants = autoFillPlants;
         }

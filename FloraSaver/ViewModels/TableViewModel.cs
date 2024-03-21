@@ -505,7 +505,7 @@ namespace FloraSaver.ViewModels
 
         public virtual async Task<bool> SearchSingularPlantAsync(Plant plant)
         {
-            if (plant.GivenName.IndexOf(SearchQuery) < 0)
+            if (plant.GivenName.IndexOf(SearchQuery, StringComparison.OrdinalIgnoreCase) < 0 && plant.PlantSpecies.IndexOf(SearchQuery, StringComparison.OrdinalIgnoreCase) < 0 && plant.PlantGroupName.IndexOf(SearchQuery, StringComparison.OrdinalIgnoreCase) < 0)
             {
                 return false;
             }

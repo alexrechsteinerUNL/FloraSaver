@@ -46,13 +46,15 @@ namespace FloraSaver.Services
         private async Task PopulateAutoFillPlantTableAsync()
         {
             // You will need to alter this by either prepending the correct amount manually every time you update it or something smarter
-            var autoFillPlantCount = int.Parse(Preferences.Default.Get("AutoFillPlantCount", "0"));
+
+            var autoFillPlantCount = Preferences.Default.Get("AutoFillPlantCount", 0);
             var autoFillData = await conn.Table<AutoFillPlant>().ToListAsync();
-            if (autoFillPlantCount != 0 && autoFillPlantCount == autoFillData.Count)
+            if (autoFillPlantCount != 0 && autoFillPlantCount == autoFillData.Count && autoFillPlantCount == AutoFillPlantGeneratorUtility.ManualPlantCount)
             {
                 return;
             }
             AutoFillPlantGeneratorUtility.GenerateAutoFillPlants();
+            await conn.DeleteAllAsync<AutoFillPlant>();
             await conn.InsertAllAsync(AutoFillPlantGeneratorUtility.AllAutoFillPlants, true);
         }
 
