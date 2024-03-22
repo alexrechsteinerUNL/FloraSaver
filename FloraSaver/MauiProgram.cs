@@ -45,6 +45,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<TablePage>();
         builder.Services.AddSingleton<HandlingPage>();
         builder.Services.AddSingleton<SettingsPage>();
+        builder.Services.AddSingleton<AllClipetDialogs>();
         builder.Services.AddTransient<SettingsViewModel>();
         builder.Services.AddTransient<PlantDetailsSetupViewModel>();
         builder.Services.AddTransient<PlantDetailsSetupPage>();

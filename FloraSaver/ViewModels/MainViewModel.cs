@@ -4,6 +4,7 @@ using FloraSaver.Models;
 using FloraSaver.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,8 @@ namespace FloraSaver.ViewModels
 {
     public partial class MainViewModel : TableViewModel, INotifyPropertyChanged
     {
+
+        public ObservableCollection<ClipetDialog> Dialogs { get; set; }= new();
         [ObservableProperty]
         public Plant nextPlant;
 
@@ -39,6 +42,12 @@ namespace FloraSaver.ViewModels
         {
             databaseService = _databaseService;
             plantNotificationService = _plantNotificationService;
+        }
+
+        [RelayCommand]
+        private async Task AppearingDialogsAsync()
+        {
+            Dialogs = new(await _databaseService.GetAllClipetDialogsAsync());
         }
 
         [RelayCommand]

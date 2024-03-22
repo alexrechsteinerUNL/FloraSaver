@@ -27,6 +27,47 @@ namespace FloraSaver.Services
             return await TestGetAllPlantAsync(testConn);
         }
 
+        public async Task<List<ClipetDialog>> GetAllClipetDialogsAsync()
+        {
+            try
+            {
+                //await InitAsync();
+                var allClipetDialogs = await conn.Table<ClipetDialog>().ToListAsync();
+                return allClipetDialogs;
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Failed to retrieve data from Autofill Database. {0}", ex.Message);
+            }
+
+            return new List<ClipetDialog>();
+        }
+
+        private async Task PopulateClipetDialogTableAsync()
+        {
+            // You will need to alter this by either prepending the correct amount manually every time you update it or something smarter
+
+            var clipetDialogCount = Preferences.Default.Get("ClipetDialogCount", 0);
+            var currentDialogData = await conn.Table<ClipetDialog>().ToListAsync();
+            if (clipetDialogCount != 0 && clipetDialogCount == currentDialogData.Count && clipetDialogCount == ClipetDialogGeneratorUtility.ManualClipetDialogs)
+            {
+                return;
+            }
+            ClipetDialogGeneratorUtility.GenerateClipetDialogs();
+            await conn.DeleteAllAsync<ClipetDialog>();
+            await conn.InsertAllAsync(ClipetDialogGeneratorUtility.AllClipetDialogs, true);
+        }
+
+
+
+
+
+
+
+
+
+
+
         public async Task<List<AutoFillPlant>> GetAllAutofillPlantAsync()
         {
             try
@@ -106,7 +147,9 @@ namespace FloraSaver.Services
             await conn.CreateTableAsync<Plant>();
             await conn.CreateTableAsync<PlantGroup>();
             await conn.CreateTableAsync<AutoFillPlant>();
+            await conn.CreateTableAsync<ClipetDialog>();
             await PopulateAutoFillPlantTableAsync();
+            await PopulateClipetDialogTableAsync();
             //Testing
         }
 

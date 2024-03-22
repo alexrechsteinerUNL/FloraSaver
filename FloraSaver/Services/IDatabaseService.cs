@@ -30,5 +30,7 @@ namespace FloraSaver.Services
         Task<List<PlantGroup>> GetAllPlantGroupAsync();
 
         public Task<List<AutoFillPlant>> GetAllAutofillPlantAsync();
+
+        public Task<List<ClipetDialog>> GetAllClipetDialogsAsync();
     }
 }
