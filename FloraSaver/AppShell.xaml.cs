@@ -13,6 +13,7 @@ public partial class AppShell : Shell
         Routes.Add(nameof(PlantDetailsSetupPage), typeof(PlantDetailsSetupPage));
         Routes.Add(nameof(DatabaseExportPage), typeof(DatabaseExportPage));
         Routes.Add(nameof(DatabaseImportPage), typeof(DatabaseImportPage));
+        Routes.Add(nameof(AllClipetDialogs), typeof(AllClipetDialogs));
 
         foreach (var route in Routes)
         {

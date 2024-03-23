@@ -247,6 +247,13 @@
                     Margin="8"
                     Command="{Binding GoToDatabaseImportCommand}"
                     Text="Import From Backup" />
+                <Button
+                    x:Name="ViewClipetDialogs"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="8"
+                    Command="{Binding GoToAllClipetDialogsCommand}"
+                    Text="All Clipet Dialogs" />
                 <Frame
                     Grid.Row="1"
                     Grid.Column="0"

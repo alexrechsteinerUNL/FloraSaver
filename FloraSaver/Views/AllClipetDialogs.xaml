@@ -8,38 +8,44 @@
     xmlns:model="clr-namespace:FloraSaver.Models"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:FloraSaver.ViewModels"
-    x:DataType="viewmodel:MainViewModel"
-    Shell.NavBarIsVisible="false">
+    x:DataType="viewmodel:MainViewModel">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding AppearingDialogsCommand}" EventName="Appearing" />
         <toolkit:EventToCommandBehavior Command="{Binding DisappearingDialogsCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
-    <ScrollView>
-        <CollectionView
-            x:Name="dialogDeck"
-            ItemsSource="{Binding Dialogs}"
-            SelectionMode="Multiple"
-            VerticalOptions="CenterAndExpand">
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout
-                    HorizontalItemSpacing="10"
-                    Orientation="Vertical"
-                    Span="1"
-                    VerticalItemSpacing="10" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:Name="singleDialog" x:DataType="model:ClipetDialog">
-                    <Grid HorizontalOptions="Center" VerticalOptions="Center">
-                        <Frame>
-                            <ImageButton
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=TalkToClipetCommand}"
-                                CommandParameter="{Binding Filename}"
-                                IsEnabled="{Binding IsUnlocked}" />
-                        </Frame>
-                        <Label Text="{Binding DisplayName}" />
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </ScrollView>
+    <CollectionView
+        x:Name="dialogDeck"
+        ItemsSource="{Binding Dialogs}"
+        SelectionMode="Multiple"
+        VerticalOptions="CenterAndExpand">
+        <CollectionView.ItemsLayout>
+            <GridItemsLayout
+                HorizontalItemSpacing="10"
+                Orientation="Vertical"
+                Span="3"
+                VerticalItemSpacing="10" />
+        </CollectionView.ItemsLayout>
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:Name="singleDialog" x:DataType="model:ClipetDialog">
+                <Grid
+                    Padding="10"
+                    HorizontalOptions="Center"
+                    RowDefinitions="*, Auto"
+                    VerticalOptions="Center">
+                    <Frame
+                        Padding="10"
+                        BackgroundColor="Black"
+                        BorderColor="{Binding TypeColor}">
+                        <ImageButton
+                            Grid.Row="0"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=TalkToClipetCommand}"
+                            CommandParameter="{Binding Filename}"
+                            IsEnabled="{Binding IsUnlocked}"
+                            Source="homeicon" />
+                    </Frame>
+                    <Label Grid.Row="1" Text="{Binding DisplayName}" />
+                </Grid>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
 </ContentPage>

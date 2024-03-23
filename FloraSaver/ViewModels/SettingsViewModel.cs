@@ -274,6 +274,12 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
+        private async Task GoToAllClipetDialogsAsync()
+        {
+            await Shell.Current.GoToAsync($"{nameof(AllClipetDialogs)}", true);
+        }
+
+        [RelayCommand]
         private async Task GoToDatabaseImportAsync()
         {
             await Shell.Current.GoToAsync($"{nameof(DatabaseImportPage)}", true);

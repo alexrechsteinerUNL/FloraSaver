@@ -141,12 +141,17 @@ namespace FloraSaver.Services
 
         private async Task WarnOverdueAsync(Plant plant, string plantAction, DateTime notifyTime, string iconSource)
         {
+            //var currentId = GenerateNotificationId(plant, plantAction);
+            //var currentNotifications = await LocalNotificationCenter.Current.GetPendingNotificationList();
+
+            //var waitingNotification = currentNotifications.FirstOrDefault(_ => _.NotificationId == currentId);
+
             var title = $"Overdue {(plantAction.EndsWith("e") ? plantAction.Remove(plantAction.Length - 1, 1) : plantAction)}ing on your '{plant.PlantSpecies}', {plant.GivenName}";
             var notification = new NotificationRequest
             {
                 NotificationId = GenerateNotificationId(plant, plantAction),
                 Title = title,
-                Description = $"You really should {plantAction} this guy",
+                Description = $"Please {plantAction} this plant!",
                 Android =
                 {
                     IconSmallName =
