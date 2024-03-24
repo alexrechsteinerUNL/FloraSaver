@@ -141,10 +141,10 @@ namespace FloraSaver.Services
 
         private async Task WarnOverdueAsync(Plant plant, string plantAction, DateTime notifyTime, string iconSource)
         {
-            //var currentId = GenerateNotificationId(plant, plantAction);
-            //var currentNotifications = await LocalNotificationCenter.Current.GetPendingNotificationList();
+            var currentId = GenerateNotificationId(plant, plantAction);
+            var currentNotifications = await LocalNotificationCenter.Current.GetPendingNotificationList();
 
-            //var waitingNotification = currentNotifications.FirstOrDefault(_ => _.NotificationId == currentId);
+            var waitingNotification = currentNotifications.FirstOrDefault(_ => _.NotificationId == currentId);
 
             var title = $"Overdue {(plantAction.EndsWith("e") ? plantAction.Remove(plantAction.Length - 1, 1) : plantAction)}ing on your '{plant.PlantSpecies}', {plant.GivenName}";
             var notification = new NotificationRequest
@@ -162,7 +162,7 @@ namespace FloraSaver.Services
                 ReturningData = plant.GivenName, // Returning data when tapped on notification.
                 Schedule =
                 {
-                    NotifyTime = notifyTime.AddHours(COOLDOWN_HOURS) // Used for Scheduling local notification, if not specified notification will show immediately.
+                    NotifyTime = waitingNotification is nottio null ? waitingNotification.Schedule.NotifyTime : notifyTime.AddHours(COOLDOWN_HOURS) // Used for Scheduling local notification, if not specified notification will show immediately.
                 }
             };
             commonPlantOverdueNotificationDescription += $"{title}\n";
