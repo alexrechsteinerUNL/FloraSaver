@@ -162,7 +162,7 @@ namespace FloraSaver.Services
                 ReturningData = plant.GivenName, // Returning data when tapped on notification.
                 Schedule =
                 {
-                    NotifyTime = waitingNotification is nottio null ? waitingNotification.Schedule.NotifyTime : notifyTime.AddHours(COOLDOWN_HOURS) // Used for Scheduling local notification, if not specified notification will show immediately.
+                    NotifyTime = waitingNotification is not null ? waitingNotification.Schedule.NotifyTime : notifyTime.AddHours(COOLDOWN_HOURS) // Used for Scheduling local notification, if not specified notification will show immediately.
                 }
             };
             commonPlantOverdueNotificationDescription += $"{title}\n";
