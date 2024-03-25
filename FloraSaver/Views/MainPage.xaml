@@ -30,8 +30,7 @@
                     Source="plant_saver_title.png" />
                 <ImageButton
                     Grid.Row="1"
-                    Command="{Binding TalkToClipetCommand}"
-                    CommandParameter="WelcomeMessage0.txt"
+                    Command="{Binding SetCurrentDialogCommand}"
                     HorizontalOptions="Center"
                     Source="clipet_flowers_standing_color.png" />
                 <Frame
@@ -176,8 +175,7 @@
                     Source="plant_saver_title.png" />
                 <ImageButton
                     Grid.Row="2"
-                    Command="{Binding TalkToClipetCommand}"
-                    CommandParameter="WelcomeMessage0.txt"
+                    Command="{Binding SetCurrentDialogCommand}"
                     HorizontalOptions="Center"
                     Source="clipet_flowers_standing_color.png" />
                 <Frame

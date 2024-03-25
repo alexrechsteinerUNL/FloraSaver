@@ -17,6 +17,11 @@ namespace FloraSaver.ViewModels
 
         public ObservableCollection<ClipetDialog> Dialogs { get; set; }= new();
         [ObservableProperty]
+        public ClipetDialog currentDialog;
+        [ObservableProperty]
+        public int treatsGiven = 0;
+
+        [ObservableProperty]
         public Plant nextPlant;
 
         [ObservableProperty]
@@ -54,6 +59,7 @@ namespace FloraSaver.ViewModels
         private async Task AppearingHomeAsync()
         {
             if (ShouldUpdateCheckService.shouldGetNewPlantDataMain) { await GetPlantsAsync(); ShouldUpdateCheckService.shouldGetNewPlantDataMain = false; }
+            Dialogs = new(await _databaseService.GetAllClipetDialogsAsync());
             PeriodicTimerUpdaterBackgroundAsync(() => CheatUpdateAllPlantProgress());
             if (DataPlants.Count > 0)
             {
@@ -113,6 +119,39 @@ namespace FloraSaver.ViewModels
                         break;
                 }
             }
+        }
+        [RelayCommand]
+        public async Task SetCurrentDialogAsync()
+        {
+            Random rand = new Random();
+            List<ClipetDialog> newlyUnlockedDialogs = new();
+            var lockedDialogs = Dialogs.Where(_ => !_.IsUnlocked).ToList();
+            if (lockedDialogs.Count > 0)
+            {
+                newlyUnlockedDialogs = lockedDialogs.Where(_ => _.TreatRequirement < TreatsGiven).ToList();
+                if (newlyUnlockedDialogs.Count > 0)
+                {
+                    CurrentDialog = newlyUnlockedDialogs[rand.Next(newlyUnlockedDialogs.Count)];
+                    Dialogs.FirstOrDefault(_ => _ == CurrentDialog).IsUnlocked = true;
+                }
+            }
+
+            var unlockedDialogs = Dialogs.Where(_ => _.IsUnlocked).ToList();
+            if (unlockedDialogs.Count > 0 && newlyUnlockedDialogs.Count <= 0)
+            {
+                var unseenDialogs = unlockedDialogs.Where(_ => !_.IsSeen).ToList();
+                if (unseenDialogs.Count > 0)
+                {
+                    CurrentDialog = unseenDialogs[rand.Next(unseenDialogs.Count)];
+                } 
+                else
+                {
+                CurrentDialog = unlockedDialogs[rand.Next(unlockedDialogs.Count)];
+                }
+            }
+            
+            Dialogs.FirstOrDefault(_ => _ == CurrentDialog).IsSeen = true;
+            await TalkToClipetAsync(CurrentDialog.Filename);
         }
 
         protected override async Task ResetWateringAsync(Plant plant)
