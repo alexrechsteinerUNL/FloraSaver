@@ -59,6 +59,7 @@ namespace FloraSaver.ViewModels
         private async Task AppearingHomeAsync()
         {
             if (ShouldUpdateCheckService.shouldGetNewPlantDataMain) { await GetPlantsAsync(); ShouldUpdateCheckService.shouldGetNewPlantDataMain = false; }
+            //await _databaseService.PopulateClipetDialogTableAsync(); //Testing
             Dialogs = new(await _databaseService.GetAllClipetDialogsAsync());
             PeriodicTimerUpdaterBackgroundAsync(() => CheatUpdateAllPlantProgress());
             if (DataPlants.Count > 0)
@@ -151,7 +152,10 @@ namespace FloraSaver.ViewModels
             }
             
             Dialogs.FirstOrDefault(_ => _ == CurrentDialog).IsSeen = true;
+
+            var updateAction = _databaseService.UpdateClipetDialogTableAsync(Dialogs.ToList());
             await TalkToClipetAsync(CurrentDialog.Filename);
+            await updateAction;
         }
 
         protected override async Task ResetWateringAsync(Plant plant)
