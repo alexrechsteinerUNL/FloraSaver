@@ -54,6 +54,7 @@ namespace FloraSaver.Services
 
         private async Task PopulateClipetDialogTableAsync()
         {
+            var allDialogsTask = GetAllClipetDialogsAsync();
             // You will need to alter this by either prepending the correct amount manually every time you update it or something smarter
                 var clipetDialogCount = Preferences.Default.Get("ClipetDialogCount", 0);
                 var currentDialogData = await conn.Table<ClipetDialog>().ToListAsync();
@@ -62,7 +63,15 @@ namespace FloraSaver.Services
                     return;
                 }
                 ClipetDialogGeneratorUtility.GenerateClipetDialogs();
-                await conn.UpdateAllAsync(ClipetDialogGeneratorUtility.AllClipetDialogs, true);
+            var allDialogs = await allDialogsTask;
+            foreach (var dialog in ClipetDialogGeneratorUtility.AllClipetDialogs)
+            {
+                if (!allDialogs.Select(_ => _.DialogID).Contains(dialog.DialogID))
+                {
+                    await conn.InsertAsync(dialog);
+                }
+            }
+            
             
         }
 

@@ -14,10 +14,11 @@ namespace FloraSaver.Utilities
         public static void GenerateClipetDialogs()
         {
             List<ClipetDialog> dialogs = new();
-            dialogs.Add(new ClipetDialog() { DisplayName = "Welcome Message", Filename = "WelcomeMessage0.txt" });
-            dialogs.Add(new ClipetDialog() { DisplayName = "Keep Clicking", Filename = "JustKeepClicking1.txt" });
-            dialogs.Add(new ClipetDialog() { DisplayName = "Automatic Watering", Filename = "TUTAutomaticWatering.txt" });
-            dialogs.Add(new ClipetDialog() { DisplayName = "Copying Plants", Filename = "TUTCopyingPlants.txt" });
+            dialogs.Add(new ClipetDialog() { DialogID = 0, DisplayName = "Welcome Message", Filename = "WelcomeMessage0.txt" });
+            dialogs.Add(new ClipetDialog() { DialogID = 1, DisplayName = "Keep Clicking", Filename = "JustKeepClicking1.txt" });
+            dialogs.Add(new ClipetDialog() { DialogID = 2, DisplayName = "Automatic Watering", Filename = "TUTAutomaticWatering.txt" });
+            dialogs.Add(new ClipetDialog() { DialogID = 3, DisplayName = "Copying Plants", Filename = "TUTCopyingPlants.txt" });
+            
             AllClipetDialogs = dialogs;
         }
     }

@@ -28,12 +28,13 @@
             Opacity=".1"
             Source="frosted_shade_green.png" />
         <Grid
-            Padding="0"
+            x:Name="clipetSpace"
+            Padding="10,0"
             ColumnDefinitions="1.1538*,*"
             HorizontalOptions="FillAndExpand"
-            RowDefinitions="*, .2*"
+            RowDefinitions="*, Auto"
             RowSpacing="0"
-            WidthRequest="390">
+            VerticalOptions="End">
             <Image
                 x:Name="displaySpace"
                 Grid.Row="0"
@@ -55,7 +56,9 @@
                 Grid.Row="1"
                 Grid.ColumnSpan="2"
                 Padding="0"
-                ScaleX="1.011">
+                MinimumHeightRequest="100"
+                ScaleX="1.011"
+                VerticalOptions="Fill">
                 <!--<Image
                     Aspect="Fill"
                     HorizontalOptions="Fill"
@@ -65,15 +68,19 @@
                 <Frame
                     Padding="4"
                     BackgroundColor="#4A0023"
-                    BorderColor="Orange">
+                    BorderColor="Orange"
+                    VerticalOptions="Fill">
                     <Frame
                         BackgroundColor="#4A0023"
                         BorderColor="Orange"
-                        SizeChanged="Frame_SizeChanged">
+                        SizeChanged="Frame_SizeChanged"
+                        VerticalOptions="Fill">
                         <Label
                             x:Name="speech"
+                            MinimumHeightRequest="50"
                             Text="{Binding CurrentClipetDialog.DialogString}"
                             TextColor="Orange"
+                            VerticalOptions="Start"
                             WidthRequest="375" />
                     </Frame>
                 </Frame>
