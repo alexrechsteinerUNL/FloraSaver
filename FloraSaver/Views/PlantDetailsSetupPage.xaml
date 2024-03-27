@@ -1613,11 +1613,17 @@
                     VerticalOptions="Center" />
             </Frame>
         </Grid>
+        <Button
+            BackgroundColor="Transparent"
+            BorderColor="Transparent"
+            Clicked="deadSpaceButtonHideSuggestion_Clicked"
+            Command="{Binding HideSearchSuggestionBoxCommand}"
+            IsVisible="{Binding ShowSearchSuggestionsBox}" />
         <Grid
             x:Name="_SearchSuggestionBox"
             Padding="10,170,10,0"
             ColumnDefinitions="*"
-            HorizontalOptions="Fill"
+            HorizontalOptions="Center"
             IsVisible="{Binding ShowSearchSuggestionsBox}"
             MaximumWidthRequest="500"
             RowDefinitions="Auto, 50">
@@ -1625,12 +1631,11 @@
                 x:Name="plantSuggestionDeck"
                 Grid.Row="0"
                 Grid.Column="1"
-                HorizontalOptions="FillAndExpand"
+                HorizontalOptions="Fill"
                 ItemsSource="{Binding TopTenAutoFillPlants}"
                 MaximumHeightRequest="200"
                 SelectionMode="None"
-                VerticalScrollBarVisibility="Always"
-                WidthRequest="500">
+                VerticalScrollBarVisibility="Always">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:Name="bloop0" x:DataType="model:SearchedPlants">
                         <Frame

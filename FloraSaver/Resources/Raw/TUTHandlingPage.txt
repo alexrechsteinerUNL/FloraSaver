@@ -1,0 +1,1 @@
+﻿So the Handling Page, what is it for? #$ Well, if you have a lot of plants, you might want to water some at the same time. #$ The handling page lets you do that. #$ Just highlight the plants that you want, and then press one of the 3 options at the bottom. #$ And all of those plants will have that action completed! #$

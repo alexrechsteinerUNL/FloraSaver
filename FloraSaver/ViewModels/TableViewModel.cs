@@ -69,13 +69,7 @@ namespace FloraSaver.ViewModels
                 var plantIndex = Plants.IndexOf(Plants.FirstOrDefault(_ => _.GivenName ==  scrollToSelectedPlant));
                 ScrollToValue = plantIndex > 0 ? plantIndex : 0;
             }
-            if (DataPlants.Count > 0)
-            {
-                AreNoPlants = false;
-            } else
-            {
-                AreNoPlants = true;
-            }
+            
             HideSearchSuggestionBox();
             IsInitialization = false;
         }
@@ -167,6 +161,14 @@ namespace FloraSaver.ViewModels
             {
                 plant.PlantImageSource = plant.ImageLocation is not null ? Base64ImageConverterService.Base64ToImage(plant.ImageLocation) : null;
                 Plants.Add(plant);
+            }
+            if (DataPlants.Count > 0)
+            {
+                AreNoPlants = false;
+            }
+            else
+            {
+                AreNoPlants = true;
             }
             OnPropertyChanged("Plants");
         }
@@ -431,6 +433,14 @@ namespace FloraSaver.ViewModels
                     BackendPlantList.Add(plant);
                 }
 
+            }
+            if (DataPlants.Count > 0)
+            {
+                AreNoPlants = false;
+            }
+            else
+            {
+                AreNoPlants = true;
             }
             setPlantOrder(CurrentOrderByValue);
         }

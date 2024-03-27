@@ -77,7 +77,8 @@
                         VerticalOptions="Fill">
                         <Label
                             x:Name="speech"
-                            MinimumHeightRequest="50"
+                            HeightRequest="90"
+                            MinimumHeightRequest="60"
                             Text="{Binding CurrentClipetDialog.DialogString}"
                             TextColor="Orange"
                             VerticalOptions="Start"

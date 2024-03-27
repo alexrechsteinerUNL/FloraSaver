@@ -377,6 +377,7 @@
                                     x:Name="plantSuggestionDeck"
                                     Grid.Row="0"
                                     ItemsSource="{Binding TopTenAutoFillPlants}"
+                                    MaximumHeightRequest="210"
                                     SelectionMode="None"
                                     VerticalScrollBarVisibility="Always">
                                     <CollectionView.ItemTemplate>

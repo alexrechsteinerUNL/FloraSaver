@@ -1,0 +1,1 @@
+﻿The table page is where you can do actions to each plant individually #$ You can also create and edit plants from there #$ If you use the searchbar, you can copy or make new plants from the presets! #$

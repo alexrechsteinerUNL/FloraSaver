@@ -53,9 +53,18 @@
 	  <None Remove="Resources\Fonts\CALIFI.TTF" />
 	  <None Remove="Resources\Fonts\CALIFR.TTF" />
 	  <None Remove="Resources\Fonts\PRISMA.TTF" />
+	  <None Remove="Resources\Raw\HowToSayClipet3.txt" />
 	  <None Remove="Resources\Raw\JustKeepClicking1.txt" />
+	  <None Remove="Resources\Raw\TShirt2.txt" />
 	  <None Remove="Resources\Raw\TUTAutomaticWatering.txt" />
 	  <None Remove="Resources\Raw\TUTCopyingPlants.txt" />
+	  <None Remove="Resources\Raw\TUTGrowLights.txt" />
+	  <None Remove="Resources\Raw\TUTHandlingPage.txt" />
+	  <None Remove="Resources\Raw\TUTLightingColorsCompact.txt" />
+	  <None Remove="Resources\Raw\TUTLightingColorsFull.txt" />
+	  <None Remove="Resources\Raw\TUTPlantDetails.txt" />
+	  <None Remove="Resources\Raw\TUTTablePage.txt" />
+	  <None Remove="Resources\Raw\TUTThirdOption.txt" />
 	  <None Remove="Resources\Raw\WelcomeMessage0.txt" />
 	</ItemGroup>
 
@@ -152,6 +161,33 @@
 	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
 	  </MauiAsset>
 	  <MauiAsset Update="Resources\Raw\JustKeepClicking1.txt">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </MauiAsset>
+	  <MauiAsset Update="Resources\Raw\TUTLightingColorsCompact.txt">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </MauiAsset>
+	  <MauiAsset Update="Resources\Raw\TUTThirdOption.txt">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </MauiAsset>
+	  <MauiAsset Update="Resources\Raw\TUTGrowLights.txt">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </MauiAsset>
+	  <MauiAsset Update="Resources\Raw\TUTLightingColorsFull.txt">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </MauiAsset>
+	  <MauiAsset Update="Resources\Raw\TShirt2.txt">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </MauiAsset>
+	  <MauiAsset Update="Resources\Raw\HowToSayClipet3.txt">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </MauiAsset>
+	  <MauiAsset Update="Resources\Raw\TUTHandlingPage.txt">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </MauiAsset>
+	  <MauiAsset Update="Resources\Raw\TUTPlantDetails.txt">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </MauiAsset>
+	  <MauiAsset Update="Resources\Raw\TUTTablePage.txt">
 	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
 	  </MauiAsset>
 	  <MauiAsset Update="Resources\Raw\WelcomeMessage0.txt">

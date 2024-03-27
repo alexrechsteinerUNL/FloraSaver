@@ -33,7 +33,7 @@
             VerticalOptions="CenterAndExpand">
             <Grid RowSpacing="10">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="5*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>

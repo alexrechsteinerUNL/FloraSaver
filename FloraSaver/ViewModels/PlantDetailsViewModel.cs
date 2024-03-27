@@ -998,8 +998,8 @@ namespace FloraSaver.ViewModels
                 UndoAll();
                 await Shell.Current.GoToAsync($"///{nameof(TablePage)}", true, new Dictionary<string, object>
             {
-                {"ShouldGetNewData", ShouldGetNewData },
-                {"ShouldGetNewGroupData", ShouldGetNewGroupData }
+                {"ShouldGetNewData", true },
+                {"ShouldGetNewGroupData", true }
             });
             }
             
