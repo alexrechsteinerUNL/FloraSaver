@@ -11,7 +11,30 @@ public partial class App : Application
     {
         InitializeComponent();
         LocalNotificationCenter.Current.NotificationActionTapped += OnNotificationActionTapped;
+        Application.Current.RequestedThemeChanged += OnRequestedThemeChanged;
         MainPage = new AppShell();
+
+    }
+
+
+
+    private void OnRequestedThemeChanged(object sender, AppThemeChangedEventArgs e)
+    {
+    #if ANDROID
+        AndroidX.AppCompat.App.AppCompatDelegate.DefaultNightMode = Current.UserAppTheme switch
+        {
+            AppTheme.Light => AndroidX.AppCompat.App.AppCompatDelegate.ModeNightNo,
+            AppTheme.Dark => AndroidX.AppCompat.App.AppCompatDelegate.ModeNightYes,
+            _ => AndroidX.AppCompat.App.AppCompatDelegate.ModeNightFollowSystem
+        };
+    #elif IOS
+            platform.getcurrentuiviewcontroller().overrideuserinterfacestyle = current.userapptheme switch
+            {
+                apptheme.light => uikit.uiuserinterfacestyle.light,
+                apptheme.dark => uikit.uiuserinterfacestyle.dark,
+                _ => uikit.uiuserinterfacestyle.unspecified
+            };
+    #endif
     }
 
     private void OnNotificationActionTapped(NotificationActionEventArgs e)
