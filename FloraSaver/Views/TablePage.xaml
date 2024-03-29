@@ -208,7 +208,7 @@
                                         <Image
                                             Grid.Row="0"
                                             Aspect="Fill"
-                                            Opacity=".1"
+                                            Opacity=".2"
                                             Source="card_background_fix.png" />
                                         <Grid
                                             Padding="0"
@@ -278,6 +278,28 @@
                                                         <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToSetupDetailsGivenNameCommand}" CommandParameter="{Binding .}" />
                                                     </Frame.GestureRecognizers>
                                                 </Frame>
+                                                <Frame
+                                                    Grid.Row="2"
+                                                    Grid.Column="1"
+                                                    Padding="0"
+                                                    BackgroundColor="Transparent"
+                                                    BorderColor="{Binding GroupColor}"
+                                                    HeightRequest="58"
+                                                    VerticalOptions="Fill"
+                                                    WidthRequest="58">
+                                                    <Frame.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}" CommandParameter="{Binding .}" />
+                                                    </Frame.GestureRecognizers>
+                                                    <Label
+                                                        Rotation="30"
+                                                        Padding="0"
+                                                        FontSize="42"
+                                                        HorizontalOptions="Center"
+                                                        Text="🂠"
+                                                        TextColor="{Binding GroupColor}"
+                                                        VerticalOptions="Center" />
+                                                </Frame>
+
                                                 <Label
                                                     Grid.Row="1"
                                                     Grid.ColumnSpan="2"
@@ -289,7 +311,7 @@
                                                 </Label>
                                                 <Label
                                                     Grid.Row="2"
-                                                    Grid.ColumnSpan="2"
+                                                    Grid.ColumnSpan="1"
                                                     Text="{Binding PlantGroupName}"
                                                     TextColor="{Binding GroupColor}">
                                                     <Label.GestureRecognizers>

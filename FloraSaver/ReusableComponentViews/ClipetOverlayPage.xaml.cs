@@ -99,27 +99,27 @@ public partial class ClipetOverlayPage : ContentPage
 
     private void Frame_SizeChanged(object sender, EventArgs e)
     {
-        var fontSize = 24.0;
-        var frameWidth = Frame.Width;
-        var frameHeight = Frame.Height;
-        //My brain is shot here. Head empty. Fix this tomorrow.
+        //var fontSize = 24.0;
+        //var frameWidth = Frame.Width;
+        //var frameHeight = Frame.Height;
+        ////My brain is shot here. Head empty. Fix this tomorrow.
 
-        if (frameWidth/frameHeight > 1.2)
-        {
-            fontSize = (fontSize - 4 * (frameWidth / frameHeight));
-        }
+        //if (frameWidth/frameHeight > 1.2)
+        //{
+        //    fontSize = (fontSize - 4 * (frameWidth / frameHeight));
+        //}
 
-        if (frameWidth < 600 && frameHeight < 600)
-        {
-            if (frameWidth < frameHeight)
-            {
-                fontSize = (fontSize * (frameWidth / 1400) + 6);
-            } else
-            {
-                fontSize = fontSize = (fontSize * (frameHeight / 1400) + 6);
-            }
+        //if (frameWidth < 600 && frameHeight < 600)
+        //{
+        //    if (frameWidth < frameHeight)
+        //    {
+        //        fontSize = (fontSize * (frameWidth / 1400) + 6);
+        //    } else
+        //    {
+        //        fontSize = fontSize = (fontSize * (frameHeight / 1400) + 6);
+        //    }
             
-        }
-        speech.FontSize = fontSize;
+        //}
+        //speech.FontSize = fontSize;
     }
 }

@@ -63,6 +63,7 @@
                                     Grid.Column="0"
                                     IsVisible="{Binding IsNextWater}"
                                     Progress="{Binding NextPlant.WaterPercent}"
+                                    ProgressColor="DarkSlateBlue"
                                     ScaleY="2"
                                     VerticalOptions="Center" />
                                 <Label
@@ -208,6 +209,7 @@
                                     Grid.Column="0"
                                     IsVisible="{Binding IsNextWater}"
                                     Progress="{Binding NextPlant.WaterPercent}"
+                                    ProgressColor="DarkSlateBlue"
                                     ScaleY="2"
                                     VerticalOptions="Center" />
                                 <Label

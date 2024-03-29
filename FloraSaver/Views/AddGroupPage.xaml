@@ -20,7 +20,7 @@
         Padding="10"
         HorizontalOptions="Center"
         MaximumWidthRequest="500"
-        RowDefinitions="*,150"
+        RowDefinitions="*"
         VerticalOptions="Center">
 
         <Frame
@@ -30,6 +30,7 @@
             BorderColor="{Binding AlterPlant.GroupColor}"
             HorizontalOptions="CenterAndExpand"
             MaximumHeightRequest="700"
+            MinimumHeightRequest="250"
             VerticalOptions="CenterAndExpand">
             <Grid RowSpacing="10">
                 <Grid.RowDefinitions>
@@ -137,14 +138,14 @@
             </Grid>
         </Frame>
         <Frame
-            Grid.Row="1"
+            Grid.Row="0"
             BackgroundColor="DimGray"
             HorizontalOptions="Center"
             IsVisible="{Binding IsFriendlyLabelVisible}"
             MaximumHeightRequest="250"
             MaximumWidthRequest="250"
             Opacity=".9"
-            VerticalOptions="Center">
+            VerticalOptions="End">
             <Label
                 x:Name="friendlyNotification"
                 FontSize="16"

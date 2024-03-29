@@ -284,6 +284,7 @@
                                                     Grid.Column="0"
                                                     IsVisible="{Binding UseWatering}"
                                                     Progress="{Binding WaterPercent}"
+                                                    ProgressColor="DarkSlateBlue"
                                                     ScaleY="2"
                                                     VerticalOptions="Start" />
                                                 <Label

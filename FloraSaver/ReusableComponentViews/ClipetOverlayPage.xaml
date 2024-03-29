@@ -78,11 +78,12 @@
                         <Label
                             x:Name="speech"
                             HeightRequest="90"
+                            HorizontalOptions="Center"
                             MinimumHeightRequest="60"
                             Text="{Binding CurrentClipetDialog.DialogString}"
                             TextColor="Orange"
                             VerticalOptions="Start"
-                            WidthRequest="375" />
+                            WidthRequest="350" />
                     </Frame>
                 </Frame>
                 <!--  162 characters allowed per box before it's gotta be split  -->

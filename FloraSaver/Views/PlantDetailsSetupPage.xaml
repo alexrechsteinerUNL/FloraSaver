@@ -41,13 +41,13 @@
                         x:Name="goBack"
                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=GoToTableCommand}"
                         HeightRequest="60"
+                        WidthRequest="90"
                         HorizontalOptions="Start"
                         IsEnabled="{Binding IsNotBusy}"
-                        Text="Go Back"
-                        WidthRequest="90" />
+                        Text="Go Back" />
                     <Frame
                         Grid.Row="0"
-                        Padding="50,0"
+                        Padding="20,0"
                         BackgroundColor="Black"
                         HeightRequest="60"
                         HorizontalOptions="Center"
@@ -65,10 +65,10 @@
                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=DeleteCommand}"
                         CommandParameter="{Binding Plant}"
                         HeightRequest="60"
+                        WidthRequest="90"
                         HorizontalOptions="End"
                         IsEnabled="{Binding IsNotBusy}"
-                        Text="Delete"
-                        WidthRequest="90" />
+                        Text="Delete" />
                 </Grid>
 
                 <Grid Grid.Row="1" RowDefinitions="*">
