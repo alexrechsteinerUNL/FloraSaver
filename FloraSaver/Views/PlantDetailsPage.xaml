@@ -21,7 +21,9 @@
         <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
         <toolkit:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
-
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding GoToTableCommand}" />
+    </Shell.BackButtonBehavior>
 
     <Grid MaximumWidthRequest="450" RowDefinitions="*,100">
 

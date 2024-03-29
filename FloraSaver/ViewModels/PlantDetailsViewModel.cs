@@ -981,7 +981,7 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        protected async Task GoToTableAsync()
+        public async Task GoToTableAsync()
         {
             var accept = true;
             var message = GroupPickerUnsavedChangesWarning + ImageUnsavedChangesWarning + SpeciesUnsavedChangesWarning + GivenNameUnsavedChangesWarning +

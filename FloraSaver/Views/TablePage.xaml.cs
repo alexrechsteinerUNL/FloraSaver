@@ -1,10 +1,11 @@
 ﻿using FloraSaver.ViewModels;
 using FloraSaver.Services;
 using FloraSaver.Models;
+using FloraSaver.Utilities;
 
 namespace FloraSaver;
 
-public partial class TablePage : ContentPage
+public partial class TablePage : ContentPage, IAndroidBackButtonHandlerUtility
 {
     public TablePage(TableViewModel viewModel)
     {
@@ -16,6 +17,11 @@ public partial class TablePage : ContentPage
     {
         base.OnSizeAllocated(width, height);
         ((TableViewModel)(this.BindingContext)).ReconfigureSpanForScreenSize(width, height);
+    }
+
+    public async Task<bool> HandleBackButtonAsync()
+    {
+        return await ((BaseViewModel)(this.BindingContext)).BackButtonWarnLeavingApplicationAsync() ? false : true;
     }
 
     private static void Entry_Completed(object sender, EventArgs e)

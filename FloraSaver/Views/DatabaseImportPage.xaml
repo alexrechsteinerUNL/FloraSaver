@@ -15,6 +15,7 @@
         <toolkit:EventToCommandBehavior Command="{Binding AppearingImportCommand}" EventName="Appearing" />
         <toolkit:EventToCommandBehavior Command="{Binding DisappearingImportCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
+
     <Grid Padding="10,10">
         <Frame Padding="10,10" BackgroundColor="Black">
             <Grid Grid.Row="0" RowDefinitions="50,*,Auto,*">

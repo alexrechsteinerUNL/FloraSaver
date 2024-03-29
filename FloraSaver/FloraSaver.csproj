@@ -63,6 +63,7 @@
 	  <None Remove="Resources\Raw\TUTLightingColorsCompact.txt" />
 	  <None Remove="Resources\Raw\TUTLightingColorsFull.txt" />
 	  <None Remove="Resources\Raw\TUTPlantDetails.txt" />
+	  <None Remove="Resources\Raw\TUTPlantTurnsBrown.txt" />
 	  <None Remove="Resources\Raw\TUTTablePage.txt" />
 	  <None Remove="Resources\Raw\TUTThirdOption.txt" />
 	  <None Remove="Resources\Raw\WelcomeMessage0.txt" />
@@ -188,6 +189,9 @@
 	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
 	  </MauiAsset>
 	  <MauiAsset Update="Resources\Raw\TUTTablePage.txt">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </MauiAsset>
+	  <MauiAsset Update="Resources\Raw\TUTPlantTurnsBrown.txt">
 	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
 	  </MauiAsset>
 	  <MauiAsset Update="Resources\Raw\WelcomeMessage0.txt">

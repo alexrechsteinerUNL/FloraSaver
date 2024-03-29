@@ -1,10 +1,11 @@
 ﻿using FloraSaver.Models;
 using FloraSaver.ViewModels;
 using Microsoft.Maui.Controls.Internals;
+using FloraSaver.Utilities;
 
 namespace FloraSaver;
 
-public partial class SettingsPage : ContentPage
+public partial class SettingsPage : ContentPage, IAndroidBackButtonHandlerUtility
 {
     public SettingsPage(SettingsViewModel viewModel)
     {
@@ -27,6 +28,11 @@ public partial class SettingsPage : ContentPage
             plantGroupDeck.ScrollTo(pickerContext, animate: false);
         }
 
+    }
+
+    public async Task<bool> HandleBackButtonAsync()
+    {
+        return await ((BaseViewModel)(this.BindingContext)).BackButtonWarnLeavingApplicationAsync() ? false : true;
     }
 
     private void Validate(object sender, EventArgs e)

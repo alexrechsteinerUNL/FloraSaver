@@ -35,6 +35,12 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
+        public async Task<bool> BackButtonWarnLeavingApplicationAsync()
+        {
+            return await Application.Current.MainPage.DisplayAlert("AH WAIT!", "Are you sure you want to close the app?", "Please Close", "No Don't!");
+        }
+
+        [RelayCommand]
         protected void ShowSearchSuggestionBox()
         {
             ShowSearchSuggestionsBox = true;

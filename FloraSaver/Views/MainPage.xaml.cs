@@ -1,8 +1,9 @@
 ﻿using FloraSaver.ViewModels;
+using FloraSaver.Utilities;
 
 namespace FloraSaver;
 
-public partial class MainPage : ContentPage
+public partial class MainPage : ContentPage, IAndroidBackButtonHandlerUtility
 {
     public MainPage(MainViewModel viewModel)
     {
@@ -24,6 +25,11 @@ public partial class MainPage : ContentPage
             _FullMode.IsVisible = true;
             _CompactMode.IsVisible = false;
         }
+    }
+
+    public async Task<bool> HandleBackButtonAsync()
+    {
+        return await ((BaseViewModel)(this.BindingContext)).BackButtonWarnLeavingApplicationAsync() ? false : true;
     }
 
     protected override void OnAppearing()

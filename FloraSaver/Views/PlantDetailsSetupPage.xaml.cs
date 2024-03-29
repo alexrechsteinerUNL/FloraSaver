@@ -2,10 +2,11 @@
 using FloraSaver.Services;
 using FloraSaver.Models;
 using System.Linq;
+using FloraSaver.Utilities;
 
 namespace FloraSaver;
 
-public partial class PlantDetailsSetupPage : ContentPage
+public partial class PlantDetailsSetupPage : ContentPage, IAndroidBackButtonHandlerUtility
 {
     public PlantDetailsSetupPage(PlantDetailsSetupViewModel viewModel)
     {
@@ -29,6 +30,12 @@ public partial class PlantDetailsSetupPage : ContentPage
             clipet.IsVisible = true;
             speechSpace.IsVisible = true;
         }
+    }
+
+    public async Task<bool> HandleBackButtonAsync()
+    {
+        await ((PlantDetailsViewModel)(this.BindingContext)).GoToTableAsync();
+        return true;
     }
 
     private void deadSpaceButtonHideSuggestion_Clicked(object sender, EventArgs e)

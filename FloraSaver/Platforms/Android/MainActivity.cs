@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Content.PM;
+using FloraSaver.Utilities;
 
 namespace FloraSaver;
 
@@ -11,5 +12,22 @@ public class MainActivity : MauiAppCompatActivity
     public MainActivity()
     {
         ActivityCurrent = this;
+    }
+    //https://tedstech.com/handling-and-intercepting-back-button-navigation-in-xamarin-forms-shell/
+    public async override void OnBackPressed()
+    {
+        var backButtonHandler = Shell.Current.CurrentPage as IAndroidBackButtonHandlerUtility;
+
+        if (backButtonHandler == null)
+        {
+            base.OnBackPressed();
+            return;
+        }
+        
+        var backButtonHandled = await backButtonHandler.HandleBackButtonAsync();
+        if (!backButtonHandled)
+        {
+            base.OnBackPressed();
+        }
     }
 }

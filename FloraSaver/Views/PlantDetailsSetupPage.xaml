@@ -20,6 +20,9 @@
         <toolkit:EventToCommandBehavior Command="{Binding AppearingSetupCommand}" EventName="Appearing" />
         <toolkit:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding GoToTableCommand}" />
+    </Shell.BackButtonBehavior>
     <Grid>
         <Grid x:Name="_CompactMode" IsVisible="false" />
         <Grid
