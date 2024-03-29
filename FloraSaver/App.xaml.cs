@@ -27,14 +27,17 @@ public partial class App : Application
             AppTheme.Dark => AndroidX.AppCompat.App.AppCompatDelegate.ModeNightYes,
             _ => AndroidX.AppCompat.App.AppCompatDelegate.ModeNightFollowSystem
         };
+
     #elif IOS
-            platform.getcurrentuiviewcontroller().overrideuserinterfacestyle = current.userapptheme switch
+            Platform.GetCurrentUIViewController().OverrideUserInterfaceStyle = Current.UserAppTheme switch
             {
-                apptheme.light => uikit.uiuserinterfacestyle.light,
-                apptheme.dark => uikit.uiuserinterfacestyle.dark,
-                _ => uikit.uiuserinterfacestyle.unspecified
+                AppTheme.Light => UIKit.UIUserInterfaceStyle.Light,
+                AppTheme.Dark => UIKit.UIUserInterfaceStyle.Dark,
+                _ => UIKit.UIUserInterfaceStyle.Unspecified
             };
     #endif
+
+
     }
 
     private void OnNotificationActionTapped(NotificationActionEventArgs e)
