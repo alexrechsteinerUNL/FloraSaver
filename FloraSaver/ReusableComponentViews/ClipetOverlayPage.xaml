@@ -25,7 +25,7 @@
             x:Name="blur"
             Aspect="Fill"
             IsVisible="false"
-            Opacity=".1"
+            Opacity="1"
             Source="frosted_shade_green.png" />
         <Grid
             x:Name="clipetSpace"
