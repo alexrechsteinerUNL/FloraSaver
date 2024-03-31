@@ -41,10 +41,10 @@
                         x:Name="goBack"
                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=GoToTableCommand}"
                         HeightRequest="60"
-                        WidthRequest="90"
                         HorizontalOptions="Start"
                         IsEnabled="{Binding IsNotBusy}"
-                        Text="Go Back" />
+                        Text="Go Back"
+                        WidthRequest="90" />
                     <Frame
                         Grid.Row="0"
                         Padding="20,0"
@@ -65,14 +65,83 @@
                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=DeleteCommand}"
                         CommandParameter="{Binding Plant}"
                         HeightRequest="60"
-                        WidthRequest="90"
                         HorizontalOptions="End"
                         IsEnabled="{Binding IsNotBusy}"
-                        Text="Delete" />
+                        Text="Delete"
+                        WidthRequest="90" />
                 </Grid>
 
                 <Grid Grid.Row="1" RowDefinitions="*">
+                    <Frame
+                        x:Name="SpeciesFrame"
+                        Grid.Row="0"
+                        BackgroundColor="Black"
+                        IsVisible="false"
+                        VerticalOptions="Fill">
+                        <Frame.Triggers>
+                            <DataTrigger
+                                Binding="{Binding ActiveTab.TabName}"
+                                TargetType="Frame"
+                                Value="PlantName">
+                                <Setter Property="IsVisible" Value="True" />
+                            </DataTrigger>
+                        </Frame.Triggers>
+                        <Grid
+                            x:Name="_EntrySuggestionSpace"
+                            MaximumWidthRequest="500"
+                            RowDefinitions="90,200">
+                            <Grid
+                                x:Name="plantSpeciesGrid"
+                                Grid.Row="0"
+                                MaximumWidthRequest="500"
+                                RowSpacing="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="50" />
+                                </Grid.RowDefinitions>
+                                <FlexLayout Grid.Row="0">
+                                    <Label Text="*Plant Species: " TextColor="{Binding AlterPlant.Validation.SpeciesSectionColor}" />
+                                    <ImageButton
+                                        x:Name="_undoSpeciesChange"
+                                        Grid.Column="0"
+                                        Command="{Binding SpeciesChangedSectionUndoCommand}"
+                                        IsVisible="{Binding SpeciesUndoButtonVisible}"
+                                        Source="undo_button.png"
+                                        WidthRequest="40" />
+                                </FlexLayout>
+                                <Frame
+                                    Grid.Row="1"
+                                    Padding="2,2"
+                                    BackgroundColor="Transparent">
+                                    <Frame
+                                        Padding="0,2"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Transparent"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="FillAndExpand">
+                                        <Entry
+                                            x:Name="_PlantSpecies"
+                                            Completed="Entry_Completed"
+                                            HorizontalOptions="FillAndExpand"
+                                            Placeholder="Enter plant species"
+                                            Text="{Binding AlterPlant.PlantSpecies, StringFormat='{0}', Mode=TwoWay}"
+                                            Unfocused="Validate"
+                                            VerticalOptions="CenterAndExpand">
+                                            <Entry.Behaviors>
+                                                <toolkit:EventToCommandBehavior Command="{Binding ShowSearchSuggestionBoxCommand}" EventName="Focused" />
+                                                <toolkit:EventToCommandBehavior Command="{Binding SpeciesChangedCommand}" EventName="Unfocused" />
+                                                <toolkit:EventToCommandBehavior
+                                                    Command="{Binding SpeciesSearchActionCommand}"
+                                                    CommandParameter="{Binding Text, Source={x:Reference _PlantSpecies}}"
+                                                    EventName="TextChanged" />
+                                            </Entry.Behaviors>
+                                        </Entry>
+                                    </Frame>
+                                </Frame>
+                            </Grid>
+                        </Grid>
 
+                    </Frame>
                     <Frame
                         x:Name="GroupFrame"
                         Grid.Row="0"
@@ -200,77 +269,6 @@
                                 WidthRequest="50" />
                         </Grid>
                     </Frame>
-                    <Frame
-                        x:Name="SpeciesFrame"
-                        Grid.Row="0"
-                        BackgroundColor="Black"
-                        IsVisible="false"
-                        VerticalOptions="Fill">
-                        <Frame.Triggers>
-                            <DataTrigger
-                                Binding="{Binding ActiveTab.TabName}"
-                                TargetType="Frame"
-                                Value="PlantName">
-                                <Setter Property="IsVisible" Value="True" />
-                            </DataTrigger>
-                        </Frame.Triggers>
-                        <Grid
-                            x:Name="_EntrySuggestionSpace"
-                            MaximumWidthRequest="500"
-                            RowDefinitions="90,200">
-                            <Grid
-                                x:Name="plantSpeciesGrid"
-                                Grid.Row="0"
-                                MaximumWidthRequest="500"
-                                RowSpacing="5">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="30" />
-                                    <RowDefinition Height="50" />
-                                </Grid.RowDefinitions>
-                                <FlexLayout Grid.Row="0">
-                                    <Label Text="*Plant Species: " TextColor="{Binding AlterPlant.Validation.SpeciesSectionColor}" />
-                                    <ImageButton
-                                        x:Name="_undoSpeciesChange"
-                                        Grid.Column="0"
-                                        Command="{Binding SpeciesChangedSectionUndoCommand}"
-                                        IsVisible="{Binding SpeciesUndoButtonVisible}"
-                                        Source="undo_button.png"
-                                        WidthRequest="40" />
-                                </FlexLayout>
-                                <Frame
-                                    Grid.Row="1"
-                                    Padding="2,2"
-                                    BackgroundColor="Transparent">
-                                    <Frame
-                                        Padding="0,2"
-                                        BackgroundColor="Transparent"
-                                        BorderColor="Transparent"
-                                        HorizontalOptions="FillAndExpand"
-                                        VerticalOptions="FillAndExpand">
-                                        <Entry
-                                            x:Name="_PlantSpecies"
-                                            Completed="Entry_Completed"
-                                            HorizontalOptions="FillAndExpand"
-                                            Placeholder="Enter plant species"
-                                            Text="{Binding AlterPlant.PlantSpecies, StringFormat='{0}', Mode=TwoWay}"
-                                            Unfocused="Validate"
-                                            VerticalOptions="CenterAndExpand">
-                                            <Entry.Behaviors>
-                                                <toolkit:EventToCommandBehavior Command="{Binding ShowSearchSuggestionBoxCommand}" EventName="Focused" />
-                                                <toolkit:EventToCommandBehavior Command="{Binding SpeciesChangedCommand}" EventName="Unfocused" />
-                                                <toolkit:EventToCommandBehavior
-                                                    Command="{Binding SpeciesSearchActionCommand}"
-                                                    CommandParameter="{Binding Text, Source={x:Reference _PlantSpecies}}"
-                                                    EventName="TextChanged" />
-                                            </Entry.Behaviors>
-                                        </Entry>
-                                    </Frame>
-                                </Frame>
-                            </Grid>
-                        </Grid>
-
-                    </Frame>
-
                     <Frame
                         x:Name="PersonalFrame"
                         Grid.Row="0"
@@ -518,6 +516,7 @@
                                                         HorizontalOptions="CenterAndExpand"
                                                         HorizontalTextAlignment="Center"
                                                         Keyboard="Numeric"
+                                                        MaxLength="4"
                                                         Placeholder="0"
                                                         Text="{Binding WaterDaysFromNow, Mode=TwoWay}"
                                                         Unfocused="Validate"
@@ -842,6 +841,7 @@
                                                         HorizontalOptions="CenterAndExpand"
                                                         HorizontalTextAlignment="Center"
                                                         Keyboard="Numeric"
+                                                        MaxLength="4"
                                                         Placeholder="0"
                                                         Text="{Binding MistDaysFromNow, Mode=TwoWay}"
                                                         Unfocused="Validate"
@@ -1166,6 +1166,7 @@
                                                         HorizontalOptions="CenterAndExpand"
                                                         HorizontalTextAlignment="Center"
                                                         Keyboard="Numeric"
+                                                        MaxLength="4"
                                                         Placeholder="0"
                                                         Text="{Binding SunDaysFromNow, Mode=TwoWay}"
                                                         Unfocused="Validate"
@@ -1494,14 +1495,14 @@
                                     <DataTrigger
                                         Binding="{Binding ActiveTab.TabName}"
                                         TargetType="Frame"
-                                        Value="GroupName">
+                                        Value="PlantName">
                                         <Setter Property="BackgroundColor" Value="{Binding ActiveTab.TabBackground}" />
                                     </DataTrigger>
                                 </Frame.Triggers>
                                 <ImageButton
                                     Command="{Binding TabPressedCommand}"
-                                    CommandParameter="GroupName"
-                                    Source="group_icon.png" />
+                                    CommandParameter="PlantName"
+                                    Source="planticonwhite.png" />
                             </Frame>
                             <Frame
                                 Grid.Column="1"
@@ -1512,14 +1513,14 @@
                                     <DataTrigger
                                         Binding="{Binding ActiveTab.TabName}"
                                         TargetType="Frame"
-                                        Value="PlantName">
+                                        Value="GroupName">
                                         <Setter Property="BackgroundColor" Value="{Binding ActiveTab.TabBackground}" />
                                     </DataTrigger>
                                 </Frame.Triggers>
                                 <ImageButton
                                     Command="{Binding TabPressedCommand}"
-                                    CommandParameter="PlantName"
-                                    Source="planticonwhite.png" />
+                                    CommandParameter="GroupName"
+                                    Source="group_icon.png" />
                             </Frame>
                             <Frame
                                 Grid.Column="2"
@@ -1666,13 +1667,6 @@
                 </CollectionView.ItemTemplate>
 
             </CollectionView>
-            <Button
-                x:Name="deadSpaceButtonHideSuggestion"
-                Grid.Row="1"
-                Grid.Column="1"
-                Clicked="deadSpaceButtonHideSuggestion_Clicked"
-                Command="{Binding HideSearchSuggestionBoxCommand}"
-                Text="Hide Suggestions" />
         </Grid>
     </Grid>
 </ContentPage>

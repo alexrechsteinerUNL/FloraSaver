@@ -18,7 +18,7 @@ namespace FloraSaver.ViewModels
     [QueryProperty("SelectedTab", "SelectedTab")]
     public partial class PlantDetailsSetupViewModel : PlantDetailsViewModel, IQueryAttributable, INotifyPropertyChanged
     {
-        public List<string> SetupTabs { get; set; } = new List<string>() { "GroupName", "PlantName", "GivenName", "Water", "Refresh", "Sun" };
+        public List<string> SetupTabs { get; set; } = new List<string>() { "PlantName", "GroupName", "GivenName", "Water", "Refresh", "Sun" };
 
         [ObservableProperty]
         public DataTab activeTab;
@@ -40,7 +40,7 @@ namespace FloraSaver.ViewModels
         public override void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             base.ApplyQueryAttributes(query);
-            var startTab = query.ContainsKey("SelectedTab") ? SetupTabs.FirstOrDefault(_ => _ == (string)query["SelectedTab"]) ?? "GroupName" : "GroupName";
+            var startTab = query.ContainsKey("SelectedTab") ? SetupTabs.FirstOrDefault(_ => _ == (string)query["SelectedTab"]) ?? "PlantName" : "PlantName";
             TabPressed(startTab);
             OnPropertyChanged("VisibleTabs");
         }

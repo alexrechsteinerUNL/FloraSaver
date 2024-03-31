@@ -15,10 +15,13 @@ namespace FloraSaver.ViewModels
         private bool isClipetVisible = false;
 
         [ObservableProperty]
-        private bool isRefImageVisable = false;
+        private bool isRefImageVisible = false;
 
         [ObservableProperty]
         private bool isSpeechBubbleVisible = false;
+
+        [ObservableProperty]
+        private bool isClipetTalking = true;
 
         [ObservableProperty]
         private List<ClipetSpeechBubble> clipetDialog;
@@ -35,7 +38,7 @@ namespace FloraSaver.ViewModels
         {
             if (ClipetDialog == null)
             {
-                await Shell.Current.GoToAsync("..");
+                await Shell.Current.GoToAsync("..", true);
             }
             else
             {
@@ -48,15 +51,15 @@ namespace FloraSaver.ViewModels
         {
             if (TEXTBOXINDEX >= ClipetDialog.Count)
             {
-                ClipetDialog = null;
-                CurrentClipetDialog = null;
+                IsClipetTalking = false;
+                OnPropertyChanged(nameof(IsClipetTalking));
                 OnPropertyChanged("ClipetSpeechBubble");
-                await Shell.Current.GoToAsync("..", true);
+                //await Shell.Current.GoToAsync("..", true);
             }
             else
             {
                 IsClipetVisible = true;
-                IsRefImageVisable = ClipetDialog[TEXTBOXINDEX].DisplayImage != null ? true : false;
+                IsRefImageVisible = ClipetDialog[TEXTBOXINDEX].DisplayImage != null ? true : false;
                 IsSpeechBubbleVisible = ClipetDialog[TEXTBOXINDEX].DialogString != null ? true : false;
 
                 CurrentClipetDialog = new ClipetSpeechBubble(

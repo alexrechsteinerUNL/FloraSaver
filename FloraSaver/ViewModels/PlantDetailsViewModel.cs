@@ -522,13 +522,17 @@ namespace FloraSaver.ViewModels
                 var saveImage = AlterPlant.PlantImageSource;
                 var saveImageLocation = AlterPlant.ImageLocation;
                 var saveDOB = AlterPlant.DateOfBirth;
+                var saveId = AlterPlant.Id;
+
                 AlterPlant = new Plant(searchedPlant);
+                
                 AlterPlant.GivenName = saveName;
                 AlterPlant.PlantGroupName = saveGroup;
                 AlterPlant.GroupColorHexString = saveGroupColorHexString;
                 AlterPlant.PlantImageSource = saveImage;
                 AlterPlant.ImageLocation = saveImageLocation;
                 AlterPlant.DateOfBirth = saveDOB;
+                AlterPlant.Id = saveId;
                 OnPropertyChanged(nameof(AlterPlant));
                 HideSearchSuggestionBox();
             }

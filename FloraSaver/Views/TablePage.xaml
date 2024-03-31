@@ -291,10 +291,10 @@
                                                         <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}" CommandParameter="{Binding .}" />
                                                     </Frame.GestureRecognizers>
                                                     <Label
-                                                        Rotation="30"
                                                         Padding="0"
                                                         FontSize="42"
                                                         HorizontalOptions="Center"
+                                                        Rotation="30"
                                                         Text="🂠"
                                                         TextColor="{Binding GroupColor}"
                                                         VerticalOptions="Center" />
@@ -582,7 +582,7 @@
                     HeightRequest="60"
                     HorizontalOptions="EndAndExpand"
                     IsEnabled="{Binding IsNotBusy}"
-                    Text="Add Plant"
+                    Text="New Plant"
                     VerticalOptions="Start" />
                 <Button
                     x:Name="addGroups"
@@ -591,7 +591,7 @@
                     HeightRequest="60"
                     HorizontalOptions="EndAndExpand"
                     IsEnabled="{Binding IsNotBusy}"
-                    Text="Add Group"
+                    Text="New Group"
                     VerticalOptions="Start" />
             </Grid>
             <ActivityIndicator

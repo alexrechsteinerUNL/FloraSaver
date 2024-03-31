@@ -59,14 +59,6 @@ public partial class ClipetOverlayPage : ContentPage
 
     }
 
-    protected override async void OnDisappearing()
-    {
-        await blur.FadeTo(0, 1000);
-        await clipet.TranslateTo(0, 500, 500);
-        base.OnDisappearing();
-    }
-
-
     public bool? isClipetEnabled
     {
         get => GetValue(isClipetEnabledProperty) as bool?;
@@ -121,5 +113,17 @@ public partial class ClipetOverlayPage : ContentPage
             
         //}
         //speech.FontSize = fontSize;
+    }
+
+    private async void HiddenActionForDisappearing_HandlerChanged(object sender, EventArgs e)
+    {
+        var label = sender as Label;
+        if (!label.IsEnabled)
+        {
+            await blur.FadeTo(0, 300);
+            await clipet.TranslateTo(0, 500, 300);
+            await Shell.Current.GoToAsync("..", true);
+        }
+        
     }
 }

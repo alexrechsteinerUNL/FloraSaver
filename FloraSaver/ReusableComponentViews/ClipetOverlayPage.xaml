@@ -17,7 +17,7 @@
         <toolkit:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
 
-    <Grid>
+    <Grid x:Name="_ClipetSpace">
         <Grid.GestureRecognizers>
             <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ClipetOverlayViewModel}}, Path=MoveToNextTextBoxCommand}" />
         </Grid.GestureRecognizers>
@@ -40,7 +40,7 @@
                 Grid.Row="0"
                 Grid.Column="0"
                 Aspect="AspectFit"
-                IsVisible="{Binding IsRefImageVisable}"
+                IsVisible="{Binding IsRefImageVisible}"
                 Source="{Binding CurrentClipetDialog.DisplayImage}" />
             <Image
                 x:Name="clipet"
@@ -90,5 +90,10 @@
 
             </Grid>
         </Grid>
+        <Label
+            x:Name="HiddenActionForDisappearing"
+            IsEnabled="{Binding IsClipetTalking}"
+            IsVisible="false"
+            PropertyChanged="HiddenActionForDisappearing_HandlerChanged" />
     </Grid>
 </ContentPage>

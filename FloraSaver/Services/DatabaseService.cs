@@ -24,6 +24,7 @@ namespace FloraSaver.Services
         public async Task<List<Plant>> TestDbConnectionFromFileAsync(string filePath)
         {
             var testConn = new SQLiteAsyncConnection(filePath);
+            var bloop = await GetAllAsync<ClipetDialog>(testConn);
             return await TestGetAllPlantAsync(testConn);
         }
 
@@ -147,6 +148,22 @@ namespace FloraSaver.Services
             }
 
             return new List<Plant>();
+        }
+
+        private async Task<List<T>> GetAllAsync<T>(SQLiteAsyncConnection testConn) where T : new()
+        {
+            try
+            {
+                await InitAsync();
+                var all = await testConn.Table<T>().ToListAsync();
+                return all;
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Failed to retrieve data. {0}", ex.Message);
+            }
+
+            return new List<T>();
         }
 
         //End Testing
