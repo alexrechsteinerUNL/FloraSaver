@@ -267,24 +267,7 @@ namespace FloraSaver.ViewModels
             OverduePlantsMultiPickerValue = value;
         }
 
-        [RelayCommand]
-        private async Task GoToDatabaseExportAsync()
-        {
-            await Shell.Current.GoToAsync($"{nameof(DatabaseExportPage)}", true);
-        }
-
-        [RelayCommand]
-        private async Task GoToAllClipetDialogsAsync()
-        {
-            await Shell.Current.GoToAsync($"{nameof(AllClipetDialogs)}", true);
-        }
-
-        [RelayCommand]
-        private async Task GoToDatabaseImportAsync()
-        {
-            await Shell.Current.GoToAsync($"{nameof(DatabaseImportPage)}", true);
-        }
-
+        
 
         [RelayCommand]
         protected void VisiblePlantAttentionGetter()

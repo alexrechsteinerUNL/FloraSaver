@@ -14,6 +14,7 @@
         <toolkit:EventToCommandBehavior Command="{Binding DisappearingHomeCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
     <Grid>
+
         <Grid x:Name="_CompactMode" IsVisible="True">
             <Image
                 Grid.Row="1"
@@ -21,7 +22,7 @@
                 Source="spaced_background.jpg" />
             <Grid
                 Padding="10,0"
-                RowDefinitions="*,*,Auto"
+                RowDefinitions="*,*,Auto, Auto"
                 RowSpacing="10">
                 <Image
                     Grid.Row="0"
@@ -146,6 +147,30 @@
                             Color="#e1ad01" />
                     </Grid>
                 </Frame>
+                <Grid
+                    x:Name="BackupRestoreTreatSpace"
+                    Grid.Row="3"
+                    Padding="0,-10,0,0"
+                    ColumnDefinitions="Auto, 2*, Auto"
+                    MaximumWidthRequest="400">
+                    <Button
+                        x:Name="BackupPlants"
+                        Grid.Column="0"
+                        Command="{Binding GoToDatabaseExportCommand}"
+                        Text="Backup" />
+                    <Button
+                        x:Name="Treat"
+                        Grid.Column="1"
+                        BorderColor="Goldenrod"
+                        Command="{Binding GoToDatabaseExportCommand}"
+                        Text="Treat"
+                        TextColor="Goldenrod" />
+                    <Button
+                        x:Name="ImportPlants"
+                        Grid.Column="2"
+                        Command="{Binding GoToDatabaseImportCommand}"
+                        Text="Import" />
+                </Grid>
             </Grid>
         </Grid>
 
@@ -292,8 +317,36 @@
                             Color="#e1ad01" />
                     </Grid>
                 </Frame>
+                <Grid
+                    x:Name="BackupRestoreTreatSpaceFull"
+                    Grid.Row="4"
+                    Padding="0,-10"
+                    ColumnDefinitions="Auto, 2*, Auto"
+                    MaximumWidthRequest="400"
+                    VerticalOptions="Start">
+                    <Button
+                        x:Name="BackupPlantsFull"
+                        Grid.Column="0"
+                        Command="{Binding GoToDatabaseExportCommand}"
+                        FontSize="15"
+                        Text="Backup" />
+                    <Button
+                        x:Name="TreatFull"
+                        Grid.Column="1"
+                        BorderColor="Goldenrod"
+                        Command="{Binding GoToDatabaseExportCommand}"
+                        FontSize="15"
+                        Text="Treat"
+                        TextColor="Goldenrod" />
+                    <Button
+                        x:Name="ImportPlantsFull"
+                        Grid.Column="2"
+                        Command="{Binding GoToDatabaseImportCommand}"
+                        FontSize="15"
+                        Text="Import" />
+                </Grid>
             </Grid>
-            <VerticalStackLayout Padding="10" Spacing="10" />
+
         </Grid>
         <!--<custom_components:ClipetOverlay
             x:Name="Clipet"

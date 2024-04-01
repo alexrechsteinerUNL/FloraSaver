@@ -35,6 +35,24 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
+        private async Task GoToDatabaseExportAsync()
+        {
+            await Shell.Current.GoToAsync($"{nameof(DatabaseExportPage)}", true);
+        }
+
+        [RelayCommand]
+        private async Task GoToDatabaseImportAsync()
+        {
+            await Shell.Current.GoToAsync($"{nameof(DatabaseImportPage)}", true);
+        }
+
+        [RelayCommand]
+        private async Task GoToAllClipetDialogsAsync()
+        {
+            await Shell.Current.GoToAsync($"{nameof(AllClipetDialogs)}", true);
+        }
+
+        [RelayCommand]
         public async Task<bool> BackButtonWarnLeavingApplicationAsync()
         {
             return await Application.Current.MainPage.DisplayAlert("AH WAIT!", "Are you sure you want to close the app?", "Please Close", "No Don't!");
