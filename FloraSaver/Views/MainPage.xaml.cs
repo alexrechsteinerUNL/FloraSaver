@@ -36,4 +36,41 @@ public partial class MainPage : ContentPage, IAndroidBackButtonHandlerUtility
     {
         base.OnAppearing();
     }
+
+    private async void TreatPressedAsync(object sender, EventArgs e)
+    {
+        if (_CompactMode.IsVisible)
+        {
+            var currentHeight = (double)compactTreat.Y;
+            if (currentHeight == 0)
+            {
+                currentHeight = (double)compactClipet.Y;
+            }
+            compactTreat.IsVisible = true;
+            await compactTreat.TranslateTo(150, currentHeight, 0);
+            var startGiveTreat = compactTreat.TranslateTo(-50, -(currentHeight / 20), 500, Easing.CubicInOut);
+            compactClipet.Source = "clipet_flowers_standing_color_eat.png";
+            await startGiveTreat;
+            compactTreat.IsVisible = false;
+            compactClipet.Source = "clipet_flowers_standing_color.png";
+        }
+        else
+        {
+            var currentHeight =  (double)fullTreat.Y;
+            if (currentHeight == 0)
+            {
+                currentHeight = (double)fullClipet.Y;
+            }
+            fullTreat.IsVisible = true;
+            await fullTreat.TranslateTo(300, currentHeight,0);
+
+            var startGiveTreat = fullTreat.TranslateTo(-45, -(currentHeight / 20), 500, Easing.CubicInOut);
+            fullClipet.Source = "clipet_flowers_standing_color_eat.png";
+            await startGiveTreat;
+            fullTreat.IsVisible = false;
+            fullClipet.Source = "clipet_flowers_standing_color.png";
+
+
+        }
+    }
 }
