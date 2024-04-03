@@ -409,6 +409,11 @@ namespace FloraSaver.Models
             Validation.Validate(this, unsafePlantNames);
         }
 
+        [Ignore]
+        public string Source { get; set; } = "";
+        [Ignore]
+        public bool IsPlantSource => !string.IsNullOrEmpty(Source);
+
         public Plant(Plant _Plant)
         {
 
@@ -433,6 +438,7 @@ namespace FloraSaver.Models
             WaterInterval = _Plant.WaterInterval;
             PlantGroupName = _Plant.PlantGroupName;
             GroupColorHexString = _Plant.GroupColorHexString;
+            Source = _Plant.Source;
         }
 
         public Plant(SearchedPlants _SearchedPlants)
@@ -448,7 +454,8 @@ namespace FloraSaver.Models
             TimeOfLastWatering = DateTime.Now.TimeOfDay;
             DateOfBirth = DateTime.Now;
             WaterInterval = _SearchedPlants.WaterInterval;
-            
+            Source = _SearchedPlants.Source;
+
             if (WaterInterval != null)
             {
                 DateOfNextWatering = DateOfLastWatering.AddDays((double)WaterInterval);

@@ -334,9 +334,9 @@
                         x:Name="TreatFull"
                         Grid.Column="1"
                         BorderColor="Goldenrod"
-                        Command="{Binding GoToDatabaseExportCommand}"
+                        Command="{Binding TreatGivenCommand}"
                         FontSize="15"
-                        Text="Treat"
+                        Text="{Binding TreatsGiven, StringFormat='Give Treat! Given: {0}'}"
                         TextColor="Goldenrod" />
                     <Button
                         x:Name="ImportPlantsFull"

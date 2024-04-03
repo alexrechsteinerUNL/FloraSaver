@@ -412,6 +412,10 @@
                                             WidthRequest="40" />
                                     </Grid>
                                 </Grid>
+                                <Label
+                                    FontSize="12"
+                                    IsVisible="{Binding AlterPlant.IsPlantSource}"
+                                    Text="{Binding AlterPlant.Source, StringFormat='Source: {0}'}" />
                             </VerticalStackLayout>
                         </ScrollView>
 

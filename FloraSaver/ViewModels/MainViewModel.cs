@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,8 @@ namespace FloraSaver.ViewModels
         public ObservableCollection<ClipetDialog> Dialogs { get; set; }= new();
         [ObservableProperty]
         public ClipetDialog currentDialog;
+
+
         [ObservableProperty]
         public int treatsGiven = 0;
 
@@ -47,6 +50,7 @@ namespace FloraSaver.ViewModels
         {
             databaseService = _databaseService;
             plantNotificationService = _plantNotificationService;
+            TreatsGiven = Preferences.Default.Get("current_treat_count", 0);
         }
 
         [RelayCommand]
@@ -121,6 +125,14 @@ namespace FloraSaver.ViewModels
                 }
             }
         }
+
+        [RelayCommand]
+        public void TreatGiven()
+        {
+            TreatsGiven++;
+            Preferences.Default.Set("current_treat_count", TreatsGiven);
+        }
+
         [RelayCommand]
         public async Task SetCurrentDialogAsync()
         {
@@ -134,6 +146,10 @@ namespace FloraSaver.ViewModels
                 {
                     CurrentDialog = newlyUnlockedDialogs[rand.Next(newlyUnlockedDialogs.Count)];
                     Dialogs.FirstOrDefault(_ => _ == CurrentDialog).IsUnlocked = true;
+                    var updateActionNew = _databaseService.UpdateClipetDialogTableAsync(Dialogs.ToList());
+                    await TalkToClipetAsync(CurrentDialog.Filename);
+                    await updateActionNew;
+                    return;
                 }
             }
 

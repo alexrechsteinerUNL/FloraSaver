@@ -8,6 +8,15 @@ namespace FloraSaver.Models
 {
     public class SearchedPlants : IPlant
     {
+        public SearchedPlants(AutoFillPlant _autoFillPlant)
+        {
+            PlantSpecies = _autoFillPlant.PlantSpecies;
+            WaterInterval = _autoFillPlant.WaterInterval;
+            MistInterval = _autoFillPlant.MistInterval;
+            SunInterval = _autoFillPlant.SunInterval;
+            Source = _autoFillPlant.PlantSource;
+        }
+
         public SearchedPlants(IPlant _plant)
         {
             PlantSpecies = _plant.PlantSpecies;
@@ -65,7 +74,7 @@ namespace FloraSaver.Models
         public string PlantGroupName { get; set; } = "Ungrouped";
         public Color GroupColor { get; set; } = Colors.Transparent;
         public string GroupColorHexString { get; set; } = "#A9A9A9";
-
+        public string Source { get; set; } = "";
         public string ConnectedIcon => IsPlantExisting ? "♢" : "+";
     }
 }
