@@ -53,7 +53,7 @@ namespace FloraSaver.Services
             
         }
 
-        private async Task PopulateClipetDialogTableAsync()
+        public async Task PopulateClipetDialogTableAsync()
         {
             var allDialogsTask = GetAllClipetDialogsAsync();
             // You will need to alter this by either prepending the correct amount manually every time you update it or something smarter
@@ -72,8 +72,6 @@ namespace FloraSaver.Services
                     await conn.InsertAsync(dialog);
                 }
             }
-            
-            
         }
 
 
@@ -102,7 +100,7 @@ namespace FloraSaver.Services
             return new List<AutoFillPlant>();
         }
 
-        private async Task PopulateAutoFillPlantTableAsync()
+        public async Task PopulateAutoFillPlantTableAsync()
         {
             // You will need to alter this by either prepending the correct amount manually every time you update it or something smarter
 
@@ -212,7 +210,7 @@ namespace FloraSaver.Services
                     throw new Exception("Valid name required");
 
                 result = await conn.InsertOrReplaceAsync(plant);
-
+                ShouldUpdateCheckService.ForceToGetNewPlantData();
                 StatusMessage = string.Format("{0} record saved (Name: {1})", result, plant.GivenName);
 
                 var plantGroups = await plantGroupsTask;
@@ -240,7 +238,7 @@ namespace FloraSaver.Services
                 if (string.IsNullOrEmpty(plant.GivenName))
                     throw new Exception("Valid name required");
                 result = await conn.DeleteAsync(plant);
-
+                ShouldUpdateCheckService.ForceToGetNewPlantData();
                 StatusMessage = string.Format("{0} record(s) deleted (Name: {1})", result, plant.GivenName);
 #if (ANDROID || IOS)
                 var plants = await GetAllPlantAsync();
@@ -261,7 +259,7 @@ namespace FloraSaver.Services
                 await InitAsync();
 
                 result = await conn.DeleteAllAsync<Plant>();
-
+                ShouldUpdateCheckService.ForceToGetNewPlantData();
                 StatusMessage = string.Format("{0} record(s) deleted. Plant database is now empty", result);
 #if (ANDROID || IOS)
                 await _plantNotificationService.SetAllNotificationsAsync(null);
@@ -280,7 +278,7 @@ namespace FloraSaver.Services
             {
                 await DeleteAllPlantGroupsAsync();
                 await InitAsync();
-
+                ShouldUpdateCheckService.ForceToGetNewPlantData();
                 result = await conn.DeleteAllAsync<Plant>();
 
                 StatusMessage = string.Format("{0} record(s) deleted. Plant database is now empty", result);

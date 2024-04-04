@@ -267,12 +267,22 @@ namespace FloraSaver.ViewModels
             OverduePlantsMultiPickerValue = value;
         }
 
-        
-
         [RelayCommand]
         protected void VisiblePlantAttentionGetter()
         {
             VisiblePlantGroups = new ObservableCollection<PlantGroup>(VisiblePlantGroups);
+        }
+
+        [RelayCommand]
+        public async Task CheckForAutofillUpdatesAsync()
+        {
+            await _databaseService.PopulateAutoFillPlantTableAsync();
+        }
+
+        [RelayCommand]
+        public async Task CheckForClipetUpdatesAsync()
+        {
+            await _databaseService.PopulateClipetDialogTableAsync();
         }
 
         [RelayCommand]

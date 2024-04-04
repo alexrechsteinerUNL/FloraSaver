@@ -170,7 +170,7 @@
                     HorizontalOptions="CenterAndExpand"
                     HorizontalTextAlignment="Center"
                     IsVisible="{Binding IsNotBusy}"
-                    Text="There are no plants now. &#10; Start adding some!"
+                    Text="There are no plants now. &#10; Search for some!"
                     VerticalOptions="CenterAndExpand"
                     VerticalTextAlignment="Center" />
             </Grid>

@@ -247,6 +247,21 @@
                     Margin="8"
                     Command="{Binding GoToDatabaseImportCommand}"
                     Text="Import From Backup" />
+
+                <Button
+                    x:Name="CheckForAutofillUpdates"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="8"
+                    Command="{Binding CheckForAutofillUpdatesCommand}"
+                    Text="Check For New Plants" />
+                <Button
+                    x:Name="CheckForClipetUpdates"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="8"
+                    Command="{Binding CheckForClipetUpdatesCommand}"
+                    Text="Check For More Clipet Talks" />
                 <Button
                     x:Name="ViewClipetDialogs"
                     Grid.Row="1"
