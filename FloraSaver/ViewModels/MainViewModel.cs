@@ -141,10 +141,12 @@ namespace FloraSaver.ViewModels
             var lockedDialogs = Dialogs.Where(_ => !_.IsUnlocked).ToList();
             if (lockedDialogs.Count > 0)
             {
-                newlyUnlockedDialogs = lockedDialogs.Where(_ => _.TreatRequirement < TreatsGiven).ToList();
+                newlyUnlockedDialogs = lockedDialogs.Where(_ => _.TreatRequirement <= TreatsGiven).ToList();
                 if (newlyUnlockedDialogs.Count > 0)
                 {
-                    CurrentDialog = newlyUnlockedDialogs[rand.Next(newlyUnlockedDialogs.Count)];
+                    var sortedDialogs = newlyUnlockedDialogs.Where(_ => _.NewlyUnlockedOrder != -1).OrderBy(_ => _.NewlyUnlockedOrder).ToList();
+
+                    CurrentDialog = (sortedDialogs.Count > 0) ? sortedDialogs[0] :  newlyUnlockedDialogs[rand.Next(newlyUnlockedDialogs.Count)];
                     Dialogs.FirstOrDefault(_ => _ == CurrentDialog).IsUnlocked = true;
                     var updateActionNew = _databaseService.UpdateClipetDialogTableAsync(Dialogs.ToList());
                     await TalkToClipetAsync(CurrentDialog.Filename);

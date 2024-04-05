@@ -54,20 +54,27 @@
 	  <None Remove="Resources\Fonts\CALIFR.TTF" />
 	  <None Remove="Resources\Fonts\PRISMA.TTF" />
 	  <None Remove="Resources\Raw\Cooking5.txt" />
+	  <None Remove="Resources\Raw\Drainage6.txt" />
 	  <None Remove="Resources\Raw\FakePlants4.txt" />
 	  <None Remove="Resources\Raw\HowToSayClipet3.txt" />
 	  <None Remove="Resources\Raw\JustKeepClicking1.txt" />
+	  <None Remove="Resources\Raw\LastDialog8.txt" />
+	  <None Remove="Resources\Raw\Lawns7.txt" />
 	  <None Remove="Resources\Raw\TShirt2.txt" />
 	  <None Remove="Resources\Raw\TUTAutomaticWatering.txt" />
 	  <None Remove="Resources\Raw\TUTBackupPlants.txt" />
 	  <None Remove="Resources\Raw\TUTCopyingPlants.txt" />
 	  <None Remove="Resources\Raw\TUTGroupEdits.txt" />
+	  <None Remove="Resources\Raw\TUTGroupingPlants.txt" />
 	  <None Remove="Resources\Raw\TUTGrowLights.txt" />
 	  <None Remove="Resources\Raw\TUTHandlingPage.txt" />
 	  <None Remove="Resources\Raw\TUTLightingColorsCompact.txt" />
 	  <None Remove="Resources\Raw\TUTLightingColorsFull.txt" />
+	  <None Remove="Resources\Raw\TUTNewlyPlanted.txt" />
 	  <None Remove="Resources\Raw\TUTPlantDetails.txt" />
 	  <None Remove="Resources\Raw\TUTPlantTurnsBrown.txt" />
+	  <None Remove="Resources\Raw\TUTSearching.txt" />
+	  <None Remove="Resources\Raw\TUTSoilMoisture.txt" />
 	  <None Remove="Resources\Raw\TUTTablePage.txt" />
 	  <None Remove="Resources\Raw\TUTThirdOption.txt" />
 	  <None Remove="Resources\Raw\WelcomeMessage0.txt" />
@@ -159,10 +166,31 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiAsset Update="Resources\Raw\LastDialog8.txt">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </MauiAsset>
+	  <MauiAsset Update="Resources\Raw\Lawns7.txt">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </MauiAsset>
+	  <MauiAsset Update="Resources\Raw\Drainage6.txt">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </MauiAsset>
 	  <MauiAsset Update="Resources\Raw\Cooking5.txt">
 	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
 	  </MauiAsset>
 	  <MauiAsset Update="Resources\Raw\FakePlants4.txt">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </MauiAsset>
+	  <MauiAsset Update="Resources\Raw\TUTSearching.txt">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </MauiAsset>
+	  <MauiAsset Update="Resources\Raw\TUTGroupingPlants.txt">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </MauiAsset>
+	  <MauiAsset Update="Resources\Raw\TUTNewlyPlanted.txt">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </MauiAsset>
+	  <MauiAsset Update="Resources\Raw\TUTSoilMoisture.txt">
 	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
 	  </MauiAsset>
 	  <MauiAsset Update="Resources\Raw\TUTAutomaticWatering.txt">

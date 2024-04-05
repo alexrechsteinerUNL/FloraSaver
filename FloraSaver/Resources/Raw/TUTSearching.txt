@@ -1,0 +1,1 @@
+﻿The Search bar on the table page and handling page are different! #$ On the table page, you can search for new plants to add. #$ On the Handling page you can filter your plants down for sorting! #$
