@@ -33,8 +33,7 @@
             Padding="20"
             BackgroundColor="Black"
             BorderColor="{Binding AlterPlant.GroupColor}"
-            MaximumHeightRequest="1600"
-            SizeChanged="Frame_SizeChanged">
+            MaximumHeightRequest="1600">
             <Grid x:Name="spacingRows" RowSpacing="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />

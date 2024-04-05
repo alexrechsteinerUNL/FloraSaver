@@ -6,6 +6,7 @@ using FloraSaver.Utilities;
 
 namespace FloraSaver;
 
+
 public partial class PlantDetailsSetupPage : ContentPage, IAndroidBackButtonHandlerUtility
 {
     public PlantDetailsSetupPage(PlantDetailsSetupViewModel viewModel)
@@ -45,9 +46,9 @@ public partial class PlantDetailsSetupPage : ContentPage, IAndroidBackButtonHand
         _PlantSpecies.IsEnabled = true;
     }
 
-    private void Validate(object sender, EventArgs e)
+    private async void Validate(object sender, EventArgs e)
     {
-        ((PlantDetailsSetupViewModel)(this.BindingContext)).ValidateAlterPlantAsync();
+        await ((PlantDetailsSetupViewModel)(this.BindingContext)).ValidateAlterPlantAsync();
     }
 
     // This is a workaround to resolve a .NET MAUI bug regarding keyboards not disappearing on completion

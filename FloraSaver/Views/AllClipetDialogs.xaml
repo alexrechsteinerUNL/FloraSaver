@@ -16,7 +16,7 @@
     <CollectionView
         x:Name="dialogDeck"
         ItemsSource="{Binding Dialogs}"
-        SelectionMode="Multiple"
+        SelectionMode="None"
         VerticalOptions="CenterAndExpand">
         <CollectionView.ItemsLayout>
             <GridItemsLayout
@@ -30,20 +30,31 @@
                 <Grid
                     Padding="10"
                     HorizontalOptions="Center"
-                    RowDefinitions="*, Auto"
+                    RowDefinitions="500, 50"
                     VerticalOptions="Center">
                     <Frame
                         Padding="10"
                         BackgroundColor="Black"
                         BorderColor="{Binding TypeColor}">
-                        <ImageButton
-                            Grid.Row="0"
-                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=TalkToClipetCommand}"
-                            CommandParameter="{Binding Filename}"
-                            IsEnabled="{Binding IsUnlocked}"
-                            Source="homeicon" />
+                        <Grid Padding="0">
+                            <Image
+                                Grid.Row="0"
+                                Aspect="Fill"
+                                Opacity=".2"
+                                Source="card_background_fix.png" />
+                            <ImageButton
+                                Grid.Row="0"
+                                Padding="50"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=TalkToClipetCommand}"
+                                CommandParameter="{Binding Filename}"
+                                IsEnabled="{Binding IsUnlocked}"
+                                Source="homeicon" />
+                        </Grid>
                     </Frame>
-                    <Label Grid.Row="1" Text="{Binding DisplayName}" />
+                    <Label
+                        Grid.Row="1"
+                        HorizontalTextAlignment="Center"
+                        Text="{Binding DisplayName}" />
                 </Grid>
             </DataTemplate>
         </CollectionView.ItemTemplate>

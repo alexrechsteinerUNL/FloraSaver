@@ -5,9 +5,9 @@ using System.Linq;
 using FloraSaver.Utilities;
 
 namespace FloraSaver;
-
 public partial class PlantDetailsPage : ContentPage, IAndroidBackButtonHandlerUtility
 {
+    
     public PlantDetailsPage(PlantDetailsViewModel viewModel)
     {
         InitializeComponent();
@@ -42,19 +42,8 @@ public partial class PlantDetailsPage : ContentPage, IAndroidBackButtonHandlerUt
         _PlantSpecies.IsEnabled = true;
     }
 
-    private void Validate(object sender, EventArgs e)
+    private async void Validate(object sender, EventArgs e)
     {
-        ((PlantDetailsViewModel)(this.BindingContext)).ValidateAlterPlantAsync();
-    }
-    //Alter this so that if the frame's width and height are smaller than 600 a "compact mode" is engaged. Where the inside layout is 4* instead of 10*
-    private void Frame_SizeChanged(object sender, EventArgs e)
-    {
-        //var frameWidth = Frame.Width;
-        //var frameHeight = Frame.Height;
-
-        //if (frameWidth < 600 && frameHeight < 600)
-        //{
-
-        //}
+        await ((PlantDetailsViewModel)(this.BindingContext)).ValidateAlterPlantAsync();
     }
 }
