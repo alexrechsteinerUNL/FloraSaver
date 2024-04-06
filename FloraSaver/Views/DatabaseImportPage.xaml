@@ -13,7 +13,6 @@
     Shell.PresentationMode="Modal">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding AppearingImportCommand}" EventName="Appearing" />
-        <toolkit:EventToCommandBehavior Command="{Binding DisappearingImportCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
 
     <Grid Padding="10,10">

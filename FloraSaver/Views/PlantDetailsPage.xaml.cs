@@ -44,6 +44,13 @@ public partial class PlantDetailsPage : ContentPage, IAndroidBackButtonHandlerUt
 
     private async void Validate(object sender, EventArgs e)
     {
-        await ((PlantDetailsViewModel)(this.BindingContext)).ValidateAlterPlantAsync();
+        try
+        {
+            await ((PlantDetailsViewModel)(this.BindingContext)).ValidateAlterPlantAsync();
+        } catch (Exception ex)
+        {
+            return;
+        }
+        
     }
 }

@@ -588,7 +588,8 @@ namespace FloraSaver.ViewModels
                         TimeOfNextMove = DateTime.Now.TimeOfDay
                         }
                     },
-                    {"PlantGroup", await _databaseService.GetAllPlantGroupAsync() }
+                    {"PlantGroup", await _databaseService.GetAllPlantGroupAsync() },
+                    { "SelectedTab", "PlantName"}
                 });
             }
             else
@@ -613,7 +614,7 @@ namespace FloraSaver.ViewModels
             return;
         }
 
-        private async Task GoToSetupDetailsAsync(Plant plant, string plantDetailsSetupPageOpenTab = null)
+        private async Task GoToSetupDetailsAsync(Plant plant, string plantDetailsSetupPageOpenTab = "PlantName")
         {
                 await Shell.Current.GoToAsync(nameof(PlantDetailsSetupPage), true, new Dictionary<string, object>
                 {

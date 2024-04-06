@@ -3,6 +3,7 @@ using FloraSaver.Services;
 using FloraSaver.Models;
 using System.Linq;
 using FloraSaver.Utilities;
+using System.Linq.Expressions;
 
 namespace FloraSaver;
 
@@ -11,14 +12,13 @@ public partial class PlantDetailsSetupPage : ContentPage, IAndroidBackButtonHand
 {
     public PlantDetailsSetupPage(PlantDetailsSetupViewModel viewModel)
     {
-        InitializeComponent();
+            InitializeComponent();
         BindingContext = viewModel;
     }
 
     protected override void OnSizeAllocated(double width, double height)
     {
         base.OnSizeAllocated(width, height);
-        //((MainViewModel)(this.BindingContext)).ReconfigureValuesForScreenSize(width, height);
 
         if (height < 700)
         {
@@ -48,7 +48,14 @@ public partial class PlantDetailsSetupPage : ContentPage, IAndroidBackButtonHand
 
     private async void Validate(object sender, EventArgs e)
     {
-        await ((PlantDetailsSetupViewModel)(this.BindingContext)).ValidateAlterPlantAsync();
+        try
+        {
+            await ((PlantDetailsSetupViewModel)(this.BindingContext)).ValidateAlterPlantAsync();
+        }
+        catch (Exception ex)
+        {
+            return;
+        }
     }
 
     // This is a workaround to resolve a .NET MAUI bug regarding keyboards not disappearing on completion

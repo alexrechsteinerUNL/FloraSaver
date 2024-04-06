@@ -42,7 +42,6 @@ namespace FloraSaver.ViewModels
             base.ApplyQueryAttributes(query);
             var startTab = query.ContainsKey("SelectedTab") ? SetupTabs.FirstOrDefault(_ => _ == (string)query["SelectedTab"]) ?? "PlantName" : "PlantName";
             TabPressed(startTab);
-            OnPropertyChanged("VisibleTabs");
         }
 
         [RelayCommand]

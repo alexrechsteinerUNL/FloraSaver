@@ -397,7 +397,7 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         public bool isImageSelected = false;
 
-        public Plant InitialPlant;
+        public Plant InitialPlant = new();
 
         private Random rand = new Random();
 
@@ -408,7 +408,7 @@ namespace FloraSaver.ViewModels
         public GroupColors selectedGroupColor;
 
         [ObservableProperty]
-        public Plant alterPlant;
+        public Plant alterPlant = new();
 
         [ObservableProperty]
         public List<ClipetSpeechBubble> speechBubbles;
@@ -584,7 +584,7 @@ namespace FloraSaver.ViewModels
             OnPropertyChanged("AlterPlant");
             var groups = query["PlantGroup"] as List<PlantGroup>;
             PlantGroups = new ObservableCollection<PlantGroup>(groups);
-            OnPropertyChanged("PlantGroups");
+            OnPropertyChanged(nameof(PlantGroups));
             IsInitialization = false;
         }
 

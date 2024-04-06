@@ -2,7 +2,6 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net8.0-maccatalyst;net8.0-android;net8.0-ios</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
 		<OutputType>Exe</OutputType>
@@ -67,6 +66,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="CustomElements\**" />
+	  <EmbeddedResource Remove="CustomElements\**" />
+	  <MauiCss Remove="CustomElements\**" />
+	  <MauiXaml Remove="CustomElements\**" />
+	  <None Remove="CustomElements\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Remove="Resources\Fonts\CALIFB.TTF" />
 	  <None Remove="Resources\Fonts\CALIFI.TTF" />
 	  <None Remove="Resources\Fonts\CALIFR.TTF" />
@@ -102,7 +109,7 @@
 	  <PackageReference Include="CommunityToolkit.Common" Version="8.2.2" />
 	  <PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-	  <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.6" />
+	  <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.7" />
 	  <PackageReference Include="Microsoft.VisualStudio.Utilities" Version="17.8.37221" />
 	  <PackageReference Include="Plugin.LocalNotification" Version="11.1.0" />
 	  <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
@@ -177,10 +184,6 @@
 	  <MauiXaml Update="Views\TablePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="CustomElements\" />
 	</ItemGroup>
 
 	<ItemGroup>

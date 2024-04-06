@@ -11,7 +11,6 @@
     x:DataType="viewmodel:SettingsViewModel">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding AppearingSettingsCommand}" EventName="Appearing" />
-        <toolkit:EventToCommandBehavior Command="{Binding DisappearingSettingsCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
 
     <Grid>

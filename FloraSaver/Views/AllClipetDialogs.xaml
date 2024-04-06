@@ -11,7 +11,6 @@
     x:DataType="viewmodel:MainViewModel">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding AppearingDialogsCommand}" EventName="Appearing" />
-        <toolkit:EventToCommandBehavior Command="{Binding DisappearingDialogsCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
     <CollectionView
         x:Name="dialogDeck"
