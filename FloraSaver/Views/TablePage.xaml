@@ -19,8 +19,14 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
-        <toolkit:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
+        <toolkit:EventToCommandBehavior
+            x:DataType="viewmodel:TableViewModel"
+            Command="{Binding AppearingCommand}"
+            EventName="Appearing" />
+        <toolkit:EventToCommandBehavior
+            x:DataType="viewmodel:TableViewModel"
+            Command="{Binding DisappearingCommand}"
+            EventName="Disappearing" />
     </ContentPage.Behaviors>
     <Grid Padding="0" RowDefinitions="*, 11.6*">
         <Frame
@@ -41,6 +47,7 @@
                 VerticalTextAlignment="Center">
                 <Entry.Behaviors>
                     <toolkit:EventToCommandBehavior
+                        x:DataType="viewmodel:TableViewModel"
                         Command="{Binding StandardActionsCommand}"
                         CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
                         EventName="TextChanged" />
@@ -193,362 +200,364 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:Name="bloop" x:DataType="model:Plant">
-                            <Grid Padding="15,15,15,0">
-                                <Frame
-                                    Padding="5"
-                                    BackgroundColor="Black"
-                                    BorderColor="{Binding GroupColor}"
-                                    HeightRequest="420"
-                                    MaximumWidthRequest="350"
-                                    WidthRequest="350">
-                                    <Frame.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}" CommandParameter="{Binding .}" />
-                                    </Frame.GestureRecognizers>
-                                    <Grid Padding="0">
-                                        <Image
-                                            Grid.Row="0"
-                                            Aspect="Fill"
-                                            Opacity=".2"
-                                            Source="card_background_fix.png" />
-                                        <Grid
-                                            Padding="0"
-                                            HorizontalOptions="StartAndExpand"
-                                            RowDefinitions="2.1538*,*">
-
-                                            <Grid
+                            <Border Padding="0" BackgroundColor="Transparent">
+                                <Grid Padding="15,15,15,0">
+                                    <Frame
+                                        Padding="5"
+                                        BackgroundColor="Black"
+                                        BorderColor="{Binding GroupColor}"
+                                        HeightRequest="420"
+                                        MaximumWidthRequest="350"
+                                        WidthRequest="350">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}" CommandParameter="{Binding .}" />
+                                        </Frame.GestureRecognizers>
+                                        <Grid Padding="0">
+                                            <Image
                                                 Grid.Row="0"
-                                                Grid.ColumnSpan="3"
-                                                Padding="10"
-                                                ColumnDefinitions="*, 50"
-                                                RowDefinitions="1.333333*, *, *, 5.4*">
-                                                <Label
+                                                Aspect="Fill"
+                                                Opacity=".2"
+                                                Source="card_background_fix.png" />
+                                            <Grid
+                                                Padding="0"
+                                                HorizontalOptions="StartAndExpand"
+                                                RowDefinitions="2.1538*,*">
+
+                                                <Grid
                                                     Grid.Row="0"
-                                                    Grid.Column="0"
-                                                    FontSize="34"
-                                                    Text="{Binding GivenName, StringFormat='{0}'}"
-                                                    TextColor="{Binding GroupColor}">
-                                                    <Label.GestureRecognizers>
-                                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToSetupDetailsGivenNameCommand}" CommandParameter="{Binding .}" />
-                                                    </Label.GestureRecognizers>
-                                                </Label>
-                                                <Frame
-                                                    Grid.Row="0"
-                                                    Grid.Column="1"
-                                                    BackgroundColor="Transparent"
-                                                    BorderColor="Transparent"
-                                                    HeightRequest="52"
-                                                    WidthRequest="52">
-                                                    <Image
+                                                    Grid.ColumnSpan="3"
+                                                    Padding="10"
+                                                    ColumnDefinitions="*, 50"
+                                                    RowDefinitions="1.333333*, *, *, 5.4*">
+                                                    <Label
+                                                        Grid.Row="0"
+                                                        Grid.Column="0"
+                                                        FontSize="34"
+                                                        Text="{Binding GivenName, StringFormat='{0}'}"
+                                                        TextColor="{Binding GroupColor}">
+                                                        <Label.GestureRecognizers>
+                                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToSetupDetailsGivenNameCommand}" CommandParameter="{Binding .}" />
+                                                        </Label.GestureRecognizers>
+                                                    </Label>
+                                                    <Frame
                                                         Grid.Row="0"
                                                         Grid.Column="1"
+                                                        BackgroundColor="Transparent"
+                                                        BorderColor="Transparent"
                                                         HeightRequest="52"
-                                                        HorizontalOptions="FillAndExpand"
-                                                        IsVisible="True"
-                                                        Source="card_background_hidden.png"
-                                                        VerticalOptions="FillAndExpand"
-                                                        WidthRequest="52" />
-                                                </Frame>
+                                                        WidthRequest="52">
+                                                        <Image
+                                                            Grid.Row="0"
+                                                            Grid.Column="1"
+                                                            HeightRequest="52"
+                                                            HorizontalOptions="FillAndExpand"
+                                                            IsVisible="True"
+                                                            Source="card_background_hidden.png"
+                                                            VerticalOptions="FillAndExpand"
+                                                            WidthRequest="52" />
+                                                    </Frame>
 
-                                                <Frame
-                                                    Grid.Row="0"
-                                                    Grid.Column="1"
-                                                    BackgroundColor="Transparent"
-                                                    BorderColor="Transparent"
-                                                    HeightRequest="52"
-                                                    WidthRequest="52">
-                                                    <Image
-                                                        x:Name="_plantImage"
-                                                        Aspect="Fill"
-                                                        HeightRequest="52"
-                                                        HorizontalOptions="FillAndExpand"
-                                                        IsVisible="{Binding HasImage}"
-                                                        Source="{Binding PlantImageSource}"
-                                                        VerticalOptions="FillAndExpand"
-                                                        WidthRequest="52" />
-                                                </Frame>
-                                                <Frame
-                                                    Grid.Row="0"
-                                                    Grid.Column="1"
-                                                    BackgroundColor="Transparent"
-                                                    BorderColor="{Binding GroupColor}"
-                                                    HeightRequest="52"
-                                                    Scale="1.1538"
-                                                    WidthRequest="52">
-                                                    <Frame.GestureRecognizers>
-                                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToSetupDetailsGivenNameCommand}" CommandParameter="{Binding .}" />
-                                                    </Frame.GestureRecognizers>
-                                                </Frame>
-                                                <Frame
-                                                    Grid.Row="2"
-                                                    Grid.Column="1"
-                                                    Padding="0"
-                                                    BackgroundColor="Transparent"
-                                                    BorderColor="{Binding GroupColor}"
-                                                    HeightRequest="58"
-                                                    VerticalOptions="Fill"
-                                                    WidthRequest="58">
-                                                    <Frame.GestureRecognizers>
-                                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}" CommandParameter="{Binding .}" />
-                                                    </Frame.GestureRecognizers>
-                                                    <Label
-                                                        Padding="0"
-                                                        FontSize="42"
-                                                        HorizontalOptions="Center"
-                                                        Rotation="30"
-                                                        Text="🂠"
-                                                        TextColor="{Binding GroupColor}"
-                                                        VerticalOptions="Center" />
-                                                </Frame>
-
-                                                <Label
-                                                    Grid.Row="1"
-                                                    Grid.ColumnSpan="2"
-                                                    FontAttributes="Italic"
-                                                    Text="{Binding PlantSpecies}">
-                                                    <Label.GestureRecognizers>
-                                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToSetupDetailsPlantNameCommand}" CommandParameter="{Binding .}" />
-                                                    </Label.GestureRecognizers>
-                                                </Label>
-                                                <Label
-                                                    Grid.Row="2"
-                                                    Grid.ColumnSpan="1"
-                                                    Text="{Binding PlantGroupName}"
-                                                    TextColor="{Binding GroupColor}">
-                                                    <Label.GestureRecognizers>
-                                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToSetupDetailsGroupNameCommand}" CommandParameter="{Binding .}" />
-                                                    </Label.GestureRecognizers>
-                                                </Label>
-                                                <Grid
-                                                    Grid.Row="3"
-                                                    Grid.ColumnSpan="2"
-                                                    RowDefinitions="*,*,*">
-                                                    <Grid
+                                                    <Frame
                                                         Grid.Row="0"
-                                                        ColumnDefinitions="*, 7.75*, *, 7.75*"
-                                                        IsVisible="{Binding UseWatering}"
-                                                        RowDefinitions="*,*">
+                                                        Grid.Column="1"
+                                                        BackgroundColor="Transparent"
+                                                        BorderColor="Transparent"
+                                                        HeightRequest="52"
+                                                        WidthRequest="52">
                                                         <Image
-                                                            Grid.Row="0"
-                                                            Grid.Column="0"
-                                                            Source="interval_timer_visual.png" />
-                                                        <Label
-                                                            Grid.Row="0"
-                                                            Grid.Column="1"
-                                                            Grid.ColumnSpan="3"
-                                                            Padding="2"
-                                                            FontSize="Body"
-                                                            Text="{Binding WaterIntervalText, StringFormat='Water Interval: {0}'}"
-                                                            VerticalOptions="CenterAndExpand" />
-                                                        <Image
-                                                            Grid.Row="1"
-                                                            Grid.Column="0"
-                                                            Source="water_timer_visual_inverted.png" />
-                                                        <Label
-                                                            Grid.Row="1"
-                                                            Grid.Column="1"
-                                                            Padding="2"
-                                                            FontSize="Body"
-                                                            HorizontalTextAlignment="Start"
-                                                            Text="{Binding DateOfLastWatering, StringFormat='{0:d} {0:h\:mm tt}'}"
-                                                            VerticalOptions="CenterAndExpand" />
-                                                        <Image
-                                                            Grid.Row="1"
-                                                            Grid.Column="2"
-                                                            Source="water_timer_visual.png" />
-                                                        <Label
-                                                            Grid.Row="1"
-                                                            Grid.Column="3"
-                                                            Padding="2"
-                                                            FontSize="Body"
-                                                            HorizontalTextAlignment="Start"
-                                                            Text="{Binding DateOfNextWatering, StringFormat='{0:d} {0:h\:mm tt}'}"
-                                                            VerticalOptions="CenterAndExpand" />
-                                                        <Grid.GestureRecognizers>
-                                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToSetupDetailsWaterCommand}" CommandParameter="{Binding .}" />
-                                                        </Grid.GestureRecognizers>
-                                                    </Grid>
-                                                    <Grid
-                                                        Grid.Row="1"
-                                                        ColumnDefinitions="*, 7.75*, *, 7.75*"
-                                                        IsVisible="{Binding UseMisting}"
-                                                        RowDefinitions="*,*">
-                                                        <Image
-                                                            Grid.Row="0"
-                                                            Grid.Column="0"
-                                                            Source="interval_timer_visual.png" />
-                                                        <Label
-                                                            x:Name="_MistIntervalLabel"
-                                                            Grid.Row="0"
-                                                            Grid.Column="1"
-                                                            Grid.ColumnSpan="3"
-                                                            Padding="2"
-                                                            FontSize="Body"
-                                                            Text="{Binding MistIntervalText, StringFormat='Mist Interval: {0}'}"
-                                                            VerticalOptions="CenterAndExpand" />
-                                                        <Image
-                                                            Grid.Row="1"
-                                                            Grid.Column="0"
-                                                            Source="refresh_timer_visual_inverted.png" />
-                                                        <Label
-                                                            Grid.Row="1"
-                                                            Grid.Column="1"
-                                                            Padding="2"
-                                                            FontSize="Body"
-                                                            HorizontalTextAlignment="Start"
-                                                            Text="{Binding DateOfLastMisting, StringFormat='{0:d} {0:h\:mm tt}'}"
-                                                            VerticalOptions="CenterAndExpand" />
-                                                        <Image
-                                                            Grid.Row="1"
-                                                            Grid.Column="2"
-                                                            Source="refresh_timer_visual.png" />
-                                                        <Label
-                                                            Grid.Row="1"
-                                                            Grid.Column="3"
-                                                            Padding="2"
-                                                            FontSize="Body"
-                                                            HorizontalTextAlignment="Start"
-                                                            Text="{Binding DateOfNextMisting, StringFormat='{0:d} {0:h\:mm tt}'}"
-                                                            VerticalOptions="CenterAndExpand" />
-                                                        <Grid.GestureRecognizers>
-                                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToSetupDetailsRefreshCommand}" CommandParameter="{Binding .}" />
-                                                        </Grid.GestureRecognizers>
-                                                    </Grid>
-                                                    <Grid
+                                                            x:Name="_plantImage"
+                                                            Aspect="Fill"
+                                                            HeightRequest="52"
+                                                            HorizontalOptions="FillAndExpand"
+                                                            IsVisible="{Binding HasImage}"
+                                                            Source="{Binding PlantImageSource}"
+                                                            VerticalOptions="FillAndExpand"
+                                                            WidthRequest="52" />
+                                                    </Frame>
+                                                    <Frame
+                                                        Grid.Row="0"
+                                                        Grid.Column="1"
+                                                        BackgroundColor="Transparent"
+                                                        BorderColor="{Binding GroupColor}"
+                                                        HeightRequest="52"
+                                                        Scale="1.1538"
+                                                        WidthRequest="52">
+                                                        <Frame.GestureRecognizers>
+                                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToSetupDetailsGivenNameCommand}" CommandParameter="{Binding .}" />
+                                                        </Frame.GestureRecognizers>
+                                                    </Frame>
+                                                    <Frame
                                                         Grid.Row="2"
-                                                        ColumnDefinitions="*, 7.75*, *, 7.75*"
-                                                        IsVisible="{Binding UseMoving}"
-                                                        RowDefinitions="*,*">
-                                                        <Image
+                                                        Grid.Column="1"
+                                                        Padding="0"
+                                                        BackgroundColor="Transparent"
+                                                        BorderColor="{Binding GroupColor}"
+                                                        HeightRequest="58"
+                                                        VerticalOptions="Fill"
+                                                        WidthRequest="58">
+                                                        <Frame.GestureRecognizers>
+                                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}" CommandParameter="{Binding .}" />
+                                                        </Frame.GestureRecognizers>
+                                                        <Label
+                                                            Padding="0"
+                                                            FontSize="42"
+                                                            HorizontalOptions="Center"
+                                                            Rotation="30"
+                                                            Text="🂠"
+                                                            TextColor="{Binding GroupColor}"
+                                                            VerticalOptions="Center" />
+                                                    </Frame>
+
+                                                    <Label
+                                                        Grid.Row="1"
+                                                        Grid.ColumnSpan="2"
+                                                        FontAttributes="Italic"
+                                                        Text="{Binding PlantSpecies}">
+                                                        <Label.GestureRecognizers>
+                                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToSetupDetailsPlantNameCommand}" CommandParameter="{Binding .}" />
+                                                        </Label.GestureRecognizers>
+                                                    </Label>
+                                                    <Label
+                                                        Grid.Row="2"
+                                                        Grid.ColumnSpan="1"
+                                                        Text="{Binding PlantGroupName}"
+                                                        TextColor="{Binding GroupColor}">
+                                                        <Label.GestureRecognizers>
+                                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToSetupDetailsGroupNameCommand}" CommandParameter="{Binding .}" />
+                                                        </Label.GestureRecognizers>
+                                                    </Label>
+                                                    <Grid
+                                                        Grid.Row="3"
+                                                        Grid.ColumnSpan="2"
+                                                        RowDefinitions="*,*,*">
+                                                        <Grid
                                                             Grid.Row="0"
-                                                            Grid.Column="0"
-                                                            Source="interval_timer_visual.png" />
-                                                        <Label
-                                                            x:Name="_SunIntervalLabel"
-                                                            Grid.Row="0"
-                                                            Grid.Column="1"
-                                                            Grid.ColumnSpan="3"
-                                                            Padding="2"
-                                                            FontSize="Body"
-                                                            Text="{Binding SunIntervalText, StringFormat='Sun Interval: {0}'}"
-                                                            VerticalOptions="CenterAndExpand" />
-                                                        <Image
+                                                            ColumnDefinitions="*, 7.75*, *, 7.75*"
+                                                            IsVisible="{Binding UseWatering}"
+                                                            RowDefinitions="*,*">
+                                                            <Image
+                                                                Grid.Row="0"
+                                                                Grid.Column="0"
+                                                                Source="interval_timer_visual.png" />
+                                                            <Label
+                                                                Grid.Row="0"
+                                                                Grid.Column="1"
+                                                                Grid.ColumnSpan="3"
+                                                                Padding="2"
+                                                                FontSize="Body"
+                                                                Text="{Binding WaterIntervalText, StringFormat='Water Interval: {0}'}"
+                                                                VerticalOptions="CenterAndExpand" />
+                                                            <Image
+                                                                Grid.Row="1"
+                                                                Grid.Column="0"
+                                                                Source="water_timer_visual_inverted.png" />
+                                                            <Label
+                                                                Grid.Row="1"
+                                                                Grid.Column="1"
+                                                                Padding="2"
+                                                                FontSize="Body"
+                                                                HorizontalTextAlignment="Start"
+                                                                Text="{Binding DateOfLastWatering, StringFormat='{0:d} {0:h\:mm tt}'}"
+                                                                VerticalOptions="CenterAndExpand" />
+                                                            <Image
+                                                                Grid.Row="1"
+                                                                Grid.Column="2"
+                                                                Source="water_timer_visual.png" />
+                                                            <Label
+                                                                Grid.Row="1"
+                                                                Grid.Column="3"
+                                                                Padding="2"
+                                                                FontSize="Body"
+                                                                HorizontalTextAlignment="Start"
+                                                                Text="{Binding DateOfNextWatering, StringFormat='{0:d} {0:h\:mm tt}'}"
+                                                                VerticalOptions="CenterAndExpand" />
+                                                            <Grid.GestureRecognizers>
+                                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToSetupDetailsWaterCommand}" CommandParameter="{Binding .}" />
+                                                            </Grid.GestureRecognizers>
+                                                        </Grid>
+                                                        <Grid
                                                             Grid.Row="1"
-                                                            Grid.Column="0"
-                                                            Source="sun_timer_visual_inverted.png" />
-                                                        <Label
-                                                            Grid.Row="1"
-                                                            Grid.Column="1"
-                                                            Padding="2"
-                                                            FontSize="Body"
-                                                            HorizontalTextAlignment="Start"
-                                                            Text="{Binding DateOfLastMove, StringFormat='{0:d} {0:h\:mm tt}'}"
-                                                            VerticalOptions="CenterAndExpand" />
-                                                        <Image
-                                                            Grid.Row="1"
-                                                            Grid.Column="2"
-                                                            Source="sun_timer_visual.png" />
-                                                        <Label
-                                                            Grid.Row="1"
-                                                            Grid.Column="3"
-                                                            Padding="2"
-                                                            FontSize="Body"
-                                                            HorizontalTextAlignment="Start"
-                                                            Text="{Binding DateOfNextMove, StringFormat='{0:d} {0:h\:mm tt}'}"
-                                                            VerticalOptions="CenterAndExpand" />
-                                                        <Grid.GestureRecognizers>
-                                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToSetupDetailsSunCommand}" CommandParameter="{Binding .}" />
-                                                        </Grid.GestureRecognizers>
+                                                            ColumnDefinitions="*, 7.75*, *, 7.75*"
+                                                            IsVisible="{Binding UseMisting}"
+                                                            RowDefinitions="*,*">
+                                                            <Image
+                                                                Grid.Row="0"
+                                                                Grid.Column="0"
+                                                                Source="interval_timer_visual.png" />
+                                                            <Label
+                                                                x:Name="_MistIntervalLabel"
+                                                                Grid.Row="0"
+                                                                Grid.Column="1"
+                                                                Grid.ColumnSpan="3"
+                                                                Padding="2"
+                                                                FontSize="Body"
+                                                                Text="{Binding MistIntervalText, StringFormat='Mist Interval: {0}'}"
+                                                                VerticalOptions="CenterAndExpand" />
+                                                            <Image
+                                                                Grid.Row="1"
+                                                                Grid.Column="0"
+                                                                Source="refresh_timer_visual_inverted.png" />
+                                                            <Label
+                                                                Grid.Row="1"
+                                                                Grid.Column="1"
+                                                                Padding="2"
+                                                                FontSize="Body"
+                                                                HorizontalTextAlignment="Start"
+                                                                Text="{Binding DateOfLastMisting, StringFormat='{0:d} {0:h\:mm tt}'}"
+                                                                VerticalOptions="CenterAndExpand" />
+                                                            <Image
+                                                                Grid.Row="1"
+                                                                Grid.Column="2"
+                                                                Source="refresh_timer_visual.png" />
+                                                            <Label
+                                                                Grid.Row="1"
+                                                                Grid.Column="3"
+                                                                Padding="2"
+                                                                FontSize="Body"
+                                                                HorizontalTextAlignment="Start"
+                                                                Text="{Binding DateOfNextMisting, StringFormat='{0:d} {0:h\:mm tt}'}"
+                                                                VerticalOptions="CenterAndExpand" />
+                                                            <Grid.GestureRecognizers>
+                                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToSetupDetailsRefreshCommand}" CommandParameter="{Binding .}" />
+                                                            </Grid.GestureRecognizers>
+                                                        </Grid>
+                                                        <Grid
+                                                            Grid.Row="2"
+                                                            ColumnDefinitions="*, 7.75*, *, 7.75*"
+                                                            IsVisible="{Binding UseMoving}"
+                                                            RowDefinitions="*,*">
+                                                            <Image
+                                                                Grid.Row="0"
+                                                                Grid.Column="0"
+                                                                Source="interval_timer_visual.png" />
+                                                            <Label
+                                                                x:Name="_SunIntervalLabel"
+                                                                Grid.Row="0"
+                                                                Grid.Column="1"
+                                                                Grid.ColumnSpan="3"
+                                                                Padding="2"
+                                                                FontSize="Body"
+                                                                Text="{Binding SunIntervalText, StringFormat='Sun Interval: {0}'}"
+                                                                VerticalOptions="CenterAndExpand" />
+                                                            <Image
+                                                                Grid.Row="1"
+                                                                Grid.Column="0"
+                                                                Source="sun_timer_visual_inverted.png" />
+                                                            <Label
+                                                                Grid.Row="1"
+                                                                Grid.Column="1"
+                                                                Padding="2"
+                                                                FontSize="Body"
+                                                                HorizontalTextAlignment="Start"
+                                                                Text="{Binding DateOfLastMove, StringFormat='{0:d} {0:h\:mm tt}'}"
+                                                                VerticalOptions="CenterAndExpand" />
+                                                            <Image
+                                                                Grid.Row="1"
+                                                                Grid.Column="2"
+                                                                Source="sun_timer_visual.png" />
+                                                            <Label
+                                                                Grid.Row="1"
+                                                                Grid.Column="3"
+                                                                Padding="2"
+                                                                FontSize="Body"
+                                                                HorizontalTextAlignment="Start"
+                                                                Text="{Binding DateOfNextMove, StringFormat='{0:d} {0:h\:mm tt}'}"
+                                                                VerticalOptions="CenterAndExpand" />
+                                                            <Grid.GestureRecognizers>
+                                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToSetupDetailsSunCommand}" CommandParameter="{Binding .}" />
+                                                            </Grid.GestureRecognizers>
+                                                        </Grid>
                                                     </Grid>
                                                 </Grid>
-                                            </Grid>
-                                            <Grid
-                                                Grid.Row="1"
-                                                Grid.ColumnSpan="2"
-                                                Padding="3"
-                                                BackgroundColor="Black"
-                                                ColumnSpacing="0"
-                                                RowSpacing="0">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="*" />
-                                                </Grid.ColumnDefinitions>
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="*" />
-                                                    <RowDefinition Height="11*" />
-                                                </Grid.RowDefinitions>
-                                                <ProgressBar
-                                                    Grid.Row="0"
-                                                    Grid.Column="0"
-                                                    BackgroundColor="Transparent"
-                                                    HorizontalOptions="Fill"
-                                                    IsVisible="{Binding UseWatering}"
-                                                    Progress="{Binding WaterPercent}"
-                                                    ProgressColor="DarkSlateBlue"
-                                                    ScaleX="1"
-                                                    ScaleY="2" />
-                                                <ImageButton
+                                                <Grid
                                                     Grid.Row="1"
-                                                    Grid.Column="0"
-                                                    Padding="0"
+                                                    Grid.ColumnSpan="2"
+                                                    Padding="3"
                                                     BackgroundColor="Black"
-                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=ResetWateringCommand}"
-                                                    CommandParameter="{Binding .}"
-                                                    HorizontalOptions="Fill"
-                                                    IsEnabled="{Binding UseWatering}"
-                                                    Opacity="{Binding WaterOpacity}"
-                                                    ScaleY="1.04"
-                                                    Source="water_timer_visual.png" />
+                                                    ColumnSpacing="0"
+                                                    RowSpacing="0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*" />
+                                                        <RowDefinition Height="11*" />
+                                                    </Grid.RowDefinitions>
+                                                    <ProgressBar
+                                                        Grid.Row="0"
+                                                        Grid.Column="0"
+                                                        BackgroundColor="Transparent"
+                                                        HorizontalOptions="Fill"
+                                                        IsVisible="{Binding UseWatering}"
+                                                        Progress="{Binding WaterPercent}"
+                                                        ProgressColor="DarkSlateBlue"
+                                                        ScaleX="1"
+                                                        ScaleY="2" />
+                                                    <ImageButton
+                                                        Grid.Row="1"
+                                                        Grid.Column="0"
+                                                        Padding="0"
+                                                        BackgroundColor="Black"
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=ResetWateringCommand}"
+                                                        CommandParameter="{Binding .}"
+                                                        HorizontalOptions="Fill"
+                                                        IsEnabled="{Binding UseWatering}"
+                                                        Opacity="{Binding WaterOpacity}"
+                                                        ScaleY="1.04"
+                                                        Source="water_timer_visual.png" />
 
 
-                                                <ProgressBar
-                                                    x:Name="MistProgress"
-                                                    Grid.Row="0"
-                                                    Grid.Column="1"
-                                                    BackgroundColor="Transparent"
-                                                    HorizontalOptions="Fill"
-                                                    IsVisible="{Binding UseMisting}"
-                                                    Progress="{Binding MistPercent}"
-                                                    ProgressColor="LightBlue"
-                                                    ScaleX="1"
-                                                    ScaleY="2" />
-                                                <ImageButton
-                                                    Grid.Row="1"
-                                                    Grid.Column="1"
-                                                    Padding="0"
-                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=ResetMistingCommand}"
-                                                    CommandParameter="{Binding .}"
-                                                    HorizontalOptions="Fill"
-                                                    IsEnabled="{Binding UseMisting}"
-                                                    Opacity="{Binding MistOpacity}"
-                                                    ScaleY="1.04"
-                                                    Source="refresh_timer_visual.png" />
+                                                    <ProgressBar
+                                                        x:Name="MistProgress"
+                                                        Grid.Row="0"
+                                                        Grid.Column="1"
+                                                        BackgroundColor="Transparent"
+                                                        HorizontalOptions="Fill"
+                                                        IsVisible="{Binding UseMisting}"
+                                                        Progress="{Binding MistPercent}"
+                                                        ProgressColor="LightBlue"
+                                                        ScaleX="1"
+                                                        ScaleY="2" />
+                                                    <ImageButton
+                                                        Grid.Row="1"
+                                                        Grid.Column="1"
+                                                        Padding="0"
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=ResetMistingCommand}"
+                                                        CommandParameter="{Binding .}"
+                                                        HorizontalOptions="Fill"
+                                                        IsEnabled="{Binding UseMisting}"
+                                                        Opacity="{Binding MistOpacity}"
+                                                        ScaleY="1.04"
+                                                        Source="refresh_timer_visual.png" />
 
-                                                <ProgressBar
-                                                    Grid.Row="0"
-                                                    Grid.Column="2"
-                                                    BackgroundColor="Transparent"
-                                                    HorizontalOptions="Fill"
-                                                    IsVisible="{Binding UseMoving}"
-                                                    Progress="{Binding SunPercent}"
-                                                    ProgressColor="Orange"
-                                                    ScaleX="1"
-                                                    ScaleY="2" />
-                                                <ImageButton
-                                                    Grid.Row="1"
-                                                    Grid.Column="2"
-                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=ResetMovingCommand}"
-                                                    CommandParameter="{Binding .}"
-                                                    HorizontalOptions="Fill"
-                                                    IsEnabled="{Binding UseMoving}"
-                                                    Opacity="{Binding MoveOpacity}"
-                                                    ScaleY="1.04"
-                                                    Source="sun_timer_visual.png" />
+                                                    <ProgressBar
+                                                        Grid.Row="0"
+                                                        Grid.Column="2"
+                                                        BackgroundColor="Transparent"
+                                                        HorizontalOptions="Fill"
+                                                        IsVisible="{Binding UseMoving}"
+                                                        Progress="{Binding SunPercent}"
+                                                        ProgressColor="Orange"
+                                                        ScaleX="1"
+                                                        ScaleY="2" />
+                                                    <ImageButton
+                                                        Grid.Row="1"
+                                                        Grid.Column="2"
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=ResetMovingCommand}"
+                                                        CommandParameter="{Binding .}"
+                                                        HorizontalOptions="Fill"
+                                                        IsEnabled="{Binding UseMoving}"
+                                                        Opacity="{Binding MoveOpacity}"
+                                                        ScaleY="1.04"
+                                                        Source="sun_timer_visual.png" />
+                                                </Grid>
                                             </Grid>
                                         </Grid>
-                                    </Grid>
-                                </Frame>
-                            </Grid>
+                                    </Frame>
+                                </Grid>
+                            </Border>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
 

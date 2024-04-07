@@ -52,10 +52,11 @@ public partial class ClipetOverlayPage : ContentPage
     {
         base.OnAppearing();
         blur.IsVisible = true;
-        blur.FadeTo(1, 1000);
+        var startBlur = blur.FadeTo(1, 500);
         await clipet.TranslateTo(0, 500, 10);
         clipet.IsVisible = true;
         await clipet.TranslateTo(0, 0, 500);
+        await startBlur;
 
     }
 

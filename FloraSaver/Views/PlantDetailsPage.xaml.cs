@@ -41,16 +41,4 @@ public partial class PlantDetailsPage : ContentPage, IAndroidBackButtonHandlerUt
         _PlantSpecies.IsEnabled = false;
         _PlantSpecies.IsEnabled = true;
     }
-
-    private async void Validate(object sender, EventArgs e)
-    {
-        try
-        {
-            await ((PlantDetailsViewModel)(this.BindingContext)).ValidateAlterPlantAsync();
-        } catch (Exception ex)
-        {
-            return;
-        }
-        
-    }
 }

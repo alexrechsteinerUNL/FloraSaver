@@ -65,7 +65,7 @@ namespace FloraSaver.ViewModels
             if (ShouldUpdateCheckService.shouldGetNewPlantDataMain) { await GetPlantsAsync(); ShouldUpdateCheckService.shouldGetNewPlantDataMain = false; }
             //await _databaseService.PopulateClipetDialogTableAsync(); //Testing
             Dialogs = new(await _databaseService.GetAllClipetDialogsAsync());
-            PeriodicTimerUpdaterBackgroundAsync(() => CheatUpdateAllPlantProgress());
+            _ = PeriodicTimerUpdaterBackgroundAsync(() => CheatUpdateAllPlantProgress());
             if (DataPlants.Count > 0)
             {
                 AreNoPlants = false;

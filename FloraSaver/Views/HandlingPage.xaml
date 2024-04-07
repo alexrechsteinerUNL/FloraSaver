@@ -18,8 +18,14 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior Command="{Binding AppearingHandlingCommand}" EventName="Appearing" />
-        <toolkit:EventToCommandBehavior Command="{Binding DisappearingHandlingCommand}" EventName="Disappearing" />
+        <toolkit:EventToCommandBehavior
+            x:DataType="viewmodel:HandlingViewModel"
+            Command="{Binding AppearingHandlingCommand}"
+            EventName="Appearing" />
+        <toolkit:EventToCommandBehavior
+            x:DataType="viewmodel:HandlingViewModel"
+            Command="{Binding DisappearingHandlingCommand}"
+            EventName="Disappearing" />
     </ContentPage.Behaviors>
     <Grid Padding="0" RowDefinitions="*, 11.6*">
         <Frame

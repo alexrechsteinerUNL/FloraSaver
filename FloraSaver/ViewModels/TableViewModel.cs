@@ -60,7 +60,7 @@ namespace FloraSaver.ViewModels
             IsInitialization = true;
             PlantSuggestions = PlantSuggestions.Count > 0 ? PlantSuggestions : new(await _databaseService.GetAllAutofillPlantAsync());
             timer = new PeriodicTimer(TimeSpan.FromSeconds(10));
-            PeriodicTimerUpdaterBackgroundAsync(() => CheatUpdateAllPlantProgress());
+            _ = PeriodicTimerUpdaterBackgroundAsync(() => CheatUpdateAllPlantProgress());
             if (ShouldUpdateCheckService.shouldGetNewGroupDataTable) { ShouldUpdateCheckService.ForceToGetNewGroupData(); await GetPlantGroupsAsync(); ShouldUpdateCheckService.shouldGetNewGroupDataTable = false; }
             if (ShouldUpdateCheckService.shouldGetNewPlantDataTable) { ShouldUpdateCheckService.ForceToGetNewPlantData(); await GetPlantsAsync(); ShouldUpdateCheckService.shouldGetNewPlantDataTable = false; }
             await StandardActionsAsync(SearchQuery);
@@ -340,7 +340,7 @@ namespace FloraSaver.ViewModels
             //This is a bad place for it, but this is testing for the Utility that separates elements into textboxes. This would be covered by something real software engineers call a UNIT TEST!
             //this is testing data for loading from a file.
             //await LoadClipetTextFileAsync("WelcomeMessage.txt");
-            PeriodicTimerUpdaterBackgroundAsync(() => CheatUpdateAllPlantProgress());
+            _ = PeriodicTimerUpdaterBackgroundAsync(() => CheatUpdateAllPlantProgress());
             if (IsBusy)
                 return;
 

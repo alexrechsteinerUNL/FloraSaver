@@ -587,6 +587,23 @@ namespace FloraSaver.ViewModels
             OnPropertyChanged(nameof(PlantGroups));
             IsInitialization = false;
         }
+        [RelayCommand]
+        public async Task ValidateAsync()
+        {
+            try
+            {
+                if (!IsInitialization && AlterPlant is not null)
+            {
+                    await ValidateAlterPlantAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+            return;
+
+        }
 
         [ObservableProperty]
         private bool isInitialization;

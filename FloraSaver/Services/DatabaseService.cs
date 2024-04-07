@@ -46,17 +46,26 @@ namespace FloraSaver.Services
 
         public async Task UpdateClipetDialogTableAsync(List<ClipetDialog> Dialogs)
         {
-            if (Dialogs.Count > 0)
+            try
             {
-                await conn.UpdateAllAsync(Dialogs, true);
+                if (Dialogs.Count > 0)
+                {
+                    await conn.UpdateAllAsync(Dialogs, true);
+                }
+            } catch (Exception ex)
+            {
+                StatusMessage = string.Format("Failed to update Clipet Database. {0}", ex.Message);
             }
+            
             
         }
 
         public async Task PopulateClipetDialogTableAsync()
         {
-            var allDialogsTask = GetAllClipetDialogsAsync();
-            // You will need to alter this by either prepending the correct amount manually every time you update it or something smarter
+            try
+            {
+                var allDialogsTask = GetAllClipetDialogsAsync();
+                // You will need to alter this by either prepending the correct amount manually every time you update it or something smarter
                 var clipetDialogCount = Preferences.Default.Get("ClipetDialogCount", 0);
                 var currentDialogData = await conn.Table<ClipetDialog>().ToListAsync();
                 if (clipetDialogCount != 0 && clipetDialogCount == currentDialogData.Count && clipetDialogCount == ClipetDialogGeneratorUtility.ManualClipetDialogs)
@@ -64,25 +73,21 @@ namespace FloraSaver.Services
                     return;
                 }
                 ClipetDialogGeneratorUtility.GenerateClipetDialogs();
-            var allDialogs = await allDialogsTask;
-            foreach (var dialog in ClipetDialogGeneratorUtility.AllClipetDialogs)
-            {
-                if (!allDialogs.Select(_ => _.DialogID).Contains(dialog.DialogID))
+                var allDialogs = await allDialogsTask;
+                foreach (var dialog in ClipetDialogGeneratorUtility.AllClipetDialogs)
                 {
-                    await conn.InsertAsync(dialog);
+                    if (!allDialogs.Select(_ => _.DialogID).Contains(dialog.DialogID))
+                    {
+                        await conn.InsertAsync(dialog);
+                    }
                 }
+            } 
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Failed to populate data from ClipetDialog Database. {0}", ex.Message);
             }
+            
         }
-
-
-
-
-
-
-
-
-
-
 
         public async Task<List<AutoFillPlant>> GetAllAutofillPlantAsync()
         {
@@ -103,16 +108,23 @@ namespace FloraSaver.Services
         public async Task PopulateAutoFillPlantTableAsync()
         {
             // You will need to alter this by either prepending the correct amount manually every time you update it or something smarter
-
-            var autoFillPlantCount = Preferences.Default.Get("AutoFillPlantCount", 0);
-            var autoFillData = await conn.Table<AutoFillPlant>().ToListAsync();
-            if (autoFillPlantCount != 0 && autoFillPlantCount == autoFillData.Count && autoFillPlantCount == AutoFillPlantGeneratorUtility.ManualPlantCount)
+            try
             {
-                return;
+                var autoFillPlantCount = Preferences.Default.Get("AutoFillPlantCount", 0);
+                var autoFillData = await conn.Table<AutoFillPlant>().ToListAsync();
+                if (autoFillPlantCount != 0 && autoFillPlantCount == autoFillData.Count && autoFillPlantCount == AutoFillPlantGeneratorUtility.ManualPlantCount)
+                {
+                    return;
+                }
+                AutoFillPlantGeneratorUtility.GenerateAutoFillPlants();
+                await conn.DeleteAllAsync<AutoFillPlant>();
+                await conn.InsertAllAsync(AutoFillPlantGeneratorUtility.AllAutoFillPlants, true);
+            } 
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Failed to populate data Autofill Database. {0}", ex.Message);
             }
-            AutoFillPlantGeneratorUtility.GenerateAutoFillPlants();
-            await conn.DeleteAllAsync<AutoFillPlant>();
-            await conn.InsertAllAsync(AutoFillPlantGeneratorUtility.AllAutoFillPlants, true);
+
         }
 
         private async Task<List<AutoFillPlant>> QueryAutofillPlantAsyncFromSearchAsync(string searchQuery)

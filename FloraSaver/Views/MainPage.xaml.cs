@@ -69,8 +69,6 @@ public partial class MainPage : ContentPage, IAndroidBackButtonHandlerUtility
             await startGiveTreat;
             fullTreat.IsVisible = false;
             fullClipet.Source = "clipet_flowers_standing_color.png";
-
-
         }
     }
 }

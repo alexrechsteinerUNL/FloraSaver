@@ -106,13 +106,13 @@ namespace FloraSaver.Services
 
             if (COOLDOWN_MULTI_HOURS != -1 && !string.IsNullOrEmpty(commonPlantOverdueNotificationDescription))
             {
-                await RepeatingOverduePlantNotification();
+                await RepeatingOverduePlantNotificationAsync();
             }
 
             return plants;
         }
 
-        private async Task RepeatingOverduePlantNotification()
+        private async Task RepeatingOverduePlantNotificationAsync()
         {
             //write out all of the plant actions that need to be complete but set this for like 24 hours after the plants are set. Only don't have it if there are no overdue plants
             var notification = new NotificationRequest

@@ -26,7 +26,7 @@ namespace FloraSaver.ViewModels
 
             if (ShouldUpdateCheckService.shouldGetNewGroupDataHandling) { await GetPlantGroupsAsync(); ShouldUpdateCheckService.shouldGetNewGroupDataHandling = false; }
             if (ShouldUpdateCheckService.shouldGetNewPlantDataHandling) { await GetPlantsAsync(); ShouldUpdateCheckService.shouldGetNewPlantDataHandling = false; }
-            PeriodicTimerUpdaterBackgroundAsync(() => CheatUpdateAllPlantProgress());
+            _ = PeriodicTimerUpdaterBackgroundAsync(() => CheatUpdateAllPlantProgress());
             //await StandardActionsHandlingAsync(SearchQuery);
         }
 

@@ -139,8 +139,11 @@
                                         Completed="Entry_Completed"
                                         HorizontalOptions="FillAndExpand"
                                         Placeholder="Enter new plant group"
-                                        Unfocused="Validate"
-                                        VerticalOptions="CenterAndExpand" />
+                                        VerticalOptions="CenterAndExpand">
+                                        <Entry.Behaviors>
+                                            <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="Unfocused" />
+                                        </Entry.Behaviors>
+                                    </Entry>
                                 </Frame>
                             </Frame>
                             <Frame
@@ -249,11 +252,11 @@
                                         HorizontalOptions="FillAndExpand"
                                         Placeholder="Enter plant species"
                                         Text="{Binding AlterPlant.PlantSpecies, StringFormat='{0}', Mode=TwoWay}"
-                                        Unfocused="Validate"
                                         VerticalOptions="CenterAndExpand">
                                         <Entry.Behaviors>
                                             <toolkit:EventToCommandBehavior Command="{Binding ShowSearchSuggestionBoxCommand}" EventName="Focused" />
-                                            <toolkit:EventToCommandBehavior Command="{Binding SpeciesChangedCommand}" EventName="Unfocused" />
+                                            <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding SpeciesChangedCommand}" EventName="Unfocused" />
+                                            <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="Unfocused" />
                                             <toolkit:EventToCommandBehavior
                                                 Command="{Binding SpeciesSearchActionCommand}"
                                                 CommandParameter="{Binding Text, Source={x:Reference _PlantSpecies}}"
@@ -301,10 +304,10 @@
                                             HorizontalOptions="FillAndExpand"
                                             Placeholder="Give your plant a name!"
                                             Text="{Binding AlterPlant.GivenName, StringFormat='{0}', Mode=TwoWay}"
-                                            Unfocused="Validate"
                                             VerticalOptions="CenterAndExpand">
                                             <Entry.Behaviors>
                                                 <toolkit:EventToCommandBehavior Command="{Binding GivenNameChangedCommand}" EventName="Unfocused" />
+                                                <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="Unfocused" />
                                             </Entry.Behaviors>
                                         </Entry>
                                     </Frame>
@@ -345,9 +348,9 @@
                                             x:Name="_DateOfBirth"
                                             Grid.Column="1"
                                             Date="{Binding AlterPlant.DateOfBirth, Mode=TwoWay}"
-                                            HorizontalOptions="FillAndExpand"
-                                            PropertyChanged="Validate">
+                                            HorizontalOptions="FillAndExpand">
                                             <DatePicker.Behaviors>
+                                                <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="PropertyChanged" />
                                                 <toolkit:EventToCommandBehavior Command="{Binding DobChangedCommand}" EventName="PropertyChanged" />
                                             </DatePicker.Behaviors>
                                         </DatePicker>
@@ -496,10 +499,10 @@
                                                 MaxLength="4"
                                                 Placeholder="0"
                                                 Text="{Binding WaterDaysFromNow, Mode=TwoWay}"
-                                                Unfocused="Validate"
                                                 VerticalOptions="CenterAndExpand">
                                                 <Entry.Behaviors>
                                                     <toolkit:EventToCommandBehavior Command="{Binding WaterIntervalChangedCommand}" EventName="Unfocused" />
+                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="Unfocused" />
                                                 </Entry.Behaviors>
                                             </Entry>
                                         </Frame>
@@ -556,9 +559,9 @@
                                                 FontSize="Body"
                                                 Format="d"
                                                 HorizontalOptions="Fill"
-                                                PropertyChanged="Validate"
                                                 WidthRequest="85">
                                                 <DatePicker.Behaviors>
+                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="PropertyChanged" />
                                                     <toolkit:EventToCommandBehavior Command="{Binding LastWateredChangedCommand}" EventName="PropertyChanged" />
                                                 </DatePicker.Behaviors>
                                             </DatePicker>
@@ -579,10 +582,10 @@
                                                 BackgroundColor="White"
                                                 FontSize="Body"
                                                 Format="t"
-                                                PropertyChanged="Validate"
                                                 Time="{Binding AlterPlant.TimeOfLastWatering, Mode=TwoWay}"
                                                 WidthRequest="75">
                                                 <TimePicker.Behaviors>
+                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="PropertyChanged" />
                                                     <toolkit:EventToCommandBehavior Command="{Binding LastWateredChangedCommand}" EventName="PropertyChanged" />
                                                 </TimePicker.Behaviors>
                                             </TimePicker>
@@ -648,9 +651,9 @@
                                                 Date="{Binding AlterPlant.DateOfNextWatering, Mode=TwoWay}"
                                                 FontSize="Body"
                                                 Format="d"
-                                                PropertyChanged="Validate"
                                                 WidthRequest="85">
                                                 <DatePicker.Behaviors>
+                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="PropertyChanged" />
                                                     <toolkit:EventToCommandBehavior Command="{Binding NextWaterChangedCommand}" EventName="PropertyChanged" />
                                                 </DatePicker.Behaviors>
                                             </DatePicker>
@@ -673,10 +676,10 @@
                                                 BackgroundColor="White"
                                                 FontSize="Body"
                                                 Format="t"
-                                                PropertyChanged="Validate"
                                                 Time="{Binding AlterPlant.TimeOfNextWatering, Mode=TwoWay}"
                                                 WidthRequest="75">
                                                 <TimePicker.Behaviors>
+                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="PropertyChanged" />
                                                     <toolkit:EventToCommandBehavior Command="{Binding NextWaterChangedCommand}" EventName="PropertyChanged" />
                                                 </TimePicker.Behaviors>
                                             </TimePicker>
@@ -802,10 +805,10 @@
                                                 MaxLength="4"
                                                 Placeholder="0"
                                                 Text="{Binding MistDaysFromNow, Mode=TwoWay}"
-                                                Unfocused="Validate"
                                                 VerticalOptions="CenterAndExpand">
                                                 <Entry.Behaviors>
                                                     <toolkit:EventToCommandBehavior Command="{Binding MistIntervalChangedCommand}" EventName="Unfocused" />
+                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="Unfocused" />
                                                 </Entry.Behaviors>
                                             </Entry>
                                         </Frame>
@@ -862,9 +865,9 @@
                                                 FontSize="Body"
                                                 Format="d"
                                                 HorizontalOptions="Fill"
-                                                PropertyChanged="Validate"
                                                 WidthRequest="85">
                                                 <DatePicker.Behaviors>
+                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="PropertyChanged" />
                                                     <toolkit:EventToCommandBehavior Command="{Binding LastMistedChangedCommand}" EventName="PropertyChanged" />
                                                 </DatePicker.Behaviors>
                                             </DatePicker>
@@ -885,10 +888,10 @@
                                                 BackgroundColor="White"
                                                 FontSize="Body"
                                                 Format="t"
-                                                PropertyChanged="Validate"
                                                 Time="{Binding AlterPlant.TimeOfLastMisting, Mode=TwoWay}"
                                                 WidthRequest="75">
                                                 <TimePicker.Behaviors>
+                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="PropertyChanged" />
                                                     <toolkit:EventToCommandBehavior Command="{Binding LastMistedChangedCommand}" EventName="PropertyChanged" />
                                                 </TimePicker.Behaviors>
                                             </TimePicker>
@@ -954,10 +957,10 @@
                                                 Date="{Binding AlterPlant.DateOfNextMisting, Mode=TwoWay}"
                                                 FontSize="Body"
                                                 Format="d"
-                                                PropertyChanged="Validate"
                                                 WidthRequest="85">
                                                 <DatePicker.Behaviors>
                                                     <toolkit:EventToCommandBehavior Command="{Binding NextMistChangedCommand}" EventName="PropertyChanged" />
+                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="PropertyChanged" />
                                                 </DatePicker.Behaviors>
                                             </DatePicker>
                                         </Frame>
@@ -979,11 +982,11 @@
                                                 BackgroundColor="White"
                                                 FontSize="Body"
                                                 Format="t"
-                                                PropertyChanged="Validate"
                                                 Time="{Binding AlterPlant.TimeOfNextMisting, Mode=TwoWay}"
                                                 WidthRequest="75">
                                                 <TimePicker.Behaviors>
                                                     <toolkit:EventToCommandBehavior Command="{Binding NextMistChangedCommand}" EventName="PropertyChanged" />
+                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="PropertyChanged" />
                                                 </TimePicker.Behaviors>
                                             </TimePicker>
                                         </Frame>
@@ -1108,10 +1111,10 @@
                                                 MaxLength="4"
                                                 Placeholder="0"
                                                 Text="{Binding SunDaysFromNow, Mode=TwoWay}"
-                                                Unfocused="Validate"
                                                 VerticalOptions="CenterAndExpand">
                                                 <Entry.Behaviors>
                                                     <toolkit:EventToCommandBehavior Command="{Binding MoveIntervalChangedCommand}" EventName="Unfocused" />
+                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="Unfocused" />
                                                 </Entry.Behaviors>
                                             </Entry>
                                         </Frame>
@@ -1168,10 +1171,10 @@
                                                 FontSize="Body"
                                                 Format="d"
                                                 HorizontalOptions="Fill"
-                                                PropertyChanged="Validate"
                                                 WidthRequest="85">
                                                 <DatePicker.Behaviors>
                                                     <toolkit:EventToCommandBehavior Command="{Binding LastMovedChangedCommand}" EventName="PropertyChanged" />
+                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="PropertyChanged" />
                                                 </DatePicker.Behaviors>
                                             </DatePicker>
                                         </Frame>
@@ -1191,11 +1194,11 @@
                                                 BackgroundColor="White"
                                                 FontSize="Body"
                                                 Format="t"
-                                                PropertyChanged="Validate"
                                                 Time="{Binding AlterPlant.TimeOfLastMove, Mode=TwoWay}"
                                                 WidthRequest="75">
                                                 <TimePicker.Behaviors>
                                                     <toolkit:EventToCommandBehavior Command="{Binding LastMovedChangedCommand}" EventName="PropertyChanged" />
+                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="PropertyChanged" />
                                                 </TimePicker.Behaviors>
                                             </TimePicker>
                                         </Frame>
@@ -1260,10 +1263,10 @@
                                                 Date="{Binding AlterPlant.DateOfNextMove, Mode=TwoWay}"
                                                 FontSize="Body"
                                                 Format="d"
-                                                PropertyChanged="Validate"
                                                 WidthRequest="85">
                                                 <DatePicker.Behaviors>
                                                     <toolkit:EventToCommandBehavior Command="{Binding NextMoveChangedCommand}" EventName="PropertyChanged" />
+                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="PropertyChanged" />
                                                 </DatePicker.Behaviors>
                                             </DatePicker>
                                         </Frame>
@@ -1285,11 +1288,11 @@
                                                 BackgroundColor="White"
                                                 FontSize="Body"
                                                 Format="t"
-                                                PropertyChanged="Validate"
                                                 Time="{Binding AlterPlant.TimeOfNextMove, Mode=TwoWay}"
                                                 WidthRequest="75">
                                                 <TimePicker.Behaviors>
                                                     <toolkit:EventToCommandBehavior Command="{Binding NextMoveChangedCommand}" EventName="PropertyChanged" />
+                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="PropertyChanged" />
                                                 </TimePicker.Behaviors>
                                             </TimePicker>
                                         </Frame>

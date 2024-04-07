@@ -46,18 +46,6 @@ public partial class PlantDetailsSetupPage : ContentPage, IAndroidBackButtonHand
         _PlantSpecies.IsEnabled = true;
     }
 
-    private async void Validate(object sender, EventArgs e)
-    {
-        try
-        {
-            await ((PlantDetailsSetupViewModel)(this.BindingContext)).ValidateAlterPlantAsync();
-        }
-        catch (Exception ex)
-        {
-            return;
-        }
-    }
-
     // This is a workaround to resolve a .NET MAUI bug regarding keyboards not disappearing on completion
     private void Entry_Completed(object sender, EventArgs e)
     {
