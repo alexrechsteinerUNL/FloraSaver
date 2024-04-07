@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
+		<UseMauiEssentials>false</UseMauiEssentials>
 		<TargetFrameworks>net8.0-maccatalyst;net8.0-android;net8.0-ios</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
@@ -37,6 +38,7 @@
 	  <Optimize>True</Optimize>
 	  <RunAOTCompilation>True</RunAOTCompilation>
 	  <DebugSymbols>False</DebugSymbols>
+	  <PublishTrimmed>True</PublishTrimmed>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
@@ -45,6 +47,10 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-windows10.0.19041.0|AnyCPU'">
 	  <Optimize>True</Optimize>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
+	  <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -107,13 +113,15 @@
 
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Common" Version="8.2.2" />
-	  <PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
+	  <PackageReference Include="CommunityToolkit.Maui" Version="8.0.1" />
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-	  <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.7" />
-	  <PackageReference Include="Microsoft.VisualStudio.Utilities" Version="17.8.37221" />
-	  <PackageReference Include="Plugin.LocalNotification" Version="11.1.0" />
-	  <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
-	  <PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.7" />
+	  <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.14" />
+	  <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.14" />
+	  <PackageReference Include="Microsoft.Maui.Essentials" Version="8.0.14" />
+	  <PackageReference Include="Microsoft.VisualStudio.Utilities" Version="17.9.37000" />
+	  <PackageReference Include="Plugin.LocalNotification" Version="11.1.1" />
+	  <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+	  <PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.8" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -262,10 +270,6 @@
 	  <MauiAsset Update="Resources\Raw\WelcomeMessage0.txt">
 	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
 	  </MauiAsset>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="8.0.6" />
 	</ItemGroup>
 
 </Project>

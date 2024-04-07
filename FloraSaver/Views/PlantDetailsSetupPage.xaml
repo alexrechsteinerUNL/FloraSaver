@@ -18,7 +18,6 @@
     </ContentPage.Resources>
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding AppearingSetupCommand}" EventName="Appearing" />
-        <toolkit:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
     <Shell.BackButtonBehavior>
         <BackButtonBehavior Command="{Binding GoToTableCommand}" />
