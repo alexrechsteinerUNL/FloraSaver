@@ -50,7 +50,7 @@
                         HeightRequest="60"
                         HorizontalOptions="Start"
                         IsEnabled="{Binding IsNotBusy}"
-                        Text="Go Back"
+                        Text="Done"
                         WidthRequest="90" />
                     <Button
                         x:Name="deletePlants"
@@ -141,7 +141,10 @@
                                         Placeholder="Enter new plant group"
                                         VerticalOptions="CenterAndExpand">
                                         <Entry.Behaviors>
-                                            <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="Unfocused" />
+                                            <toolkit:EventToCommandBehavior
+                                                x:DataType="viewmodel:PlantDetailsViewModel"
+                                                Command="{Binding ValidateCommand}"
+                                                EventName="Unfocused" />
                                         </Entry.Behaviors>
                                     </Entry>
                                 </Frame>
@@ -255,8 +258,14 @@
                                         VerticalOptions="CenterAndExpand">
                                         <Entry.Behaviors>
                                             <toolkit:EventToCommandBehavior Command="{Binding ShowSearchSuggestionBoxCommand}" EventName="Focused" />
-                                            <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding SpeciesChangedCommand}" EventName="Unfocused" />
-                                            <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="Unfocused" />
+                                            <toolkit:EventToCommandBehavior
+                                                x:DataType="viewmodel:PlantDetailsViewModel"
+                                                Command="{Binding SpeciesChangedCommand}"
+                                                EventName="Unfocused" />
+                                            <toolkit:EventToCommandBehavior
+                                                x:DataType="viewmodel:PlantDetailsViewModel"
+                                                Command="{Binding ValidateCommand}"
+                                                EventName="Unfocused" />
                                             <toolkit:EventToCommandBehavior
                                                 Command="{Binding SpeciesSearchActionCommand}"
                                                 CommandParameter="{Binding Text, Source={x:Reference _PlantSpecies}}"
@@ -307,7 +316,10 @@
                                             VerticalOptions="CenterAndExpand">
                                             <Entry.Behaviors>
                                                 <toolkit:EventToCommandBehavior Command="{Binding GivenNameChangedCommand}" EventName="Unfocused" />
-                                                <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="Unfocused" />
+                                                <toolkit:EventToCommandBehavior
+                                                    x:DataType="viewmodel:PlantDetailsViewModel"
+                                                    Command="{Binding ValidateCommand}"
+                                                    EventName="Unfocused" />
                                             </Entry.Behaviors>
                                         </Entry>
                                     </Frame>
@@ -350,7 +362,10 @@
                                             Date="{Binding AlterPlant.DateOfBirth, Mode=TwoWay}"
                                             HorizontalOptions="FillAndExpand">
                                             <DatePicker.Behaviors>
-                                                <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="PropertyChanged" />
+                                                <toolkit:EventToCommandBehavior
+                                                    x:DataType="viewmodel:PlantDetailsViewModel"
+                                                    Command="{Binding ValidateCommand}"
+                                                    EventName="PropertyChanged" />
                                                 <toolkit:EventToCommandBehavior Command="{Binding DobChangedCommand}" EventName="PropertyChanged" />
                                             </DatePicker.Behaviors>
                                         </DatePicker>
@@ -502,7 +517,10 @@
                                                 VerticalOptions="CenterAndExpand">
                                                 <Entry.Behaviors>
                                                     <toolkit:EventToCommandBehavior Command="{Binding WaterIntervalChangedCommand}" EventName="Unfocused" />
-                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="Unfocused" />
+                                                    <toolkit:EventToCommandBehavior
+                                                        x:DataType="viewmodel:PlantDetailsViewModel"
+                                                        Command="{Binding ValidateCommand}"
+                                                        EventName="Unfocused" />
                                                 </Entry.Behaviors>
                                             </Entry>
                                         </Frame>
@@ -561,7 +579,10 @@
                                                 HorizontalOptions="Fill"
                                                 WidthRequest="85">
                                                 <DatePicker.Behaviors>
-                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="PropertyChanged" />
+                                                    <toolkit:EventToCommandBehavior
+                                                        x:DataType="viewmodel:PlantDetailsViewModel"
+                                                        Command="{Binding ValidateCommand}"
+                                                        EventName="PropertyChanged" />
                                                     <toolkit:EventToCommandBehavior Command="{Binding LastWateredChangedCommand}" EventName="PropertyChanged" />
                                                 </DatePicker.Behaviors>
                                             </DatePicker>
@@ -585,7 +606,10 @@
                                                 Time="{Binding AlterPlant.TimeOfLastWatering, Mode=TwoWay}"
                                                 WidthRequest="75">
                                                 <TimePicker.Behaviors>
-                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="PropertyChanged" />
+                                                    <toolkit:EventToCommandBehavior
+                                                        x:DataType="viewmodel:PlantDetailsViewModel"
+                                                        Command="{Binding ValidateCommand}"
+                                                        EventName="PropertyChanged" />
                                                     <toolkit:EventToCommandBehavior Command="{Binding LastWateredChangedCommand}" EventName="PropertyChanged" />
                                                 </TimePicker.Behaviors>
                                             </TimePicker>
@@ -653,7 +677,10 @@
                                                 Format="d"
                                                 WidthRequest="85">
                                                 <DatePicker.Behaviors>
-                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="PropertyChanged" />
+                                                    <toolkit:EventToCommandBehavior
+                                                        x:DataType="viewmodel:PlantDetailsViewModel"
+                                                        Command="{Binding ValidateCommand}"
+                                                        EventName="PropertyChanged" />
                                                     <toolkit:EventToCommandBehavior Command="{Binding NextWaterChangedCommand}" EventName="PropertyChanged" />
                                                 </DatePicker.Behaviors>
                                             </DatePicker>
@@ -679,7 +706,10 @@
                                                 Time="{Binding AlterPlant.TimeOfNextWatering, Mode=TwoWay}"
                                                 WidthRequest="75">
                                                 <TimePicker.Behaviors>
-                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="PropertyChanged" />
+                                                    <toolkit:EventToCommandBehavior
+                                                        x:DataType="viewmodel:PlantDetailsViewModel"
+                                                        Command="{Binding ValidateCommand}"
+                                                        EventName="PropertyChanged" />
                                                     <toolkit:EventToCommandBehavior Command="{Binding NextWaterChangedCommand}" EventName="PropertyChanged" />
                                                 </TimePicker.Behaviors>
                                             </TimePicker>
@@ -808,7 +838,10 @@
                                                 VerticalOptions="CenterAndExpand">
                                                 <Entry.Behaviors>
                                                     <toolkit:EventToCommandBehavior Command="{Binding MistIntervalChangedCommand}" EventName="Unfocused" />
-                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="Unfocused" />
+                                                    <toolkit:EventToCommandBehavior
+                                                        x:DataType="viewmodel:PlantDetailsViewModel"
+                                                        Command="{Binding ValidateCommand}"
+                                                        EventName="Unfocused" />
                                                 </Entry.Behaviors>
                                             </Entry>
                                         </Frame>
@@ -867,7 +900,10 @@
                                                 HorizontalOptions="Fill"
                                                 WidthRequest="85">
                                                 <DatePicker.Behaviors>
-                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="PropertyChanged" />
+                                                    <toolkit:EventToCommandBehavior
+                                                        x:DataType="viewmodel:PlantDetailsViewModel"
+                                                        Command="{Binding ValidateCommand}"
+                                                        EventName="PropertyChanged" />
                                                     <toolkit:EventToCommandBehavior Command="{Binding LastMistedChangedCommand}" EventName="PropertyChanged" />
                                                 </DatePicker.Behaviors>
                                             </DatePicker>
@@ -891,7 +927,10 @@
                                                 Time="{Binding AlterPlant.TimeOfLastMisting, Mode=TwoWay}"
                                                 WidthRequest="75">
                                                 <TimePicker.Behaviors>
-                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="PropertyChanged" />
+                                                    <toolkit:EventToCommandBehavior
+                                                        x:DataType="viewmodel:PlantDetailsViewModel"
+                                                        Command="{Binding ValidateCommand}"
+                                                        EventName="PropertyChanged" />
                                                     <toolkit:EventToCommandBehavior Command="{Binding LastMistedChangedCommand}" EventName="PropertyChanged" />
                                                 </TimePicker.Behaviors>
                                             </TimePicker>
@@ -960,7 +999,10 @@
                                                 WidthRequest="85">
                                                 <DatePicker.Behaviors>
                                                     <toolkit:EventToCommandBehavior Command="{Binding NextMistChangedCommand}" EventName="PropertyChanged" />
-                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="PropertyChanged" />
+                                                    <toolkit:EventToCommandBehavior
+                                                        x:DataType="viewmodel:PlantDetailsViewModel"
+                                                        Command="{Binding ValidateCommand}"
+                                                        EventName="PropertyChanged" />
                                                 </DatePicker.Behaviors>
                                             </DatePicker>
                                         </Frame>
@@ -986,7 +1028,10 @@
                                                 WidthRequest="75">
                                                 <TimePicker.Behaviors>
                                                     <toolkit:EventToCommandBehavior Command="{Binding NextMistChangedCommand}" EventName="PropertyChanged" />
-                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="PropertyChanged" />
+                                                    <toolkit:EventToCommandBehavior
+                                                        x:DataType="viewmodel:PlantDetailsViewModel"
+                                                        Command="{Binding ValidateCommand}"
+                                                        EventName="PropertyChanged" />
                                                 </TimePicker.Behaviors>
                                             </TimePicker>
                                         </Frame>
@@ -1114,7 +1159,10 @@
                                                 VerticalOptions="CenterAndExpand">
                                                 <Entry.Behaviors>
                                                     <toolkit:EventToCommandBehavior Command="{Binding MoveIntervalChangedCommand}" EventName="Unfocused" />
-                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="Unfocused" />
+                                                    <toolkit:EventToCommandBehavior
+                                                        x:DataType="viewmodel:PlantDetailsViewModel"
+                                                        Command="{Binding ValidateCommand}"
+                                                        EventName="Unfocused" />
                                                 </Entry.Behaviors>
                                             </Entry>
                                         </Frame>
@@ -1174,7 +1222,10 @@
                                                 WidthRequest="85">
                                                 <DatePicker.Behaviors>
                                                     <toolkit:EventToCommandBehavior Command="{Binding LastMovedChangedCommand}" EventName="PropertyChanged" />
-                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="PropertyChanged" />
+                                                    <toolkit:EventToCommandBehavior
+                                                        x:DataType="viewmodel:PlantDetailsViewModel"
+                                                        Command="{Binding ValidateCommand}"
+                                                        EventName="PropertyChanged" />
                                                 </DatePicker.Behaviors>
                                             </DatePicker>
                                         </Frame>
@@ -1198,7 +1249,10 @@
                                                 WidthRequest="75">
                                                 <TimePicker.Behaviors>
                                                     <toolkit:EventToCommandBehavior Command="{Binding LastMovedChangedCommand}" EventName="PropertyChanged" />
-                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="PropertyChanged" />
+                                                    <toolkit:EventToCommandBehavior
+                                                        x:DataType="viewmodel:PlantDetailsViewModel"
+                                                        Command="{Binding ValidateCommand}"
+                                                        EventName="PropertyChanged" />
                                                 </TimePicker.Behaviors>
                                             </TimePicker>
                                         </Frame>
@@ -1266,7 +1320,10 @@
                                                 WidthRequest="85">
                                                 <DatePicker.Behaviors>
                                                     <toolkit:EventToCommandBehavior Command="{Binding NextMoveChangedCommand}" EventName="PropertyChanged" />
-                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="PropertyChanged" />
+                                                    <toolkit:EventToCommandBehavior
+                                                        x:DataType="viewmodel:PlantDetailsViewModel"
+                                                        Command="{Binding ValidateCommand}"
+                                                        EventName="PropertyChanged" />
                                                 </DatePicker.Behaviors>
                                             </DatePicker>
                                         </Frame>
@@ -1292,7 +1349,10 @@
                                                 WidthRequest="75">
                                                 <TimePicker.Behaviors>
                                                     <toolkit:EventToCommandBehavior Command="{Binding NextMoveChangedCommand}" EventName="PropertyChanged" />
-                                                    <toolkit:EventToCommandBehavior x:DataType="viewmodel:PlantDetailsViewModel" Command="{Binding ValidateCommand}" EventName="PropertyChanged" />
+                                                    <toolkit:EventToCommandBehavior
+                                                        x:DataType="viewmodel:PlantDetailsViewModel"
+                                                        Command="{Binding ValidateCommand}"
+                                                        EventName="PropertyChanged" />
                                                 </TimePicker.Behaviors>
                                             </TimePicker>
                                         </Frame>

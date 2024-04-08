@@ -44,7 +44,7 @@
                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=GoBackCommand}"
                     HorizontalOptions="Start"
                     IsEnabled="{Binding IsNotBusy}"
-                    Text="Go Back" />
+                    Text="Done" />
                 <VerticalStackLayout Grid.Row="1" Spacing="10">
                     <Grid
                         x:Name="groupGrid"

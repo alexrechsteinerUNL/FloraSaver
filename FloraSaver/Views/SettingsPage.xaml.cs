@@ -27,7 +27,6 @@ public partial class SettingsPage : ContentPage, IAndroidBackButtonHandlerUtilit
 
             plantGroupDeck.ScrollTo(pickerContext, animate: false);
         }
-
     }
 
     public async Task<bool> HandleBackButtonAsync()

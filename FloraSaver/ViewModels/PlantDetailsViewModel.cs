@@ -424,7 +424,7 @@ namespace FloraSaver.ViewModels
             SelectedGroupColor = GroupColors[rand.Next(GroupColors.Count)];
         }
 
-        public void correctlySizeTimePickerBoxes()
+        public void CorrectlySizeTimePickerBoxes()
         {
             AlterPlant.TimeOfLastMisting = new TimeSpan(0, 0, 0);
             AlterPlant.TimeOfLastWatering = new TimeSpan(0, 0, 0);
@@ -447,7 +447,7 @@ namespace FloraSaver.ViewModels
             IsInitialization = true;
             await GetPlantsAsync();
             PlantSuggestions = PlantSuggestions.Count > 0 ? PlantSuggestions : new(await _databaseService.GetAllAutofillPlantAsync());
-            correctlySizeTimePickerBoxes();
+            CorrectlySizeTimePickerBoxes();
             // extract to its own reusable method with reflection DRY!
             GroupPickerValue = AlterPlant.PlantGroupName != null ? PlantGroups.FirstOrDefault(_ => _.GroupName == AlterPlant.PlantGroupName) : PlantGroups.FirstOrDefault(_ => _.GroupName == "Ungrouped");
 

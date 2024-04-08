@@ -143,14 +143,16 @@ namespace FloraSaver.ViewModels
 
             OverduePlantsInterval = PickerService.GetCooldownBeforePlantActionsOverdueNotification();
             OverduePlantsMultiInterval = PickerService.GetInActionBeforeMultiOverdueNotification();
-
+            MorningTime = new TimeSpan(0, 0, 0);
+            MiddayTime = new TimeSpan(0, 0, 0);
+            NightTime = new TimeSpan(0, 0, 0);
 
             DateTime morningDate = DateTime.FromBinary(Preferences.Default.Get("morning_time_date", new DateTime(1, 1, 1, 8, 0, 0).ToBinary()));
-            morningTime = morningDate.TimeOfDay;
+            MorningTime = morningDate.TimeOfDay;
             var middayDate = DateTime.FromBinary(Preferences.Default.Get("midday_time_date", new DateTime(1, 1, 1, 12, 0, 0).ToBinary()));
-            middayTime = middayDate.TimeOfDay;
+            MiddayTime = middayDate.TimeOfDay;
             var nightDate = DateTime.FromBinary(Preferences.Default.Get("night_time_date", new DateTime(1, 1, 1, 16, 0, 0).ToBinary()));
-            nightTime = nightDate.TimeOfDay;
+            NightTime = nightDate.TimeOfDay;
 
             OverduePlantsPickerValue = OverduePlantsInterval.FirstOrDefault(_ => _.NumFromNow == double.Parse(Preferences.Default.Get("overdue_plants_time_to", "1"))) ?? new Interval() { IntervalText = "1 Hour", NumFromNow = 1 };
             OverduePlantsMultiPickerValue = OverduePlantsMultiInterval.FirstOrDefault(_ => _.NumFromNow == double.Parse(Preferences.Default.Get("overdue_plants_multi_time_to", "24"))) ?? new Interval() { IntervalText = "1 Day", NumFromNow = 24 };
@@ -158,7 +160,6 @@ namespace FloraSaver.ViewModels
 
         [ObservableProperty]
         private bool isInitialization;
-
         [RelayCommand]
         private async Task AppearingSettingsAsync()
         {

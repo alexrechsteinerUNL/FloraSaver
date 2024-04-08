@@ -25,7 +25,7 @@
                     HeightRequest="45"
                     HorizontalOptions="Start"
                     IsEnabled="{Binding IsNotBusy}"
-                    Text="Go Back" />
+                    Text="Done" />
                 <Grid Grid.Row="1" RowDefinitions="Auto, *">
                     <Button
                         Grid.Row="0"
