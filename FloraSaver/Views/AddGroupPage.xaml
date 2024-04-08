@@ -12,10 +12,6 @@
     BackgroundColor="Transparent"
     Shell.NavBarIsVisible="false"
     Shell.PresentationMode="Modal">
-    <ContentPage.Behaviors>
-        <!--<toolkit:EventToCommandBehavior Command="{Binding AppearingHomeCommand}" EventName="Appearing" />
-        <toolkit:EventToCommandBehavior Command="{Binding DisappearingHomeCommand}" EventName="Disappearing" />-->
-    </ContentPage.Behaviors>
     <Grid
         Padding="10"
         HorizontalOptions="Center"

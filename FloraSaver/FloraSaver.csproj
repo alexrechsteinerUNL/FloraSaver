@@ -112,10 +112,11 @@
 	  <PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 	  <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.7" />
-	  <PackageReference Include="Microsoft.VisualStudio.Utilities" Version="17.8.37221" />
-	  <PackageReference Include="Plugin.LocalNotification" Version="11.1.0" />
-	  <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
-	  <PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.7" />
+	  <PackageReference Include="Microsoft.VisualStudio.Utilities" Version="17.9.37000" />
+	  <PackageReference Include="Plugin.LocalNotification" Version="11.1.1" />
+	  <PackageReference Include="runtime.linux-arm64.Microsoft.DotNet.ILCompiler" Version="8.0.3" />
+	  <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+	  <PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.8" />
 	</ItemGroup>
 
 	<ItemGroup>
