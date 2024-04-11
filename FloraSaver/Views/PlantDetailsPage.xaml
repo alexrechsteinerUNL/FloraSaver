@@ -217,7 +217,7 @@
                                     x:Name="_ChangeImagePreview"
                                     Grid.Column="1"
                                     Command="{Binding ImageOfPlantToBase64Command}"
-                                    Source="{Binding AlterPlant.PlantImageSource}"
+                                    Source="{Binding CurrentPlantImage}"
                                     WidthRequest="60" />
                                 <Button
                                     x:Name="_ClearImage"

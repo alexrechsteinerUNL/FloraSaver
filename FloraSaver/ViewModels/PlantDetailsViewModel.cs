@@ -23,7 +23,8 @@ namespace FloraSaver.ViewModels
 
         public List<string> UnsafePlantNames { get; set; }
 
-
+        [ObservableProperty]
+        protected ImageSource currentPlantImage;
 
 
         [ObservableProperty]
@@ -490,7 +491,6 @@ namespace FloraSaver.ViewModels
             {
                 IsImageSelected = false;
             }
-
             IsInitialization = false;
         }
 
@@ -693,6 +693,7 @@ namespace FloraSaver.ViewModels
         {
             AlterPlant.PlantImageSource = Base64ImageConverterService.Base64ToImage(AlterPlant.ImageLocation);
             IsImageSelected = AlterPlant.PlantImageSource is not null ? true : false;
+            CurrentPlantImage = AlterPlant.PlantImageSource;
             ImageChanged();
             OnPropertyChanged("AlterPlant");
             OnPropertyChanged("IsImageSelected");

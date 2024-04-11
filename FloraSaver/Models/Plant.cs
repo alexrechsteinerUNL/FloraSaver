@@ -439,6 +439,7 @@ namespace FloraSaver.Models
             PlantGroupName = _Plant.PlantGroupName;
             GroupColorHexString = _Plant.GroupColorHexString;
             Source = _Plant.Source;
+            Validation = _Plant.Validation;
         }
 
         public Plant(SearchedPlants _SearchedPlants)
