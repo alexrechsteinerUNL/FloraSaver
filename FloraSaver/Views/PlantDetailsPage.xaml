@@ -24,7 +24,11 @@
         <BackButtonBehavior Command="{Binding GoToTableCommand}" />
     </Shell.BackButtonBehavior>
 
-    <Grid MaximumWidthRequest="450" RowDefinitions="*,100">
+    <Grid
+        Padding="10"
+        MaximumWidthRequest="450"
+        RowDefinitions="*"
+        VerticalOptions="Center">
 
 
         <Frame
@@ -47,18 +51,18 @@
                     <Button
                         x:Name="goBack"
                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=GoToTableCommand}"
-                        HeightRequest="60"
                         HorizontalOptions="Start"
                         IsEnabled="{Binding IsNotBusy}"
+                        MaximumHeightRequest="60"
                         Text="Done"
                         WidthRequest="90" />
                     <Button
                         x:Name="deletePlants"
                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=DeleteCommand}"
                         CommandParameter="{Binding Plant}"
-                        HeightRequest="60"
                         HorizontalOptions="End"
                         IsEnabled="{Binding IsNotBusy}"
+                        MaximumHeightRequest="60"
                         Text="Delete"
                         WidthRequest="90" />
                 </Grid>
@@ -1401,7 +1405,7 @@
                         x:Name="addUpdate"
                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=AddUpdateCommand}"
                         CommandParameter="{Binding Plant}"
-                        HeightRequest="60"
+                        MaximumHeightRequest="60"
                         HorizontalOptions="Start"
                         IsEnabled="{Binding IsNotBusy}"
                         Text="Update"
@@ -1410,7 +1414,7 @@
                         x:Name="switchToSetup"
                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SwitchDetailsCommand}"
                         CommandParameter="{StaticResource False}"
-                        HeightRequest="60"
+                        MaximumHeightRequest="60"
                         HorizontalOptions="End"
                         IsEnabled="{Binding IsNotBusy}"
                         Text="swap"
@@ -1426,15 +1430,15 @@
 
 
         <Frame
-            Grid.Row="1"
-            Padding="5"
+            Grid.Row="0"
+            Padding="15"
             BackgroundColor="DimGray"
             HorizontalOptions="Center"
             IsVisible="{Binding IsFriendlyLabelVisible}"
             MaximumHeightRequest="250"
             MaximumWidthRequest="250"
             Opacity=".9"
-            VerticalOptions="Center">
+            VerticalOptions="End">
             <Label
                 x:Name="friendlyNotification"
                 FontSize="16"

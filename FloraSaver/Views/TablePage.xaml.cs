@@ -17,6 +17,17 @@ public partial class TablePage : ContentPage, IAndroidBackButtonHandlerUtility
     {
         base.OnSizeAllocated(width, height);
         ((TableViewModel)(this.BindingContext)).ReconfigureSpanForScreenSize(width, height);
+        if (width > height && Width > 500)
+        {
+            fullGroupArea.IsVisible = false;
+            fullOrderByArea.IsVisible = false;
+            comboGroupOrderbyArea.IsVisible = true;
+        } else
+        {
+            fullGroupArea.IsVisible = true;
+            fullOrderByArea.IsVisible = true;
+            comboGroupOrderbyArea.IsVisible = false;
+        }
     }
 
     public async Task<bool> HandleBackButtonAsync()

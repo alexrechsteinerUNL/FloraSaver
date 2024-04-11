@@ -23,7 +23,6 @@
         <BackButtonBehavior Command="{Binding GoToTableCommand}" />
     </Shell.BackButtonBehavior>
     <Grid>
-        <Grid x:Name="_CompactMode" IsVisible="false" />
         <Grid
             x:Name="_FullMode"
             HorizontalOptions="FillAndExpand"
@@ -1492,7 +1491,40 @@
                             Source="clipet_flowers_sitting_color.png"
                             VerticalOptions="EndAndExpand" />
                     </Frame>
+                    <HorizontalStackLayout
+                        x:Name="HorizontalSelect"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Padding="5,0"
+                        HorizontalOptions="Center"
+                        IsVisible="False"
+                        Spacing="5"
+                        VerticalOptions="Center">
+                        <Button
+                            x:Name="addUpdateHor"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=AddUpdateCommand}"
+                            CommandParameter="{Binding Plant}"
+                            HorizontalOptions="CenterAndExpand"
+                            IsEnabled="{Binding IsNotBusy}"
+                            MaximumWidthRequest="200"
+                            Text="Update" />
+                        <Button
+                            x:Name="switchToSetupHor"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SwitchDetailsCommand}"
+                            CommandParameter="{StaticResource True}"
+                            IsEnabled="{Binding IsNotBusy}"
+                            MaximumWidthRequest="200"
+                            Text="Card Style" />
+                        <Button
+                            x:Name="resetChangesHor"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=UndoAllCommand}"
+                            CommandParameter="{StaticResource True}"
+                            IsEnabled="{Binding IsNotBusy}"
+                            MaximumWidthRequest="200"
+                            Text="Reset Changes" />
+                    </HorizontalStackLayout>
                     <VerticalStackLayout
+                        x:Name="VerticalSelect"
                         Grid.Row="0"
                         Grid.Column="0"
                         Padding="5,0"

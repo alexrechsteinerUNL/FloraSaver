@@ -28,6 +28,18 @@ public partial class HandlingPage : ContentPage, IAndroidBackButtonHandlerUtilit
             _bigButtonSpace.IsVisible = true;
             _littleButtonSpace.IsVisible = false;
         }
+        if (width > height && Width > 500)
+        {
+            _GroupSelectorFull.IsVisible = false;
+            _OrderBySelectorFull.IsVisible = false;
+            comboGroupOrderbyArea.IsVisible = true;
+        }
+        else
+        {
+            _GroupSelectorFull.IsVisible = true;
+            _OrderBySelectorFull.IsVisible = true;
+            comboGroupOrderbyArea.IsVisible = false;
+        }
     }
 
     public async Task<bool> HandleBackButtonAsync()

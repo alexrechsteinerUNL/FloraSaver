@@ -12,7 +12,7 @@ public partial class PlantDetailsSetupPage : ContentPage, IAndroidBackButtonHand
 {
     public PlantDetailsSetupPage(PlantDetailsSetupViewModel viewModel)
     {
-            InitializeComponent();
+        InitializeComponent();
         BindingContext = viewModel;
     }
 
@@ -31,12 +31,19 @@ public partial class PlantDetailsSetupPage : ContentPage, IAndroidBackButtonHand
         {
             clipet.IsVisible = false;
             speechSpace.IsVisible = false;
-
+            if (width > height)
+            {
+                HorizontalSelect.IsVisible = true;
+                VerticalSelect.IsVisible = false;
+            }
         }
         else
         {
+            HorizontalSelect.IsVisible = false;
+            VerticalSelect.IsVisible = true;
             clipet.IsVisible = true;
             speechSpace.IsVisible = true;
+            
         }
     }
 
