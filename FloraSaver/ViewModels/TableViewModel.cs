@@ -157,6 +157,7 @@ namespace FloraSaver.ViewModels
         protected void RebuildPlantsSafely(IEnumerable<Plant> plantList)
         {
             Plants.Clear();
+            Plants = new ObservableCollection<Plant>(Plants);
             foreach (var plant in plantList)
             {
                 plant.PlantImageSource = plant.ImageLocation is not null ? Base64ImageConverterService.Base64ToImage(plant.ImageLocation) : null;
