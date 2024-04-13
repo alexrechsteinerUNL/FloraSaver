@@ -41,7 +41,7 @@
                         HeightRequest="60"
                         HorizontalOptions="Start"
                         IsEnabled="{Binding IsNotBusy}"
-                        Text="Done"
+                        Text="{Binding BackText}"
                         WidthRequest="90" />
                     <Frame
                         Grid.Row="0"
@@ -1507,7 +1507,7 @@
                             HorizontalOptions="CenterAndExpand"
                             IsEnabled="{Binding IsNotBusy}"
                             MaximumWidthRequest="200"
-                            Text="Update" />
+                            Text="{Binding SaveText}" />
                         <Button
                             x:Name="switchToSetupHor"
                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SwitchDetailsCommand}"
@@ -1537,14 +1537,14 @@
                             CommandParameter="{Binding Plant}"
                             HorizontalOptions="CenterAndExpand"
                             IsEnabled="{Binding IsNotBusy}"
-                            Text="Update"
+                            Text="{Binding SaveText}"
                             WidthRequest="200" />
                         <Button
                             x:Name="switchToSetup"
                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SwitchDetailsCommand}"
                             CommandParameter="{StaticResource True}"
                             IsEnabled="{Binding IsNotBusy}"
-                            Text="swap"
+                            Text="Card Style"
                             WidthRequest="200" />
                         <Button
                             x:Name="resetChanges"

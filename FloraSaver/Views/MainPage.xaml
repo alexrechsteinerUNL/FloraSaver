@@ -37,11 +37,11 @@
                 <Image
                     x:Name="compactTreat"
                     Grid.Row="1"
-                    HeightRequest="25"
+                    HeightRequest="10"
                     HorizontalOptions="Center"
                     IsVisible="false"
                     Source="the_treat.png"
-                    WidthRequest="25" />
+                    WidthRequest="10" />
                 <Frame
                     x:Name="_NextFrameCompact"
                     Grid.Row="2"
@@ -217,11 +217,11 @@
                 <Image
                     x:Name="fullTreat"
                     Grid.Row="2"
-                    HeightRequest="25"
+                    HeightRequest="10"
                     HorizontalOptions="Center"
                     IsVisible="false"
                     Source="the_treat.png"
-                    WidthRequest="25" />
+                    WidthRequest="10" />
                 <Frame
                     x:Name="_NextFrame"
                     Grid.Row="3"

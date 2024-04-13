@@ -26,9 +26,14 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         protected ImageSource currentPlantImage;
 
-
         [ObservableProperty]
         protected bool isBeingUndone = false;
+
+        [ObservableProperty]
+        public string saveText = "Add";
+
+        [ObservableProperty]
+        public string backText = "Back";
 
         public string NewGroupValidation(PlantGroup plantGroup)
         {
@@ -57,7 +62,7 @@ namespace FloraSaver.ViewModels
             AlterPlant.PlantGroupName = InitialPlant.PlantGroupName;
             AlterPlant.GroupColorHexString = InitialPlant.GroupColorHexString;
             GroupPickerValue = AlterPlant.PlantGroupName != null ? PlantGroups.FirstOrDefault(_ => _.GroupName == AlterPlant.PlantGroupName) : PlantGroups.FirstOrDefault(_ => _.GroupName == "Ungrouped");
-            OnPropertyChanged("AlterPlant");
+            OnPropertyChanged(nameof(AlterPlant));
             IsBeingUndone = false;
             GroupUndoButtonVisible = false;
         }
@@ -86,7 +91,7 @@ namespace FloraSaver.ViewModels
             {
                 IsImageSelected = false;
             }
-            OnPropertyChanged("AlterPlant");
+            OnPropertyChanged(nameof(AlterPlant));
             IsBeingUndone = false;
             ImageUndoButtonVisible = false;
         }
@@ -102,7 +107,7 @@ namespace FloraSaver.ViewModels
         {
             IsBeingUndone = true;
             AlterPlant.PlantSpecies = InitialPlant.PlantSpecies;
-            OnPropertyChanged("AlterPlant");
+            OnPropertyChanged(nameof(AlterPlant));
             IsBeingUndone = false;
             SpeciesUndoButtonVisible = false;
         }
@@ -118,7 +123,7 @@ namespace FloraSaver.ViewModels
         {
             IsBeingUndone = true;
             AlterPlant.GivenName = InitialPlant.GivenName;
-            OnPropertyChanged("AlterPlant");
+            OnPropertyChanged(nameof(AlterPlant));
             IsBeingUndone = false;
             GivenNameUndoButtonVisible = false;
         }
@@ -134,7 +139,7 @@ namespace FloraSaver.ViewModels
         {
             IsBeingUndone = true;
             AlterPlant.DateOfBirth = InitialPlant.DateOfBirth;
-            OnPropertyChanged("AlterPlant");
+            OnPropertyChanged(nameof(AlterPlant));
             IsBeingUndone = false;
             DobUndoButtonVisible = false;
         }
@@ -152,11 +157,8 @@ namespace FloraSaver.ViewModels
             AlterPlant.WaterInterval = InitialPlant.WaterInterval;
             WaterDaysFromNow = AlterPlant.WaterInterval != null ? (int)AlterPlant.WaterInterval : (AlterPlant.DateOfNextWatering.Date - AlterPlant.DateOfLastWatering.Date).Days;
             WaterIntervalPickerValue = WateringInterval.FirstOrDefault(x => x.NumFromNow == InitialWaterDaysFromNow);
-            if (WaterIntervalPickerValue == null)
-            {
-                WaterIntervalPickerValue = WateringInterval.First(x => x.NumFromNow == -1);
-            }
-            OnPropertyChanged("AlterPlant");
+            WaterIntervalPickerValue ??= WateringInterval.First(x => x.NumFromNow == -1);
+            OnPropertyChanged(nameof(AlterPlant));
             IsBeingUndone = false;
             WaterIntervalUndoButtonVisible = false;
         }
@@ -181,7 +183,7 @@ namespace FloraSaver.ViewModels
 
             AlterPlant.DateOfLastWatering = InitialPlant.DateOfLastWatering;
             AlterPlant.TimeOfLastWatering = InitialPlant.TimeOfLastWatering;
-            OnPropertyChanged("AlterPlant");
+            OnPropertyChanged(nameof(AlterPlant));
             IsBeingUndone = false;
             LastWateredUndoButtonVisible = false;
         }
@@ -206,7 +208,7 @@ namespace FloraSaver.ViewModels
 
             AlterPlant.DateOfNextWatering = InitialPlant.DateOfNextWatering;
             AlterPlant.TimeOfNextWatering = InitialPlant.TimeOfNextWatering;
-            OnPropertyChanged("AlterPlant");
+            OnPropertyChanged(nameof(AlterPlant));
             IsBeingUndone = false;
             NextWaterUndoButtonVisible = false;
         }
@@ -224,12 +226,9 @@ namespace FloraSaver.ViewModels
             AlterPlant.MistInterval = InitialPlant.MistInterval;
             MistDaysFromNow = AlterPlant.MistInterval != null ? (int)AlterPlant.MistInterval : (AlterPlant.DateOfNextMisting.Date - AlterPlant.DateOfLastMisting.Date).Days;
             MistIntervalPickerValue = MistingInterval.FirstOrDefault(x => x.NumFromNow == InitialMistDaysFromNow);
-            if (MistIntervalPickerValue == null)
-            {
-                MistIntervalPickerValue = MistingInterval.First(x => x.NumFromNow == -1);
-            }
+            MistIntervalPickerValue ??= MistingInterval.First(x => x.NumFromNow == -1);
 
-            OnPropertyChanged("AlterPlant");
+            OnPropertyChanged(nameof(AlterPlant));
             IsBeingUndone = false;
             MistIntervalUndoButtonVisible = false;
         }
@@ -255,7 +254,7 @@ namespace FloraSaver.ViewModels
             AlterPlant.DateOfLastMisting = InitialPlant.DateOfLastMisting;
             AlterPlant.TimeOfLastMisting = InitialPlant.TimeOfLastMisting;
 
-            OnPropertyChanged("AlterPlant");
+            OnPropertyChanged(nameof(AlterPlant));
             IsBeingUndone = false;
             LastMistedUndoButtonVisible = false;
         }
@@ -281,7 +280,7 @@ namespace FloraSaver.ViewModels
             AlterPlant.DateOfNextMisting = InitialPlant.DateOfNextMisting;
             AlterPlant.TimeOfNextMisting = InitialPlant.TimeOfNextMisting;
 
-            OnPropertyChanged("AlterPlant");
+            OnPropertyChanged(nameof(AlterPlant));
             IsBeingUndone = false;
             NextMistUndoButtonVisible = false;
         }
@@ -299,12 +298,9 @@ namespace FloraSaver.ViewModels
             AlterPlant.SunInterval = InitialPlant.SunInterval;
             SunDaysFromNow = AlterPlant.SunInterval != null ? (int)AlterPlant.SunInterval : (AlterPlant.DateOfNextMove.Date - AlterPlant.DateOfLastMove.Date).Days;
             SunIntervalPickerValue = SunInterval.FirstOrDefault(x => x.NumFromNow == InitialSunDaysFromNow);
-            if (SunIntervalPickerValue == null)
-            {
-                SunIntervalPickerValue = SunInterval.First(x => x.NumFromNow == -1);
-            }
+            SunIntervalPickerValue ??= SunInterval.First(x => x.NumFromNow == -1);
 
-            OnPropertyChanged("AlterPlant");
+            OnPropertyChanged(nameof(AlterPlant));
             IsBeingUndone = false;
             MoveIntervalUndoButtonVisible = false;
         }
@@ -330,7 +326,7 @@ namespace FloraSaver.ViewModels
             AlterPlant.DateOfLastMove = InitialPlant.DateOfLastMove;
             AlterPlant.TimeOfLastMove = InitialPlant.TimeOfLastMove;
 
-            OnPropertyChanged("AlterPlant");
+            OnPropertyChanged(nameof(AlterPlant));
             IsBeingUndone = false;
             LastMovedUndoButtonVisible = false;
         }
@@ -356,7 +352,7 @@ namespace FloraSaver.ViewModels
             AlterPlant.DateOfNextMove = InitialPlant.DateOfNextMove;
             AlterPlant.TimeOfNextMove = InitialPlant.TimeOfNextMove;
 
-            OnPropertyChanged("AlterPlant");
+            OnPropertyChanged(nameof(AlterPlant));
             IsBeingUndone = false;
             NextMoveUndoButtonVisible = false;
         }
@@ -367,7 +363,7 @@ namespace FloraSaver.ViewModels
         {
             IsBeingUndone = true;
             //AlterPlant = new Plant(InitialPlant); This is causing visual bugs
-            OnPropertyChanged("AlterPlant");
+            OnPropertyChanged(nameof(AlterPlant));
             GroupSectionUndo();
             ImageChangedSectionUndo();
             SpeciesChangedSectionUndo();
@@ -400,7 +396,7 @@ namespace FloraSaver.ViewModels
 
         public Plant InitialPlant = new();
 
-        private Random rand = new Random();
+        private readonly Random rand = new();
 
         [ObservableProperty]
         public List<GroupColors> groupColors = PickerService.GetSelectableColors();
@@ -414,7 +410,7 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         public List<ClipetSpeechBubble> speechBubbles;
 
-        public ObservableCollection<PlantGroup> PlantGroups { get; set; } = new();
+        public ObservableCollection<PlantGroup> PlantGroups { get; set; } = [];
 
         public PlantDetailsViewModel(IDatabaseService databaseService)
         {
@@ -447,6 +443,7 @@ namespace FloraSaver.ViewModels
         {
             IsInitialization = true;
             await GetPlantsAsync();
+            if (DataPlants.Select(_ => _.Id).Contains(InitialPlant.Id)) { SaveText = "Update"; }
             PlantSuggestions = PlantSuggestions.Count > 0 ? PlantSuggestions : new(await _databaseService.GetAllAutofillPlantAsync());
             CorrectlySizeTimePickerBoxes();
             // extract to its own reusable method with reflection DRY!
@@ -454,23 +451,14 @@ namespace FloraSaver.ViewModels
 
             InitialWaterDaysFromNow = WaterDaysFromNow = AlterPlant.WaterInterval != null ? (int)AlterPlant.WaterInterval : (AlterPlant.DateOfNextWatering.Date - AlterPlant.DateOfLastWatering.Date).Days;
             WaterIntervalPickerValue = WateringInterval.FirstOrDefault(x => x.NumFromNow == WaterDaysFromNow);
-            if (WaterIntervalPickerValue == null)
-            {
-                WaterIntervalPickerValue = WateringInterval.First(x => x.NumFromNow == -1);
-            }
+            WaterIntervalPickerValue ??= WateringInterval.First(x => x.NumFromNow == -1);
 
             InitialMistDaysFromNow = MistDaysFromNow = AlterPlant.MistInterval != null ? (int)AlterPlant.MistInterval : (AlterPlant.DateOfNextMisting.Date - AlterPlant.DateOfLastMisting.Date).Days;
             MistIntervalPickerValue = MistingInterval.FirstOrDefault(x => x.NumFromNow == MistDaysFromNow);
-            if (MistIntervalPickerValue == null)
-            {
-                MistIntervalPickerValue = MistingInterval.First(x => x.NumFromNow == -1);
-            }
+            MistIntervalPickerValue ??= MistingInterval.First(x => x.NumFromNow == -1);
             InitialSunDaysFromNow = SunDaysFromNow = AlterPlant.SunInterval != null ? (int)AlterPlant.SunInterval : (AlterPlant.DateOfNextMove.Date - AlterPlant.DateOfLastMove.Date).Days;
             SunIntervalPickerValue = SunInterval.FirstOrDefault(x => x.NumFromNow == SunDaysFromNow);
-            if (SunIntervalPickerValue == null)
-            {
-                SunIntervalPickerValue = SunInterval.First(x => x.NumFromNow == -1);
-            }
+            SunIntervalPickerValue ??= SunInterval.First(x => x.NumFromNow == -1);
 
             WaterGridText = AlterPlant.UseWatering ? "Do Not Use Watering" : "Use Watering";
             MistGridText = AlterPlant.UseMisting ? "Do Not Use Misting" : "Use Misting";
@@ -581,7 +569,7 @@ namespace FloraSaver.ViewModels
             IsInitialization = true;
             AlterPlant = query["Plant"] as Plant;
             InitialPlant = new Plant(AlterPlant);
-            OnPropertyChanged("AlterPlant");
+            OnPropertyChanged(nameof(AlterPlant));
             var groups = query["PlantGroup"] as List<PlantGroup>;
             PlantGroups = new ObservableCollection<PlantGroup>(groups);
             OnPropertyChanged(nameof(PlantGroups));
@@ -677,13 +665,13 @@ namespace FloraSaver.ViewModels
             try
             {
                 AlterPlant.ImageLocation = await Base64ImageConverterService.PickedImageToBase64Async();
-                OnPropertyChanged("AlterPlant");
+                OnPropertyChanged(nameof(AlterPlant));
                 SetImageSourceOfPlant();
             } 
             catch(Exception ex) 
             {
                 AlterPlant.ImageLocation = AlterPlant.ImageLocation;
-                OnPropertyChanged("AlterPlant");
+                OnPropertyChanged(nameof(AlterPlant));
             }
             
         }
@@ -695,8 +683,8 @@ namespace FloraSaver.ViewModels
             IsImageSelected = AlterPlant.PlantImageSource is not null ? true : false;
             CurrentPlantImage = AlterPlant.PlantImageSource;
             ImageChanged();
-            OnPropertyChanged("AlterPlant");
-            OnPropertyChanged("IsImageSelected");
+            OnPropertyChanged(nameof(AlterPlant));
+            OnPropertyChanged(nameof(IsImageSelected));
         }
 
         partial void OnGroupPickerValueChanged(PlantGroup value)
@@ -705,7 +693,7 @@ namespace FloraSaver.ViewModels
             {
                 AlterPlant.PlantGroupName = value.GroupName;
                 AlterPlant.GroupColorHexString = value.GroupColorHex;
-                OnPropertyChanged("AlterPlant");
+                OnPropertyChanged(nameof(AlterPlant));
             }
         }
 
@@ -717,7 +705,7 @@ namespace FloraSaver.ViewModels
             }
 
             AlterPlant.WaterInterval = value;
-            OnPropertyChanged("AlterPlant");
+            OnPropertyChanged(nameof(AlterPlant));
         }
 
         partial void OnWaterIntervalPickerValueChanged(Interval value)
@@ -741,7 +729,7 @@ namespace FloraSaver.ViewModels
             }
 
             AlterPlant.MistInterval = value;
-            OnPropertyChanged("AlterPlant");
+            OnPropertyChanged(nameof(AlterPlant));
         }
 
         partial void OnMistIntervalPickerValueChanged(Interval value)
@@ -765,7 +753,7 @@ namespace FloraSaver.ViewModels
             }
 
             AlterPlant.SunInterval = value;
-            OnPropertyChanged("AlterPlant");
+            OnPropertyChanged(nameof(AlterPlant));
         }
 
         partial void OnSunIntervalPickerValueChanged(Interval value)
@@ -814,7 +802,7 @@ namespace FloraSaver.ViewModels
                 if (result)
                 {
                     PlantGroups.Add(newPlantGroup);
-                    OnPropertyChanged("PlantGroups");
+                    OnPropertyChanged(nameof(PlantGroups));
                     AddGroupShowPressed();
                     GroupPickerValue = newPlantGroup;
                 }
@@ -831,7 +819,7 @@ namespace FloraSaver.ViewModels
             AlterPlant.ImageLocation = null;
             AlterPlant.PlantImageSource = null;
             IsImageSelected = false;
-            OnPropertyChanged("AlterPlant");
+            OnPropertyChanged(nameof(AlterPlant));
         }
 
         [RelayCommand]
@@ -839,7 +827,7 @@ namespace FloraSaver.ViewModels
         {
             AlterPlant.UseWatering = !AlterPlant.UseWatering;
             WaterGridText = AlterPlant.UseWatering ? "Do Not Use Watering" : "Use Watering";
-            OnPropertyChanged("AlterPlant");
+            OnPropertyChanged(nameof(AlterPlant));
         }
 
         [RelayCommand]
@@ -847,7 +835,7 @@ namespace FloraSaver.ViewModels
         {
             AlterPlant.UseMisting = !AlterPlant.UseMisting;
             MistGridText = AlterPlant.UseMisting ? "Do Not Use Misting" : "Use Misting";
-            OnPropertyChanged("AlterPlant");
+            OnPropertyChanged(nameof(AlterPlant));
         }
 
         [RelayCommand]
@@ -855,7 +843,7 @@ namespace FloraSaver.ViewModels
         {
             AlterPlant.UseMoving = !AlterPlant.UseMoving;
             SunGridText = AlterPlant.UseMoving ? "Do Not Use Sunlight Move" : "Use Sunlight Move";
-            OnPropertyChanged("AlterPlant");
+            OnPropertyChanged(nameof(AlterPlant));
         }
 
         [RelayCommand]
@@ -932,6 +920,8 @@ namespace FloraSaver.ViewModels
                     InitialMistDaysFromNow = MistDaysFromNow;
                     InitialSunDaysFromNow = SunDaysFromNow;
                     UndoAll();
+                    BackText = "Done";
+                    SaveText = "Update";
                 } else
                 {
                     await Application.Current.MainPage.DisplayAlert("OH HOLD ON!", plant.Validation.Message, "Gotcha");
@@ -1043,21 +1033,21 @@ namespace FloraSaver.ViewModels
         protected void SetToDefaultMorningTime(string timeValue)
         {
             AlterPlant.GetType().GetProperty(timeValue).SetValue(AlterPlant, DateTime.FromBinary(Preferences.Default.Get("morning_time_date", new DateTime(1, 1, 1, 8, 0, 0).ToBinary())).TimeOfDay);
-            OnPropertyChanged("AlterPlant");
+            OnPropertyChanged(nameof(AlterPlant));
         }
 
         [RelayCommand]
         protected void SetToDefaultMiddayTime(string timeValue)
         {
             AlterPlant.GetType().GetProperty(timeValue).SetValue(AlterPlant, DateTime.FromBinary(Preferences.Default.Get("midday_time_date", new DateTime(1, 1, 1, 12, 0, 0).ToBinary())).TimeOfDay);
-            OnPropertyChanged("AlterPlant");
+            OnPropertyChanged(nameof(AlterPlant));
         }
 
         [RelayCommand]
         protected void SetToDefaultNightTime(string timeValue)
         {
             AlterPlant.GetType().GetProperty(timeValue).SetValue(AlterPlant, DateTime.FromBinary(Preferences.Default.Get("night_time_date", new DateTime(1, 1, 1, 16, 0, 0).ToBinary())).TimeOfDay);
-            OnPropertyChanged("AlterPlant");
+            OnPropertyChanged(nameof(AlterPlant));
         }
 
         [ObservableProperty]

@@ -18,13 +18,13 @@ namespace FloraSaver.ViewModels
     {
         protected readonly IPlantNotificationService _plantNotificationService;
         
-        public ObservableCollection<Plant> Plants { get; set; } = new();
-        public ObservableCollection<PlantGroup> PlantGroups { get; set; } = new();
+        public ObservableCollection<Plant> Plants { get; set; } = [];
+        public ObservableCollection<PlantGroup> PlantGroups { get; set; } = [];
         
 
         
 
-        public List<Plant> BackendPlantList { get; set; } = new();
+        public List<Plant> BackendPlantList { get; set; } = [];
         bool IsInitialization { get; set; } = true;
         protected bool shouldGetNewData { get; set; } = true;
         protected bool shouldGetNewGroupData { get; set; } = true;
@@ -82,7 +82,7 @@ namespace FloraSaver.ViewModels
             ScrollToValue = 0;
         }
 
-        protected PeriodicTimer timer = new PeriodicTimer(TimeSpan.FromSeconds(10));
+        protected PeriodicTimer timer = new(TimeSpan.FromSeconds(10));
         [ObservableProperty]
         public double elementSpan = 1;
         [ObservableProperty]
@@ -171,7 +171,7 @@ namespace FloraSaver.ViewModels
             {
                 AreNoPlants = true;
             }
-            OnPropertyChanged("Plants");
+            OnPropertyChanged(nameof(Plants));
         }
 
 
@@ -500,7 +500,7 @@ namespace FloraSaver.ViewModels
         {
             var specificGroup = PlantGroups.FirstOrDefault(_ => _.GroupId == plantGroup.GroupId);
             specificGroup.IsEnabled = plantGroup.IsEnabled ? false : true;
-            OnPropertyChanged("PlantGroups");
+            OnPropertyChanged(nameof(PlantGroups));
             await StandardActionsAsync(SearchQuery);
         }
 

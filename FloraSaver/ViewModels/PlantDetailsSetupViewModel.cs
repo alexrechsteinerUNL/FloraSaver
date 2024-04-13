@@ -59,7 +59,7 @@ namespace FloraSaver.ViewModels
         //    OnPropertyChanged("Plant");
         //    var groups = query["PlantGroup"] as List<PlantGroup>;
         //    PlantGroups = new ObservableCollection<PlantGroup>(groups);
-        //    OnPropertyChanged("PlantGroups");
+        //    OnPropertyChanged(nameof(PlantGroups));
         //    IsInitialization = false;
         //}
 

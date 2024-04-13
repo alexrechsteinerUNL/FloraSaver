@@ -36,7 +36,7 @@ public partial class SettingsPage : ContentPage, IAndroidBackButtonHandlerUtilit
 
     private void Validate(object sender, EventArgs e)
     {
-        ((SettingsViewModel)(this.BindingContext)).ValidateGroupAsync();
+        _ = ((SettingsViewModel)(this.BindingContext)).ValidateGroupAsync();
     }
 
     private void Entry_Completed(object sender, EventArgs e)

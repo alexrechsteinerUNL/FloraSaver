@@ -54,7 +54,7 @@
                         HorizontalOptions="Start"
                         IsEnabled="{Binding IsNotBusy}"
                         MaximumHeightRequest="60"
-                        Text="Done"
+                        Text="{Binding BackText}"
                         WidthRequest="100" />
                     <Button
                         x:Name="deletePlants"
@@ -1416,7 +1416,7 @@
                         CommandParameter="{Binding Plant}"
                         IsEnabled="{Binding IsNotBusy}"
                         MaximumHeightRequest="60"
-                        Text="Update"
+                        Text="{Binding SaveText}"
                         WidthRequest="100" />
                     <Button
                         x:Name="switchToSetup"

@@ -122,12 +122,12 @@ namespace FloraSaver.Models
             IsNameSectionInvalid = string.IsNullOrEmpty(plant.GivenName) || unsafePlantNames.Contains(plant.GivenName);
             IsGroupSectionInvalid = (string.IsNullOrEmpty(plant.PlantGroupName) || string.IsNullOrEmpty(plant.GroupColorHexString));
             IsBirthdaySectionInvalid = CheckIfLastDateFurtherThanNextDate(plant.DateOfBirth, DateTime.Now);
-            IsDateTimeNextWateringSectionInvalid = CheckIfLastDateFurtherThanNextDate(plant.DateOfLastWatering + plant.TimeOfLastWatering, plant.DateOfNextWatering + plant.TimeOfNextWatering);
-            IsDateTimeNextMistingSectionInvalid = CheckIfLastDateFurtherThanNextDate(plant.DateOfLastMisting + plant.TimeOfLastMisting, plant.DateOfNextMisting + plant.TimeOfNextMisting);
-            IsDateTimeNextMovingSectionInvalid = CheckIfLastDateFurtherThanNextDate(plant.DateOfLastMove + plant.TimeOfLastMove, plant.DateOfNextMove + plant.TimeOfNextMove);
+            IsDateTimeNextWateringSectionInvalid = CheckIfLastDateFurtherThanNextDate(plant.DateOfLastWatering.Date + plant.TimeOfLastWatering, plant.DateOfNextWatering.Date + plant.TimeOfNextWatering);
+            IsDateTimeNextMistingSectionInvalid = CheckIfLastDateFurtherThanNextDate(plant.DateOfLastMisting.Date + plant.TimeOfLastMisting, plant.DateOfNextMisting.Date + plant.TimeOfNextMisting);
+            IsDateTimeNextMovingSectionInvalid = CheckIfLastDateFurtherThanNextDate(plant.DateOfLastMove.Date + plant.TimeOfLastMove, plant.DateOfNextMove.Date + plant.TimeOfNextMove);
         }
 
-        public bool CheckIfLastDateFurtherThanNextDate(DateTime lastDate, DateTime nextDate)
+        public static bool CheckIfLastDateFurtherThanNextDate(DateTime lastDate, DateTime nextDate)
         {
             if (lastDate > nextDate) { return true; } else { return false; }
         }
