@@ -461,6 +461,18 @@
                 </Frame>
 
                 <Button
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Command="{Binding ShowOpenNoticeCommand}"
+                    Text="Open Source Notice" />
+
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Command="{Binding ShowCreditsCommand}"
+                    Text="Credits" />
+
+                <Button
                     x:Name="clearAllPlantGroupDataCommand"
                     Grid.Row="1"
                     Grid.Column="0"

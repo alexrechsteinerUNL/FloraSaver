@@ -136,7 +136,7 @@
                                 VerticalOptions="Center" />
                             <Frame
                                 Grid.Column="1"
-                                Padding="4"
+                                Padding="2.5"
                                 BackgroundColor="Black"
                                 HeightRequest="40"
                                 HorizontalOptions="FillAndExpand"
@@ -145,7 +145,6 @@
                                     x:Name="orderByPickerCombo"
                                     Title="Choose Order By"
                                     FontSize="16"
-                                    HeightRequest="36"
                                     HorizontalOptions="FillAndExpand"
                                     HorizontalTextAlignment="Center"
                                     ItemsSource="{Binding OrderByValues, Mode=TwoWay}"
@@ -219,19 +218,19 @@
                             VerticalOptions="Center" />
                         <Frame
                             Grid.Column="1"
-                            Padding="2"
+                            Padding="2.5"
                             BackgroundColor="Black"
-                            HorizontalOptions="FillAndExpand">
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Fill">
                             <Picker
                                 x:Name="orderByPicker"
                                 Title="Choose Order By"
-                                HeightRequest="40"
                                 HorizontalOptions="FillAndExpand"
                                 HorizontalTextAlignment="Center"
                                 ItemsSource="{Binding OrderByValues, Mode=TwoWay}"
                                 SelectedItem="{Binding CurrentOrderByValue, Mode=TwoWay}"
                                 TextColor="White"
-                                VerticalOptions="CenterAndExpand"
+                                VerticalOptions="Fill"
                                 VerticalTextAlignment="Center" />
                         </Frame>
                     </Grid>

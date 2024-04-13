@@ -123,7 +123,7 @@
                                             HorizontalOptions="FillAndExpand"
                                             Placeholder="Enter plant species"
                                             Text="{Binding AlterPlant.PlantSpecies, StringFormat='{0}', Mode=TwoWay}"
-                                            VerticalOptions="CenterAndExpand">
+                                            VerticalOptions="Fill">
                                             <Entry.Behaviors>
                                                 <toolkit:EventToCommandBehavior Command="{Binding ShowSearchSuggestionBoxCommand}" EventName="Focused" />
                                                 <toolkit:EventToCommandBehavior Command="{Binding SpeciesChangedCommand}" EventName="Unfocused" />
@@ -233,7 +233,7 @@
                                         Completed="Entry_Completed"
                                         HorizontalOptions="FillAndExpand"
                                         Placeholder="Enter new plant group"
-                                        VerticalOptions="CenterAndExpand">
+                                        VerticalOptions="Fill">
                                         <Entry.Behaviors>
                                             <toolkit:EventToCommandBehavior
                                                 x:DataType="viewmodel:PlantDetailsViewModel"
@@ -323,7 +323,7 @@
                                                 HorizontalOptions="FillAndExpand"
                                                 Placeholder="Give your plant a name!"
                                                 Text="{Binding AlterPlant.GivenName, StringFormat='{0}', Mode=TwoWay}"
-                                                VerticalOptions="CenterAndExpand">
+                                                VerticalOptions="Fill">
                                                 <Entry.Behaviors>
                                                     <toolkit:EventToCommandBehavior Command="{Binding GivenNameChangedCommand}" EventName="Unfocused" />
                                                     <toolkit:EventToCommandBehavior
@@ -536,7 +536,7 @@
                                                         MaxLength="4"
                                                         Placeholder="0"
                                                         Text="{Binding WaterDaysFromNow, Mode=TwoWay}"
-                                                        VerticalOptions="CenterAndExpand">
+                                                        VerticalOptions="Fill">
                                                         <Entry.Behaviors>
                                                             <toolkit:EventToCommandBehavior
                                                                 x:DataType="viewmodel:PlantDetailsViewModel"
@@ -876,7 +876,7 @@
                                                         MaxLength="4"
                                                         Placeholder="0"
                                                         Text="{Binding MistDaysFromNow, Mode=TwoWay}"
-                                                        VerticalOptions="CenterAndExpand">
+                                                        VerticalOptions="Fill">
                                                         <Entry.Behaviors>
                                                             <toolkit:EventToCommandBehavior
                                                                 x:DataType="viewmodel:PlantDetailsViewModel"
@@ -1216,7 +1216,7 @@
                                                         MaxLength="4"
                                                         Placeholder="0"
                                                         Text="{Binding SunDaysFromNow, Mode=TwoWay}"
-                                                        VerticalOptions="CenterAndExpand">
+                                                        VerticalOptions="Fill">
                                                         <Entry.Behaviors>
                                                             <toolkit:EventToCommandBehavior
                                                                 x:DataType="viewmodel:PlantDetailsViewModel"

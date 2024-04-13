@@ -357,6 +357,18 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
+        private async Task ShowOpenNoticeAsync()
+        {
+            await Application.Current.MainPage.DisplayAlert("The following 3rd Party NuGet Packages Made This App Possible", "• Plugin.LocalNotification\n• sqlite-net-pcl\n• SQLitePCLRaw.provider.dynamic_cdecl", "Nice");
+        }
+
+        [RelayCommand]
+        private async Task ShowCreditsAsync()
+        {
+            await Application.Current.MainPage.DisplayAlert("", "This App was made with love by CrackpotOpus", "Sweet");
+        }
+
+        [RelayCommand]
         private async Task ClearAllPlantGroupDataAsync()
         {
             if (IsBusy)
