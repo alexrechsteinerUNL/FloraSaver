@@ -30,7 +30,7 @@ namespace FloraSaver.ViewModels
             {
                 TopTenAutoFillPlants.Add(new SearchedPlants(plant));
             }
-            OnPropertyChanged("TopTenAutoFillPlants");
+            OnPropertyChanged(nameof(TopTenAutoFillPlants));
             ShowSearchSuggestionBox();
         }
 

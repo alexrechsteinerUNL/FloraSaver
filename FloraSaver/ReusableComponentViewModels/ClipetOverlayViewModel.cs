@@ -54,7 +54,6 @@ namespace FloraSaver.ViewModels
                 IsClipetTalking = false;
                 OnPropertyChanged(nameof(IsClipetTalking));
                 OnPropertyChanged("ClipetSpeechBubble");
-                //await Shell.Current.GoToAsync("..", true);
             }
             else
             {

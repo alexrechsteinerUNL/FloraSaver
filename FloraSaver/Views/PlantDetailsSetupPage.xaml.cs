@@ -33,7 +33,7 @@ public partial class PlantDetailsSetupPage : ContentPage, IAndroidBackButtonHand
         {
             clipet.IsVisible = false;
             speechSpace.IsVisible = false;
-            if (width > height)
+            if (width >= height || height < 400)
             {
                 HorizontalSelect.IsVisible = true;
                 VerticalSelect.IsVisible = false;

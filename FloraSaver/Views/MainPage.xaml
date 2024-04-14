@@ -246,7 +246,7 @@
                             Padding="5,-5"
                             BackgroundColor="Black"
                             VerticalOptions="Center">
-                            <Grid ColumnDefinitions="*, 35" RowDefinitions="50">
+                            <Grid ColumnDefinitions="*, Auto" RowDefinitions="50">
                                 <ProgressBar
                                     Grid.Row="0"
                                     Grid.Column="0"

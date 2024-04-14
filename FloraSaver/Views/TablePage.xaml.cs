@@ -52,8 +52,7 @@ public partial class TablePage : ContentPage, IAndroidBackButtonHandlerUtility
     private void hiddenSpacerForAppearingScrollTo_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
         var result = sender as Label;
-        int tryGetInt = new();
-        var shouldScroll = Int32.TryParse(result.Text, out tryGetInt);
+        var shouldScroll = Int32.TryParse(result.Text, out int tryGetInt);
         if (shouldScroll && tryGetInt > 0)
         {
             plantDeck.ScrollTo(tryGetInt);

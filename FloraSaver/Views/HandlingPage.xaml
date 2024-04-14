@@ -118,10 +118,11 @@
                 <Grid
                     x:Name="comboOrderByArea"
                     Grid.Column="1"
+                    HeightRequest="50"
                     HorizontalOptions="Fill"
                     WidthRequest="300">
                     <Frame
-                        Padding="5"
+                        Padding="3"
                         BackgroundColor="Black"
                         VerticalOptions="Start">
                         <Grid ColumnSpacing="0">
@@ -131,21 +132,21 @@
                             </Grid.ColumnDefinitions>
                             <Label
                                 Grid.Column="0"
-                                HorizontalOptions="Start"
-                                Text="Order By:"
+                                HorizontalOptions="Center"
+                                Text="Order:"
                                 VerticalOptions="Center" />
                             <Frame
                                 Grid.Column="1"
-                                Padding="2.5"
+                                Padding="4,2,4,2"
                                 BackgroundColor="Black"
-                                HeightRequest="40"
-                                HorizontalOptions="FillAndExpand"
+                                HeightRequest="44"
+                                HorizontalOptions="Fill"
                                 VerticalOptions="Fill">
                                 <Picker
                                     x:Name="orderByPickerCombo"
                                     Title="Choose Order By"
                                     FontSize="16"
-                                    HorizontalOptions="FillAndExpand"
+                                    HorizontalOptions="Fill"
                                     HorizontalTextAlignment="Center"
                                     ItemsSource="{Binding OrderByValues, Mode=TwoWay}"
                                     SelectedItem="{Binding CurrentOrderByValue, Mode=TwoWay}"
@@ -214,7 +215,7 @@
                         <Label
                             Grid.Column="0"
                             HorizontalOptions="Start"
-                            Text="Order By:"
+                            Text="Order"
                             VerticalOptions="Center" />
                         <Frame
                             Grid.Column="1"
