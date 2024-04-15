@@ -36,5 +36,9 @@ namespace FloraSaver.Services
         public Task PopulateClipetDialogTableAsync();
         public Task PopulateAutoFillPlantTableAsync();
         public Task UpdateClipetDialogTableAsync(List<ClipetDialog> Dialogs);
+
+        public Task<bool> DeepUpdateClipetDialogAsync();
+
+        public Task<bool> DeepUpdateAutofillPlantsAsync();
     }
 }

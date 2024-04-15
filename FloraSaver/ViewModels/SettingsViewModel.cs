@@ -277,13 +277,13 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         public async Task CheckForAutofillUpdatesAsync()
         {
-            await _databaseService.PopulateAutoFillPlantTableAsync();
+            await _databaseService.DeepUpdateAutofillPlantsAsync();
         }
 
         [RelayCommand]
         public async Task CheckForClipetUpdatesAsync()
         {
-            await _databaseService.PopulateClipetDialogTableAsync();
+            await _databaseService.DeepUpdateClipetDialogAsync();
         }
 
         [RelayCommand]

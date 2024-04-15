@@ -43,7 +43,7 @@
                             VerticalTextAlignment="Center" />
                         <Frame
                             Grid.Column="2"
-                            Padding="2,2"
+                            Padding="0,2"
                             BackgroundColor="Transparent"
                             HorizontalOptions="FillAndExpand"
                             VerticalOptions="FillAndExpand">
@@ -51,15 +51,15 @@
                                 Padding="0,2"
                                 BackgroundColor="Transparent"
                                 BorderColor="Transparent"
-                                HorizontalOptions="CenterAndExpand"
-                                VerticalOptions="CenterAndExpand">
+                                HorizontalOptions="Fill"
+                                VerticalOptions="Fill">
                                 <TimePicker
                                     x:Name="morningTime"
                                     BackgroundColor="White"
                                     Format="t"
-                                    HorizontalOptions="FillAndExpand"
+                                    HorizontalOptions="Center"
                                     Time="{Binding MorningTime, Mode=TwoWay}"
-                                    VerticalOptions="FillAndExpand" />
+                                    VerticalOptions="Center" />
                             </Frame>
                         </Frame>
                     </Grid>
@@ -87,21 +87,21 @@
                             VerticalTextAlignment="Center" />
                         <Frame
                             Grid.Column="2"
-                            Padding="2,2"
+                            Padding="0,2"
                             BackgroundColor="Transparent"
-                            HorizontalOptions="FillAndExpand">
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Fill">
                             <Frame
                                 Padding="0,2"
                                 BackgroundColor="Transparent"
                                 BorderColor="Transparent"
-                                HorizontalOptions="FillAndExpand"
+                                HorizontalOptions="Center"
                                 VerticalOptions="Center">
                                 <TimePicker
                                     x:Name="MiddayTime"
                                     BackgroundColor="White"
                                     Format="t"
-                                    Time="{Binding MiddayTime, Mode=TwoWay}"
-                                    WidthRequest="75" />
+                                    Time="{Binding MiddayTime, Mode=TwoWay}" />
                             </Frame>
                         </Frame>
                     </Grid>
@@ -129,21 +129,21 @@
                             VerticalTextAlignment="Center" />
                         <Frame
                             Grid.Column="2"
-                            Padding="2,2"
+                            Padding="0,2"
                             BackgroundColor="Transparent"
-                            HorizontalOptions="FillAndExpand">
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Fill">
                             <Frame
                                 Padding="0,2"
                                 BackgroundColor="Transparent"
                                 BorderColor="Transparent"
-                                HorizontalOptions="FillAndExpand"
+                                HorizontalOptions="Center"
                                 VerticalOptions="Center">
                                 <TimePicker
                                     x:Name="NightTime"
                                     BackgroundColor="White"
                                     Format="t"
-                                    Time="{Binding NightTime, Mode=TwoWay}"
-                                    WidthRequest="75" />
+                                    Time="{Binding NightTime, Mode=TwoWay}" />
                             </Frame>
                         </Frame>
                     </Grid>
@@ -476,7 +476,6 @@
                     x:Name="clearAllPlantGroupDataCommand"
                     Grid.Row="1"
                     Grid.Column="0"
-                    Margin="8"
                     Command="{Binding ClearAllPlantGroupDataCommand}"
                     IsEnabled="{Binding IsNotBusy}"
                     Text="Clear ALL Groups"
@@ -485,7 +484,6 @@
                     x:Name="clearAllPlantDataCommand"
                     Grid.Row="1"
                     Grid.Column="0"
-                    Margin="8"
                     Command="{Binding ClearAllPlantDataCommand}"
                     IsEnabled="{Binding IsNotBusy}"
                     Text="Clear ALL Data"

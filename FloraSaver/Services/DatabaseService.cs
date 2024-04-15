@@ -454,5 +454,70 @@ namespace FloraSaver.Services
 
             return new List<Plant>();
         }
+
+        public async Task<bool> DeepUpdateClipetDialogAsync()
+        {
+            await InitAsync();
+            try
+            {
+                var allDialogsTask = GetAllClipetDialogsAsync();
+                ClipetDialogGeneratorUtility.GenerateClipetDialogs();
+                var allDialogs = await allDialogsTask;
+                foreach (var dialog in ClipetDialogGeneratorUtility.AllClipetDialogs)
+                {
+                    var currentDatabaseDialog = allDialogs.FirstOrDefault(_ => _.DialogID == dialog.DialogID);
+                    if (currentDatabaseDialog is not null)
+                    {
+                        dialog.IsSeen = currentDatabaseDialog.IsSeen;
+                        dialog.IsUnlocked = currentDatabaseDialog.IsUnlocked;
+                        await conn.UpdateAsync(dialog);
+                    } else
+                    {
+                        await conn.InsertAsync(dialog);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Failed to populate data from ClipetDialog Database. {0}", ex.Message);
+                return false;
+            }
+            return true;
+        }
+
+        public async Task<bool> DeepUpdateAutofillPlantsAsync()
+        {
+            await InitAsync();
+            try
+            {
+                var allPlantsTask = GetAllAutofillPlantAsync();
+                AutoFillPlantGeneratorUtility.GenerateAutoFillPlants();
+                var allPlants = await allPlantsTask;
+                foreach (var plant in AutoFillPlantGeneratorUtility.AllAutoFillPlants)
+                {
+                    var currentDatabasePlant = allPlants.FirstOrDefault(_ => _.Id == plant.Id);
+                    if (currentDatabasePlant is not null)
+                    {
+                        await conn.UpdateAsync(plant);
+                    }
+                    else
+                    {
+                        await conn.InsertAsync(plant);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Failed to populate data from Autofill Plant Database. {0}", ex.Message);
+                return false;
+            }
+            return true;
+        }
+
+
+
+
+
+
     }
 }

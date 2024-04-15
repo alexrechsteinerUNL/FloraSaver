@@ -424,16 +424,16 @@
                                             x:Name="DeleteButton"
                                             Grid.Row="0"
                                             Grid.Column="3"
-                                            Padding="10,5"
+                                            Padding="1,1"
                                             BackgroundColor="Black"
                                             BorderColor="White"
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HandlingViewModel}}, Path=DeletePlantCommand}"
                                             CommandParameter="{Binding .}"
-                                            FontSize="15"
                                             HeightRequest="30"
                                             HorizontalOptions="EndAndExpand"
                                             Text="X"
-                                            VerticalOptions="Start" />
+                                            VerticalOptions="Start"
+                                            WidthRequest="30" />
                                     </Grid>
                                 </Frame>
                             </DataTemplate>

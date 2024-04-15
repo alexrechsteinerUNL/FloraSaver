@@ -387,13 +387,12 @@
                                                             <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}" CommandParameter="{Binding .}" />
                                                         </Frame.GestureRecognizers>
                                                         <Label
-                                                            Padding="0"
                                                             FontSize="42"
                                                             HorizontalOptions="Center"
                                                             Rotation="30"
                                                             Text="🂠"
                                                             TextColor="{Binding GroupColor}"
-                                                            VerticalOptions="Center" />
+                                                            VerticalOptions="Fill" />
                                                     </Frame>
 
                                                     <Label
