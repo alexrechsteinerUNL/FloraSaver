@@ -95,7 +95,7 @@ namespace FloraSaver.Utilities
             autoFillPlants.Add(new AutoFillPlant("Zebra plant", 7, 3, 28, "https://www.thespruce.com/grow-zebra-plants-indoors-1902616"));
             autoFillPlants.Add(new AutoFillPlant("ZZ plant", 14, 1, 56, "https://www.thespruce.com/grow-zz-plant-indoors-1902615"));
             autoFillPlants.Add(new AutoFillPlant("African mask plant", 14, 1, 56, "https://www.thespruce.com/grow-african-mask-plant-indoors-1902614"));
-            autoFillPlants.Add(new AutoFillPlant("Cactus", 10, 4, 40, "https://cactusway.com/cactus-care-11-essential-tips-for-beginners/"));
+            autoFillPlants.Add(new AutoFillPlant("Cactus", 21, 4, 40, "https://cactusway.com/cactus-care-11-essential-tips-for-beginners/"));
             autoFillPlants.Add(new AutoFillPlant("Parsley", 7, 3, 28, "https://balconygardenweb.com/list-of-common-herbs-for-cooking/#parsley"));
             autoFillPlants.Add(new AutoFillPlant("Cilantro", 7, 3, 28, "https://balconygardenweb.com/list-of-common-herbs-for-cooking/#cilantro"));
             autoFillPlants.Add(new AutoFillPlant("Chives", 7, 3, 28, "https://balconygardenweb.com/list-of-common-herbs-for-cooking/#chives"));
