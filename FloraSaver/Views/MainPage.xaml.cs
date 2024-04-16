@@ -48,7 +48,7 @@ public partial class MainPage : ContentPage, IAndroidBackButtonHandlerUtility
             }
             compactTreat.IsVisible = true;
             await compactTreat.TranslateTo(150, currentHeight, 0);
-            var startGiveTreat = compactTreat.TranslateTo(-60, -(currentHeight / 20), 500, Easing.CubicInOut);
+            var startGiveTreat = compactTreat.TranslateTo(-25, -(currentHeight / 20), 500, Easing.CubicInOut);
             compactClipet.Source = "clipet_flowers_standing_color_eat.png";
             await startGiveTreat;
             compactTreat.IsVisible = false;
