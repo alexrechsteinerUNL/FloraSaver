@@ -34,7 +34,7 @@ namespace FloraSaver.Utilities
             dialogs.Add(new ClipetDialog() { DialogID = 15, DisplayName = "Group Edits", Filename = "TUTGroupEdits.txt" });
             dialogs.Add(new ClipetDialog() { DialogID = 16, DisplayName = "Grouping Plants", Filename = "TUTGroupingPlants.txt" });
             dialogs.Add(new ClipetDialog() { DialogID = 17, DisplayName = "Grow Lights", Filename = "TUTGrowLights.txt" });
-            dialogs.Add(new ClipetDialog() { DialogID = 18, DisplayName = "Lighting Colors JUST THE IMPORTANT PART", Filename = "TUTLightingColorsCompact.txt" });
+            dialogs.Add(new ClipetDialog() { DialogID = 18, DisplayName = "Lighting Colors JUST THE IMPORTANT PART", Filename = "TUTLightingColorsCompact.txt", TreatRequirement = 999 });
             dialogs.Add(new ClipetDialog() { DialogID = 19, DisplayName = "Lighting Colors FULL", Filename = "TUTLightingColorsFull.txt" });
             dialogs.Add(new ClipetDialog() { DialogID = 20, DisplayName = "Newly Planted Plants", Filename = "TUTNewlyPlanted.txt" });
             dialogs.Add(new ClipetDialog() { DialogID = 21, DisplayName = "Leaves Turn Brown", Filename = "TUTPlantTurnsBrown.txt" });

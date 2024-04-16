@@ -34,6 +34,15 @@
                     Command="{Binding SetCurrentDialogCommand}"
                     HorizontalOptions="Center"
                     Source="clipet_flowers_standing_color.png" />
+                <ImageButton
+                    x:Name="clickMe"
+                    Grid.Row="1"
+                    Command="{Binding SetCurrentDialogCommand}"
+                    HeightRequest="20"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding IsFirstTimeTouchClipet}"
+                    Source="clickme.png"
+                    VerticalOptions="Start" />
                 <Image
                     x:Name="compactTreat"
                     Grid.Row="1"
@@ -208,6 +217,16 @@
                     HorizontalOptions="Center"
                     SemanticProperties.Description="Title for app"
                     Source="plant_saver_title.png" />
+                <ImageButton
+                    x:Name="clickMeFull"
+                    Grid.Row="2"
+                    Command="{Binding SetCurrentDialogCommand}"
+                    HeightRequest="30"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding IsFirstTimeTouchClipet}"
+                    Rotation="0"
+                    Source="clickme.png"
+                    VerticalOptions="Start" />
                 <ImageButton
                     x:Name="fullClipet"
                     Grid.Row="2"

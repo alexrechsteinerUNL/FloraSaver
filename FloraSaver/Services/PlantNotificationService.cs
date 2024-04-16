@@ -176,7 +176,7 @@ namespace FloraSaver.Services
             {
                 NotificationId = GenerateNotificationId(plant, plantAction),
                 Title = $"It's time to {plantAction} your '{plant.PlantSpecies}', {plant.GivenName}",
-                Description = "You really should water this guy",
+                Description = $"You need to {plantAction} this one!",
                 Android =
                 {
                     IconSmallName =

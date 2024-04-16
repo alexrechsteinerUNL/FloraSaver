@@ -40,6 +40,9 @@ namespace FloraSaver.ViewModels
         public bool isNextSun = false;
 
         [ObservableProperty]
+        public bool isFirstTimeTouchClipet = false;
+
+        [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(UseFullImage))]
         public bool useStretchedImage = false;
         public bool UseFullImage => !UseStretchedImage;
@@ -51,6 +54,8 @@ namespace FloraSaver.ViewModels
             databaseService = _databaseService;
             plantNotificationService = _plantNotificationService;
             TreatsGiven = Preferences.Default.Get("current_treat_count", 0);
+            IsFirstTimeTouchClipet = Preferences.Default.Get("is_first_time", true);
+
         }
 
         [RelayCommand]
@@ -86,8 +91,6 @@ namespace FloraSaver.ViewModels
             {
                 UseStretchedImage = false;
             }
-
-
         }
 
         public void SetNextPlant()
@@ -129,13 +132,15 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         public void TreatGiven()
         {
-            TreatsGiven++;
+            if (TreatsGiven < 999)
+                TreatsGiven++;
             Preferences.Default.Set("current_treat_count", TreatsGiven);
         }
 
         [RelayCommand]
         public async Task SetCurrentDialogAsync()
         {
+            if (IsFirstTimeTouchClipet) { IsFirstTimeTouchClipet = false; Preferences.Default.Set("is_first_time", false); }
             Random rand = new Random();
             List<ClipetDialog> newlyUnlockedDialogs = new();
             var lockedDialogs = Dialogs.Where(_ => !_.IsUnlocked).ToList();
@@ -155,7 +160,7 @@ namespace FloraSaver.ViewModels
                 }
             }
 
-            var unlockedDialogs = Dialogs.Where(_ => _.IsUnlocked).ToList();
+            var unlockedDialogs = Dialogs.Where(_ => _.IsUnlocked && _.TreatRequirement <= TreatsGiven).ToList();
             if (unlockedDialogs.Count > 0 && newlyUnlockedDialogs.Count <= 0)
             {
                 var unseenDialogs = unlockedDialogs.Where(_ => !_.IsSeen).ToList();
