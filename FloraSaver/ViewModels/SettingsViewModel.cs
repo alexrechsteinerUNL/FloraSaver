@@ -249,7 +249,6 @@ namespace FloraSaver.ViewModels
             {
                 var nightTimeDate = new DateTime().Add(value).ToBinary();
                 Preferences.Default.Set("night_time_date", nightTimeDate);
-                //NightTime = DateTime.FromBinary(Preferences.Default.Get("night_time_date", new DateTime(1, 1, 1, 16, 0, 0).ToBinary())).TimeOfDay;
             }
 
         }
@@ -278,12 +277,16 @@ namespace FloraSaver.ViewModels
         public async Task CheckForAutofillUpdatesAsync()
         {
             await _databaseService.DeepUpdateAutofillPlantsAsync();
+            FriendlyLabel = _databaseService.StatusMessage;
+            await FriendlyLabelToastAsync();
         }
 
         [RelayCommand]
         public async Task CheckForClipetUpdatesAsync()
         {
             await _databaseService.DeepUpdateClipetDialogAsync();
+            FriendlyLabel = _databaseService.StatusMessage;
+            await FriendlyLabelToastAsync();
         }
 
         [RelayCommand]

@@ -476,12 +476,14 @@ namespace FloraSaver.Services
                         await conn.InsertAsync(dialog);
                     }
                 }
+                StatusMessage = "Clipet Dialogs Updated to Most Recent Version";
             }
             catch (Exception ex)
             {
                 StatusMessage = string.Format("Failed to populate data from ClipetDialog Database. {0}", ex.Message);
                 return false;
             }
+
             return true;
         }
 
@@ -505,6 +507,7 @@ namespace FloraSaver.Services
                         await conn.InsertAsync(plant);
                     }
                 }
+                StatusMessage = "Searchable Plants Updated to Most Recent Version";
             }
             catch (Exception ex)
             {

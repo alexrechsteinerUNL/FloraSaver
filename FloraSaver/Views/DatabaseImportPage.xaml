@@ -401,9 +401,23 @@
                         Text="Accept Merge"
                         VerticalOptions="Start" />
                 </Grid>
-
             </Grid>
         </Frame>
-
+        <Frame
+            Padding="15"
+            BackgroundColor="DimGray"
+            HorizontalOptions="Center"
+            IsVisible="{Binding IsFriendlyLabelVisible}"
+            MaximumHeightRequest="250"
+            MaximumWidthRequest="250"
+            Opacity=".9"
+            VerticalOptions="End">
+            <Label
+                FontSize="16"
+                HorizontalOptions="Center"
+                IsVisible="{Binding IsFriendlyLabelVisible}"
+                Text="{Binding FriendlyLabel}"
+                VerticalOptions="Center" />
+        </Frame>
     </Grid>
 </ContentPage>

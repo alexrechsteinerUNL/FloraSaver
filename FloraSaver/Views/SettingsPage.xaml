@@ -507,13 +507,21 @@
                 <toolkit:EventToCommandBehavior Command="{Binding GroupNameEditCommand}" EventName="PropertyChanged" />
             </Label.Behaviors>
         </Label>
-        <!--<Label
-            x:Name="hiddenSpacerForDeleteUpdate"
-            IsVisible="False"
-            Text="">
-            <Label.Behaviors>
-                <toolkit:EventToCommandBehavior Command="{Binding SetItemCommand}" EventName="PropertyChanged" />
-            </Label.Behaviors>
-        </Label>-->
+        <Frame
+            Padding="15"
+            BackgroundColor="DimGray"
+            HorizontalOptions="Center"
+            IsVisible="{Binding IsFriendlyLabelVisible}"
+            MaximumHeightRequest="250"
+            MaximumWidthRequest="250"
+            Opacity=".9"
+            VerticalOptions="End">
+            <Label
+                FontSize="16"
+                HorizontalOptions="Center"
+                IsVisible="{Binding IsFriendlyLabelVisible}"
+                Text="{Binding FriendlyLabel}"
+                VerticalOptions="Center" />
+        </Frame>
     </Grid>
 </ContentPage>

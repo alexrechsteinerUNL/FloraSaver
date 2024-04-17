@@ -12,94 +12,104 @@
     BackgroundColor="Transparent"
     Shell.NavBarIsVisible="false"
     Shell.PresentationMode="Modal">
-    <VerticalStackLayout
-        Padding="10"
-        HorizontalOptions="Center"
-        MaximumWidthRequest="500"
-        VerticalOptions="Center">
-        <Frame
-            Padding="20"
-            BackgroundColor="Black"
-            HeightRequest="200"
-            HorizontalOptions="CenterAndExpand"
-            VerticalOptions="CenterAndExpand">
-            <Grid RowSpacing="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Button
-                    x:Name="goBack"
-                    Grid.Row="0"
-                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:BackupRestoreViewModel}}, Path=GoBackCommand}"
-                    HorizontalOptions="Start"
-                    IsEnabled="{Binding IsNotBusy}"
-                    Text="Done" />
-                <VerticalStackLayout
-                    Grid.Row="1"
-                    Spacing="10"
-                    VerticalOptions="Center">
-                    <Grid
-                        x:Name="ExportGrid"
-                        ColumnSpacing="5"
-                        RowSpacing="5">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="5*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <FlexLayout Grid.Row="0" Grid.ColumnSpan="2">
-                            <Label Text="Export Plants: " />
-                        </FlexLayout>
-                        <Frame
-                            Grid.Row="1"
-                            Grid.Column="0"
-                            Padding="2,2"
-                            BackgroundColor="Transparent"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center">
+    <Grid>
+        <VerticalStackLayout
+            Padding="10"
+            HorizontalOptions="Center"
+            MaximumWidthRequest="500"
+            VerticalOptions="Center">
+            <Frame
+                Padding="20"
+                BackgroundColor="Black"
+                HeightRequest="200"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand">
+                <Grid RowSpacing="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Button
+                        x:Name="goBack"
+                        Grid.Row="0"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:BackupRestoreViewModel}}, Path=GoBackCommand}"
+                        HorizontalOptions="Start"
+                        IsEnabled="{Binding IsNotBusy}"
+                        Text="Done" />
+                    <VerticalStackLayout
+                        Grid.Row="1"
+                        Spacing="10"
+                        VerticalOptions="Center">
+                        <Grid
+                            x:Name="ExportGrid"
+                            ColumnSpacing="5"
+                            RowSpacing="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <FlexLayout Grid.Row="0" Grid.ColumnSpan="2">
+                                <Label Text="Export Plants: " />
+                            </FlexLayout>
                             <Frame
-                                Padding="0,2"
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Padding="2,2"
                                 BackgroundColor="Transparent"
-                                BorderColor="Transparent"
-                                HorizontalOptions="FillAndExpand"
-                                VerticalOptions="FillAndExpand">
-                                <Entry
-                                    x:Name="_exportName"
-                                    Completed="Entry_Completed"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center">
+                                <Frame
+                                    Padding="0,2"
+                                    BackgroundColor="Transparent"
+                                    BorderColor="Transparent"
                                     HorizontalOptions="FillAndExpand"
-                                    Placeholder="{Binding DefaultFileName}"
-                                    ReturnType="Send"
-                                    Text="{Binding FileName, StringFormat='{0}', Mode=TwoWay}"
-                                    VerticalOptions="CenterAndExpand" />
+                                    VerticalOptions="FillAndExpand">
+                                    <Entry
+                                        x:Name="_exportName"
+                                        Completed="Entry_Completed"
+                                        HorizontalOptions="FillAndExpand"
+                                        Placeholder="{Binding DefaultFileName}"
+                                        ReturnType="Send"
+                                        Text="{Binding FileName, StringFormat='{0}', Mode=TwoWay}"
+                                        VerticalOptions="CenterAndExpand" />
+                                </Frame>
                             </Frame>
-                        </Frame>
-                        <Button
-                            x:Name="exportButton"
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            Padding="0"
-                            Command="{Binding BackupDatabaseCommand}"
-                            CommandParameter="{Binding Source={x:Reference _exportName}, Path=Text}"
-                            Text="✓" />
-                    </Grid>
-                </VerticalStackLayout>
-            </Grid>
-        </Frame>
+                            <Button
+                                x:Name="exportButton"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Padding="0"
+                                Command="{Binding BackupDatabaseCommand}"
+                                CommandParameter="{Binding Source={x:Reference _exportName}, Path=Text}"
+                                Text="✓" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Grid>
+            </Frame>
+
+        </VerticalStackLayout>
         <Frame
+            Padding="15"
             BackgroundColor="DimGray"
+            HorizontalOptions="Center"
             IsVisible="{Binding IsFriendlyLabelVisible}"
+            MaximumHeightRequest="250"
+            MaximumWidthRequest="250"
             Opacity=".9"
-            WidthRequest="300">
+            VerticalOptions="End">
             <Label
-                x:Name="friendlyNotification"
+                FontSize="16"
+                HorizontalOptions="Center"
                 IsVisible="{Binding IsFriendlyLabelVisible}"
-                Text="{Binding FriendlyLabel}" />
+                Text="{Binding FriendlyLabel}"
+                VerticalOptions="Center" />
         </Frame>
-    </VerticalStackLayout>
+    </Grid>
+
 
 
 

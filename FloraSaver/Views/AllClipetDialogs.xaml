@@ -29,12 +29,13 @@
                 <Grid
                     Padding="10"
                     HorizontalOptions="Center"
-                    RowDefinitions="500, 50"
+                    RowDefinitions="*, 100"
                     VerticalOptions="Center">
                     <Frame
                         Padding="10"
                         BackgroundColor="Black"
-                        BorderColor="{Binding TypeColor}">
+                        BorderColor="{Binding TypeColor}"
+                        MaximumHeightRequest="200">
                         <Grid Padding="0">
                             <Image
                                 Grid.Row="0"
@@ -47,13 +48,18 @@
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=TalkToClipetCommand}"
                                 CommandParameter="{Binding Filename}"
                                 IsEnabled="{Binding IsUnlocked}"
-                                Source="homeicon" />
+                                Source="homeicon.png" />
                         </Grid>
                     </Frame>
                     <Label
                         Grid.Row="1"
+                        BackgroundColor="Black"
+                        FontSize="Body"
+                        HeightRequest="80"
                         HorizontalTextAlignment="Center"
-                        Text="{Binding DisplayName}" />
+                        Text="{Binding DisplayName}"
+                        VerticalOptions="Center"
+                        VerticalTextAlignment="Center" />
                 </Grid>
             </DataTemplate>
         </CollectionView.ItemTemplate>

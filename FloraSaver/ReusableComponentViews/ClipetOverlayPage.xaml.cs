@@ -123,6 +123,7 @@ public partial class ClipetOverlayPage : ContentPage
         {
             await blur.FadeTo(0, 300);
             await clipet.TranslateTo(0, 500, 300);
+            label.IsEnabled = true;
             await Shell.Current.GoToAsync("..", true);
         }
         

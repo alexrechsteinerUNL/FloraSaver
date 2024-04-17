@@ -62,16 +62,16 @@ namespace FloraSaver.ViewModels
                 var result = await _databaseService.BackupDatabaseAsync(databaseFileName);
                 if (!result.IsSuccessful)
                 {
-                    ClipetBackupText = "Oh no! That didn't work! Please try a different name or location, and make sure you hit that save button!";
+                    FriendlyLabel = "Oh no! That didn't work! Please try a different name or location, and make sure you hit that save button!";
                 } else
                 {
-                    ClipetBackupText = $"You have backed up your plants with the filename '{databaseFileName}'";
+                    FriendlyLabel = $"You have backed up your plants with the filename '{databaseFileName}'";
                 }
             } catch (Exception ex)
             {
-                ClipetBackupText = "Oh no! That didn't work! Please try a different name or location, and make sure you hit that save button!";
+                FriendlyLabel = "Oh no! That didn't work! Please try a different name or location, and make sure you hit that save button!";
             }
-            
+            await FriendlyLabelToastAsync();
         }
 
         [RelayCommand]
@@ -146,6 +146,8 @@ namespace FloraSaver.ViewModels
                     {
                         await _databaseService.AddUpdateNewPlantAsync(plant);
                     }
+                    FriendlyLabel = "You have restored the Plants from the Database";
+                    await FriendlyLabelToastAsync();
                 }
                 ShouldUpdateCheckService.ForceToGetNewGroupData();
                 ShouldUpdateCheckService.ForceToGetNewPlantData();
