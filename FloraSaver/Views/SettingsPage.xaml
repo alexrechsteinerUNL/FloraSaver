@@ -411,11 +411,14 @@
                                                         x:Name="groupChangesSave"
                                                         Grid.Row="3"
                                                         Grid.Column="3"
+                                                        Padding="10,5"
                                                         Clicked="ScrollTo_Button_Clicked"
                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SettingsViewModel}}, Path=SaveGroupChangeCommand}"
                                                         CommandParameter="{Binding .}"
+                                                        HorizontalOptions="End"
                                                         IsVisible="{Binding isEdited}"
-                                                        Text="✓" />
+                                                        Text="✓"
+                                                        VerticalOptions="Center" />
                                                     <Button
                                                         x:Name="DeleteButton"
                                                         Grid.Row="0"

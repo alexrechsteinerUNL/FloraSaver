@@ -443,7 +443,7 @@ namespace FloraSaver.ViewModels
         {
             IsInitialization = true;
             await GetPlantsAsync();
-            if (DataPlants.Select(_ => _.Id).Contains(InitialPlant.Id)) { SaveText = "Update"; }
+            if (DataPlants.Select(_ => _.GivenName).Contains(InitialPlant.GivenName)) { SaveText = "Update"; } else { SaveText = "Add"; }
             PlantSuggestions = PlantSuggestions.Count > 0 ? PlantSuggestions : new(await _databaseService.GetAllAutofillPlantAsync());
             CorrectlySizeTimePickerBoxes();
             // extract to its own reusable method with reflection DRY!

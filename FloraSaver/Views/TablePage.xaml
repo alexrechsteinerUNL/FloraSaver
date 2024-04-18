@@ -273,7 +273,7 @@
                 Grid.Row="2"
                 Grid.Column="0"
                 Grid.ColumnSpan="3"
-                Padding="0,30"
+                Padding="0,15"
                 Command="{Binding GetPlantsCommand}"
                 CommandParameter="{StaticResource True}"
                 HorizontalOptions="Center"
@@ -289,14 +289,14 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:Name="bloop" x:DataType="model:Plant">
                             <Border Padding="0" BackgroundColor="Transparent">
-                                <Grid Padding="15,15,15,0">
+                                <Grid Padding="1,15,1,0">
                                     <Frame
                                         Padding="5"
                                         BackgroundColor="Black"
                                         BorderColor="{Binding GroupColor}"
                                         HeightRequest="420"
-                                        MaximumWidthRequest="350"
-                                        WidthRequest="350">
+                                        MaximumWidthRequest="330"
+                                        WidthRequest="330">
                                         <Frame.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}" CommandParameter="{Binding .}" />
                                         </Frame.GestureRecognizers>
@@ -314,7 +314,7 @@
                                                 <Grid
                                                     Grid.Row="0"
                                                     Grid.ColumnSpan="3"
-                                                    Padding="10"
+                                                    Padding="5,10"
                                                     ColumnDefinitions="*, 50"
                                                     RowDefinitions="1.333333*, *, *, 5.4*">
                                                     <Label

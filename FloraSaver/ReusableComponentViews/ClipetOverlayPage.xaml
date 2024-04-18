@@ -81,7 +81,8 @@
                             MinimumHeightRequest="60"
                             Text="{Binding CurrentClipetDialog.DialogString}"
                             TextColor="Orange"
-                            VerticalOptions="Start"
+                            VerticalOptions="Fill"
+                            VerticalTextAlignment="Start"
                             WidthRequest="350" />
                     </Frame>
                 </Frame>
