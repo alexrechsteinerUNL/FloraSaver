@@ -273,7 +273,7 @@
                 Grid.Row="2"
                 Grid.Column="0"
                 Grid.ColumnSpan="3"
-                Padding="0,15"
+                Padding="-5,15"
                 Command="{Binding GetPlantsCommand}"
                 CommandParameter="{StaticResource True}"
                 HorizontalOptions="Center"
@@ -296,6 +296,7 @@
                                         BorderColor="{Binding GroupColor}"
                                         HeightRequest="420"
                                         MaximumWidthRequest="330"
+                                        MinimumWidthRequest="330"
                                         WidthRequest="330">
                                         <Frame.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToDetailsCommand}" CommandParameter="{Binding .}" />
@@ -559,7 +560,7 @@
                                                 <Grid
                                                     Grid.Row="1"
                                                     Grid.ColumnSpan="2"
-                                                    Padding="3"
+                                                    Padding="3,9"
                                                     BackgroundColor="Black"
                                                     ColumnSpacing="0"
                                                     RowSpacing="0">
@@ -570,7 +571,7 @@
                                                     </Grid.ColumnDefinitions>
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="*" />
-                                                        <RowDefinition Height="11*" />
+                                                        <RowDefinition Height="12*" />
                                                     </Grid.RowDefinitions>
                                                     <ProgressBar
                                                         Grid.Row="0"
@@ -585,7 +586,6 @@
                                                     <ImageButton
                                                         Grid.Row="1"
                                                         Grid.Column="0"
-                                                        Padding="0"
                                                         BackgroundColor="Black"
                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=ResetWateringCommand}"
                                                         CommandParameter="{Binding .}"
@@ -610,7 +610,6 @@
                                                     <ImageButton
                                                         Grid.Row="1"
                                                         Grid.Column="1"
-                                                        Padding="0"
                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=ResetMistingCommand}"
                                                         CommandParameter="{Binding .}"
                                                         HorizontalOptions="Fill"

@@ -41,6 +41,7 @@ namespace FloraSaver.Utilities
             dialogs.Add(new ClipetDialog() { DialogID = 22, DisplayName = "Searching", Filename = "TUTSearching.txt" });
             dialogs.Add(new ClipetDialog() { DialogID = 23, DisplayName = "Soil Moisture", Filename = "TUTSoilMoisture.txt" });
             dialogs.Add(new ClipetDialog() { DialogID = 24, DisplayName = "What To Do With The Move Option?", Filename = "TUTThirdOption.txt" });
+            Preferences.Default.Set("ClipetDialogCount", dialogs.Count);
             AllClipetDialogs = dialogs;
         }
     }
