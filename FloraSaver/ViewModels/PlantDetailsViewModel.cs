@@ -430,12 +430,26 @@ namespace FloraSaver.ViewModels
             AlterPlant.TimeOfNextWatering = new TimeSpan(0, 0, 0);
             AlterPlant.TimeOfNextMove = new TimeSpan(0, 0, 0);
 
+            AlterPlant.DateOfLastWatering = new DateTime(2020, 12, 25);
+            AlterPlant.DateOfNextWatering = new DateTime(2020, 12, 25);
+            AlterPlant.DateOfLastMisting = new DateTime(2020, 12, 25);
+            AlterPlant.DateOfNextMisting = new DateTime(2020, 12, 25);
+            AlterPlant.DateOfLastMove = new DateTime(2020, 12, 25);
+            AlterPlant.DateOfNextMove = new DateTime(2020, 12, 25);
+
             AlterPlant.TimeOfLastMisting = InitialPlant.TimeOfLastMisting;
             AlterPlant.TimeOfLastWatering = InitialPlant.TimeOfLastWatering;
             AlterPlant.TimeOfLastMove = InitialPlant.TimeOfLastMove;
             AlterPlant.TimeOfNextMisting = InitialPlant.TimeOfNextMisting;
             AlterPlant.TimeOfNextWatering = InitialPlant.TimeOfNextWatering;
             AlterPlant.TimeOfNextMove = InitialPlant.TimeOfNextMove;
+
+            AlterPlant.DateOfLastWatering = InitialPlant.DateOfLastWatering;
+            AlterPlant.DateOfNextWatering = InitialPlant.DateOfNextWatering;
+            AlterPlant.DateOfLastMisting = InitialPlant.DateOfLastMisting;
+            AlterPlant.DateOfNextMisting = InitialPlant.DateOfNextMisting;
+            AlterPlant.DateOfLastMove = InitialPlant.DateOfLastMove;
+            AlterPlant.DateOfNextMove = InitialPlant.DateOfNextMove;
         }
 
         [RelayCommand]

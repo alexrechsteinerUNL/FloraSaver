@@ -46,11 +46,11 @@
                 <Image
                     x:Name="compactTreat"
                     Grid.Row="1"
-                    HeightRequest="10"
+                    HeightRequest="5"
                     HorizontalOptions="Center"
                     IsVisible="false"
                     Source="the_treat.png"
-                    WidthRequest="10" />
+                    WidthRequest="5" />
                 <Frame
                     x:Name="_NextFrameCompact"
                     Grid.Row="2"

@@ -70,18 +70,19 @@
                     BorderColor="Orange"
                     VerticalOptions="Fill">
                     <Frame
+                        Padding="5,10,5,10"
                         BackgroundColor="#4A0023"
                         BorderColor="Orange"
                         SizeChanged="Frame_SizeChanged"
                         VerticalOptions="Fill">
                         <Label
                             x:Name="speech"
-                            HeightRequest="90"
+                            HeightRequest="100"
                             HorizontalOptions="Center"
                             MinimumHeightRequest="60"
                             Text="{Binding CurrentClipetDialog.DialogString}"
                             TextColor="Orange"
-                            VerticalOptions="Fill"
+                            VerticalOptions="Center"
                             VerticalTextAlignment="Start"
                             WidthRequest="350" />
                     </Frame>
