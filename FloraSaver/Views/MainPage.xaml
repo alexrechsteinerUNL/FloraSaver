@@ -40,7 +40,7 @@
                     Command="{Binding SetCurrentDialogCommand}"
                     HeightRequest="20"
                     HorizontalOptions="Center"
-                    IsVisible="{Binding IsFirstTimeTouchClipet}"
+                    IsVisible="{Binding IsExclaimTouchClipet}"
                     Source="clickme.png"
                     VerticalOptions="Start" />
                 <Image
@@ -223,7 +223,7 @@
                     Command="{Binding SetCurrentDialogCommand}"
                     HeightRequest="30"
                     HorizontalOptions="Center"
-                    IsVisible="{Binding IsFirstTimeTouchClipet}"
+                    IsVisible="{Binding IsExclaimTouchClipet}"
                     Rotation="0"
                     Source="clickme.png"
                     VerticalOptions="Start" />

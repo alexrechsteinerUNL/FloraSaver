@@ -20,6 +20,7 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         public ClipetDialog currentDialog;
 
+        public readonly List<int> importantTimes = new() { 0, 1, 10, 20, 30, 40, 50, 60, 70 };
 
         [ObservableProperty]
         public int treatsGiven = 0;
@@ -40,7 +41,7 @@ namespace FloraSaver.ViewModels
         public bool isNextSun = false;
 
         [ObservableProperty]
-        public bool isFirstTimeTouchClipet = false;
+        public bool isExclaimTouchClipet = false;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(UseFullImage))]
@@ -54,7 +55,7 @@ namespace FloraSaver.ViewModels
             databaseService = _databaseService;
             plantNotificationService = _plantNotificationService;
             TreatsGiven = Preferences.Default.Get("current_treat_count", 0);
-            IsFirstTimeTouchClipet = Preferences.Default.Get("is_first_time", true);
+            IsExclaimTouchClipet = Preferences.Default.Get("is_exclaim", true);
 
         }
 
@@ -133,14 +134,22 @@ namespace FloraSaver.ViewModels
         public void TreatGiven()
         {
             if (TreatsGiven < 999)
+            {
                 TreatsGiven++;
+                if (importantTimes.Contains(TreatsGiven)) 
+                {
+                    Preferences.Default.Set("is_exclaim", true);
+                    IsExclaimTouchClipet = true;
+                }
+            }
+                
             Preferences.Default.Set("current_treat_count", TreatsGiven);
         }
 
         [RelayCommand]
         public async Task SetCurrentDialogAsync()
         {
-            if (IsFirstTimeTouchClipet) { IsFirstTimeTouchClipet = false; Preferences.Default.Set("is_first_time", false); }
+            if (IsExclaimTouchClipet) { IsExclaimTouchClipet = false; Preferences.Default.Set("is_exclaim", false); }
             Random rand = new Random();
             List<ClipetDialog> newlyUnlockedDialogs = new();
             var lockedDialogs = Dialogs.Where(_ => !_.IsUnlocked).ToList();
