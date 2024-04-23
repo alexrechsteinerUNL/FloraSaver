@@ -276,6 +276,13 @@ namespace FloraSaver.Models
             }
         }
 
+        public double? TemperatureHighRange { get; set; }
+        public double? TemperatureLowRange { get; set; }
+        public double? HumidityHighRange { get; set; }
+        public double? HumidityLowRange { get; set; }
+
+        public double CurrentHumidity { get; set; }
+        public double CurrentTemperature { get; set; }
         private double TimeToNextAction(DateTime lastTime, DateTime nextTime)
         {
             if (nextTime > DateTime.Now && lastTime < DateTime.Now)

@@ -16,6 +16,10 @@ namespace FloraSaver.Models
         public double? MistInterval { get; set; }
         public double? SunInterval { get; set; }
         public string PlantSource { get; set; }
+        public double? TemperatureHighRange { get; set; }
+        public double? TemperatureLowRange { get; set; }
+        public double? HumidityHighRange { get; set; }
+        public double? HumidityLowRange { get; set; }
 
         //maybe don't just do the base and instead use predefinied intervals to construct the plants when they are found from the database.
         public AutoFillPlant(IPlant _Plant, string source = null)
