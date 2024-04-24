@@ -42,6 +42,19 @@ namespace FloraSaver.ViewModels
         public Interval overduePlantsPickerValue;
 
         [ObservableProperty]
+        public bool isCelsius = false;
+
+        [ObservableProperty]
+        public List<TemperatureInterval> temperatureIntervals;
+        [ObservableProperty]
+        TemperatureInterval temperatureIntervalPickerValue;
+
+        [ObservableProperty]
+        public List<HumidityInterval> humidityIntervals;
+        [ObservableProperty]
+        HumidityInterval humidityIntervalPickerValue;
+
+        [ObservableProperty]
         protected List<Interval> overduePlantsMultiInterval;
         [ObservableProperty]
         public Interval overduePlantsMultiPickerValue;
@@ -140,9 +153,12 @@ namespace FloraSaver.ViewModels
         {
             databaseService = _databaseService;
             plantNotificationService = _plantNotificationService;
-
+            IsCelsius = Preferences.Default.Get("is_Celsius", false);
             OverduePlantsInterval = PickerService.GetCooldownBeforePlantActionsOverdueNotification();
             OverduePlantsMultiInterval = PickerService.GetInActionBeforeMultiOverdueNotification();
+            HumidityIntervals = PickerService.GetHumidityPercent();
+            TemperatureIntervals = IsCelsius ? PickerService.GetTemperatureF() : PickerService.GetTemperatureF();
+
             MorningTime = new TimeSpan(0, 0, 0);
             MiddayTime = new TimeSpan(0, 0, 0);
             NightTime = new TimeSpan(0, 0, 0);
@@ -156,6 +172,8 @@ namespace FloraSaver.ViewModels
 
             OverduePlantsPickerValue = OverduePlantsInterval.FirstOrDefault(_ => _.NumFromNow == double.Parse(Preferences.Default.Get("overdue_plants_time_to", "1"))) ?? new Interval() { IntervalText = "1 Hour", NumFromNow = 1 };
             OverduePlantsMultiPickerValue = OverduePlantsMultiInterval.FirstOrDefault(_ => _.NumFromNow == double.Parse(Preferences.Default.Get("overdue_plants_multi_time_to", "24"))) ?? new Interval() { IntervalText = "1 Day", NumFromNow = 24 };
+            HumidityIntervalPickerValue = HumidityIntervals.FirstOrDefault(_ => _.HumidityLevel == Preferences.Default.Get("humidity_level", 30)) ?? new HumidityInterval() { HumidityLevel = 30, IntervalText = "Normal Indoor Humidity" };
+            TemperatureIntervalPickerValue = TemperatureIntervals.FirstOrDefault(_ => _.TemperatureLevel == Preferences.Default.Get("temperature_level", 60)) ?? new TemperatureInterval() { TemperatureLevel = 60, IntervalText = "Normal Indoor Temperatures" };
         }
 
         [ObservableProperty]
@@ -265,6 +283,20 @@ namespace FloraSaver.ViewModels
         {
             Preferences.Default.Set("overdue_plants_multi_time_to", value.NumFromNow);
             OverduePlantsMultiPickerValue = value;
+        }
+
+        [RelayCommand]
+        partial void OnHumidityIntervalPickerValueChanged(HumidityInterval value)
+        {
+            Preferences.Default.Set("humidity_level", value.HumidityLevel);
+            HumidityIntervalPickerValue = value;
+        }
+
+        [RelayCommand]
+        partial void OnTemperatureIntervalPickerValueChanged(TemperatureInterval value)
+        {
+            Preferences.Default.Set("temperature_level", value.TemperatureLevel);
+            TemperatureIntervalPickerValue = value;
         }
 
         [RelayCommand]

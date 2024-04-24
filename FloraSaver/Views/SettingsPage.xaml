@@ -231,6 +231,107 @@
                     </Grid>
                 </Frame>
 
+                <Frame
+                    x:Name="setHumidityPreference"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="8"
+                    Padding="10"
+                    BackgroundColor="Black">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Column="0"
+                            FontAttributes="Bold"
+                            FontSize="18"
+                            HorizontalTextAlignment="Center"
+                            Text="Set Default Humidity:"
+                            VerticalTextAlignment="Center" />
+                        <Frame
+                            Grid.Column="2"
+                            Padding="2,2"
+                            BackgroundColor="Transparent"
+                            HorizontalOptions="FillAndExpand">
+                            <Frame
+                                Padding="0,2"
+                                BackgroundColor="Transparent"
+                                BorderColor="Transparent"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="Center">
+                                <Grid Padding="0" RowDefinitions="*">
+                                    <Label
+                                        Grid.Row="0"
+                                        FontSize="18"
+                                        HorizontalTextAlignment="Center"
+                                        Text="{Binding HumidityIntervalPickerValue.HumidityRange}"
+                                        VerticalOptions="Center" />
+                                    <Picker
+                                        x:Name="humidityToPicker"
+                                        Grid.Row="0"
+                                        BackgroundColor="Transparent"
+                                        ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
+                                        ItemsSource="{Binding HumidityIntervals, Mode=TwoWay}"
+                                        SelectedItem="{Binding HumidityIntervalPickerValue, Mode=TwoWay}"
+                                        TextColor="Transparent" />
+                                </Grid>
+                            </Frame>
+                        </Frame>
+                    </Grid>
+                </Frame>
+
+                <Frame
+                    x:Name="setTemperturePreference"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="8"
+                    Padding="10"
+                    BackgroundColor="Black">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Column="0"
+                            FontAttributes="Bold"
+                            FontSize="18"
+                            HorizontalTextAlignment="Center"
+                            Text="Set Default Temperture:"
+                            VerticalTextAlignment="Center" />
+                        <Frame
+                            Grid.Column="2"
+                            Padding="2,2"
+                            BackgroundColor="Transparent"
+                            HorizontalOptions="FillAndExpand">
+                            <Frame
+                                Padding="0,2"
+                                BackgroundColor="Transparent"
+                                BorderColor="Transparent"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="Center">
+                                <Grid Padding="0" RowDefinitions="*">
+                                    <Label
+                                        Grid.Row="0"
+                                        FontSize="18"
+                                        HorizontalTextAlignment="Center"
+                                        Text="{Binding TemperatureIntervalPickerValue.TemperatureRange}"
+                                        VerticalOptions="Center" />
+                                    <Picker
+                                        x:Name="temperatureToPicker"
+                                        Grid.Row="0"
+                                        BackgroundColor="Transparent"
+                                        ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
+                                        ItemsSource="{Binding TemperatureIntervals, Mode=TwoWay}"
+                                        SelectedItem="{Binding TemperatureIntervalPickerValue, Mode=TwoWay}"
+                                        TextColor="Transparent" />
+                                </Grid>
+                            </Frame>
+                        </Frame>
+                    </Grid>
+                </Frame>
 
                 <Button
                     x:Name="BackupPlants"

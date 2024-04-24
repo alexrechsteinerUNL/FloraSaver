@@ -26,6 +26,9 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         public string activeElement;
 
+        [ObservableProperty]
+        public string titleText = "Setup Plant";
+
         private Random rand = new Random();
 
         public PlantDetailsSetupViewModel(IDatabaseService databaseService) : base(databaseService)
@@ -49,6 +52,7 @@ namespace FloraSaver.ViewModels
         {
             IsInitialization = true;
             await AppearingAsync();
+            if (DataPlants.Select(_ => _.GivenName).Contains(InitialPlant.GivenName)) { TitleText = "Edit Plant"; } else { TitleText = "Setup Plant"; }
             IsInitialization = false;
         }
 

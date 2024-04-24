@@ -32,6 +32,8 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         public string saveText = "Add";
 
+        
+
         [ObservableProperty]
         public string backText = "Back";
 
