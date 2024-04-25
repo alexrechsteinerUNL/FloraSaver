@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -65,7 +66,7 @@ namespace FloraSaver.Models
 
         public static int ConvertToCelsius(double temperature)
         {
-            return (int)Math.Floor((temperature - 32) * (5 / 9));
+            return (int) Math.Floor((temperature - 32) * (5f / 9f));
         }
     }
 }

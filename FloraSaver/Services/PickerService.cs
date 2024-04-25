@@ -88,10 +88,10 @@ namespace FloraSaver.Services
             {
                 new TemperatureInterval(){IntervalText = $"100°: Air conditioning is for the weak!", TemperatureLevel =  100 },
                 new TemperatureInterval(){IntervalText = $"80°-99°: Thriving in my own lane",TemperatureLevel =  80},
-                new TemperatureInterval(){IntervalText = $"60°-79° Normal Indoor Temperatures",TemperatureLevel =  60 },
-                new TemperatureInterval(){IntervalText = $"40°-59° We got blankets. We're living good",TemperatureLevel =  40  },
-                new TemperatureInterval(){IntervalText = $"20°-39° It's only a little frosty",TemperatureLevel =  20 },
-                new TemperatureInterval(){IntervalText = $"0°-19° They call my room 'fridge space'",TemperatureLevel =  0 }
+                new TemperatureInterval(){IntervalText = $"60°-79°: Normal Indoor Temperatures",TemperatureLevel =  60 },
+                new TemperatureInterval(){IntervalText = $"40°-59°: We got blankets. We're living good",TemperatureLevel =  40  },
+                new TemperatureInterval(){IntervalText = $"20°-39°: It's only a little frosty",TemperatureLevel =  20 },
+                new TemperatureInterval(){IntervalText = $"0°-19°: They call my room 'fridge space'",TemperatureLevel =  0 }
             };
         }
 
@@ -101,10 +101,10 @@ namespace FloraSaver.Services
             {
                 new TemperatureInterval(){IntervalText = $"{TemperatureInterval.ConvertToCelsius(100)}°+: Air conditioning is for the weak!", TemperatureLevel =  100, IsCelsius = true },
                 new TemperatureInterval(){IntervalText = $"{TemperatureInterval.ConvertToCelsius(80)}°-{TemperatureInterval.ConvertToCelsius(99)}°: Thriving in my own lane",TemperatureLevel =  80, IsCelsius = true},
-                new TemperatureInterval(){IntervalText = $"{TemperatureInterval.ConvertToCelsius(60)}°-{TemperatureInterval.ConvertToCelsius(79)}° Normal Indoor Temperatures",TemperatureLevel =  60, IsCelsius = true },
-                new TemperatureInterval(){IntervalText = $"{TemperatureInterval.ConvertToCelsius(40)}°-{TemperatureInterval.ConvertToCelsius(59)}° We got blankets. We're living good",TemperatureLevel =  40, IsCelsius = true  },
-                new TemperatureInterval(){IntervalText = $"{TemperatureInterval.ConvertToCelsius(20)}°-{TemperatureInterval.ConvertToCelsius(39)}° It's only a little frosty",TemperatureLevel =  20, IsCelsius = true },
-                new TemperatureInterval(){IntervalText = $"{TemperatureInterval.ConvertToCelsius(0)}°-{TemperatureInterval.ConvertToCelsius(19)}° They call my room 'fridge space'",TemperatureLevel =  0, IsCelsius = true }
+                new TemperatureInterval(){IntervalText = $"{TemperatureInterval.ConvertToCelsius(60)}°-{TemperatureInterval.ConvertToCelsius(79)}°: Normal Indoor Temperatures",TemperatureLevel =  60, IsCelsius = true },
+                new TemperatureInterval(){IntervalText = $"{TemperatureInterval.ConvertToCelsius(40)}°-{TemperatureInterval.ConvertToCelsius(59)}°: We got blankets. We're living good",TemperatureLevel =  40, IsCelsius = true  },
+                new TemperatureInterval(){IntervalText = $"{TemperatureInterval.ConvertToCelsius(20)}°-{TemperatureInterval.ConvertToCelsius(39)}°: It's only a little frosty",TemperatureLevel =  20, IsCelsius = true },
+                new TemperatureInterval(){IntervalText = $"{TemperatureInterval.ConvertToCelsius(0)}°-{TemperatureInterval.ConvertToCelsius(19)}°: They call my room 'fridge space'",TemperatureLevel =  0, IsCelsius = true }
             };
         }
     }

@@ -36,18 +36,29 @@ namespace FloraSaver.ViewModels
             }
         }
 
+        private bool IsChangingCtoF = false;
+
+
         [ObservableProperty]
         protected List<Interval> overduePlantsInterval;
         [ObservableProperty]
         public Interval overduePlantsPickerValue;
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(TemperatureButtonText))]
+        [NotifyPropertyChangedFor(nameof(IsFahrenheit))]
         public bool isCelsius = false;
 
+        public string TemperatureButtonText => IsCelsius ? "C" : "F";
+        public bool IsFahrenheit => !IsCelsius;
         [ObservableProperty]
-        public List<TemperatureInterval> temperatureIntervals;
+        public List<TemperatureInterval> temperatureIntervalsF;
         [ObservableProperty]
-        TemperatureInterval temperatureIntervalPickerValue;
+        public List<TemperatureInterval> temperatureIntervalsC;
+        [ObservableProperty]
+        TemperatureInterval temperatureIntervalPickerValueF;
+        [ObservableProperty]
+        TemperatureInterval temperatureIntervalPickerValueC;
 
         [ObservableProperty]
         public List<HumidityInterval> humidityIntervals;
@@ -151,14 +162,15 @@ namespace FloraSaver.ViewModels
 
         public SettingsViewModel(IDatabaseService databaseService, IPlantNotificationService plantNotificationService) : base(databaseService, plantNotificationService)
         {
+            IsInitialization = true;
             databaseService = _databaseService;
             plantNotificationService = _plantNotificationService;
             IsCelsius = Preferences.Default.Get("is_Celsius", false);
             OverduePlantsInterval = PickerService.GetCooldownBeforePlantActionsOverdueNotification();
             OverduePlantsMultiInterval = PickerService.GetInActionBeforeMultiOverdueNotification();
             HumidityIntervals = PickerService.GetHumidityPercent();
-            TemperatureIntervals = IsCelsius ? PickerService.GetTemperatureF() : PickerService.GetTemperatureF();
-
+            TemperatureIntervalsF = PickerService.GetTemperatureF();
+            TemperatureIntervalsC = PickerService.GetTemperatureC();
             MorningTime = new TimeSpan(0, 0, 0);
             MiddayTime = new TimeSpan(0, 0, 0);
             NightTime = new TimeSpan(0, 0, 0);
@@ -173,7 +185,10 @@ namespace FloraSaver.ViewModels
             OverduePlantsPickerValue = OverduePlantsInterval.FirstOrDefault(_ => _.NumFromNow == double.Parse(Preferences.Default.Get("overdue_plants_time_to", "1"))) ?? new Interval() { IntervalText = "1 Hour", NumFromNow = 1 };
             OverduePlantsMultiPickerValue = OverduePlantsMultiInterval.FirstOrDefault(_ => _.NumFromNow == double.Parse(Preferences.Default.Get("overdue_plants_multi_time_to", "24"))) ?? new Interval() { IntervalText = "1 Day", NumFromNow = 24 };
             HumidityIntervalPickerValue = HumidityIntervals.FirstOrDefault(_ => _.HumidityLevel == Preferences.Default.Get("humidity_level", 30)) ?? new HumidityInterval() { HumidityLevel = 30, IntervalText = "Normal Indoor Humidity" };
-            TemperatureIntervalPickerValue = TemperatureIntervals.FirstOrDefault(_ => _.TemperatureLevel == Preferences.Default.Get("temperature_level", 60)) ?? new TemperatureInterval() { TemperatureLevel = 60, IntervalText = "Normal Indoor Temperatures" };
+
+            TemperatureIntervalPickerValueC = TemperatureIntervalsC.FirstOrDefault(_ => _.TemperatureLevel == Preferences.Default.Get("temperature_level", 60)) ?? new TemperatureInterval() { TemperatureLevel = 60, IntervalText = "Normal Indoor Temperatures", IsCelsius = true };
+            TemperatureIntervalPickerValueF = TemperatureIntervalsF.FirstOrDefault(_ => _.TemperatureLevel == Preferences.Default.Get("temperature_level", 60)) ?? new TemperatureInterval() { TemperatureLevel = 60, IntervalText = "Normal Indoor Temperatures"};
+            IsInitialization = false;
         }
 
         [ObservableProperty]
@@ -293,10 +308,51 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
-        partial void OnTemperatureIntervalPickerValueChanged(TemperatureInterval value)
+        partial void OnTemperatureIntervalPickerValueFChanged(TemperatureInterval value)
         {
-            Preferences.Default.Set("temperature_level", value.TemperatureLevel);
-            TemperatureIntervalPickerValue = value;
+            if (!IsChangingCtoF && !IsInitialization)
+            {
+                IsChangingCtoF = true;
+                Preferences.Default.Set("temperature_level", value.TemperatureLevel);
+                TemperatureIntervalPickerValueF.TemperatureLevel = value.TemperatureLevel;
+                TemperatureIntervalPickerValueC.TemperatureLevel = value.TemperatureLevel;
+            }
+            IsChangingCtoF = false;
+        }
+
+        [RelayCommand]
+        partial void OnTemperatureIntervalPickerValueCChanged(TemperatureInterval value)
+        {
+            if (!IsChangingCtoF && !IsInitialization)
+            {
+                IsChangingCtoF = true;
+                Preferences.Default.Set("temperature_level", value.TemperatureLevel);
+                TemperatureIntervalPickerValueF.TemperatureLevel = value.TemperatureLevel;
+                TemperatureIntervalPickerValueC.TemperatureLevel = value.TemperatureLevel;
+            }
+            IsChangingCtoF = false;
+
+        }
+
+        [RelayCommand]
+        public void ChangeTemperatureMetrics()
+        {
+            if (IsCelsius)
+            {
+                IsCelsius = false;
+
+            } else
+            {
+                IsCelsius = true;
+            }
+            TemperatureIntervalPickerValueC = TemperatureIntervalPickerValueC;
+            TemperatureIntervalPickerValueF = TemperatureIntervalPickerValueF;
+            Preferences.Default.Set("is_Celsius", IsCelsius);
+            OnPropertyChanged(nameof(IsCelsius));
+            OnPropertyChanged(nameof(IsFahrenheit));
+            OnPropertyChanged(nameof(TemperatureIntervalPickerValueF));
+            OnPropertyChanged(nameof(TemperatureIntervalPickerValueC));
+
         }
 
         [RelayCommand]

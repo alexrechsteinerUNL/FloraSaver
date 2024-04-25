@@ -24,7 +24,6 @@
                     x:Name="setMorningPreference"
                     Grid.Row="1"
                     Grid.Column="0"
-                    Margin="8"
                     Padding="10"
                     BackgroundColor="Black">
                     <Grid>
@@ -68,7 +67,6 @@
                     x:Name="setMiddayPreference"
                     Grid.Row="1"
                     Grid.Column="0"
-                    Margin="8"
                     Padding="10"
                     BackgroundColor="Black">
                     <Grid>
@@ -110,7 +108,6 @@
                     x:Name="setNightPreference"
                     Grid.Row="1"
                     Grid.Column="0"
-                    Margin="8"
                     Padding="10"
                     BackgroundColor="Black">
                     <Grid>
@@ -153,7 +150,6 @@
                     x:Name="setOverduePreference"
                     Grid.Row="1"
                     Grid.Column="0"
-                    Margin="8"
                     Padding="10"
                     BackgroundColor="Black">
                     <Grid>
@@ -194,7 +190,6 @@
                     x:Name="setMultiOverduePreference"
                     Grid.Row="1"
                     Grid.Column="0"
-                    Margin="8"
                     Padding="10"
                     BackgroundColor="Black">
                     <Grid>
@@ -235,7 +230,6 @@
                     x:Name="setHumidityPreference"
                     Grid.Row="1"
                     Grid.Column="0"
-                    Margin="8"
                     Padding="10"
                     BackgroundColor="Black">
                     <Grid>
@@ -286,13 +280,13 @@
                     x:Name="setTemperturePreference"
                     Grid.Row="1"
                     Grid.Column="0"
-                    Margin="8"
                     Padding="10"
                     BackgroundColor="Black">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="40" />
                         </Grid.ColumnDefinitions>
                         <Label
                             Grid.Column="0"
@@ -302,7 +296,7 @@
                             Text="Set Default Temperture:"
                             VerticalTextAlignment="Center" />
                         <Frame
-                            Grid.Column="2"
+                            Grid.Column="1"
                             Padding="2,2"
                             BackgroundColor="Transparent"
                             HorizontalOptions="FillAndExpand">
@@ -317,19 +311,41 @@
                                         Grid.Row="0"
                                         FontSize="18"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding TemperatureIntervalPickerValue.TemperatureRange}"
+                                        IsVisible="{Binding IsFahrenheit}"
+                                        Text="{Binding TemperatureIntervalPickerValueF.TemperatureRange}"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        Grid.Row="0"
+                                        FontSize="18"
+                                        HorizontalTextAlignment="Center"
+                                        IsVisible="{Binding IsCelsius}"
+                                        Text="{Binding TemperatureIntervalPickerValueC.TemperatureRange}"
                                         VerticalOptions="Center" />
                                     <Picker
-                                        x:Name="temperatureToPicker"
+                                        x:Name="temperatureToPickerF"
                                         Grid.Row="0"
                                         BackgroundColor="Transparent"
+                                        IsVisible="{Binding IsFahrenheit}"
                                         ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
-                                        ItemsSource="{Binding TemperatureIntervals, Mode=TwoWay}"
-                                        SelectedItem="{Binding TemperatureIntervalPickerValue, Mode=TwoWay}"
+                                        ItemsSource="{Binding TemperatureIntervalsF, Mode=TwoWay}"
+                                        SelectedItem="{Binding TemperatureIntervalPickerValueF, Mode=TwoWay}"
+                                        TextColor="Transparent" />
+                                    <Picker
+                                        x:Name="temperatureToPickerC"
+                                        Grid.Row="0"
+                                        BackgroundColor="Transparent"
+                                        IsVisible="{Binding IsCelsius}"
+                                        ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
+                                        ItemsSource="{Binding TemperatureIntervalsC, Mode=TwoWay}"
+                                        SelectedItem="{Binding TemperatureIntervalPickerValueC, Mode=TwoWay}"
                                         TextColor="Transparent" />
                                 </Grid>
                             </Frame>
                         </Frame>
+                        <Button
+                            Grid.Column="2"
+                            Command="{Binding ChangeTemperatureMetricsCommand}"
+                            Text="{Binding TemperatureButtonText}" />
                     </Grid>
                 </Frame>
 
@@ -337,14 +353,12 @@
                     x:Name="BackupPlants"
                     Grid.Row="1"
                     Grid.Column="0"
-                    Margin="8"
                     Command="{Binding GoToDatabaseExportCommand}"
                     Text="Backup Plants" />
                 <Button
                     x:Name="ImportPlants"
                     Grid.Row="1"
                     Grid.Column="0"
-                    Margin="8"
                     Command="{Binding GoToDatabaseImportCommand}"
                     Text="Import From Backup" />
 
@@ -352,27 +366,23 @@
                     x:Name="CheckForAutofillUpdates"
                     Grid.Row="1"
                     Grid.Column="0"
-                    Margin="8"
                     Command="{Binding CheckForAutofillUpdatesCommand}"
                     Text="Check For New Plants" />
                 <Button
                     x:Name="CheckForClipetUpdates"
                     Grid.Row="1"
                     Grid.Column="0"
-                    Margin="8"
                     Command="{Binding CheckForClipetUpdatesCommand}"
                     Text="Check For More Clipet Talks" />
                 <Button
                     x:Name="ViewClipetDialogs"
                     Grid.Row="1"
                     Grid.Column="0"
-                    Margin="8"
                     Command="{Binding GoToAllClipetDialogsCommand}"
                     Text="All Clipet Dialogs" />
                 <Frame
                     Grid.Row="1"
                     Grid.Column="0"
-                    Margin="8"
                     Padding="10"
                     BackgroundColor="Black"
                     HeightRequest="375">
