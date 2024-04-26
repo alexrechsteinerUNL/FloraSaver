@@ -252,33 +252,27 @@
                                 Padding="2,2"
                                 BackgroundColor="Transparent">
                                 <Frame
-                                    Grid.Column="2"
-                                    Padding="2,2"
+                                    Padding="0,2"
                                     BackgroundColor="Transparent"
-                                    HorizontalOptions="FillAndExpand">
-                                    <Frame
-                                        Padding="0,2"
-                                        BackgroundColor="Transparent"
-                                        BorderColor="Transparent"
-                                        HorizontalOptions="FillAndExpand"
-                                        VerticalOptions="Center">
-                                        <Grid Padding="0" RowDefinitions="*">
-                                            <Label
-                                                Grid.Row="0"
-                                                FontSize="18"
-                                                HorizontalTextAlignment="Center"
-                                                Text="{Binding HumidityIntervalPickerValue.HumidityRange}"
-                                                VerticalOptions="Center" />
-                                            <Picker
-                                                x:Name="humidityToPicker"
-                                                Grid.Row="0"
-                                                BackgroundColor="Transparent"
-                                                ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
-                                                ItemsSource="{Binding HumidityIntervals, Mode=TwoWay}"
-                                                SelectedItem="{Binding HumidityIntervalPickerValue, Mode=TwoWay}"
-                                                TextColor="Transparent" />
-                                        </Grid>
-                                    </Frame>
+                                    BorderColor="Transparent"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="Center">
+                                    <Grid Padding="0" RowDefinitions="*">
+                                        <Label
+                                            Grid.Row="0"
+                                            FontSize="18"
+                                            HorizontalTextAlignment="Center"
+                                            Text="{Binding HumidityIntervalPickerValueDetails.HumidityRange}"
+                                            VerticalOptions="Center" />
+                                        <Picker
+                                            x:Name="humidityToPicker"
+                                            Grid.Row="0"
+                                            BackgroundColor="Transparent"
+                                            ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
+                                            ItemsSource="{Binding HumidityIntervals, Mode=TwoWay}"
+                                            SelectedItem="{Binding HumidityIntervalPickerValueDetails, Mode=TwoWay}"
+                                            TextColor="Transparent" />
+                                    </Grid>
                                 </Frame>
                             </Frame>
                         </Grid>
