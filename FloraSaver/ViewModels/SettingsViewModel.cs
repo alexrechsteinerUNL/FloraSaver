@@ -36,34 +36,10 @@ namespace FloraSaver.ViewModels
             }
         }
 
-        private bool IsChangingCtoF = false;
-
-
         [ObservableProperty]
         protected List<Interval> overduePlantsInterval;
         [ObservableProperty]
         public Interval overduePlantsPickerValue;
-
-        [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(TemperatureButtonText))]
-        [NotifyPropertyChangedFor(nameof(IsFahrenheit))]
-        public bool isCelsius = false;
-
-        public string TemperatureButtonText => IsCelsius ? "C" : "F";
-        public bool IsFahrenheit => !IsCelsius;
-        [ObservableProperty]
-        public List<TemperatureInterval> temperatureIntervalsF;
-        [ObservableProperty]
-        public List<TemperatureInterval> temperatureIntervalsC;
-        [ObservableProperty]
-        TemperatureInterval temperatureIntervalPickerValueF;
-        [ObservableProperty]
-        TemperatureInterval temperatureIntervalPickerValueC;
-
-        [ObservableProperty]
-        public List<HumidityInterval> humidityIntervals;
-        [ObservableProperty]
-        HumidityInterval humidityIntervalPickerValue;
 
         [ObservableProperty]
         protected List<Interval> overduePlantsMultiInterval;
@@ -165,7 +141,7 @@ namespace FloraSaver.ViewModels
             IsInitialization = true;
             databaseService = _databaseService;
             plantNotificationService = _plantNotificationService;
-            IsCelsius = Preferences.Default.Get("is_Celsius", false);
+            
             OverduePlantsInterval = PickerService.GetCooldownBeforePlantActionsOverdueNotification();
             OverduePlantsMultiInterval = PickerService.GetInActionBeforeMultiOverdueNotification();
             HumidityIntervals = PickerService.GetHumidityPercent();
@@ -184,8 +160,10 @@ namespace FloraSaver.ViewModels
 
             OverduePlantsPickerValue = OverduePlantsInterval.FirstOrDefault(_ => _.NumFromNow == double.Parse(Preferences.Default.Get("overdue_plants_time_to", "1"))) ?? new Interval() { IntervalText = "1 Hour", NumFromNow = 1 };
             OverduePlantsMultiPickerValue = OverduePlantsMultiInterval.FirstOrDefault(_ => _.NumFromNow == double.Parse(Preferences.Default.Get("overdue_plants_multi_time_to", "24"))) ?? new Interval() { IntervalText = "1 Day", NumFromNow = 24 };
+            
             HumidityIntervalPickerValue = HumidityIntervals.FirstOrDefault(_ => _.HumidityLevel == Preferences.Default.Get("humidity_level", 30)) ?? new HumidityInterval() { HumidityLevel = 30, IntervalText = "Normal Indoor Humidity" };
-
+            
+            IsCelsius = Preferences.Default.Get("is_Celsius", false);
             TemperatureIntervalPickerValueC = TemperatureIntervalsC.FirstOrDefault(_ => _.TemperatureLevel == Preferences.Default.Get("temperature_level", 60)) ?? new TemperatureInterval() { TemperatureLevel = 60, IntervalText = "Normal Indoor Temperatures", IsCelsius = true };
             TemperatureIntervalPickerValueF = TemperatureIntervalsF.FirstOrDefault(_ => _.TemperatureLevel == Preferences.Default.Get("temperature_level", 60)) ?? new TemperatureInterval() { TemperatureLevel = 60, IntervalText = "Normal Indoor Temperatures"};
             IsInitialization = false;
@@ -300,39 +278,7 @@ namespace FloraSaver.ViewModels
             OverduePlantsMultiPickerValue = value;
         }
 
-        [RelayCommand]
-        partial void OnHumidityIntervalPickerValueChanged(HumidityInterval value)
-        {
-            Preferences.Default.Set("humidity_level", value.HumidityLevel);
-            HumidityIntervalPickerValue = value;
-        }
-
-        [RelayCommand]
-        partial void OnTemperatureIntervalPickerValueFChanged(TemperatureInterval value)
-        {
-            if (!IsChangingCtoF && !IsInitialization)
-            {
-                IsChangingCtoF = true;
-                Preferences.Default.Set("temperature_level", value.TemperatureLevel);
-                TemperatureIntervalPickerValueF.TemperatureLevel = value.TemperatureLevel;
-                TemperatureIntervalPickerValueC.TemperatureLevel = value.TemperatureLevel;
-            }
-            IsChangingCtoF = false;
-        }
-
-        [RelayCommand]
-        partial void OnTemperatureIntervalPickerValueCChanged(TemperatureInterval value)
-        {
-            if (!IsChangingCtoF && !IsInitialization)
-            {
-                IsChangingCtoF = true;
-                Preferences.Default.Set("temperature_level", value.TemperatureLevel);
-                TemperatureIntervalPickerValueF.TemperatureLevel = value.TemperatureLevel;
-                TemperatureIntervalPickerValueC.TemperatureLevel = value.TemperatureLevel;
-            }
-            IsChangingCtoF = false;
-
-        }
+        
 
         [RelayCommand]
         public void ChangeTemperatureMetrics()

@@ -228,6 +228,128 @@
                             </Grid>
                         </Grid>
 
+                        <Grid
+                            x:Name="humidityGrid"
+                            ColumnDefinitions="*,*"
+                            RowSpacing="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="50" />
+                            </Grid.RowDefinitions>
+                            <FlexLayout Grid.Row="0" Grid.ColumnSpan="2">
+                                <Label Text="*Humidity Range: " TextColor="{Binding AlterPlant.Validation.BirthdaySectionColor}" />
+                                <ImageButton
+                                    x:Name="_undoHumidityChange"
+                                    Grid.Column="0"
+                                    Command="{Binding DobChangedSectionUndoCommand}"
+                                    IsVisible="{Binding DobUndoButtonVisible}"
+                                    Source="undo_button.png"
+                                    WidthRequest="40" />
+                            </FlexLayout>
+                            <Frame
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Padding="2,2"
+                                BackgroundColor="Transparent">
+                                <Frame
+                                    Grid.Column="2"
+                                    Padding="2,2"
+                                    BackgroundColor="Transparent"
+                                    HorizontalOptions="FillAndExpand">
+                                    <Frame
+                                        Padding="0,2"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Transparent"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Center">
+                                        <Grid Padding="0" RowDefinitions="*">
+                                            <Label
+                                                Grid.Row="0"
+                                                FontSize="18"
+                                                HorizontalTextAlignment="Center"
+                                                Text="{Binding HumidityIntervalPickerValue.HumidityRange}"
+                                                VerticalOptions="Center" />
+                                            <Picker
+                                                x:Name="humidityToPicker"
+                                                Grid.Row="0"
+                                                BackgroundColor="Transparent"
+                                                ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
+                                                ItemsSource="{Binding HumidityIntervals, Mode=TwoWay}"
+                                                SelectedItem="{Binding HumidityIntervalPickerValue, Mode=TwoWay}"
+                                                TextColor="Transparent" />
+                                        </Grid>
+                                    </Frame>
+                                </Frame>
+                            </Frame>
+                        </Grid>
+
+                        <Grid
+                            x:Name="temperatureGrid"
+                            ColumnDefinitions="*,*"
+                            RowSpacing="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="50" />
+                            </Grid.RowDefinitions>
+                            <FlexLayout Grid.Row="0" Grid.ColumnSpan="2">
+                                <Label Text="*Temperature Range: " TextColor="{Binding AlterPlant.Validation.BirthdaySectionColor}" />
+                                <ImageButton
+                                    x:Name="_undoTemperatureChange"
+                                    Grid.Column="0"
+                                    Command="{Binding DobChangedSectionUndoCommand}"
+                                    IsVisible="{Binding DobUndoButtonVisible}"
+                                    Source="undo_button.png"
+                                    WidthRequest="40" />
+                            </FlexLayout>
+                            <Frame
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Padding="2,2"
+                                BackgroundColor="Transparent">
+                                <Frame
+                                    Padding="0,2"
+                                    BackgroundColor="Transparent"
+                                    BorderColor="Transparent"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="Center">
+                                    <Grid Padding="0" RowDefinitions="*">
+                                        <Label
+                                            Grid.Row="0"
+                                            FontSize="18"
+                                            HorizontalTextAlignment="Center"
+                                            IsVisible="{Binding IsFahrenheit}"
+                                            Text="{Binding TemperatureIntervalPickerValueFDetails.TemperatureRange}"
+                                            VerticalOptions="Center" />
+                                        <Label
+                                            Grid.Row="0"
+                                            FontSize="18"
+                                            HorizontalTextAlignment="Center"
+                                            IsVisible="{Binding IsCelsius}"
+                                            Text="{Binding TemperatureIntervalPickerValueCDetails.TemperatureRange}"
+                                            VerticalOptions="Center" />
+                                        <Picker
+                                            x:Name="temperatureToPickerF"
+                                            Grid.Row="0"
+                                            BackgroundColor="Transparent"
+                                            IsVisible="{Binding IsFahrenheit}"
+                                            ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
+                                            ItemsSource="{Binding TemperatureIntervalsF, Mode=TwoWay}"
+                                            SelectedItem="{Binding TemperatureIntervalPickerValueFDetails, Mode=TwoWay}"
+                                            TextColor="Transparent" />
+                                        <Picker
+                                            x:Name="temperatureToPickerC"
+                                            Grid.Row="0"
+                                            BackgroundColor="Transparent"
+                                            IsVisible="{Binding IsCelsius}"
+                                            ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
+                                            ItemsSource="{Binding TemperatureIntervalsC, Mode=TwoWay}"
+                                            SelectedItem="{Binding TemperatureIntervalPickerValueCDetails, Mode=TwoWay}"
+                                            TextColor="Transparent" />
+                                    </Grid>
+                                </Frame>
+                            </Frame>
+                        </Grid>
+
                         <Grid x:Name="plantSpeciesGrid" RowSpacing="5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="30" />

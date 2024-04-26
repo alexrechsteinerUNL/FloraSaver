@@ -281,8 +281,8 @@ namespace FloraSaver.Models
         public double? HumidityHighRange { get; set; }
         public double? HumidityLowRange { get; set; }
 
-        public double CurrentHumidity { get; set; }
-        public double CurrentTemperature { get; set; }
+        public int? HumidityInterval { get; set; }
+        public int? TemperatureInterval { get; set; }
         private double TimeToNextAction(DateTime lastTime, DateTime nextTime)
         {
             if (nextTime > DateTime.Now && lastTime < DateTime.Now)

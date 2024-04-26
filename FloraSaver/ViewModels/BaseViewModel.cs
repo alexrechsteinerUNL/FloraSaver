@@ -16,6 +16,9 @@ namespace FloraSaver.ViewModels
         public ObservableCollection<Plant> DataPlants { get; set; } = new();
         public ObservableCollection<SearchedPlants> TopTenAutoFillPlants { get; set; } = new();
 
+        [ObservableProperty]
+        public bool isInitialization = false;
+
         [RelayCommand]
         protected void QueryAutofillPlantAsyncFromSearch(string searchQuery)
         {
@@ -57,6 +60,65 @@ namespace FloraSaver.ViewModels
         {
             return await Application.Current.MainPage.DisplayAlert("AH WAIT!", "Are you sure you want to close the app?", "Please Close", "No Don't!");
         }
+        [ObservableProperty]
+        public List<TemperatureInterval> temperatureIntervalsF;
+        [ObservableProperty]
+        public List<TemperatureInterval> temperatureIntervalsC;
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(TemperatureButtonText))]
+        [NotifyPropertyChangedFor(nameof(IsFahrenheit))]
+        public bool isCelsius = false;
+
+        public string TemperatureButtonText => IsCelsius ? "C" : "F";
+        public bool IsFahrenheit => !IsCelsius;
+
+        public bool IsChangingCtoF = false;
+
+        [ObservableProperty]
+        TemperatureInterval temperatureIntervalPickerValueF;
+        [ObservableProperty]
+        TemperatureInterval temperatureIntervalPickerValueC;
+
+        [ObservableProperty]
+        public List<HumidityInterval> humidityIntervals;
+        [ObservableProperty]
+        public HumidityInterval humidityIntervalPickerValue;
+
+        [RelayCommand]
+        partial void OnHumidityIntervalPickerValueChanged(HumidityInterval value)
+        {
+            Preferences.Default.Set("humidity_level", value.HumidityLevel);
+            HumidityIntervalPickerValue = value;
+        }
+
+        [RelayCommand]
+        partial void OnTemperatureIntervalPickerValueFChanged(TemperatureInterval value)
+        {
+            if (!IsChangingCtoF && !IsInitialization)
+            {
+                IsChangingCtoF = true;
+                if (TemperatureIntervalPickerValueC is null) { TemperatureIntervalPickerValueC = value; }
+                Preferences.Default.Set("temperature_level", value.TemperatureLevel);
+                TemperatureIntervalPickerValueF.TemperatureLevel = value.TemperatureLevel;
+                TemperatureIntervalPickerValueC.TemperatureLevel = value.TemperatureLevel;
+            }
+            IsChangingCtoF = false;
+        }
+
+        [RelayCommand]
+        partial void OnTemperatureIntervalPickerValueCChanged(TemperatureInterval value)
+        {
+            if (!IsChangingCtoF && !IsInitialization)
+            {
+                IsChangingCtoF = true;
+                if (TemperatureIntervalPickerValueF is null) { TemperatureIntervalPickerValueF = value; }
+                Preferences.Default.Set("temperature_level", value.TemperatureLevel);
+                TemperatureIntervalPickerValueF.TemperatureLevel = value.TemperatureLevel;
+                TemperatureIntervalPickerValueC.TemperatureLevel = value.TemperatureLevel;
+            }
+            IsChangingCtoF = false;
+        }
+
 
         [RelayCommand]
         protected void ShowSearchSuggestionBox()

@@ -15,7 +15,7 @@ namespace FloraSaver.Models
         
         private int _temperatureLevel;
         public int TemperatureLevel {
-            get { return _temperatureLevel; }
+            get { return (int)_temperatureLevel; }
             set
             {
                 _temperatureLevel = value;
