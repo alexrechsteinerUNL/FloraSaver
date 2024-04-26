@@ -494,8 +494,8 @@ namespace FloraSaver.ViewModels
 
             IsCelsius = Preferences.Default.Get("is_Celsius", false);
             AlterPlant.TemperatureInterval = AlterPlant.TemperatureInterval ?? TemperatureIntervalPickerValueFDetails.TemperatureLevel;
-            //TemperatureIntervalPickerValueFDetails.TemperatureLevel = (int)AlterPlant.TemperatureInterval;
-            //TemperatureIntervalPickerValueCDetails.TemperatureLevel = (int)AlterPlant.TemperatureInterval;
+            TemperatureIntervalPickerValueFDetails = TemperatureIntervalsF.FirstOrDefault(_ => _.TemperatureLevel == (int)AlterPlant.TemperatureInterval);
+            TemperatureIntervalPickerValueCDetails = TemperatureIntervalsC.FirstOrDefault(_ => _.TemperatureLevel == (int)AlterPlant.TemperatureInterval);
             //AlterPlant.HumidityInterval = AlterPlant.HumidityInterval ?? HumidityIntervalPickerValueDetails.HumidityLevel;
             OnPropertyChanged(nameof(TemperatureIntervalPickerValueFDetails));
             OnPropertyChanged(nameof(TemperatureIntervalPickerValueCDetails));
@@ -939,8 +939,8 @@ namespace FloraSaver.ViewModels
                 IsChangingCtoF = true;
                 if (TemperatureIntervalPickerValueCDetails is null) { TemperatureIntervalPickerValueCDetails = value; }
                 AlterPlant.TemperatureInterval = value.TemperatureLevel;
-                TemperatureIntervalPickerValueFDetails.TemperatureLevel = (int)value.TemperatureLevel;
-                TemperatureIntervalPickerValueCDetails.TemperatureLevel = (int)value.TemperatureLevel;
+                //TemperatureIntervalPickerValueFDetails.TemperatureLevel = (int)value.TemperatureLevel;
+                //TemperatureIntervalPickerValueCDetails.TemperatureLevel = (int)value.TemperatureLevel;
             }
             IsChangingCtoF = false;
         }
@@ -952,8 +952,8 @@ namespace FloraSaver.ViewModels
                 IsChangingCtoF = true;
                 if (TemperatureIntervalPickerValueFDetails is null) { TemperatureIntervalPickerValueFDetails = value; }
                 AlterPlant.TemperatureInterval = value.TemperatureLevel;
-                TemperatureIntervalPickerValueFDetails.TemperatureLevel = value.TemperatureLevel;
-                TemperatureIntervalPickerValueCDetails.TemperatureLevel = value.TemperatureLevel;
+                //TemperatureIntervalPickerValueFDetails.TemperatureLevel = value.TemperatureLevel;
+                //TemperatureIntervalPickerValueCDetails.TemperatureLevel = value.TemperatureLevel;
             }
             IsChangingCtoF = false;
         }
