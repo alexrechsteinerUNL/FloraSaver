@@ -445,6 +445,8 @@ namespace FloraSaver.Models
             WaterInterval = _Plant.WaterInterval;
             PlantGroupName = _Plant.PlantGroupName;
             GroupColorHexString = _Plant.GroupColorHexString;
+            HumidityInterval = _Plant.HumidityInterval;
+            TemperatureInterval = _Plant.TemperatureInterval;
             Source = _Plant.Source;
             Validation = _Plant.Validation;
         }
