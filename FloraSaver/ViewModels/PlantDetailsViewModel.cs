@@ -103,6 +103,23 @@ namespace FloraSaver.ViewModels
         }
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(HumidityUnsavedChangesWarning))]
+        protected bool humidityUndoButtonVisible = false;
+        [RelayCommand]
+        protected void HumidityChanged() { HumidityUndoButtonVisible = (!IsInitialization && !IsBeingUndone && AlterPlant.HumidityInterval != (InitialPlant.HumidityInterval ?? Preferences.Default.Get("humidity_level", 30)) ? true : false); }
+        public string HumidityUnsavedChangesWarning => HumidityUndoButtonVisible ? "• Plant Humidity\n" : "";
+        [RelayCommand]
+        protected void HumidityChangedSectionUndo()
+        {
+            IsBeingUndone = true;
+            AlterPlant.HumidityInterval = InitialPlant.HumidityInterval ?? Preferences.Default.Get("humidity_level", 30);
+            HumidityIntervalPickerValueDetails = HumidityIntervals.FirstOrDefault(_ => _.HumidityLevel == AlterPlant.HumidityInterval) ?? new HumidityInterval() { HumidityLevel = 30, IntervalText = "Normal Indoor Humidity" };
+            OnPropertyChanged(nameof(AlterPlant));
+            IsBeingUndone = false;
+            HumidityUndoButtonVisible = false;
+        }
+
+        [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(SpeciesUnsavedChangesWarning))]
         protected bool speciesUndoButtonVisible = false;
         [RelayCommand]
@@ -377,6 +394,7 @@ namespace FloraSaver.ViewModels
             DobChangedSectionUndo();
             WaterIntervalChangedSectionUndo();
             LastWateredChangedSectionUndo();
+            HumidityChangedSectionUndo();
             NextWaterChangedSectionUndo();
             MistIntervalChangedSectionUndo();
             LastMistedChangedSectionUndo();
@@ -926,7 +944,12 @@ namespace FloraSaver.ViewModels
         {
             if (!IsChangingCtoF && !IsInitialization)
             {
-                AlterPlant.HumidityInterval = value.HumidityLevel;
+                if (!IsBeingUndone)
+                {
+                    AlterPlant.HumidityInterval = value.HumidityLevel;
+                }
+                HumidityChanged();
+                OnPropertyChanged(nameof(AlterPlant));
             }
                 
         }

@@ -241,8 +241,8 @@
                                 <ImageButton
                                     x:Name="_undoHumidityChange"
                                     Grid.Column="0"
-                                    Command="{Binding DobChangedSectionUndoCommand}"
-                                    IsVisible="{Binding DobUndoButtonVisible}"
+                                    Command="{Binding HumidityChangedSectionUndoCommand}"
+                                    IsVisible="{Binding HumidityUndoButtonVisible}"
                                     Source="undo_button.png"
                                     WidthRequest="40" />
                             </FlexLayout>
@@ -271,6 +271,7 @@
                                             ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
                                             ItemsSource="{Binding HumidityIntervals, Mode=TwoWay}"
                                             SelectedItem="{Binding HumidityIntervalPickerValueDetails, Mode=TwoWay}"
+                                            
                                             TextColor="Transparent" />
                                     </Grid>
                                 </Frame>
