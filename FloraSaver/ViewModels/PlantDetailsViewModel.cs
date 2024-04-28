@@ -122,6 +122,26 @@ namespace FloraSaver.ViewModels
         }
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(TemperatureUnsavedChangesWarning))]
+        protected bool temperatureUndoButtonVisible = false;
+        [RelayCommand]
+        protected void TemperatureChanged() { TemperatureUndoButtonVisible = (!IsInitialization && !IsBeingUndone && AlterPlant.TemperatureInterval != (InitialPlant.TemperatureInterval ?? Preferences.Default.Get("Temperature_level", 30)) ? true : false); }
+        public string TemperatureUnsavedChangesWarning => TemperatureUndoButtonVisible ? "• Plant Temperature\n" : "";
+        [RelayCommand]
+        protected void TemperatureChangedSectionUndo()
+        {
+            IsBeingUndone = true;
+            AlterPlant.TemperatureInterval = InitialPlant.TemperatureInterval ?? Preferences.Default.Get("Temperature_level", 30);
+            OnPropertyChanged(nameof(AlterPlant));
+            TemperatureIntervalPickerValueFDetails = TemperatureIntervalsF.FirstOrDefault(_ => _.TemperatureLevel == AlterPlant.TemperatureInterval) ?? new TemperatureInterval() { TemperatureLevel = 60, IntervalText = "Normal Indoor Temperature" };
+            TemperatureIntervalPickerValueCDetails = TemperatureIntervalsC.FirstOrDefault(_ => _.TemperatureLevel == AlterPlant.TemperatureInterval) ?? new TemperatureInterval() { TemperatureLevel = 60, IntervalText = "Normal Indoor Temperature" };
+            OnPropertyChanged(nameof(TemperatureIntervalPickerValueCDetails));
+
+            IsBeingUndone = false;
+            TemperatureUndoButtonVisible = false;
+        }
+
+        [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(SpeciesUnsavedChangesWarning))]
         protected bool speciesUndoButtonVisible = false;
         [RelayCommand]
@@ -397,6 +417,7 @@ namespace FloraSaver.ViewModels
             WaterIntervalChangedSectionUndo();
             LastWateredChangedSectionUndo();
             HumidityChangedSectionUndo();
+            TemperatureChangedSectionUndo();
             NextWaterChangedSectionUndo();
             MistIntervalChangedSectionUndo();
             LastMistedChangedSectionUndo();
@@ -453,7 +474,9 @@ namespace FloraSaver.ViewModels
 
             IsCelsius = Preferences.Default.Get("is_Celsius", false);
             TemperatureIntervalPickerValueCDetails = TemperatureIntervalsC.FirstOrDefault(_ => _.TemperatureLevel == Preferences.Default.Get("temperature_level", 60)) ?? new TemperatureInterval() { TemperatureLevel = 60, IntervalText = "Normal Indoor Temperatures", IsCelsius = true };
+            TemperatureIntervalPickerValueCDetails.TemperatureLevel = TemperatureIntervalPickerValueCDetails.TemperatureLevel;
             TemperatureIntervalPickerValueFDetails = TemperatureIntervalsF.FirstOrDefault(_ => _.TemperatureLevel == Preferences.Default.Get("temperature_level", 60)) ?? new TemperatureInterval() { TemperatureLevel = 60, IntervalText = "Normal Indoor Temperatures" };
+            TemperatureIntervalPickerValueFDetails.TemperatureLevel = TemperatureIntervalPickerValueFDetails.TemperatureLevel;
             IsInitialization = false;
         }
 
@@ -518,6 +541,8 @@ namespace FloraSaver.ViewModels
             AlterPlant.TemperatureInterval = AlterPlant.TemperatureInterval ?? TemperatureIntervalPickerValueFDetails.TemperatureLevel;
             TemperatureIntervalPickerValueFDetails = TemperatureIntervalsF.FirstOrDefault(_ => _.TemperatureLevel == (int)AlterPlant.TemperatureInterval);
             TemperatureIntervalPickerValueCDetails = TemperatureIntervalsC.FirstOrDefault(_ => _.TemperatureLevel == (int)AlterPlant.TemperatureInterval);
+            TemperatureIntervalPickerValueCDetails.TemperatureLevel = TemperatureIntervalPickerValueCDetails.TemperatureLevel;
+            TemperatureIntervalPickerValueFDetails.TemperatureLevel = TemperatureIntervalPickerValueFDetails.TemperatureLevel;
             AlterPlant.HumidityInterval = AlterPlant.HumidityInterval ?? HumidityIntervalPickerValueDetails.HumidityLevel;
             OnPropertyChanged(nameof(TemperatureIntervalPickerValueFDetails));
             OnPropertyChanged(nameof(TemperatureIntervalPickerValueCDetails));
@@ -961,8 +986,10 @@ namespace FloraSaver.ViewModels
             if (!IsChangingCtoF && !IsInitialization)
             {
                 IsChangingCtoF = true;
-                if (TemperatureIntervalPickerValueCDetails is null) { TemperatureIntervalPickerValueCDetails = value; }
+                if (TemperatureIntervalPickerValueFDetails is null) { TemperatureIntervalPickerValueFDetails = value; }
                 AlterPlant.TemperatureInterval = value.TemperatureLevel;
+                TemperatureIntervalPickerValueFDetails.TemperatureLevel = TemperatureIntervalPickerValueFDetails.TemperatureLevel;
+                TemperatureChanged();
             }
             IsChangingCtoF = false;
         }
@@ -972,8 +999,10 @@ namespace FloraSaver.ViewModels
             if (!IsChangingCtoF && !IsInitialization)
             {
                 IsChangingCtoF = true;
-                if (TemperatureIntervalPickerValueFDetails is null) { TemperatureIntervalPickerValueFDetails = value; }
+                if (TemperatureIntervalPickerValueCDetails is null) { TemperatureIntervalPickerValueCDetails.IsCelsius = true; TemperatureIntervalPickerValueCDetails = value;  }
                 AlterPlant.TemperatureInterval = value.TemperatureLevel;
+                TemperatureIntervalPickerValueCDetails.TemperatureLevel = TemperatureIntervalPickerValueCDetails.TemperatureLevel;
+                TemperatureChanged();
             }
             IsChangingCtoF = false;
         }

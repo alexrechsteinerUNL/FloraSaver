@@ -47,7 +47,6 @@ namespace FloraSaver.Models
                         lowBound = IsCelsius ? ConvertToCelsius(value) : value;
                         highBound = IsCelsius ? ConvertToCelsius(39) : 39;
                         TemperatureRange = $"{lowBound}°-{highBound}°";
-                        TemperatureRange = "20°-39°";
                         break;
                     case 0:
                         lowBound = IsCelsius ? ConvertToCelsius(value) : value;

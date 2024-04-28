@@ -237,7 +237,7 @@
                                 <RowDefinition Height="50" />
                             </Grid.RowDefinitions>
                             <FlexLayout Grid.Row="0" Grid.ColumnSpan="2">
-                                <Label Text="*Humidity Range: " TextColor="{Binding AlterPlant.Validation.BirthdaySectionColor}" />
+                                <Label Text="*Humidity Range: " TextColor="White" />
                                 <ImageButton
                                     x:Name="_undoHumidityChange"
                                     Grid.Column="0"
@@ -271,7 +271,6 @@
                                             ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
                                             ItemsSource="{Binding HumidityIntervals, Mode=TwoWay}"
                                             SelectedItem="{Binding HumidityIntervalPickerValueDetails, Mode=TwoWay}"
-                                            
                                             TextColor="Transparent" />
                                     </Grid>
                                 </Frame>
@@ -287,12 +286,12 @@
                                 <RowDefinition Height="50" />
                             </Grid.RowDefinitions>
                             <FlexLayout Grid.Row="0" Grid.ColumnSpan="2">
-                                <Label Text="*Temperature Range: " TextColor="{Binding AlterPlant.Validation.BirthdaySectionColor}" />
+                                <Label Text="*Temperature Range: " TextColor="White" />
                                 <ImageButton
                                     x:Name="_undoTemperatureChange"
                                     Grid.Column="0"
-                                    Command="{Binding DobChangedSectionUndoCommand}"
-                                    IsVisible="{Binding DobUndoButtonVisible}"
+                                    Command="{Binding TemperatureChangedSectionUndoCommand}"
+                                    IsVisible="{Binding TemperatureUndoButtonVisible}"
                                     Source="undo_button.png"
                                     WidthRequest="40" />
                             </FlexLayout>
