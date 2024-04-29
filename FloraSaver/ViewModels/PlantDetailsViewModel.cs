@@ -976,7 +976,11 @@ namespace FloraSaver.ViewModels
                 AlterPlant.HumidityInterval = value.HumidityLevel;
                 HumidityChanged();
                 HumidityIntervalPickerValueDetails = value;
-                OnPropertyChanged(nameof(AlterPlant));
+                if (AlterPlant.DateOfNextWatering == InitialPlant.DateOfNextWatering && AlterPlant.TimeOfNextWatering == InitialPlant.TimeOfNextWatering)
+                {
+
+                }
+            OnPropertyChanged(nameof(AlterPlant));
             }
                 
         }

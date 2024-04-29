@@ -283,6 +283,29 @@ namespace FloraSaver.Models
 
         public int? HumidityInterval { get; set; }
         public int? TemperatureInterval { get; set; }
+
+        public int AdjustForHumidity(int interval)
+        {
+            if (HumidityInterval is not null)
+            {
+                var humidityEquation = interval - Math.Abs((int)Math.Floor(30 * Math.Exp((-.1 * ((double)interval + 25 * (double)HumidityInterval)))));
+                interval = humidityEquation > 1 ? humidityEquation : 1;
+            }
+            return interval;
+        }
+
+        public int AdjustForTemperature(int interval)
+        {
+            if (TemperatureInterval is not null)
+            {
+                var temperatureEquation = interval - Math.Abs((int)Math.Floor(3* (double)TemperatureInterval));
+                interval = temperatureEquation > 1 ? temperatureEquation : 1;
+            }
+            return interval;
+        }
+
+
+
         private double TimeToNextAction(DateTime lastTime, DateTime nextTime)
         {
             if (nextTime > DateTime.Now && lastTime < DateTime.Now)
