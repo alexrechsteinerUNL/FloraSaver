@@ -216,6 +216,12 @@ namespace FloraSaver.Models
         [Range(0, 365)]
         public double? SunInterval { get; set; }
 
+        [Range(0, 365)]
+        public double? BaseWaterIntervalForTempAndHum { get; set; }
+
+        [Range(0, 365)]
+        public double? BaseMistIntervalForTempAndHum { get; set; }
+
         private string _imageLocation;
 
         public string ImageLocation
@@ -284,21 +290,21 @@ namespace FloraSaver.Models
         public int? HumidityInterval { get; set; }
         public int? TemperatureInterval { get; set; }
 
-        public int AdjustForHumidity(int interval)
+        public double AdjustForHumidity(double interval)
         {
-            if (HumidityInterval is not null)
+            if (HumidityInterval is not null && HumidityInterval != 1)
             {
-                var humidityEquation = interval - Math.Abs((int)Math.Floor(30 * Math.Exp((-.1 * ((double)interval + 25 * (double)HumidityInterval)))));
+                var humidityEquation = interval - Math.Abs((int)Math.Floor(20 * Math.Exp((-.1 * (interval + 25 * (double)HumidityInterval / 100)))));
                 interval = humidityEquation > 1 ? humidityEquation : 1;
             }
             return interval;
         }
 
-        public int AdjustForTemperature(int interval)
+        public double AdjustForTemperature(double interval)
         {
-            if (TemperatureInterval is not null)
+            if (TemperatureInterval is not null && TemperatureInterval != 1)
             {
-                var temperatureEquation = interval - Math.Abs((int)Math.Floor(3* (double)TemperatureInterval));
+                var temperatureEquation = interval - Math.Abs((int)Math.Floor(3* (double)TemperatureInterval / 100));
                 interval = temperatureEquation > 1 ? temperatureEquation : 1;
             }
             return interval;

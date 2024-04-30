@@ -563,6 +563,13 @@ namespace FloraSaver.ViewModels
             {
                 IsImageSelected = false;
             }
+
+            if (AlterPlant.WaterInterval is not null) { AlterPlant.BaseWaterIntervalForTempAndHum = AlterPlant.WaterInterval; }
+            if (AlterPlant.MistInterval is not null) { AlterPlant.BaseMistIntervalForTempAndHum = AlterPlant.MistInterval; }
+
+
+
+
             IsInitialization = false;
         }
 
@@ -976,11 +983,11 @@ namespace FloraSaver.ViewModels
                 AlterPlant.HumidityInterval = value.HumidityLevel;
                 HumidityChanged();
                 HumidityIntervalPickerValueDetails = value;
-                if (AlterPlant.DateOfNextWatering == InitialPlant.DateOfNextWatering && AlterPlant.TimeOfNextWatering == InitialPlant.TimeOfNextWatering)
-                {
-
-                }
-            OnPropertyChanged(nameof(AlterPlant));
+                if (AlterPlant.BaseWaterIntervalForTempAndHum is not null) { AlterPlant.WaterInterval = AlterPlant.AdjustForHumidity((double)AlterPlant.BaseWaterIntervalForTempAndHum); }
+                if (AlterPlant.BaseMistIntervalForTempAndHum is not null) { AlterPlant.MistInterval = AlterPlant.AdjustForHumidity((double)AlterPlant.BaseMistIntervalForTempAndHum); }
+                
+                
+                OnPropertyChanged(nameof(AlterPlant));
             }
                 
         }
@@ -994,6 +1001,9 @@ namespace FloraSaver.ViewModels
                 AlterPlant.TemperatureInterval = value.TemperatureLevel;
                 TemperatureIntervalPickerValueFDetails.TemperatureLevel = TemperatureIntervalPickerValueFDetails.TemperatureLevel;
                 TemperatureChanged();
+                if (AlterPlant.BaseWaterIntervalForTempAndHum is not null) { AlterPlant.WaterInterval = AlterPlant.AdjustForTemperature((double)AlterPlant.BaseWaterIntervalForTempAndHum); }
+                if (AlterPlant.BaseMistIntervalForTempAndHum is not null) { AlterPlant.MistInterval = AlterPlant.AdjustForTemperature((double)AlterPlant.BaseMistIntervalForTempAndHum); }
+                OnPropertyChanged(nameof(AlterPlant));
             }
             IsChangingCtoF = false;
         }
@@ -1007,6 +1017,9 @@ namespace FloraSaver.ViewModels
                 AlterPlant.TemperatureInterval = value.TemperatureLevel;
                 TemperatureIntervalPickerValueCDetails.TemperatureLevel = TemperatureIntervalPickerValueCDetails.TemperatureLevel;
                 TemperatureChanged();
+                if (AlterPlant.BaseWaterIntervalForTempAndHum is not null) { AlterPlant.WaterInterval = AlterPlant.AdjustForTemperature((double)AlterPlant.BaseWaterIntervalForTempAndHum); }
+                if (AlterPlant.BaseMistIntervalForTempAndHum is not null) { AlterPlant.MistInterval = AlterPlant.AdjustForTemperature((double)AlterPlant.BaseMistIntervalForTempAndHum); }
+                OnPropertyChanged(nameof(AlterPlant));
             }
             IsChangingCtoF = false;
         }
