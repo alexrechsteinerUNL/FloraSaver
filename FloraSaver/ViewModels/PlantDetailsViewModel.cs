@@ -26,6 +26,9 @@ namespace FloraSaver.ViewModels
         [ObservableProperty]
         protected ImageSource currentPlantImage;
 
+
+        [ObservableProperty]
+        protected bool isAdvancedMode = false;
         [ObservableProperty]
         protected bool isBeingUndone = false;
 

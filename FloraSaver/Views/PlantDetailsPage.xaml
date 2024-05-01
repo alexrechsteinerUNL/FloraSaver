@@ -500,6 +500,7 @@
                                 BorderWidth="2.5"
                                 Command="{Binding UseWateringPressedCommand}"
                                 CommandParameter="{Binding AlterPlant.UseWatering}"
+                                IsVisible="{Binding IsAdvancedMode}"
                                 Text="{Binding WaterGridText}" />
                             <Grid
                                 x:Name="_SearchSuggestionBox"
@@ -554,961 +555,962 @@
                             </Grid>
                         </Grid>
 
-
-                        <VerticalStackLayout x:Name="WateringGrids" IsVisible="{Binding AlterPlant.UseWatering}">
-                            <Grid x:Name="wateringIntervalGrid" RowSpacing="5">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="30" />
-                                    <RowDefinition Height="55" />
-                                </Grid.RowDefinitions>
-                                <FlexLayout Grid.Row="0">
-                                    <Label Text="Watering Interval: " />
-                                    <ImageButton
-                                        x:Name="_undoWaterIntervalChange"
-                                        Grid.Column="0"
-                                        Command="{Binding WaterIntervalChangedSectionUndoCommand}"
-                                        IsVisible="{Binding WaterIntervalUndoButtonVisible}"
-                                        Source="undo_button.png"
-                                        WidthRequest="40" />
-                                </FlexLayout>
-                                <Frame
-                                    Grid.Row="1"
-                                    Padding="2,2"
-                                    BackgroundColor="Transparent"
-                                    BorderColor="MediumPurple"
-                                    HeightRequest="50">
-                                    <Frame
-                                        Padding="0,2"
-                                        BackgroundColor="Transparent"
-                                        BorderColor="Transparent"
-                                        HorizontalOptions="CenterAndExpand"
-                                        VerticalOptions="FillAndExpand">
-                                        <Picker
-                                            x:Name="waterIntervalPicker"
-                                            Title="Water in _ days"
-                                            HorizontalTextAlignment="Center"
-                                            ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
-                                            ItemsSource="{Binding WateringInterval, Mode=TwoWay}"
-                                            SelectedItem="{Binding WaterIntervalPickerValue, Mode=TwoWay}">
-                                            <Picker.Behaviors>
-                                                <toolkit:EventToCommandBehavior Command="{Binding WaterIntervalChangedCommand}" EventName="SelectedIndexChanged" />
-                                            </Picker.Behaviors>
-                                        </Picker>
-                                    </Frame>
-                                </Frame>
-                            </Grid>
-                            <Grid
-                                x:Name="customWaterIntervalGrid"
-                                ColumnDefinitions="*"
-                                ColumnSpacing="5"
-                                IsVisible="{Binding CustomWaterIntervalGridVisible}"
-                                RowSpacing="5">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="30" />
-                                    <RowDefinition Height="50" />
-                                </Grid.RowDefinitions>
-                                <Label Grid.Row="0" Text="Custom Interval: " />
-                                <FlexLayout Grid.Row="1" JustifyContent="Start">
-                                    <Label
-                                        Grid.Row="1"
-                                        Grid.Column="0"
-                                        Text="Every "
-                                        VerticalOptions="Center" />
-                                    <Frame
-                                        Padding="2,2"
-                                        BackgroundColor="Transparent"
-                                        BorderColor="MediumPurple">
-                                        <Frame
-                                            Padding="0,2"
-                                            BackgroundColor="Transparent"
-                                            BorderColor="Transparent"
-                                            HorizontalOptions="CenterAndExpand"
-                                            VerticalOptions="Center">
-                                            <Entry
-                                                x:Name="_CustomWaterInterval"
-                                                Completed="Entry_Completed"
-                                                FontSize="Body"
-                                                HorizontalOptions="CenterAndExpand"
-                                                HorizontalTextAlignment="Center"
-                                                Keyboard="Numeric"
-                                                MaxLength="4"
-                                                Placeholder="0"
-                                                Text="{Binding WaterDaysFromNow, Mode=TwoWay}"
-                                                VerticalOptions="Fill">
-                                                <Entry.Behaviors>
-                                                    <toolkit:EventToCommandBehavior Command="{Binding WaterIntervalChangedCommand}" EventName="Unfocused" />
-                                                    <toolkit:EventToCommandBehavior
-                                                        x:DataType="viewmodel:PlantDetailsViewModel"
-                                                        Command="{Binding ValidateCommand}"
-                                                        EventName="Unfocused" />
-                                                </Entry.Behaviors>
-                                            </Entry>
-                                        </Frame>
-                                    </Frame>
-                                    <Label Text=" Day(s)" VerticalOptions="Center" />
-                                </FlexLayout>
-                            </Grid>
-
-                            <Grid
-                                x:Name="WaterGrid"
-                                RowSpacing="5"
-                                VerticalOptions="CenterAndExpand">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="30" />
-                                    <RowDefinition Height="50" />
-                                    <RowDefinition Height="30" />
-                                    <RowDefinition Height="50" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="25" />
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="35" />
-                                    <ColumnDefinition Width="35" />
-                                    <ColumnDefinition Width="35" />
-                                </Grid.ColumnDefinitions>
-                                <FlexLayout Grid.Row="0" Grid.ColumnSpan="3">
-                                    <Label Text="Last Watered On: " TextColor="{Binding AlterPlant.Validation.DateTimeNextWateringSectionColor}" />
-                                    <ImageButton
-                                        x:Name="_undoLastWateredChange"
-                                        Grid.Column="0"
-                                        Command="{Binding LastWateredChangedSectionUndoCommand}"
-                                        IsVisible="{Binding LastWateredUndoButtonVisible}"
-                                        Source="undo_button.png"
-                                        WidthRequest="40" />
-                                </FlexLayout>
-                                <FlexLayout
-                                    Grid.Row="1"
-                                    Grid.ColumnSpan="6"
-                                    JustifyContent="SpaceBetween">
-                                    <Frame
-                                        Padding="2,2"
-                                        BackgroundColor="Transparent"
-                                        BorderColor="MediumPurple">
-                                        <Frame
-                                            Padding="0,2"
-                                            BackgroundColor="Transparent"
-                                            BorderColor="Transparent">
-                                            <DatePicker
-                                                x:Name="_DateOfLastWatering"
-                                                Grid.Column="1"
-                                                BackgroundColor="White"
-                                                Date="{Binding AlterPlant.DateOfLastWatering, Mode=TwoWay}"
-                                                FontSize="Body"
-                                                Format="d"
-                                                HorizontalOptions="Fill"
-                                                WidthRequest="85">
-                                                <DatePicker.Behaviors>
-                                                    <toolkit:EventToCommandBehavior
-                                                        x:DataType="viewmodel:PlantDetailsViewModel"
-                                                        Command="{Binding ValidateCommand}"
-                                                        EventName="PropertyChanged" />
-                                                    <toolkit:EventToCommandBehavior Command="{Binding LastWateredChangedCommand}" EventName="PropertyChanged" />
-                                                </DatePicker.Behaviors>
-                                            </DatePicker>
-                                        </Frame>
-                                    </Frame>
-                                    <Label Text="at" VerticalOptions="Center" />
-                                    <Frame
-                                        Padding="2,2"
-                                        BackgroundColor="Transparent"
-                                        BorderColor="MediumPurple">
-                                        <Frame
-                                            Padding="0,2"
-                                            BackgroundColor="Transparent"
-                                            BorderColor="Transparent">
-                                            <TimePicker
-                                                x:Name="_TimeOfLastWatering"
-                                                Grid.Column="1"
-                                                BackgroundColor="White"
-                                                FontSize="Body"
-                                                Format="t"
-                                                Time="{Binding AlterPlant.TimeOfLastWatering, Mode=TwoWay}"
-                                                WidthRequest="75">
-                                                <TimePicker.Behaviors>
-                                                    <toolkit:EventToCommandBehavior
-                                                        x:DataType="viewmodel:PlantDetailsViewModel"
-                                                        Command="{Binding ValidateCommand}"
-                                                        EventName="PropertyChanged" />
-                                                    <toolkit:EventToCommandBehavior Command="{Binding LastWateredChangedCommand}" EventName="PropertyChanged" />
-                                                </TimePicker.Behaviors>
-                                            </TimePicker>
-                                        </Frame>
-                                    </Frame>
-                                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
+                        <Grid Padding="0" IsVisible="{Binding IsAdvancedMode}">
+                            <VerticalStackLayout x:Name="WateringGrids" IsVisible="{Binding AlterPlant.UseWatering}">
+                                <Grid x:Name="wateringIntervalGrid" RowSpacing="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="55" />
+                                    </Grid.RowDefinitions>
+                                    <FlexLayout Grid.Row="0">
+                                        <Label Text="Watering Interval: " />
                                         <ImageButton
+                                            x:Name="_undoWaterIntervalChange"
                                             Grid.Column="0"
-                                            BackgroundColor="Black"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMorningTimeCommand}"
-                                            CommandParameter="TimeOfLastWatering"
-                                            HeightRequest="30"
-                                            Source="morning.png"
-                                            WidthRequest="30" />
-                                        <ImageButton
-                                            Grid.Column="1"
-                                            BackgroundColor="Black"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMiddayTimeCommand}"
-                                            CommandParameter="TimeOfLastWatering"
-                                            CornerRadius="8"
-                                            HeightRequest="30"
-                                            Source="midday.png"
-                                            WidthRequest="30" />
-                                        <ImageButton
-                                            Grid.Column="2"
-                                            BackgroundColor="Black"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultNightTimeCommand}"
-                                            CommandParameter="TimeOfLastWatering"
-                                            CornerRadius="8"
-                                            HeightRequest="30"
-                                            Source="night.png"
-                                            WidthRequest="30" />
-                                    </Grid>
-                                </FlexLayout>
-
-                                <FlexLayout Grid.Row="2" Grid.ColumnSpan="3">
-                                    <Label Text="Water On: " TextColor="{Binding AlterPlant.Validation.DateTimeNextWateringSectionColor}" />
-                                    <ImageButton
-                                        x:Name="_undoWaterOnChange"
-                                        Grid.Column="0"
-                                        Command="{Binding NextWaterChangedSectionUndoCommand}"
-                                        IsVisible="{Binding NextWaterUndoButtonVisible}"
-                                        Source="undo_button.png"
-                                        WidthRequest="40" />
-                                </FlexLayout>
-
-                                <FlexLayout
-                                    Grid.Row="3"
-                                    Grid.ColumnSpan="6"
-                                    JustifyContent="SpaceBetween">
+                                            Command="{Binding WaterIntervalChangedSectionUndoCommand}"
+                                            IsVisible="{Binding WaterIntervalUndoButtonVisible}"
+                                            Source="undo_button.png"
+                                            WidthRequest="40" />
+                                    </FlexLayout>
                                     <Frame
-                                        Padding="2,2"
-                                        BackgroundColor="Transparent"
-                                        BorderColor="MediumPurple">
-                                        <Frame
-                                            Padding="0,2"
-                                            BackgroundColor="Transparent"
-                                            BorderColor="Transparent">
-                                            <DatePicker
-                                                x:Name="_DateOfNextWatering"
-                                                Grid.Column="1"
-                                                BackgroundColor="White"
-                                                Date="{Binding AlterPlant.DateOfNextWatering, Mode=TwoWay}"
-                                                FontSize="Body"
-                                                Format="d"
-                                                WidthRequest="85">
-                                                <DatePicker.Behaviors>
-                                                    <toolkit:EventToCommandBehavior
-                                                        x:DataType="viewmodel:PlantDetailsViewModel"
-                                                        Command="{Binding ValidateCommand}"
-                                                        EventName="PropertyChanged" />
-                                                    <toolkit:EventToCommandBehavior Command="{Binding NextWaterChangedCommand}" EventName="PropertyChanged" />
-                                                </DatePicker.Behaviors>
-                                            </DatePicker>
-                                        </Frame>
-                                    </Frame>
-                                    <Label Text="at" VerticalOptions="Center" />
-                                    <Frame
+                                        Grid.Row="1"
                                         Padding="2,2"
                                         BackgroundColor="Transparent"
                                         BorderColor="MediumPurple"
-                                        HorizontalOptions="FillAndExpand">
+                                        HeightRequest="50">
                                         <Frame
                                             Padding="0,2"
                                             BackgroundColor="Transparent"
                                             BorderColor="Transparent"
                                             HorizontalOptions="CenterAndExpand"
-                                            VerticalOptions="Center">
-                                            <TimePicker
-                                                x:Name="_TimeOfNextWatering"
-                                                BackgroundColor="White"
-                                                FontSize="Body"
-                                                Format="t"
-                                                Time="{Binding AlterPlant.TimeOfNextWatering, Mode=TwoWay}"
-                                                WidthRequest="75">
-                                                <TimePicker.Behaviors>
-                                                    <toolkit:EventToCommandBehavior
-                                                        x:DataType="viewmodel:PlantDetailsViewModel"
-                                                        Command="{Binding ValidateCommand}"
-                                                        EventName="PropertyChanged" />
-                                                    <toolkit:EventToCommandBehavior Command="{Binding NextWaterChangedCommand}" EventName="PropertyChanged" />
-                                                </TimePicker.Behaviors>
-                                            </TimePicker>
-                                        </Frame>
-                                    </Frame>
-                                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
-                                        <ImageButton
-                                            Grid.Column="0"
-                                            BackgroundColor="Black"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMorningTimeCommand}"
-                                            CommandParameter="TimeOfNextWatering"
-                                            CornerRadius="8"
-                                            HeightRequest="30"
-                                            Source="morning.png"
-                                            WidthRequest="30" />
-                                        <ImageButton
-                                            Grid.Column="1"
-                                            BackgroundColor="Black"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMiddayTimeCommand}"
-                                            CommandParameter="TimeOfNextWatering"
-                                            CornerRadius="8"
-                                            HeightRequest="30"
-                                            Source="midday.png"
-                                            WidthRequest="30" />
-                                        <ImageButton
-                                            Grid.Column="2"
-                                            BackgroundColor="Black"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultNightTimeCommand}"
-                                            CommandParameter="TimeOfNextWatering"
-                                            CornerRadius="8"
-                                            HeightRequest="30"
-                                            Source="night.png"
-                                            WidthRequest="30" />
-                                    </Grid>
-                                </FlexLayout>
-                            </Grid>
-                        </VerticalStackLayout>
-
-                        <Button
-                            x:Name="useMisting"
-                            BorderColor="Cyan"
-                            Command="{Binding UseMistingPressedCommand}"
-                            CommandParameter="{Binding AlterPlant.UseMisting}"
-                            Text="{Binding MistGridText}" />
-
-                        <VerticalStackLayout x:Name="MistingGrids" IsVisible="{Binding AlterPlant.UseMisting}">
-                            <Grid x:Name="mistingIntervalGrid" RowSpacing="5">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="30" />
-                                    <RowDefinition Height="55" />
-                                </Grid.RowDefinitions>
-                                <FlexLayout Grid.Row="0">
-                                    <Label Text="Misting Interval: " />
-                                    <ImageButton
-                                        x:Name="_undoMistIntervalChange"
-                                        Grid.Column="0"
-                                        Command="{Binding MistIntervalChangedSectionUndoCommand}"
-                                        IsVisible="{Binding MistIntervalUndoButtonVisible}"
-                                        Source="undo_button.png"
-                                        WidthRequest="40" />
-                                </FlexLayout>
-                                <Frame
-                                    Grid.Row="1"
-                                    Padding="2,2"
-                                    BackgroundColor="Transparent"
-                                    BorderColor="Cyan"
-                                    HeightRequest="50">
-                                    <Frame
-                                        Padding="0,2"
-                                        BackgroundColor="Transparent"
-                                        BorderColor="Transparent"
-                                        HorizontalOptions="CenterAndExpand"
-                                        VerticalOptions="FillAndExpand">
-                                        <Picker
-                                            x:Name="mistIntervalPicker"
-                                            Title="Mist in _ days"
-                                            HorizontalTextAlignment="Center"
-                                            ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
-                                            ItemsSource="{Binding MistingInterval, Mode=TwoWay}"
-                                            SelectedItem="{Binding MistIntervalPickerValue, Mode=TwoWay}">
-                                            <Picker.Behaviors>
-                                                <toolkit:EventToCommandBehavior Command="{Binding MistIntervalChangedCommand}" EventName="SelectedIndexChanged" />
-                                            </Picker.Behaviors>
-                                        </Picker>
-                                    </Frame>
-                                </Frame>
-                            </Grid>
-
-                            <Grid
-                                x:Name="customMistIntervalGrid"
-                                ColumnDefinitions="*"
-                                ColumnSpacing="5"
-                                IsVisible="{Binding CustomMistIntervalGridVisible}"
-                                RowSpacing="5">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="30" />
-                                    <RowDefinition Height="50" />
-                                </Grid.RowDefinitions>
-                                <Label Grid.Row="0" Text="Custom Interval: " />
-                                <FlexLayout Grid.Row="1" JustifyContent="Start">
-                                    <Label
-                                        Grid.Row="1"
-                                        Grid.Column="0"
-                                        Text="Every "
-                                        VerticalOptions="Center" />
-                                    <Frame
-                                        Padding="2,2"
-                                        BackgroundColor="Transparent"
-                                        BorderColor="Cyan">
-                                        <Frame
-                                            Padding="0,2"
-                                            BackgroundColor="Transparent"
-                                            BorderColor="Transparent"
-                                            HorizontalOptions="CenterAndExpand"
-                                            VerticalOptions="Center">
-                                            <Entry
-                                                x:Name="_CustomMistInterval"
-                                                Completed="Entry_Completed"
-                                                FontSize="Body"
-                                                HorizontalOptions="CenterAndExpand"
+                                            VerticalOptions="FillAndExpand">
+                                            <Picker
+                                                x:Name="waterIntervalPicker"
+                                                Title="Water in _ days"
                                                 HorizontalTextAlignment="Center"
-                                                Keyboard="Numeric"
-                                                MaxLength="4"
-                                                Placeholder="0"
-                                                Text="{Binding MistDaysFromNow, Mode=TwoWay}"
-                                                VerticalOptions="Fill">
-                                                <Entry.Behaviors>
-                                                    <toolkit:EventToCommandBehavior Command="{Binding MistIntervalChangedCommand}" EventName="Unfocused" />
-                                                    <toolkit:EventToCommandBehavior
-                                                        x:DataType="viewmodel:PlantDetailsViewModel"
-                                                        Command="{Binding ValidateCommand}"
-                                                        EventName="Unfocused" />
-                                                </Entry.Behaviors>
-                                            </Entry>
+                                                ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
+                                                ItemsSource="{Binding WateringInterval, Mode=TwoWay}"
+                                                SelectedItem="{Binding WaterIntervalPickerValue, Mode=TwoWay}">
+                                                <Picker.Behaviors>
+                                                    <toolkit:EventToCommandBehavior Command="{Binding WaterIntervalChangedCommand}" EventName="SelectedIndexChanged" />
+                                                </Picker.Behaviors>
+                                            </Picker>
                                         </Frame>
                                     </Frame>
-                                    <Label Text=" Day(s)" VerticalOptions="Center" />
-                                </FlexLayout>
-                            </Grid>
-
-                            <Grid
-                                x:Name="MistGrid"
-                                RowSpacing="5"
-                                VerticalOptions="CenterAndExpand">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="30" />
-                                    <RowDefinition Height="50" />
-                                    <RowDefinition Height="30" />
-                                    <RowDefinition Height="50" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="25" />
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="35" />
-                                    <ColumnDefinition Width="35" />
-                                    <ColumnDefinition Width="35" />
-                                </Grid.ColumnDefinitions>
-                                <FlexLayout Grid.Row="0" Grid.ColumnSpan="3">
-                                    <Label Text="Last Misted On: " TextColor="{Binding AlterPlant.Validation.DateTimeNextMistingSectionColor}" />
-                                    <ImageButton
-                                        x:Name="_undoLastMistedChange"
-                                        Grid.Column="0"
-                                        Command="{Binding LastMistedChangedSectionUndoCommand}"
-                                        IsVisible="{Binding LastMistedUndoButtonVisible}"
-                                        Source="undo_button.png"
-                                        WidthRequest="40" />
-                                </FlexLayout>
-                                <FlexLayout
-                                    Grid.Row="1"
-                                    Grid.ColumnSpan="6"
-                                    JustifyContent="SpaceBetween">
-                                    <Frame
-                                        Padding="2,2"
-                                        BackgroundColor="Transparent"
-                                        BorderColor="Cyan">
-                                        <Frame
-                                            Padding="0,2"
-                                            BackgroundColor="Transparent"
-                                            BorderColor="Transparent">
-                                            <DatePicker
-                                                x:Name="_DateOfLastMisting"
-                                                Grid.Column="1"
-                                                BackgroundColor="White"
-                                                Date="{Binding AlterPlant.DateOfLastMisting, Mode=TwoWay}"
-                                                FontSize="Body"
-                                                Format="d"
-                                                HorizontalOptions="Fill"
-                                                WidthRequest="85">
-                                                <DatePicker.Behaviors>
-                                                    <toolkit:EventToCommandBehavior
-                                                        x:DataType="viewmodel:PlantDetailsViewModel"
-                                                        Command="{Binding ValidateCommand}"
-                                                        EventName="PropertyChanged" />
-                                                    <toolkit:EventToCommandBehavior Command="{Binding LastMistedChangedCommand}" EventName="PropertyChanged" />
-                                                </DatePicker.Behaviors>
-                                            </DatePicker>
-                                        </Frame>
-                                    </Frame>
-                                    <Label Text="at" VerticalOptions="Center" />
-                                    <Frame
-                                        Padding="2,2"
-                                        BackgroundColor="Transparent"
-                                        BorderColor="Cyan">
-                                        <Frame
-                                            Padding="0,2"
-                                            BackgroundColor="Transparent"
-                                            BorderColor="Transparent">
-                                            <TimePicker
-                                                x:Name="_TimeOfLastMisting"
-                                                Grid.Column="1"
-                                                BackgroundColor="White"
-                                                FontSize="Body"
-                                                Format="t"
-                                                Time="{Binding AlterPlant.TimeOfLastMisting, Mode=TwoWay}"
-                                                WidthRequest="75">
-                                                <TimePicker.Behaviors>
-                                                    <toolkit:EventToCommandBehavior
-                                                        x:DataType="viewmodel:PlantDetailsViewModel"
-                                                        Command="{Binding ValidateCommand}"
-                                                        EventName="PropertyChanged" />
-                                                    <toolkit:EventToCommandBehavior Command="{Binding LastMistedChangedCommand}" EventName="PropertyChanged" />
-                                                </TimePicker.Behaviors>
-                                            </TimePicker>
-                                        </Frame>
-                                    </Frame>
-                                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
-                                        <ImageButton
+                                </Grid>
+                                <Grid
+                                    x:Name="customWaterIntervalGrid"
+                                    ColumnDefinitions="*"
+                                    ColumnSpacing="5"
+                                    IsVisible="{Binding CustomWaterIntervalGridVisible}"
+                                    RowSpacing="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="50" />
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0" Text="Custom Interval: " />
+                                    <FlexLayout Grid.Row="1" JustifyContent="Start">
+                                        <Label
+                                            Grid.Row="1"
                                             Grid.Column="0"
-                                            BackgroundColor="Black"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMorningTimeCommand}"
-                                            CommandParameter="TimeOfLastMisting"
-                                            HeightRequest="30"
-                                            Source="morning.png"
-                                            WidthRequest="30" />
-                                        <ImageButton
-                                            Grid.Column="1"
-                                            BackgroundColor="Black"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMiddayTimeCommand}"
-                                            CommandParameter="TimeOfLastMisting"
-                                            CornerRadius="8"
-                                            HeightRequest="30"
-                                            Source="midday.png"
-                                            WidthRequest="30" />
-                                        <ImageButton
-                                            Grid.Column="2"
-                                            BackgroundColor="Black"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultNightTimeCommand}"
-                                            CommandParameter="TimeOfLastMisting"
-                                            CornerRadius="8"
-                                            HeightRequest="30"
-                                            Source="night.png"
-                                            WidthRequest="30" />
-                                    </Grid>
-                                </FlexLayout>
-
-                                <FlexLayout Grid.Row="2" Grid.ColumnSpan="3">
-                                    <Label Text="Mist On: " TextColor="{Binding AlterPlant.Validation.DateTimeNextMistingSectionColor}" />
-                                    <ImageButton
-                                        x:Name="_undoMistOnChange"
-                                        Grid.Column="0"
-                                        Command="{Binding NextMistChangedSectionUndoCommand}"
-                                        IsVisible="{Binding NextMistUndoButtonVisible}"
-                                        Source="undo_button.png"
-                                        WidthRequest="40" />
-                                </FlexLayout>
-
-                                <FlexLayout
-                                    Grid.Row="3"
-                                    Grid.ColumnSpan="6"
-                                    JustifyContent="SpaceBetween">
-                                    <Frame
-                                        Padding="2,2"
-                                        BackgroundColor="Transparent"
-                                        BorderColor="Cyan">
+                                            Text="Every "
+                                            VerticalOptions="Center" />
                                         <Frame
-                                            Padding="0,2"
+                                            Padding="2,2"
                                             BackgroundColor="Transparent"
-                                            BorderColor="Transparent">
-                                            <DatePicker
-                                                x:Name="_DateOfNextMisting"
-                                                Grid.Column="1"
-                                                BackgroundColor="White"
-                                                Date="{Binding AlterPlant.DateOfNextMisting, Mode=TwoWay}"
-                                                FontSize="Body"
-                                                Format="d"
-                                                WidthRequest="85">
-                                                <DatePicker.Behaviors>
-                                                    <toolkit:EventToCommandBehavior Command="{Binding NextMistChangedCommand}" EventName="PropertyChanged" />
-                                                    <toolkit:EventToCommandBehavior
-                                                        x:DataType="viewmodel:PlantDetailsViewModel"
-                                                        Command="{Binding ValidateCommand}"
-                                                        EventName="PropertyChanged" />
-                                                </DatePicker.Behaviors>
-                                            </DatePicker>
+                                            BorderColor="MediumPurple">
+                                            <Frame
+                                                Padding="0,2"
+                                                BackgroundColor="Transparent"
+                                                BorderColor="Transparent"
+                                                HorizontalOptions="CenterAndExpand"
+                                                VerticalOptions="Center">
+                                                <Entry
+                                                    x:Name="_CustomWaterInterval"
+                                                    Completed="Entry_Completed"
+                                                    FontSize="Body"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    HorizontalTextAlignment="Center"
+                                                    Keyboard="Numeric"
+                                                    MaxLength="4"
+                                                    Placeholder="0"
+                                                    Text="{Binding WaterDaysFromNow, Mode=TwoWay}"
+                                                    VerticalOptions="Fill">
+                                                    <Entry.Behaviors>
+                                                        <toolkit:EventToCommandBehavior Command="{Binding WaterIntervalChangedCommand}" EventName="Unfocused" />
+                                                        <toolkit:EventToCommandBehavior
+                                                            x:DataType="viewmodel:PlantDetailsViewModel"
+                                                            Command="{Binding ValidateCommand}"
+                                                            EventName="Unfocused" />
+                                                    </Entry.Behaviors>
+                                                </Entry>
+                                            </Frame>
                                         </Frame>
-                                    </Frame>
-                                    <Label Text="at" VerticalOptions="Center" />
+                                        <Label Text=" Day(s)" VerticalOptions="Center" />
+                                    </FlexLayout>
+                                </Grid>
+
+                                <Grid
+                                    x:Name="WaterGrid"
+                                    RowSpacing="5"
+                                    VerticalOptions="CenterAndExpand">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="50" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="25" />
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="35" />
+                                        <ColumnDefinition Width="35" />
+                                        <ColumnDefinition Width="35" />
+                                    </Grid.ColumnDefinitions>
+                                    <FlexLayout Grid.Row="0" Grid.ColumnSpan="3">
+                                        <Label Text="Last Watered On: " TextColor="{Binding AlterPlant.Validation.DateTimeNextWateringSectionColor}" />
+                                        <ImageButton
+                                            x:Name="_undoLastWateredChange"
+                                            Grid.Column="0"
+                                            Command="{Binding LastWateredChangedSectionUndoCommand}"
+                                            IsVisible="{Binding LastWateredUndoButtonVisible}"
+                                            Source="undo_button.png"
+                                            WidthRequest="40" />
+                                    </FlexLayout>
+                                    <FlexLayout
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="6"
+                                        JustifyContent="SpaceBetween">
+                                        <Frame
+                                            Padding="2,2"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="MediumPurple">
+                                            <Frame
+                                                Padding="0,2"
+                                                BackgroundColor="Transparent"
+                                                BorderColor="Transparent">
+                                                <DatePicker
+                                                    x:Name="_DateOfLastWatering"
+                                                    Grid.Column="1"
+                                                    BackgroundColor="White"
+                                                    Date="{Binding AlterPlant.DateOfLastWatering, Mode=TwoWay}"
+                                                    FontSize="Body"
+                                                    Format="d"
+                                                    HorizontalOptions="Fill"
+                                                    WidthRequest="85">
+                                                    <DatePicker.Behaviors>
+                                                        <toolkit:EventToCommandBehavior
+                                                            x:DataType="viewmodel:PlantDetailsViewModel"
+                                                            Command="{Binding ValidateCommand}"
+                                                            EventName="PropertyChanged" />
+                                                        <toolkit:EventToCommandBehavior Command="{Binding LastWateredChangedCommand}" EventName="PropertyChanged" />
+                                                    </DatePicker.Behaviors>
+                                                </DatePicker>
+                                            </Frame>
+                                        </Frame>
+                                        <Label Text="at" VerticalOptions="Center" />
+                                        <Frame
+                                            Padding="2,2"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="MediumPurple">
+                                            <Frame
+                                                Padding="0,2"
+                                                BackgroundColor="Transparent"
+                                                BorderColor="Transparent">
+                                                <TimePicker
+                                                    x:Name="_TimeOfLastWatering"
+                                                    Grid.Column="1"
+                                                    BackgroundColor="White"
+                                                    FontSize="Body"
+                                                    Format="t"
+                                                    Time="{Binding AlterPlant.TimeOfLastWatering, Mode=TwoWay}"
+                                                    WidthRequest="75">
+                                                    <TimePicker.Behaviors>
+                                                        <toolkit:EventToCommandBehavior
+                                                            x:DataType="viewmodel:PlantDetailsViewModel"
+                                                            Command="{Binding ValidateCommand}"
+                                                            EventName="PropertyChanged" />
+                                                        <toolkit:EventToCommandBehavior Command="{Binding LastWateredChangedCommand}" EventName="PropertyChanged" />
+                                                    </TimePicker.Behaviors>
+                                                </TimePicker>
+                                            </Frame>
+                                        </Frame>
+                                        <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
+                                            <ImageButton
+                                                Grid.Column="0"
+                                                BackgroundColor="Black"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMorningTimeCommand}"
+                                                CommandParameter="TimeOfLastWatering"
+                                                HeightRequest="30"
+                                                Source="morning.png"
+                                                WidthRequest="30" />
+                                            <ImageButton
+                                                Grid.Column="1"
+                                                BackgroundColor="Black"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMiddayTimeCommand}"
+                                                CommandParameter="TimeOfLastWatering"
+                                                CornerRadius="8"
+                                                HeightRequest="30"
+                                                Source="midday.png"
+                                                WidthRequest="30" />
+                                            <ImageButton
+                                                Grid.Column="2"
+                                                BackgroundColor="Black"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultNightTimeCommand}"
+                                                CommandParameter="TimeOfLastWatering"
+                                                CornerRadius="8"
+                                                HeightRequest="30"
+                                                Source="night.png"
+                                                WidthRequest="30" />
+                                        </Grid>
+                                    </FlexLayout>
+
+                                    <FlexLayout Grid.Row="2" Grid.ColumnSpan="3">
+                                        <Label Text="Water On: " TextColor="{Binding AlterPlant.Validation.DateTimeNextWateringSectionColor}" />
+                                        <ImageButton
+                                            x:Name="_undoWaterOnChange"
+                                            Grid.Column="0"
+                                            Command="{Binding NextWaterChangedSectionUndoCommand}"
+                                            IsVisible="{Binding NextWaterUndoButtonVisible}"
+                                            Source="undo_button.png"
+                                            WidthRequest="40" />
+                                    </FlexLayout>
+
+                                    <FlexLayout
+                                        Grid.Row="3"
+                                        Grid.ColumnSpan="6"
+                                        JustifyContent="SpaceBetween">
+                                        <Frame
+                                            Padding="2,2"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="MediumPurple">
+                                            <Frame
+                                                Padding="0,2"
+                                                BackgroundColor="Transparent"
+                                                BorderColor="Transparent">
+                                                <DatePicker
+                                                    x:Name="_DateOfNextWatering"
+                                                    Grid.Column="1"
+                                                    BackgroundColor="White"
+                                                    Date="{Binding AlterPlant.DateOfNextWatering, Mode=TwoWay}"
+                                                    FontSize="Body"
+                                                    Format="d"
+                                                    WidthRequest="85">
+                                                    <DatePicker.Behaviors>
+                                                        <toolkit:EventToCommandBehavior
+                                                            x:DataType="viewmodel:PlantDetailsViewModel"
+                                                            Command="{Binding ValidateCommand}"
+                                                            EventName="PropertyChanged" />
+                                                        <toolkit:EventToCommandBehavior Command="{Binding NextWaterChangedCommand}" EventName="PropertyChanged" />
+                                                    </DatePicker.Behaviors>
+                                                </DatePicker>
+                                            </Frame>
+                                        </Frame>
+                                        <Label Text="at" VerticalOptions="Center" />
+                                        <Frame
+                                            Padding="2,2"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="MediumPurple"
+                                            HorizontalOptions="FillAndExpand">
+                                            <Frame
+                                                Padding="0,2"
+                                                BackgroundColor="Transparent"
+                                                BorderColor="Transparent"
+                                                HorizontalOptions="CenterAndExpand"
+                                                VerticalOptions="Center">
+                                                <TimePicker
+                                                    x:Name="_TimeOfNextWatering"
+                                                    BackgroundColor="White"
+                                                    FontSize="Body"
+                                                    Format="t"
+                                                    Time="{Binding AlterPlant.TimeOfNextWatering, Mode=TwoWay}"
+                                                    WidthRequest="75">
+                                                    <TimePicker.Behaviors>
+                                                        <toolkit:EventToCommandBehavior
+                                                            x:DataType="viewmodel:PlantDetailsViewModel"
+                                                            Command="{Binding ValidateCommand}"
+                                                            EventName="PropertyChanged" />
+                                                        <toolkit:EventToCommandBehavior Command="{Binding NextWaterChangedCommand}" EventName="PropertyChanged" />
+                                                    </TimePicker.Behaviors>
+                                                </TimePicker>
+                                            </Frame>
+                                        </Frame>
+                                        <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
+                                            <ImageButton
+                                                Grid.Column="0"
+                                                BackgroundColor="Black"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMorningTimeCommand}"
+                                                CommandParameter="TimeOfNextWatering"
+                                                CornerRadius="8"
+                                                HeightRequest="30"
+                                                Source="morning.png"
+                                                WidthRequest="30" />
+                                            <ImageButton
+                                                Grid.Column="1"
+                                                BackgroundColor="Black"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMiddayTimeCommand}"
+                                                CommandParameter="TimeOfNextWatering"
+                                                CornerRadius="8"
+                                                HeightRequest="30"
+                                                Source="midday.png"
+                                                WidthRequest="30" />
+                                            <ImageButton
+                                                Grid.Column="2"
+                                                BackgroundColor="Black"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultNightTimeCommand}"
+                                                CommandParameter="TimeOfNextWatering"
+                                                CornerRadius="8"
+                                                HeightRequest="30"
+                                                Source="night.png"
+                                                WidthRequest="30" />
+                                        </Grid>
+                                    </FlexLayout>
+                                </Grid>
+                            </VerticalStackLayout>
+
+                            <Button
+                                x:Name="useMisting"
+                                BorderColor="Cyan"
+                                Command="{Binding UseMistingPressedCommand}"
+                                CommandParameter="{Binding AlterPlant.UseMisting}"
+                                Text="{Binding MistGridText}" />
+
+                            <VerticalStackLayout x:Name="MistingGrids" IsVisible="{Binding AlterPlant.UseMisting}">
+                                <Grid x:Name="mistingIntervalGrid" RowSpacing="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="55" />
+                                    </Grid.RowDefinitions>
+                                    <FlexLayout Grid.Row="0">
+                                        <Label Text="Misting Interval: " />
+                                        <ImageButton
+                                            x:Name="_undoMistIntervalChange"
+                                            Grid.Column="0"
+                                            Command="{Binding MistIntervalChangedSectionUndoCommand}"
+                                            IsVisible="{Binding MistIntervalUndoButtonVisible}"
+                                            Source="undo_button.png"
+                                            WidthRequest="40" />
+                                    </FlexLayout>
                                     <Frame
+                                        Grid.Row="1"
                                         Padding="2,2"
                                         BackgroundColor="Transparent"
                                         BorderColor="Cyan"
-                                        HorizontalOptions="FillAndExpand">
+                                        HeightRequest="50">
                                         <Frame
                                             Padding="0,2"
                                             BackgroundColor="Transparent"
                                             BorderColor="Transparent"
                                             HorizontalOptions="CenterAndExpand"
-                                            VerticalOptions="Center">
-                                            <TimePicker
-                                                x:Name="_TimeOfNextMisting"
-                                                BackgroundColor="White"
-                                                FontSize="Body"
-                                                Format="t"
-                                                Time="{Binding AlterPlant.TimeOfNextMisting, Mode=TwoWay}"
-                                                WidthRequest="75">
-                                                <TimePicker.Behaviors>
-                                                    <toolkit:EventToCommandBehavior Command="{Binding NextMistChangedCommand}" EventName="PropertyChanged" />
-                                                    <toolkit:EventToCommandBehavior
-                                                        x:DataType="viewmodel:PlantDetailsViewModel"
-                                                        Command="{Binding ValidateCommand}"
-                                                        EventName="PropertyChanged" />
-                                                </TimePicker.Behaviors>
-                                            </TimePicker>
-                                        </Frame>
-                                    </Frame>
-                                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
-                                        <ImageButton
-                                            Grid.Column="0"
-                                            BackgroundColor="Black"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMorningTimeCommand}"
-                                            CommandParameter="TimeOfNextMisting"
-                                            CornerRadius="8"
-                                            HeightRequest="30"
-                                            Source="morning.png"
-                                            WidthRequest="30" />
-                                        <ImageButton
-                                            Grid.Column="1"
-                                            BackgroundColor="Black"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMiddayTimeCommand}"
-                                            CommandParameter="TimeOfNextMisting"
-                                            CornerRadius="8"
-                                            HeightRequest="30"
-                                            Source="midday.png"
-                                            WidthRequest="30" />
-                                        <ImageButton
-                                            Grid.Column="2"
-                                            BackgroundColor="Black"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultNightTimeCommand}"
-                                            CommandParameter="TimeOfNextMisting"
-                                            CornerRadius="8"
-                                            HeightRequest="30"
-                                            Source="night.png"
-                                            WidthRequest="30" />
-                                    </Grid>
-                                </FlexLayout>
-                            </Grid>
-                        </VerticalStackLayout>
-
-                        <Button
-                            x:Name="useSun"
-                            BorderColor="Orange"
-                            Command="{Binding UseSunPressedCommand}"
-                            CommandParameter="{Binding AlterPlant.UseMoving}"
-                            Text="{Binding SunGridText}" />
-
-                        <VerticalStackLayout x:Name="MoveGrids" IsVisible="{Binding AlterPlant.UseMoving}">
-                            <Grid x:Name="sunningIntervalGrid" RowSpacing="5">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="30" />
-                                    <RowDefinition Height="55" />
-                                </Grid.RowDefinitions>
-                                <FlexLayout Grid.Row="0">
-                                    <Label Text="Move Interval: " />
-                                    <ImageButton
-                                        x:Name="_undoMoveIntervalChange"
-                                        Grid.Column="0"
-                                        Command="{Binding MoveIntervalChangedSectionUndoCommand}"
-                                        IsVisible="{Binding MoveIntervalUndoButtonVisible}"
-                                        Source="undo_button.png"
-                                        WidthRequest="40" />
-                                </FlexLayout>
-                                <Frame
-                                    Grid.Row="1"
-                                    Padding="2,2"
-                                    BackgroundColor="Transparent"
-                                    BorderColor="Orange"
-                                    HeightRequest="50">
-                                    <Frame
-                                        Padding="0,2"
-                                        BackgroundColor="Transparent"
-                                        BorderColor="Transparent"
-                                        HorizontalOptions="CenterAndExpand"
-                                        VerticalOptions="FillAndExpand">
-                                        <Picker
-                                            x:Name="sunIntervalPicker"
-                                            Title="Sun in _ days"
-                                            HorizontalTextAlignment="Center"
-                                            ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
-                                            ItemsSource="{Binding SunInterval, Mode=TwoWay}"
-                                            SelectedItem="{Binding SunIntervalPickerValue, Mode=TwoWay}">
-                                            <Picker.Behaviors>
-                                                <toolkit:EventToCommandBehavior Command="{Binding MoveIntervalChangedCommand}" EventName="SelectedIndexChanged" />
-                                            </Picker.Behaviors>
-                                        </Picker>
-                                    </Frame>
-                                </Frame>
-                            </Grid>
-
-                            <Grid
-                                x:Name="customSunIntervalGrid"
-                                ColumnDefinitions="*"
-                                ColumnSpacing="5"
-                                IsVisible="{Binding CustomSunIntervalGridVisible}"
-                                RowSpacing="5">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="30" />
-                                    <RowDefinition Height="50" />
-                                </Grid.RowDefinitions>
-                                <Label Grid.Row="0" Text="Custom Interval: " />
-                                <FlexLayout Grid.Row="1" JustifyContent="Start">
-                                    <Label
-                                        Grid.Row="1"
-                                        Grid.Column="0"
-                                        Text="Every "
-                                        VerticalOptions="Center" />
-                                    <Frame
-                                        Padding="2,2"
-                                        BackgroundColor="Transparent"
-                                        BorderColor="Orange">
-                                        <Frame
-                                            Padding="0,2"
-                                            BackgroundColor="Transparent"
-                                            BorderColor="Transparent"
-                                            HorizontalOptions="CenterAndExpand"
-                                            VerticalOptions="Center">
-                                            <Entry
-                                                x:Name="_CustomSunInterval"
-                                                Completed="Entry_Completed"
-                                                FontSize="Body"
-                                                HorizontalOptions="CenterAndExpand"
+                                            VerticalOptions="FillAndExpand">
+                                            <Picker
+                                                x:Name="mistIntervalPicker"
+                                                Title="Mist in _ days"
                                                 HorizontalTextAlignment="Center"
-                                                Keyboard="Numeric"
-                                                MaxLength="4"
-                                                Placeholder="0"
-                                                Text="{Binding SunDaysFromNow, Mode=TwoWay}"
-                                                VerticalOptions="Fill">
-                                                <Entry.Behaviors>
-                                                    <toolkit:EventToCommandBehavior Command="{Binding MoveIntervalChangedCommand}" EventName="Unfocused" />
-                                                    <toolkit:EventToCommandBehavior
-                                                        x:DataType="viewmodel:PlantDetailsViewModel"
-                                                        Command="{Binding ValidateCommand}"
-                                                        EventName="Unfocused" />
-                                                </Entry.Behaviors>
-                                            </Entry>
+                                                ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
+                                                ItemsSource="{Binding MistingInterval, Mode=TwoWay}"
+                                                SelectedItem="{Binding MistIntervalPickerValue, Mode=TwoWay}">
+                                                <Picker.Behaviors>
+                                                    <toolkit:EventToCommandBehavior Command="{Binding MistIntervalChangedCommand}" EventName="SelectedIndexChanged" />
+                                                </Picker.Behaviors>
+                                            </Picker>
                                         </Frame>
                                     </Frame>
-                                    <Label Text=" Day(s)" VerticalOptions="Center" />
-                                </FlexLayout>
-                            </Grid>
+                                </Grid>
 
-                            <Grid
-                                x:Name="SunGrid"
-                                RowSpacing="5"
-                                VerticalOptions="CenterAndExpand">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="30" />
-                                    <RowDefinition Height="50" />
-                                    <RowDefinition Height="30" />
-                                    <RowDefinition Height="50" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="25" />
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="35" />
-                                    <ColumnDefinition Width="35" />
-                                    <ColumnDefinition Width="35" />
-                                </Grid.ColumnDefinitions>
-                                <FlexLayout Grid.Row="0" Grid.ColumnSpan="3">
-                                    <Label Text="Last Moved On: " TextColor="{Binding AlterPlant.Validation.DateTimeNextMovingSectionColor}" />
-                                    <ImageButton
-                                        x:Name="_undoLastMovedChange"
-                                        Grid.Column="0"
-                                        Command="{Binding LastMovedChangedSectionUndoCommand}"
-                                        IsVisible="{Binding LastMovedUndoButtonVisible}"
-                                        Source="undo_button.png"
-                                        WidthRequest="40" />
-                                </FlexLayout>
-                                <FlexLayout
-                                    Grid.Row="1"
-                                    Grid.ColumnSpan="6"
-                                    JustifyContent="SpaceBetween">
-                                    <Frame
-                                        Padding="2,2"
-                                        BackgroundColor="Transparent"
-                                        BorderColor="Orange">
-                                        <Frame
-                                            Padding="0,2"
-                                            BackgroundColor="Transparent"
-                                            BorderColor="Transparent">
-                                            <DatePicker
-                                                x:Name="_DateOfLastMove"
-                                                Grid.Column="1"
-                                                BackgroundColor="White"
-                                                Date="{Binding AlterPlant.DateOfLastMove, Mode=TwoWay}"
-                                                FontSize="Body"
-                                                Format="d"
-                                                HorizontalOptions="Fill"
-                                                WidthRequest="85">
-                                                <DatePicker.Behaviors>
-                                                    <toolkit:EventToCommandBehavior Command="{Binding LastMovedChangedCommand}" EventName="PropertyChanged" />
-                                                    <toolkit:EventToCommandBehavior
-                                                        x:DataType="viewmodel:PlantDetailsViewModel"
-                                                        Command="{Binding ValidateCommand}"
-                                                        EventName="PropertyChanged" />
-                                                </DatePicker.Behaviors>
-                                            </DatePicker>
-                                        </Frame>
-                                    </Frame>
-                                    <Label Text="at" VerticalOptions="Center" />
-                                    <Frame
-                                        Padding="2,2"
-                                        BackgroundColor="Transparent"
-                                        BorderColor="Orange">
-                                        <Frame
-                                            Padding="0,2"
-                                            BackgroundColor="Transparent"
-                                            BorderColor="Transparent">
-                                            <TimePicker
-                                                x:Name="_TimeOfLastMove"
-                                                Grid.Column="1"
-                                                BackgroundColor="White"
-                                                FontSize="Body"
-                                                Format="t"
-                                                Time="{Binding AlterPlant.TimeOfLastMove, Mode=TwoWay}"
-                                                WidthRequest="75">
-                                                <TimePicker.Behaviors>
-                                                    <toolkit:EventToCommandBehavior Command="{Binding LastMovedChangedCommand}" EventName="PropertyChanged" />
-                                                    <toolkit:EventToCommandBehavior
-                                                        x:DataType="viewmodel:PlantDetailsViewModel"
-                                                        Command="{Binding ValidateCommand}"
-                                                        EventName="PropertyChanged" />
-                                                </TimePicker.Behaviors>
-                                            </TimePicker>
-                                        </Frame>
-                                    </Frame>
-                                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
-                                        <ImageButton
+                                <Grid
+                                    x:Name="customMistIntervalGrid"
+                                    ColumnDefinitions="*"
+                                    ColumnSpacing="5"
+                                    IsVisible="{Binding CustomMistIntervalGridVisible}"
+                                    RowSpacing="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="50" />
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0" Text="Custom Interval: " />
+                                    <FlexLayout Grid.Row="1" JustifyContent="Start">
+                                        <Label
+                                            Grid.Row="1"
                                             Grid.Column="0"
-                                            BackgroundColor="Black"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMorningTimeCommand}"
-                                            CommandParameter="TimeOfLastMove"
-                                            HeightRequest="30"
-                                            Source="morning.png"
-                                            WidthRequest="30" />
-                                        <ImageButton
-                                            Grid.Column="1"
-                                            BackgroundColor="Black"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMiddayTimeCommand}"
-                                            CommandParameter="TimeOfLastMove"
-                                            CornerRadius="8"
-                                            HeightRequest="30"
-                                            Source="midday.png"
-                                            WidthRequest="30" />
-                                        <ImageButton
-                                            Grid.Column="2"
-                                            BackgroundColor="Black"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultNightTimeCommand}"
-                                            CommandParameter="TimeOfLastMove"
-                                            CornerRadius="8"
-                                            HeightRequest="30"
-                                            Source="night.png"
-                                            WidthRequest="30" />
-                                    </Grid>
-                                </FlexLayout>
-
-                                <FlexLayout Grid.Row="2" Grid.ColumnSpan="3">
-                                    <Label Text="Move On: " TextColor="{Binding AlterPlant.Validation.DateTimeNextMovingSectionColor}" />
-                                    <ImageButton
-                                        x:Name="_undoMoveOnChange"
-                                        Grid.Column="0"
-                                        Command="{Binding NextMoveChangedSectionUndoCommand}"
-                                        IsVisible="{Binding NextMoveUndoButtonVisible}"
-                                        Source="undo_button.png"
-                                        WidthRequest="40" />
-                                </FlexLayout>
-
-                                <FlexLayout
-                                    Grid.Row="3"
-                                    Grid.ColumnSpan="6"
-                                    JustifyContent="SpaceBetween">
-                                    <Frame
-                                        Padding="2,2"
-                                        BackgroundColor="Transparent"
-                                        BorderColor="Orange">
+                                            Text="Every "
+                                            VerticalOptions="Center" />
                                         <Frame
-                                            Padding="0,2"
+                                            Padding="2,2"
                                             BackgroundColor="Transparent"
-                                            BorderColor="Transparent">
-                                            <DatePicker
-                                                x:Name="_DateOfNextMove"
-                                                Grid.Column="1"
-                                                BackgroundColor="White"
-                                                Date="{Binding AlterPlant.DateOfNextMove, Mode=TwoWay}"
-                                                FontSize="Body"
-                                                Format="d"
-                                                WidthRequest="85">
-                                                <DatePicker.Behaviors>
-                                                    <toolkit:EventToCommandBehavior Command="{Binding NextMoveChangedCommand}" EventName="PropertyChanged" />
-                                                    <toolkit:EventToCommandBehavior
-                                                        x:DataType="viewmodel:PlantDetailsViewModel"
-                                                        Command="{Binding ValidateCommand}"
-                                                        EventName="PropertyChanged" />
-                                                </DatePicker.Behaviors>
-                                            </DatePicker>
+                                            BorderColor="Cyan">
+                                            <Frame
+                                                Padding="0,2"
+                                                BackgroundColor="Transparent"
+                                                BorderColor="Transparent"
+                                                HorizontalOptions="CenterAndExpand"
+                                                VerticalOptions="Center">
+                                                <Entry
+                                                    x:Name="_CustomMistInterval"
+                                                    Completed="Entry_Completed"
+                                                    FontSize="Body"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    HorizontalTextAlignment="Center"
+                                                    Keyboard="Numeric"
+                                                    MaxLength="4"
+                                                    Placeholder="0"
+                                                    Text="{Binding MistDaysFromNow, Mode=TwoWay}"
+                                                    VerticalOptions="Fill">
+                                                    <Entry.Behaviors>
+                                                        <toolkit:EventToCommandBehavior Command="{Binding MistIntervalChangedCommand}" EventName="Unfocused" />
+                                                        <toolkit:EventToCommandBehavior
+                                                            x:DataType="viewmodel:PlantDetailsViewModel"
+                                                            Command="{Binding ValidateCommand}"
+                                                            EventName="Unfocused" />
+                                                    </Entry.Behaviors>
+                                                </Entry>
+                                            </Frame>
                                         </Frame>
-                                    </Frame>
-                                    <Label Text="at" VerticalOptions="Center" />
+                                        <Label Text=" Day(s)" VerticalOptions="Center" />
+                                    </FlexLayout>
+                                </Grid>
+
+                                <Grid
+                                    x:Name="MistGrid"
+                                    RowSpacing="5"
+                                    VerticalOptions="CenterAndExpand">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="50" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="25" />
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="35" />
+                                        <ColumnDefinition Width="35" />
+                                        <ColumnDefinition Width="35" />
+                                    </Grid.ColumnDefinitions>
+                                    <FlexLayout Grid.Row="0" Grid.ColumnSpan="3">
+                                        <Label Text="Last Misted On: " TextColor="{Binding AlterPlant.Validation.DateTimeNextMistingSectionColor}" />
+                                        <ImageButton
+                                            x:Name="_undoLastMistedChange"
+                                            Grid.Column="0"
+                                            Command="{Binding LastMistedChangedSectionUndoCommand}"
+                                            IsVisible="{Binding LastMistedUndoButtonVisible}"
+                                            Source="undo_button.png"
+                                            WidthRequest="40" />
+                                    </FlexLayout>
+                                    <FlexLayout
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="6"
+                                        JustifyContent="SpaceBetween">
+                                        <Frame
+                                            Padding="2,2"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="Cyan">
+                                            <Frame
+                                                Padding="0,2"
+                                                BackgroundColor="Transparent"
+                                                BorderColor="Transparent">
+                                                <DatePicker
+                                                    x:Name="_DateOfLastMisting"
+                                                    Grid.Column="1"
+                                                    BackgroundColor="White"
+                                                    Date="{Binding AlterPlant.DateOfLastMisting, Mode=TwoWay}"
+                                                    FontSize="Body"
+                                                    Format="d"
+                                                    HorizontalOptions="Fill"
+                                                    WidthRequest="85">
+                                                    <DatePicker.Behaviors>
+                                                        <toolkit:EventToCommandBehavior
+                                                            x:DataType="viewmodel:PlantDetailsViewModel"
+                                                            Command="{Binding ValidateCommand}"
+                                                            EventName="PropertyChanged" />
+                                                        <toolkit:EventToCommandBehavior Command="{Binding LastMistedChangedCommand}" EventName="PropertyChanged" />
+                                                    </DatePicker.Behaviors>
+                                                </DatePicker>
+                                            </Frame>
+                                        </Frame>
+                                        <Label Text="at" VerticalOptions="Center" />
+                                        <Frame
+                                            Padding="2,2"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="Cyan">
+                                            <Frame
+                                                Padding="0,2"
+                                                BackgroundColor="Transparent"
+                                                BorderColor="Transparent">
+                                                <TimePicker
+                                                    x:Name="_TimeOfLastMisting"
+                                                    Grid.Column="1"
+                                                    BackgroundColor="White"
+                                                    FontSize="Body"
+                                                    Format="t"
+                                                    Time="{Binding AlterPlant.TimeOfLastMisting, Mode=TwoWay}"
+                                                    WidthRequest="75">
+                                                    <TimePicker.Behaviors>
+                                                        <toolkit:EventToCommandBehavior
+                                                            x:DataType="viewmodel:PlantDetailsViewModel"
+                                                            Command="{Binding ValidateCommand}"
+                                                            EventName="PropertyChanged" />
+                                                        <toolkit:EventToCommandBehavior Command="{Binding LastMistedChangedCommand}" EventName="PropertyChanged" />
+                                                    </TimePicker.Behaviors>
+                                                </TimePicker>
+                                            </Frame>
+                                        </Frame>
+                                        <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
+                                            <ImageButton
+                                                Grid.Column="0"
+                                                BackgroundColor="Black"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMorningTimeCommand}"
+                                                CommandParameter="TimeOfLastMisting"
+                                                HeightRequest="30"
+                                                Source="morning.png"
+                                                WidthRequest="30" />
+                                            <ImageButton
+                                                Grid.Column="1"
+                                                BackgroundColor="Black"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMiddayTimeCommand}"
+                                                CommandParameter="TimeOfLastMisting"
+                                                CornerRadius="8"
+                                                HeightRequest="30"
+                                                Source="midday.png"
+                                                WidthRequest="30" />
+                                            <ImageButton
+                                                Grid.Column="2"
+                                                BackgroundColor="Black"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultNightTimeCommand}"
+                                                CommandParameter="TimeOfLastMisting"
+                                                CornerRadius="8"
+                                                HeightRequest="30"
+                                                Source="night.png"
+                                                WidthRequest="30" />
+                                        </Grid>
+                                    </FlexLayout>
+
+                                    <FlexLayout Grid.Row="2" Grid.ColumnSpan="3">
+                                        <Label Text="Mist On: " TextColor="{Binding AlterPlant.Validation.DateTimeNextMistingSectionColor}" />
+                                        <ImageButton
+                                            x:Name="_undoMistOnChange"
+                                            Grid.Column="0"
+                                            Command="{Binding NextMistChangedSectionUndoCommand}"
+                                            IsVisible="{Binding NextMistUndoButtonVisible}"
+                                            Source="undo_button.png"
+                                            WidthRequest="40" />
+                                    </FlexLayout>
+
+                                    <FlexLayout
+                                        Grid.Row="3"
+                                        Grid.ColumnSpan="6"
+                                        JustifyContent="SpaceBetween">
+                                        <Frame
+                                            Padding="2,2"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="Cyan">
+                                            <Frame
+                                                Padding="0,2"
+                                                BackgroundColor="Transparent"
+                                                BorderColor="Transparent">
+                                                <DatePicker
+                                                    x:Name="_DateOfNextMisting"
+                                                    Grid.Column="1"
+                                                    BackgroundColor="White"
+                                                    Date="{Binding AlterPlant.DateOfNextMisting, Mode=TwoWay}"
+                                                    FontSize="Body"
+                                                    Format="d"
+                                                    WidthRequest="85">
+                                                    <DatePicker.Behaviors>
+                                                        <toolkit:EventToCommandBehavior Command="{Binding NextMistChangedCommand}" EventName="PropertyChanged" />
+                                                        <toolkit:EventToCommandBehavior
+                                                            x:DataType="viewmodel:PlantDetailsViewModel"
+                                                            Command="{Binding ValidateCommand}"
+                                                            EventName="PropertyChanged" />
+                                                    </DatePicker.Behaviors>
+                                                </DatePicker>
+                                            </Frame>
+                                        </Frame>
+                                        <Label Text="at" VerticalOptions="Center" />
+                                        <Frame
+                                            Padding="2,2"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="Cyan"
+                                            HorizontalOptions="FillAndExpand">
+                                            <Frame
+                                                Padding="0,2"
+                                                BackgroundColor="Transparent"
+                                                BorderColor="Transparent"
+                                                HorizontalOptions="CenterAndExpand"
+                                                VerticalOptions="Center">
+                                                <TimePicker
+                                                    x:Name="_TimeOfNextMisting"
+                                                    BackgroundColor="White"
+                                                    FontSize="Body"
+                                                    Format="t"
+                                                    Time="{Binding AlterPlant.TimeOfNextMisting, Mode=TwoWay}"
+                                                    WidthRequest="75">
+                                                    <TimePicker.Behaviors>
+                                                        <toolkit:EventToCommandBehavior Command="{Binding NextMistChangedCommand}" EventName="PropertyChanged" />
+                                                        <toolkit:EventToCommandBehavior
+                                                            x:DataType="viewmodel:PlantDetailsViewModel"
+                                                            Command="{Binding ValidateCommand}"
+                                                            EventName="PropertyChanged" />
+                                                    </TimePicker.Behaviors>
+                                                </TimePicker>
+                                            </Frame>
+                                        </Frame>
+                                        <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
+                                            <ImageButton
+                                                Grid.Column="0"
+                                                BackgroundColor="Black"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMorningTimeCommand}"
+                                                CommandParameter="TimeOfNextMisting"
+                                                CornerRadius="8"
+                                                HeightRequest="30"
+                                                Source="morning.png"
+                                                WidthRequest="30" />
+                                            <ImageButton
+                                                Grid.Column="1"
+                                                BackgroundColor="Black"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMiddayTimeCommand}"
+                                                CommandParameter="TimeOfNextMisting"
+                                                CornerRadius="8"
+                                                HeightRequest="30"
+                                                Source="midday.png"
+                                                WidthRequest="30" />
+                                            <ImageButton
+                                                Grid.Column="2"
+                                                BackgroundColor="Black"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultNightTimeCommand}"
+                                                CommandParameter="TimeOfNextMisting"
+                                                CornerRadius="8"
+                                                HeightRequest="30"
+                                                Source="night.png"
+                                                WidthRequest="30" />
+                                        </Grid>
+                                    </FlexLayout>
+                                </Grid>
+                            </VerticalStackLayout>
+
+                            <Button
+                                x:Name="useSun"
+                                BorderColor="Orange"
+                                Command="{Binding UseSunPressedCommand}"
+                                CommandParameter="{Binding AlterPlant.UseMoving}"
+                                Text="{Binding SunGridText}" />
+
+                            <VerticalStackLayout x:Name="MoveGrids" IsVisible="{Binding AlterPlant.UseMoving}">
+                                <Grid x:Name="sunningIntervalGrid" RowSpacing="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="55" />
+                                    </Grid.RowDefinitions>
+                                    <FlexLayout Grid.Row="0">
+                                        <Label Text="Move Interval: " />
+                                        <ImageButton
+                                            x:Name="_undoMoveIntervalChange"
+                                            Grid.Column="0"
+                                            Command="{Binding MoveIntervalChangedSectionUndoCommand}"
+                                            IsVisible="{Binding MoveIntervalUndoButtonVisible}"
+                                            Source="undo_button.png"
+                                            WidthRequest="40" />
+                                    </FlexLayout>
                                     <Frame
+                                        Grid.Row="1"
                                         Padding="2,2"
                                         BackgroundColor="Transparent"
                                         BorderColor="Orange"
-                                        HorizontalOptions="FillAndExpand">
+                                        HeightRequest="50">
                                         <Frame
                                             Padding="0,2"
                                             BackgroundColor="Transparent"
                                             BorderColor="Transparent"
                                             HorizontalOptions="CenterAndExpand"
-                                            VerticalOptions="Center">
-                                            <TimePicker
-                                                x:Name="_TimeOfNextMove"
-                                                BackgroundColor="White"
-                                                FontSize="Body"
-                                                Format="t"
-                                                Time="{Binding AlterPlant.TimeOfNextMove, Mode=TwoWay}"
-                                                WidthRequest="75">
-                                                <TimePicker.Behaviors>
-                                                    <toolkit:EventToCommandBehavior Command="{Binding NextMoveChangedCommand}" EventName="PropertyChanged" />
-                                                    <toolkit:EventToCommandBehavior
-                                                        x:DataType="viewmodel:PlantDetailsViewModel"
-                                                        Command="{Binding ValidateCommand}"
-                                                        EventName="PropertyChanged" />
-                                                </TimePicker.Behaviors>
-                                            </TimePicker>
+                                            VerticalOptions="FillAndExpand">
+                                            <Picker
+                                                x:Name="sunIntervalPicker"
+                                                Title="Sun in _ days"
+                                                HorizontalTextAlignment="Center"
+                                                ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
+                                                ItemsSource="{Binding SunInterval, Mode=TwoWay}"
+                                                SelectedItem="{Binding SunIntervalPickerValue, Mode=TwoWay}">
+                                                <Picker.Behaviors>
+                                                    <toolkit:EventToCommandBehavior Command="{Binding MoveIntervalChangedCommand}" EventName="SelectedIndexChanged" />
+                                                </Picker.Behaviors>
+                                            </Picker>
                                         </Frame>
                                     </Frame>
-                                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
-                                        <ImageButton
+                                </Grid>
+
+                                <Grid
+                                    x:Name="customSunIntervalGrid"
+                                    ColumnDefinitions="*"
+                                    ColumnSpacing="5"
+                                    IsVisible="{Binding CustomSunIntervalGridVisible}"
+                                    RowSpacing="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="50" />
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0" Text="Custom Interval: " />
+                                    <FlexLayout Grid.Row="1" JustifyContent="Start">
+                                        <Label
+                                            Grid.Row="1"
                                             Grid.Column="0"
-                                            BackgroundColor="Black"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMorningTimeCommand}"
-                                            CommandParameter="TimeOfNextMove"
-                                            CornerRadius="8"
-                                            HeightRequest="30"
-                                            Source="morning.png"
-                                            WidthRequest="30" />
+                                            Text="Every "
+                                            VerticalOptions="Center" />
+                                        <Frame
+                                            Padding="2,2"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="Orange">
+                                            <Frame
+                                                Padding="0,2"
+                                                BackgroundColor="Transparent"
+                                                BorderColor="Transparent"
+                                                HorizontalOptions="CenterAndExpand"
+                                                VerticalOptions="Center">
+                                                <Entry
+                                                    x:Name="_CustomSunInterval"
+                                                    Completed="Entry_Completed"
+                                                    FontSize="Body"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    HorizontalTextAlignment="Center"
+                                                    Keyboard="Numeric"
+                                                    MaxLength="4"
+                                                    Placeholder="0"
+                                                    Text="{Binding SunDaysFromNow, Mode=TwoWay}"
+                                                    VerticalOptions="Fill">
+                                                    <Entry.Behaviors>
+                                                        <toolkit:EventToCommandBehavior Command="{Binding MoveIntervalChangedCommand}" EventName="Unfocused" />
+                                                        <toolkit:EventToCommandBehavior
+                                                            x:DataType="viewmodel:PlantDetailsViewModel"
+                                                            Command="{Binding ValidateCommand}"
+                                                            EventName="Unfocused" />
+                                                    </Entry.Behaviors>
+                                                </Entry>
+                                            </Frame>
+                                        </Frame>
+                                        <Label Text=" Day(s)" VerticalOptions="Center" />
+                                    </FlexLayout>
+                                </Grid>
+
+                                <Grid
+                                    x:Name="SunGrid"
+                                    RowSpacing="5"
+                                    VerticalOptions="CenterAndExpand">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="50" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="25" />
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="35" />
+                                        <ColumnDefinition Width="35" />
+                                        <ColumnDefinition Width="35" />
+                                    </Grid.ColumnDefinitions>
+                                    <FlexLayout Grid.Row="0" Grid.ColumnSpan="3">
+                                        <Label Text="Last Moved On: " TextColor="{Binding AlterPlant.Validation.DateTimeNextMovingSectionColor}" />
                                         <ImageButton
-                                            Grid.Column="1"
-                                            BackgroundColor="Black"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMiddayTimeCommand}"
-                                            CommandParameter="TimeOfNextMove"
-                                            CornerRadius="8"
-                                            HeightRequest="30"
-                                            Source="midday.png"
-                                            WidthRequest="30" />
+                                            x:Name="_undoLastMovedChange"
+                                            Grid.Column="0"
+                                            Command="{Binding LastMovedChangedSectionUndoCommand}"
+                                            IsVisible="{Binding LastMovedUndoButtonVisible}"
+                                            Source="undo_button.png"
+                                            WidthRequest="40" />
+                                    </FlexLayout>
+                                    <FlexLayout
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="6"
+                                        JustifyContent="SpaceBetween">
+                                        <Frame
+                                            Padding="2,2"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="Orange">
+                                            <Frame
+                                                Padding="0,2"
+                                                BackgroundColor="Transparent"
+                                                BorderColor="Transparent">
+                                                <DatePicker
+                                                    x:Name="_DateOfLastMove"
+                                                    Grid.Column="1"
+                                                    BackgroundColor="White"
+                                                    Date="{Binding AlterPlant.DateOfLastMove, Mode=TwoWay}"
+                                                    FontSize="Body"
+                                                    Format="d"
+                                                    HorizontalOptions="Fill"
+                                                    WidthRequest="85">
+                                                    <DatePicker.Behaviors>
+                                                        <toolkit:EventToCommandBehavior Command="{Binding LastMovedChangedCommand}" EventName="PropertyChanged" />
+                                                        <toolkit:EventToCommandBehavior
+                                                            x:DataType="viewmodel:PlantDetailsViewModel"
+                                                            Command="{Binding ValidateCommand}"
+                                                            EventName="PropertyChanged" />
+                                                    </DatePicker.Behaviors>
+                                                </DatePicker>
+                                            </Frame>
+                                        </Frame>
+                                        <Label Text="at" VerticalOptions="Center" />
+                                        <Frame
+                                            Padding="2,2"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="Orange">
+                                            <Frame
+                                                Padding="0,2"
+                                                BackgroundColor="Transparent"
+                                                BorderColor="Transparent">
+                                                <TimePicker
+                                                    x:Name="_TimeOfLastMove"
+                                                    Grid.Column="1"
+                                                    BackgroundColor="White"
+                                                    FontSize="Body"
+                                                    Format="t"
+                                                    Time="{Binding AlterPlant.TimeOfLastMove, Mode=TwoWay}"
+                                                    WidthRequest="75">
+                                                    <TimePicker.Behaviors>
+                                                        <toolkit:EventToCommandBehavior Command="{Binding LastMovedChangedCommand}" EventName="PropertyChanged" />
+                                                        <toolkit:EventToCommandBehavior
+                                                            x:DataType="viewmodel:PlantDetailsViewModel"
+                                                            Command="{Binding ValidateCommand}"
+                                                            EventName="PropertyChanged" />
+                                                    </TimePicker.Behaviors>
+                                                </TimePicker>
+                                            </Frame>
+                                        </Frame>
+                                        <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
+                                            <ImageButton
+                                                Grid.Column="0"
+                                                BackgroundColor="Black"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMorningTimeCommand}"
+                                                CommandParameter="TimeOfLastMove"
+                                                HeightRequest="30"
+                                                Source="morning.png"
+                                                WidthRequest="30" />
+                                            <ImageButton
+                                                Grid.Column="1"
+                                                BackgroundColor="Black"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMiddayTimeCommand}"
+                                                CommandParameter="TimeOfLastMove"
+                                                CornerRadius="8"
+                                                HeightRequest="30"
+                                                Source="midday.png"
+                                                WidthRequest="30" />
+                                            <ImageButton
+                                                Grid.Column="2"
+                                                BackgroundColor="Black"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultNightTimeCommand}"
+                                                CommandParameter="TimeOfLastMove"
+                                                CornerRadius="8"
+                                                HeightRequest="30"
+                                                Source="night.png"
+                                                WidthRequest="30" />
+                                        </Grid>
+                                    </FlexLayout>
+
+                                    <FlexLayout Grid.Row="2" Grid.ColumnSpan="3">
+                                        <Label Text="Move On: " TextColor="{Binding AlterPlant.Validation.DateTimeNextMovingSectionColor}" />
                                         <ImageButton
-                                            Grid.Column="2"
-                                            BackgroundColor="Black"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultNightTimeCommand}"
-                                            CommandParameter="TimeOfNextMove"
-                                            CornerRadius="8"
-                                            HeightRequest="30"
-                                            Source="night.png"
-                                            WidthRequest="30" />
-                                    </Grid>
-                                </FlexLayout>
-                            </Grid>
-                        </VerticalStackLayout>
+                                            x:Name="_undoMoveOnChange"
+                                            Grid.Column="0"
+                                            Command="{Binding NextMoveChangedSectionUndoCommand}"
+                                            IsVisible="{Binding NextMoveUndoButtonVisible}"
+                                            Source="undo_button.png"
+                                            WidthRequest="40" />
+                                    </FlexLayout>
+
+                                    <FlexLayout
+                                        Grid.Row="3"
+                                        Grid.ColumnSpan="6"
+                                        JustifyContent="SpaceBetween">
+                                        <Frame
+                                            Padding="2,2"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="Orange">
+                                            <Frame
+                                                Padding="0,2"
+                                                BackgroundColor="Transparent"
+                                                BorderColor="Transparent">
+                                                <DatePicker
+                                                    x:Name="_DateOfNextMove"
+                                                    Grid.Column="1"
+                                                    BackgroundColor="White"
+                                                    Date="{Binding AlterPlant.DateOfNextMove, Mode=TwoWay}"
+                                                    FontSize="Body"
+                                                    Format="d"
+                                                    WidthRequest="85">
+                                                    <DatePicker.Behaviors>
+                                                        <toolkit:EventToCommandBehavior Command="{Binding NextMoveChangedCommand}" EventName="PropertyChanged" />
+                                                        <toolkit:EventToCommandBehavior
+                                                            x:DataType="viewmodel:PlantDetailsViewModel"
+                                                            Command="{Binding ValidateCommand}"
+                                                            EventName="PropertyChanged" />
+                                                    </DatePicker.Behaviors>
+                                                </DatePicker>
+                                            </Frame>
+                                        </Frame>
+                                        <Label Text="at" VerticalOptions="Center" />
+                                        <Frame
+                                            Padding="2,2"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="Orange"
+                                            HorizontalOptions="FillAndExpand">
+                                            <Frame
+                                                Padding="0,2"
+                                                BackgroundColor="Transparent"
+                                                BorderColor="Transparent"
+                                                HorizontalOptions="CenterAndExpand"
+                                                VerticalOptions="Center">
+                                                <TimePicker
+                                                    x:Name="_TimeOfNextMove"
+                                                    BackgroundColor="White"
+                                                    FontSize="Body"
+                                                    Format="t"
+                                                    Time="{Binding AlterPlant.TimeOfNextMove, Mode=TwoWay}"
+                                                    WidthRequest="75">
+                                                    <TimePicker.Behaviors>
+                                                        <toolkit:EventToCommandBehavior Command="{Binding NextMoveChangedCommand}" EventName="PropertyChanged" />
+                                                        <toolkit:EventToCommandBehavior
+                                                            x:DataType="viewmodel:PlantDetailsViewModel"
+                                                            Command="{Binding ValidateCommand}"
+                                                            EventName="PropertyChanged" />
+                                                    </TimePicker.Behaviors>
+                                                </TimePicker>
+                                            </Frame>
+                                        </Frame>
+                                        <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
+                                            <ImageButton
+                                                Grid.Column="0"
+                                                BackgroundColor="Black"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMorningTimeCommand}"
+                                                CommandParameter="TimeOfNextMove"
+                                                CornerRadius="8"
+                                                HeightRequest="30"
+                                                Source="morning.png"
+                                                WidthRequest="30" />
+                                            <ImageButton
+                                                Grid.Column="1"
+                                                BackgroundColor="Black"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultMiddayTimeCommand}"
+                                                CommandParameter="TimeOfNextMove"
+                                                CornerRadius="8"
+                                                HeightRequest="30"
+                                                Source="midday.png"
+                                                WidthRequest="30" />
+                                            <ImageButton
+                                                Grid.Column="2"
+                                                BackgroundColor="Black"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SetToDefaultNightTimeCommand}"
+                                                CommandParameter="TimeOfNextMove"
+                                                CornerRadius="8"
+                                                HeightRequest="30"
+                                                Source="night.png"
+                                                WidthRequest="30" />
+                                        </Grid>
+                                    </FlexLayout>
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Grid>
                         <Label
                             FontSize="12"
                             IsVisible="{Binding AlterPlant.IsPlantSource}"
