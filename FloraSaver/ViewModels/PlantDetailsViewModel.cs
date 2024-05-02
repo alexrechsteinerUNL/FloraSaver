@@ -567,11 +567,8 @@ namespace FloraSaver.ViewModels
                 IsImageSelected = false;
             }
 
-            if (AlterPlant.WaterInterval is not null) { AlterPlant.BaseWaterIntervalForTempAndHum = AlterPlant.WaterInterval; }
-            if (AlterPlant.MistInterval is not null) { AlterPlant.BaseMistIntervalForTempAndHum = AlterPlant.MistInterval; }
-
-
-
+            if (AlterPlant.WaterInterval is not null) { AlterPlant.WaterInterval = AlterPlant.WaterInterval; }
+            if (AlterPlant.MistInterval is not null) { AlterPlant.MistInterval = AlterPlant.MistInterval; }
 
             IsInitialization = false;
         }
