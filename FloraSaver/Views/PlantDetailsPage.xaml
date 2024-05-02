@@ -492,16 +492,11 @@
                                     </Frame>
                                 </Frame>
                             </Grid>
-
                             <Button
-                                x:Name="useWater"
                                 Grid.Row="2"
-                                BorderColor="MediumPurple"
-                                BorderWidth="2.5"
-                                Command="{Binding UseWateringPressedCommand}"
-                                CommandParameter="{Binding AlterPlant.UseWatering}"
-                                IsVisible="{Binding IsAdvancedMode}"
-                                Text="{Binding WaterGridText}" />
+                                Command="{Binding ShowHideAdvancedOptionsCommand}"
+                                Text="{Binding EditActionsButtonText}" />
+
                             <Grid
                                 x:Name="_SearchSuggestionBox"
                                 Grid.Row="0"
@@ -555,8 +550,17 @@
                             </Grid>
                         </Grid>
 
-                        <Grid Padding="0" IsVisible="{Binding IsAdvancedMode}">
-                            <VerticalStackLayout x:Name="WateringGrids" IsVisible="{Binding AlterPlant.UseWatering}">
+                        <VerticalStackLayout Padding="0,5" IsVisible="{Binding IsAdvancedMode}">
+                            <VerticalStackLayout
+                                x:Name="WateringGrids"
+                                Padding="0,5"
+                                IsVisible="{Binding AlterPlant.UseWatering}">
+                                <Button
+                                    x:Name="useWater"
+                                    BorderColor="MediumPurple"
+                                    Command="{Binding UseWateringPressedCommand}"
+                                    CommandParameter="{Binding AlterPlant.UseWatering}"
+                                    Text="{Binding WaterGridText}" />
                                 <Grid x:Name="wateringIntervalGrid" RowSpacing="5">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="30" />
@@ -1510,7 +1514,8 @@
                                     </FlexLayout>
                                 </Grid>
                             </VerticalStackLayout>
-                        </Grid>
+                        </VerticalStackLayout>
+
                         <Label
                             FontSize="12"
                             IsVisible="{Binding AlterPlant.IsPlantSource}"

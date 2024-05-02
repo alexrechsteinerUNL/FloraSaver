@@ -28,7 +28,12 @@ namespace FloraSaver.ViewModels
 
 
         [ObservableProperty]
-        protected bool isAdvancedMode = false;
+        [NotifyPropertyChangedFor(nameof(EditActionsButtonText))]
+        public bool isAdvancedMode = false;
+        public string EditActionsButtonText => IsAdvancedMode ? "Hide Actions" : "Edit Actions";
+        [RelayCommand]
+        public void ShowHideAdvancedOptions() { if (IsAdvancedMode) { IsAdvancedMode = false; } else { IsAdvancedMode = true; } } 
+
         [ObservableProperty]
         protected bool isBeingUndone = false;
 
