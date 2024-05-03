@@ -305,7 +305,7 @@
                                             <Image
                                                 Grid.Row="0"
                                                 Aspect="Fill"
-                                                Opacity=".2"
+                                                Opacity=".15"
                                                 Source="card_background_fix.png" />
                                             <Grid
                                                 Padding="0,0"
@@ -614,6 +614,7 @@
                                                         BackgroundColor="Transparent"
                                                         HorizontalOptions="Fill"
                                                         IsVisible="{Binding UseWatering}"
+                                                        Opacity=".9"
                                                         Progress="{Binding WaterPercent}"
                                                         ProgressColor="DarkSlateBlue"
                                                         ScaleX="1"
@@ -643,6 +644,7 @@
                                                         BackgroundColor="Transparent"
                                                         HorizontalOptions="Fill"
                                                         IsVisible="{Binding UseMisting}"
+                                                        Opacity=".9"
                                                         Progress="{Binding MistPercent}"
                                                         ProgressColor="LightBlue"
                                                         ScaleX="1"
@@ -668,6 +670,7 @@
                                                         BackgroundColor="Transparent"
                                                         HorizontalOptions="Fill"
                                                         IsVisible="{Binding UseMoving}"
+                                                        Opacity=".9"
                                                         Progress="{Binding SunPercent}"
                                                         ProgressColor="Orange"
                                                         ScaleX="1"
