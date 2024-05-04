@@ -209,11 +209,11 @@ namespace FloraSaver.Models
 
         [Range(0, 365)]
         private double? _waterInterval;
-        public double? WaterInterval { get => _waterInterval; set { if (value is not null) { SetBaseWaterIntervalForTempAndHumFromInterval((double)value); } _waterInterval = value; } }
+        public double? WaterInterval { get => _waterInterval; set { _waterInterval = value; } }
 
         [Range(0, 365)]
         private double? _mistInterval;
-        public double? MistInterval { get => _mistInterval; set { if (value is not null) { SetBaseMistIntervalForTempAndHumFromInterval((double)value); } _mistInterval = value; } }
+        public double? MistInterval { get => _mistInterval; set { _mistInterval = value; } }
 
         [Range(0, 365)]
         public double? SunInterval { get; set; }
@@ -294,9 +294,9 @@ namespace FloraSaver.Models
 
         public double AdjustForHumidity(double interval)
         {
-            if (HumidityInterval is not null && HumidityInterval != 1)
+            if (HumidityInterval is not null && HumidityInterval < 85)
             {
-                var humidityEquation = interval - Math.Abs((int)Math.Floor(20 * Math.Exp((-.1 * (interval + 25 * (double)HumidityInterval / 100)))));
+                var humidityEquation = interval - Math.Abs((int)Math.Floor(20 * Math.Exp((-.1 * (interval + 25 * ((double)HumidityInterval / 100))))));
                 interval = humidityEquation > 1 ? humidityEquation : 1;
             }
             return interval;
@@ -304,9 +304,9 @@ namespace FloraSaver.Models
 
         public double AdjustForTemperature(double interval)
         {
-            if (TemperatureInterval is not null && TemperatureInterval != 1)
+            if (TemperatureInterval is not null && TemperatureInterval != 100)
             {
-                var temperatureEquation = interval - Math.Abs((int)Math.Floor(3* (double)TemperatureInterval / 100));
+                var temperatureEquation = interval - Math.Abs((int)Math.Floor(3* ((double)TemperatureInterval / 100)));
                 interval = temperatureEquation > 1 ? temperatureEquation : 1;
             }
             return interval;
@@ -315,14 +315,14 @@ namespace FloraSaver.Models
         public void SetBaseMistIntervalForTempAndHumFromInterval(double interval)
         {
             BaseMistIntervalForTempAndHum = interval;
-            if (TemperatureInterval is not null && TemperatureInterval != 1)
+            if (TemperatureInterval is not null && TemperatureInterval != 100)
             {
-                var temperatureEquation = Math.Abs((int)Math.Floor(3 * (double)TemperatureInterval / 100));
+                var temperatureEquation = Math.Abs((int)Math.Floor(3 * ((double)TemperatureInterval / 100)));
                 BaseMistIntervalForTempAndHum += temperatureEquation;
             }
-            if (HumidityInterval is not null && HumidityInterval != 1)
+            if (HumidityInterval is not null && HumidityInterval < 85)
             {
-                var humidityEquation = Math.Abs((int)Math.Floor(20 * Math.Exp((-.1 * (interval + 25 * (double)HumidityInterval / 100)))));
+                var humidityEquation = Math.Abs((int)Math.Floor(20 * Math.Exp((-.1 * (interval + 25 * ((double)HumidityInterval / 100))))));
                 BaseMistIntervalForTempAndHum += humidityEquation;
             }
         }
@@ -330,14 +330,14 @@ namespace FloraSaver.Models
         public void SetBaseWaterIntervalForTempAndHumFromInterval(double interval)
         {
             BaseWaterIntervalForTempAndHum = interval;
-            if (TemperatureInterval is not null && TemperatureInterval != 1)
+            if (TemperatureInterval is not null && TemperatureInterval != 100)
             {
-                var temperatureEquation = Math.Abs((int)Math.Floor(3 * (double)TemperatureInterval / 100));
+                var temperatureEquation = Math.Abs((int)Math.Floor(3 * ((double)TemperatureInterval / 100)));
                 BaseWaterIntervalForTempAndHum += temperatureEquation;
             }
-            if (HumidityInterval is not null && HumidityInterval != 1)
+            if (HumidityInterval is not null && HumidityInterval < 85)
             {
-                var humidityEquation = Math.Abs((int)Math.Floor(20 * Math.Exp((-.1 * (interval + 25 * (double)HumidityInterval / 100)))));
+                var humidityEquation = Math.Abs((int)Math.Floor(20 * Math.Exp((-.1 * (interval + 25 * ((double)HumidityInterval / 100))))));
                 BaseWaterIntervalForTempAndHum += humidityEquation;
             }
         }
