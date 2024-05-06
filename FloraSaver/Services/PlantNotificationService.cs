@@ -151,7 +151,7 @@ namespace FloraSaver.Services
             {
                 NotificationId = GenerateNotificationId(plant, plantAction),
                 Title = title,
-                Description = $"Please {plantAction} this plant!",
+                Description = $"It might be time to {plantAction} this plant!",
                 Android =
                 {
                     IconSmallName =
@@ -175,8 +175,8 @@ namespace FloraSaver.Services
             var notification = new NotificationRequest
             {
                 NotificationId = GenerateNotificationId(plant, plantAction),
-                Title = $"It's time to {plantAction} your '{plant.PlantSpecies}', {plant.GivenName}",
-                Description = $"You need to {plantAction} this one!",
+                Title = $"It might be time to {plantAction} your '{plant.PlantSpecies}', {plant.GivenName}",
+                Description = $"You might need to {plantAction} this one!",
                 Android =
                 {
                     IconSmallName =
