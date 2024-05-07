@@ -296,7 +296,7 @@ namespace FloraSaver.Models
         {
             if (HumidityInterval is not null && HumidityInterval < 85)
             {
-                var humidityEquation = interval - Math.Abs((int)Math.Floor(20 * Math.Exp((-.1 * (interval + 25 * ((double)HumidityInterval / 100))))));
+                var humidityEquation = (int)Math.Floor(interval - 20 * Math.Exp((-.1 * (interval + 25 * ((double)HumidityInterval / 100)))));
                 interval = humidityEquation > 1 ? humidityEquation : 1;
             }
             return interval;
