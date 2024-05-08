@@ -237,7 +237,7 @@
                                 <RowDefinition Height="50" />
                             </Grid.RowDefinitions>
                             <FlexLayout Grid.Row="0" Grid.ColumnSpan="2">
-                                <Label Text="*Humidity Range: " TextColor="White" />
+                                <Label Text="*•Humidity Range: " TextColor="White" />
                                 <ImageButton
                                     x:Name="_undoHumidityChange"
                                     Grid.Column="0"
@@ -286,7 +286,7 @@
                                 <RowDefinition Height="50" />
                             </Grid.RowDefinitions>
                             <FlexLayout Grid.Row="0" Grid.ColumnSpan="2">
-                                <Label Text="*Temperature Range: " TextColor="White" />
+                                <Label Text="*•Temperature Range: " TextColor="White" />
                                 <ImageButton
                                     x:Name="_undoTemperatureChange"
                                     Grid.Column="0"
@@ -350,7 +350,7 @@
                                 <RowDefinition Height="50" />
                             </Grid.RowDefinitions>
                             <FlexLayout Grid.Row="0">
-                                <Label Text="*Plant Species: " TextColor="{Binding AlterPlant.Validation.SpeciesSectionColor}" />
+                                <Label Text="*•Plant Species: " TextColor="{Binding AlterPlant.Validation.SpeciesSectionColor}" />
                                 <ImageButton
                                     x:Name="_undoSpeciesChange"
                                     Grid.Column="0"
