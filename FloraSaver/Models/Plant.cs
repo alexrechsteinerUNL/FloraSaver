@@ -294,9 +294,9 @@ namespace FloraSaver.Models
 
         public double AdjustForHumidity(double interval)
         {
-            if (HumidityInterval is not null && HumidityInterval < 85)
+            if (HumidityInterval is not null && HumidityInterval < 85 && interval <= 28)
             {
-                var humidityEquation = (int)Math.Floor(interval - 20 * Math.Exp((-.1 * (interval + 25 * ((double)HumidityInterval / 100)))));
+                var humidityEquation = (int)Math.Floor((28/interval)*(Math.Pow((1/2), ((double)HumidityInterval / 100))));
                 interval = humidityEquation > 1 ? humidityEquation : 1;
             }
             return interval;
