@@ -38,6 +38,9 @@ namespace FloraSaver.ViewModels
         protected bool isBeingUndone = false;
 
         [ObservableProperty]
+        protected bool isBeingAutoAdjusted = false;
+
+        [ObservableProperty]
         public HumidityInterval humidityIntervalPickerValueDetails;
         [ObservableProperty]
         TemperatureInterval temperatureIntervalPickerValueFDetails;
@@ -201,7 +204,7 @@ namespace FloraSaver.ViewModels
         [NotifyPropertyChangedFor(nameof(WaterIntervalUnsavedChangesWarning))]
         protected bool waterIntervalUndoButtonVisible = false;
         [RelayCommand]
-        protected void WaterIntervalChanged() { WaterIntervalUndoButtonVisible = (!IsInitialization && !IsBeingUndone) ? true : false; }
+        protected void WaterIntervalChanged() { WaterIntervalUndoButtonVisible = (!IsInitialization && !IsBeingUndone) ? true : false; if (!IsBeingAutoAdjusted) { AlterPlant.SetBaseWaterIntervalForTempAndHumFromInterval((double)AlterPlant.WaterInterval); } }
         public string WaterIntervalUnsavedChangesWarning => WaterIntervalUndoButtonVisible ? "• Water Interval\n" : "";
         [RelayCommand]
         protected void WaterIntervalChangedSectionUndo()
@@ -270,7 +273,7 @@ namespace FloraSaver.ViewModels
         [NotifyPropertyChangedFor(nameof(MistIntervalUnsavedChangesWarning))]
         protected bool mistIntervalUndoButtonVisible = false;
         [RelayCommand]
-        protected void MistIntervalChanged() { MistIntervalUndoButtonVisible = (!IsInitialization && !IsBeingUndone) ? true : false; }
+        protected void MistIntervalChanged() { MistIntervalUndoButtonVisible = (!IsInitialization && !IsBeingUndone) ? true : false; ; if (!IsBeingAutoAdjusted) { AlterPlant.SetBaseMistIntervalForTempAndHumFromInterval((double)AlterPlant.MistInterval); } }
         public string MistIntervalUnsavedChangesWarning => MistIntervalUndoButtonVisible ? "• Mist Interval\n" : "";
         [RelayCommand]
         protected void MistIntervalChangedSectionUndo()
@@ -998,6 +1001,7 @@ namespace FloraSaver.ViewModels
 
         partial void OnHumidityIntervalPickerValueDetailsChanged(HumidityInterval value)
         {
+            IsBeingAutoAdjusted = true;
             if (value is null) { value = HumidityIntervals.FirstOrDefault(_ => _.HumidityLevel == Preferences.Default.Get("Humidity_level", 30)); }
             if (!IsInitialization && !IsBeingUndone)
             {
@@ -1015,11 +1019,12 @@ namespace FloraSaver.ViewModels
                 MistIntervalPickerValue ??= MistingInterval.First(x => x.NumFromNow == -1);
                 OnPropertyChanged(nameof(AlterPlant));
             }
-                
+            IsBeingAutoAdjusted = false;
         }
 
         partial void OnTemperatureIntervalPickerValueFDetailsChanged(TemperatureInterval value)
         {
+            IsBeingAutoAdjusted = true;
             if (value is null) { value = TemperatureIntervalsF.FirstOrDefault(_ => _.TemperatureLevel == Preferences.Default.Get("Temperature_level", 60)); }
             if (!IsChangingCtoF && !IsInitialization)
             {
@@ -1039,10 +1044,12 @@ namespace FloraSaver.ViewModels
                 OnPropertyChanged(nameof(AlterPlant));
             }
             IsChangingCtoF = false;
+            IsBeingAutoAdjusted = false;
         }
 
         partial void OnTemperatureIntervalPickerValueCDetailsChanged(TemperatureInterval value)
         {
+            IsBeingAutoAdjusted = true;
             if (value is null) { value = TemperatureIntervalsC.FirstOrDefault(_ => _.TemperatureLevel == Preferences.Default.Get("Temperature_level", 60)); }
             if (!IsChangingCtoF && !IsInitialization)
             {
@@ -1056,6 +1063,7 @@ namespace FloraSaver.ViewModels
                 OnPropertyChanged(nameof(AlterPlant));
             }
             IsChangingCtoF = false;
+            IsBeingAutoAdjusted = false;
         }
 
         [RelayCommand]
