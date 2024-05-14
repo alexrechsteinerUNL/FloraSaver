@@ -40,5 +40,7 @@ namespace FloraSaver.Models
             }
         }
         public string IntervalText { get; set; }
+
+        
     }
 }

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using FloraSaver.Services;
 using Microsoft.Maui.Controls.Shapes;
+using Microsoft.Maui.Storage;
 using SQLite;
 
 namespace FloraSaver.Models
@@ -209,11 +210,28 @@ namespace FloraSaver.Models
 
         [Range(0, 365)]
         private double? _waterInterval;
-        public double? WaterInterval { get => _waterInterval; set { _waterInterval = value; } }
+        public double? WaterInterval { get => _waterInterval; set 
+            {
+                _waterInterval = value;
+                if (value != null) 
+                {
+                    BaseWaterIntervalForTempAndHum = FindBase((double)value);
+                }
+                
+            } 
+        }
 
         [Range(0, 365)]
         private double? _mistInterval;
-        public double? MistInterval { get => _mistInterval; set { _mistInterval = value; } }
+        public double? MistInterval { get => _mistInterval; set 
+            { 
+                _mistInterval = value;
+                if (value != null)
+                {
+                    BaseMistIntervalForTempAndHum = FindBase((double)value);
+                }
+            } 
+        }
 
         [Range(0, 365)]
         public double? SunInterval { get; set; }
@@ -223,6 +241,91 @@ namespace FloraSaver.Models
 
         [Range(0, 365)]
         public double? BaseMistIntervalForTempAndHum { get; set; }
+
+        public double FindBase(double value)
+        {
+            var temperatureAdd = 0.0;
+            var humidityAdd = 0.0;
+            if (TemperatureInterval != null)
+            {
+                temperatureAdd = FindBaseTemperatureAddition((double)value, (int)TemperatureInterval);
+            }
+
+            if (HumidityInterval != null)
+            {
+                humidityAdd = FindBaseHumidityAddition((double)value, (int)HumidityInterval);
+            }
+            return value + temperatureAdd + humidityAdd;
+        }
+
+        public double FindCurrent(double baseInterval)
+        {
+            var temperatureSub = 0.0;
+            var humiditySub = 0.0;
+            if (TemperatureInterval != null)
+            {
+                temperatureSub = FindCurrentTemperatureSubtraction((double)baseInterval, (int)TemperatureInterval);
+            }
+
+            if (HumidityInterval != null)
+            {
+                humiditySub = FindCurrentHumiditySubtraction((double)baseInterval, (int)HumidityInterval);
+            }
+            return (double)baseInterval - temperatureSub - humiditySub;
+        }
+
+        public static double FindCurrentTemperatureSubtraction(double baseInterval, int temperatureLevel)
+        {
+            if (baseInterval <= 28 && temperatureLevel < 100)
+            {
+                var temperatureEquation = 3.0 * ((double)temperatureLevel / 100.0);
+                return temperatureEquation >= 2 ? Math.Floor(temperatureEquation) : 1;
+            }
+            return 0;
+        }
+
+        public static double FindBaseTemperatureAddition(double currentInterval, int temperatureLevel)
+        {
+            if (temperatureLevel < 100)
+            {
+                var temperatureEquation = 3.0 * ((double)temperatureLevel / 100.0);
+                if ((currentInterval + temperatureEquation) <= 28)
+                {
+                    return temperatureEquation > 1 ? Math.Floor(temperatureEquation) : 1;
+                }
+
+            }
+            return 0;
+        }
+
+        public static double FindCurrentHumiditySubtraction(double baseInterval, double humidityLevel)
+        {
+            if (humidityLevel < 85 && baseInterval <= 28)
+            {
+                var humidityEquation = (28.0 / baseInterval) * (Math.Pow((double)(1.0 / 2.0), (double)((double)humidityLevel / 100.0)));
+                return Math.Floor(humidityEquation);
+            }
+            return 0.0;
+        }
+
+        public static double FindBaseHumidityAddition(double currentInterval, double humidityLevel)
+        {
+            if (currentInterval <= 28 && humidityLevel < 85)
+            {
+                var humidityEquation = (7.0 * Math.Pow(2.0, (2.0 - ((double)humidityLevel / 100.0)))) / currentInterval;
+                if ((currentInterval + humidityEquation) <= 28)
+                {
+                    return Math.Floor(humidityEquation);
+                }
+            }
+            return 0.0;
+        }
+
+
+
+
+
+
 
         private string _imageLocation;
 
@@ -292,61 +395,61 @@ namespace FloraSaver.Models
         public int? HumidityInterval { get; set; }
         public int? TemperatureInterval { get; set; }
 
-        public double AdjustForHumidity(double interval)
-        {
-            if (HumidityInterval is not null && HumidityInterval < 85 && interval <= 28)
-            {
-                var humidityEquation = interval - (28.0/interval)*(Math.Pow((double)(1.0/2.0), (double)((double)HumidityInterval / 100.0)));
-                interval = humidityEquation > 1 ? Math.Floor(humidityEquation) : 1;
-            }
-            return interval;
-        }
+        //public double AdjustForHumidity(double interval)
+        //{
+        //    if (HumidityInterval is not null && HumidityInterval < 85 && interval <= 28)
+        //    {
+        //        var humidityEquation = interval - (28.0/interval)*(Math.Pow((double)(1.0/2.0), (double)((double)HumidityInterval / 100.0)));
+        //        interval = humidityEquation > 1 ? Math.Floor(humidityEquation) : 1;
+        //    }
+        //    return interval;
+        //}
 
-        public double AdjustForTemperature(double interval)
-        {
-            if (TemperatureInterval is not null && TemperatureInterval != 100)
-            {
-                var temperatureEquation = interval - 3.0 * ((double)TemperatureInterval / 100.0);
-                interval = temperatureEquation > 1 ? Math.Floor(temperatureEquation) : 1;
-            }
-            return interval;
-        }
+        //public double AdjustForTemperature(double interval)
+        //{
+        //    if (TemperatureInterval is not null && TemperatureInterval != 100)
+        //    {
+        //        var temperatureEquation = interval - 3.0 * ((double)TemperatureInterval / 100.0);
+        //        interval = temperatureEquation > 1 ? Math.Floor(temperatureEquation) : 1;
+        //    }
+        //    return interval;
+        //}
 
-        public void SetBaseMistIntervalForTempAndHumFromInterval(double interval)
-        {
-            BaseMistIntervalForTempAndHum = interval;
-            if (interval <= 28)
-            {
-                if (TemperatureInterval is not null && TemperatureInterval != 100)
-                {
-                    var temperatureEquation = 3.0 * ((double)TemperatureInterval / 100.0);
-                    BaseMistIntervalForTempAndHum += Math.Floor(temperatureEquation);
-                }
-                if (HumidityInterval is not null && HumidityInterval < 85)
-                {
-                    var humidityEquation = (7.0*Math.Pow(2.0, (2.0-((double)TemperatureInterval / 100.0))))/interval;
-                    BaseMistIntervalForTempAndHum += Math.Floor(humidityEquation);
-                }
-            }
-        }
+        //public void SetBaseMistIntervalForTempAndHumFromInterval(double interval)
+        //{
+        //    BaseMistIntervalForTempAndHum = interval;
+        //    if (interval <= 28)
+        //    {
+        //        if (TemperatureInterval is not null && TemperatureInterval != 100)
+        //        {
+        //            var temperatureEquation = 3.0 * ((double)TemperatureInterval / 100.0);
+        //            BaseMistIntervalForTempAndHum += Math.Floor(temperatureEquation);
+        //        }
+        //        if (HumidityInterval is not null && HumidityInterval < 85)
+        //        {
+        //            var humidityEquation = (7.0*Math.Pow(2.0, (2.0-((double)TemperatureInterval / 100.0))))/interval;
+        //            BaseMistIntervalForTempAndHum += Math.Floor(humidityEquation);
+        //        }
+        //    }
+        //}
 
-        public void SetBaseWaterIntervalForTempAndHumFromInterval(double interval)
-        {
-            BaseWaterIntervalForTempAndHum = interval;
-            if (interval <= 28)
-            {
-                if (TemperatureInterval is not null && TemperatureInterval != 100)
-                {
-                    var temperatureEquation = 3.0 * ((double)TemperatureInterval / 100.0);
-                    BaseWaterIntervalForTempAndHum += Math.Floor(temperatureEquation);
-                }
-                if (HumidityInterval is not null && HumidityInterval < 85)
-                {
-                    var humidityEquation = (7.0 * Math.Pow(2.0, (2.0 - ((double)TemperatureInterval / 100.0)))) / interval;
-                    BaseWaterIntervalForTempAndHum += Math.Floor(humidityEquation);
-                }
-            }
-        }
+        //public void SetBaseWaterIntervalForTempAndHumFromInterval(double interval)
+        //{
+        //    BaseWaterIntervalForTempAndHum = interval;
+        //    if (interval <= 28)
+        //    {
+        //        if (TemperatureInterval is not null && TemperatureInterval != 100)
+        //        {
+        //            var temperatureEquation = 3.0 * ((double)TemperatureInterval / 100.0);
+        //            BaseWaterIntervalForTempAndHum += Math.Floor(temperatureEquation);
+        //        }
+        //        if (HumidityInterval is not null && HumidityInterval < 85)
+        //        {
+        //            var humidityEquation = (7.0 * Math.Pow(2.0, (2.0 - ((double)TemperatureInterval / 100.0)))) / interval;
+        //            BaseWaterIntervalForTempAndHum += Math.Floor(humidityEquation);
+        //        }
+        //    }
+        //}
 
 
         private double TimeToNextAction(DateTime lastTime, DateTime nextTime)
