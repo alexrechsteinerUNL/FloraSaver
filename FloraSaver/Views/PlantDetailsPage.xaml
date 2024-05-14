@@ -551,16 +551,17 @@
                         </Grid>
 
                         <VerticalStackLayout Padding="0,5" IsVisible="{Binding IsAdvancedMode}">
+                            <Button
+                                x:Name="useWater"
+                                BorderColor="MediumPurple"
+                                Command="{Binding UseWateringPressedCommand}"
+                                CommandParameter="{Binding AlterPlant.UseWatering}"
+                                Text="{Binding WaterGridText}" />
                             <VerticalStackLayout
                                 x:Name="WateringGrids"
                                 Padding="0,5"
                                 IsVisible="{Binding AlterPlant.UseWatering}">
-                                <Button
-                                    x:Name="useWater"
-                                    BorderColor="MediumPurple"
-                                    Command="{Binding UseWateringPressedCommand}"
-                                    CommandParameter="{Binding AlterPlant.UseWatering}"
-                                    Text="{Binding WaterGridText}" />
+
                                 <Grid x:Name="wateringIntervalGrid" RowSpacing="5">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="30" />

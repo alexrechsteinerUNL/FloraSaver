@@ -296,8 +296,8 @@ namespace FloraSaver.Models
         {
             if (HumidityInterval is not null && HumidityInterval < 85 && interval <= 28)
             {
-                var humidityEquation = interval - (int)Math.Floor((28/interval)*(Math.Pow((1/2), ((double)HumidityInterval / 100))));
-                interval = humidityEquation > 1 ? humidityEquation : 1;
+                var humidityEquation = interval - (28.0/interval)*(Math.Pow((double)(1.0/2.0), (double)((double)HumidityInterval / 100.0)));
+                interval = humidityEquation > 1 ? Math.Floor(humidityEquation) : 1;
             }
             return interval;
         }
@@ -306,8 +306,8 @@ namespace FloraSaver.Models
         {
             if (TemperatureInterval is not null && TemperatureInterval != 100)
             {
-                var temperatureEquation = interval - Math.Abs((int)Math.Floor(3* ((double)TemperatureInterval / 100)));
-                interval = temperatureEquation > 1 ? temperatureEquation : 1;
+                var temperatureEquation = interval - 3.0 * ((double)TemperatureInterval / 100.0);
+                interval = temperatureEquation > 1 ? Math.Floor(temperatureEquation) : 1;
             }
             return interval;
         }
@@ -319,13 +319,13 @@ namespace FloraSaver.Models
             {
                 if (TemperatureInterval is not null && TemperatureInterval != 100)
                 {
-                    var temperatureEquation = Math.Abs((int)Math.Floor(3 * ((double)TemperatureInterval / 100)));
-                    BaseMistIntervalForTempAndHum += temperatureEquation;
+                    var temperatureEquation = 3.0 * ((double)TemperatureInterval / 100.0);
+                    BaseMistIntervalForTempAndHum += Math.Floor(temperatureEquation);
                 }
                 if (HumidityInterval is not null && HumidityInterval < 85)
                 {
-                    var humidityEquation = Math.Floor((7*Math.Pow(2, (2-((double)TemperatureInterval / 100))))/interval);
-                    BaseMistIntervalForTempAndHum += humidityEquation;
+                    var humidityEquation = (7.0*Math.Pow(2.0, (2.0-((double)TemperatureInterval / 100.0))))/interval;
+                    BaseMistIntervalForTempAndHum += Math.Floor(humidityEquation);
                 }
             }
         }
@@ -337,13 +337,13 @@ namespace FloraSaver.Models
             {
                 if (TemperatureInterval is not null && TemperatureInterval != 100)
                 {
-                    var temperatureEquation = Math.Abs((int)Math.Floor(3 * ((double)TemperatureInterval / 100)));
-                    BaseWaterIntervalForTempAndHum += temperatureEquation;
+                    var temperatureEquation = 3.0 * ((double)TemperatureInterval / 100.0);
+                    BaseWaterIntervalForTempAndHum += Math.Floor(temperatureEquation);
                 }
                 if (HumidityInterval is not null && HumidityInterval < 85)
                 {
-                    var humidityEquation = Math.Floor((7 * Math.Pow(2, (2 - ((double)TemperatureInterval / 100)))) / interval);
-                    BaseWaterIntervalForTempAndHum += humidityEquation;
+                    var humidityEquation = (7.0 * Math.Pow(2.0, (2.0 - ((double)TemperatureInterval / 100.0)))) / interval;
+                    BaseWaterIntervalForTempAndHum += Math.Floor(humidityEquation);
                 }
             }
         }
