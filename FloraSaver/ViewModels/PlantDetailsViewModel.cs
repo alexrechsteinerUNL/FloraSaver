@@ -995,6 +995,11 @@ namespace FloraSaver.ViewModels
 
         partial void OnHumidityIntervalPickerValueDetailsChanged(HumidityInterval value)
         {
+            value = HumidityChanged(value);
+        }
+
+        private HumidityInterval HumidityChanged(HumidityInterval value)
+        {
             IsBeingAutoAdjusted = true;
             if (value is null) { value = HumidityIntervals.FirstOrDefault(_ => _.HumidityLevel == Preferences.Default.Get("Humidity_level", 30)); }
             if (!IsInitialization && !IsBeingUndone)
@@ -1014,9 +1019,15 @@ namespace FloraSaver.ViewModels
                 OnPropertyChanged(nameof(AlterPlant));
             }
             IsBeingAutoAdjusted = false;
+            return value;
         }
 
         partial void OnTemperatureIntervalPickerValueFDetailsChanged(TemperatureInterval value)
+        {
+            value = TemperatureFChanged(value);
+        }
+
+        private TemperatureInterval TemperatureFChanged(TemperatureInterval value)
         {
             IsBeingAutoAdjusted = true;
             if (value is null) { value = TemperatureIntervalsF.FirstOrDefault(_ => _.TemperatureLevel == Preferences.Default.Get("Temperature_level", 60)); }
@@ -1039,16 +1050,22 @@ namespace FloraSaver.ViewModels
             }
             IsChangingCtoF = false;
             IsBeingAutoAdjusted = false;
+            return value;
         }
 
         partial void OnTemperatureIntervalPickerValueCDetailsChanged(TemperatureInterval value)
+        {
+            value = TemperatureCChanged(value);
+        }
+
+        private TemperatureInterval TemperatureCChanged(TemperatureInterval value)
         {
             IsBeingAutoAdjusted = true;
             if (value is null) { value = TemperatureIntervalsC.FirstOrDefault(_ => _.TemperatureLevel == Preferences.Default.Get("Temperature_level", 60)); }
             if (!IsChangingCtoF && !IsInitialization)
             {
                 IsChangingCtoF = true;
-                if (TemperatureIntervalPickerValueCDetails is null) { TemperatureIntervalPickerValueCDetails.IsCelsius = true; TemperatureIntervalPickerValueCDetails = value;  }
+                if (TemperatureIntervalPickerValueCDetails is null) { TemperatureIntervalPickerValueCDetails.IsCelsius = true; TemperatureIntervalPickerValueCDetails = value; }
                 AlterPlant.TemperatureInterval = value.TemperatureLevel;
                 TemperatureIntervalPickerValueCDetails.TemperatureLevel = TemperatureIntervalPickerValueCDetails.TemperatureLevel;
                 TemperatureChanged();
@@ -1058,6 +1075,7 @@ namespace FloraSaver.ViewModels
             }
             IsChangingCtoF = false;
             IsBeingAutoAdjusted = false;
+            return value;
         }
 
         [RelayCommand]

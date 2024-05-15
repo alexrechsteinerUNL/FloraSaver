@@ -255,7 +255,8 @@ namespace FloraSaver.Models
             {
                 humidityAdd = FindBaseHumidityAddition((double)value, (int)HumidityInterval);
             }
-            return value + temperatureAdd + humidityAdd;
+            var baseAction = value + temperatureAdd + humidityAdd;
+            return Math.Ceiling(baseAction);
         }
 
         public double FindCurrent(double baseInterval)
@@ -271,7 +272,8 @@ namespace FloraSaver.Models
             {
                 humiditySub = FindCurrentHumiditySubtraction((double)baseInterval, (int)HumidityInterval);
             }
-            return (double)baseInterval - temperatureSub - humiditySub;
+            var current = (double)baseInterval - temperatureSub - humiditySub;
+            return Math.Floor(current);
         }
 
         public static double FindCurrentTemperatureSubtraction(double baseInterval, int temperatureLevel)
@@ -279,7 +281,7 @@ namespace FloraSaver.Models
             if (baseInterval <= 28 && temperatureLevel < 100)
             {
                 var temperatureEquation = 3.0 * ((double)temperatureLevel / 100.0);
-                return temperatureEquation >= 2 ? Math.Floor(temperatureEquation) : 1;
+                return temperatureEquation;
             }
             return 0;
         }
@@ -291,31 +293,30 @@ namespace FloraSaver.Models
                 var temperatureEquation = 3.0 * ((double)temperatureLevel / 100.0);
                 if ((currentInterval + temperatureEquation) <= 28)
                 {
-                    return temperatureEquation > 1 ? Math.Floor(temperatureEquation) : 1;
+                    return temperatureEquation;
                 }
-
             }
             return 0;
         }
 
         public static double FindCurrentHumiditySubtraction(double baseInterval, double humidityLevel)
         {
-            if (humidityLevel < 85 && baseInterval <= 28)
+            if (humidityLevel < 85 && baseInterval <= 23)
             {
-                var humidityEquation = (28.0 / baseInterval) * (Math.Pow((double)(1.0 / 2.0), (double)((double)humidityLevel / 100.0)));
-                return Math.Floor(humidityEquation);
+                var humidityEquation = (28.0 / (baseInterval + 5)) * (Math.Pow((double)(1.0 / 2.0), (double)((double)humidityLevel / 100.0)));
+                return humidityEquation;
             }
             return 0.0;
         }
 
         public static double FindBaseHumidityAddition(double currentInterval, double humidityLevel)
         {
-            if (currentInterval <= 28 && humidityLevel < 85)
+            if (currentInterval <= 23 && humidityLevel < 85)
             {
-                var humidityEquation = (7.0 * Math.Pow(2.0, (2.0 - ((double)humidityLevel / 100.0)))) / currentInterval;
-                if ((currentInterval + humidityEquation) <= 28)
+                var humidityEquation = (7.0 * Math.Pow(2.0, (2.0 - ((double)humidityLevel / 100.0)))) / (currentInterval) - 5;
+                if ((currentInterval + humidityEquation) <= 23)
                 {
-                    return Math.Floor(humidityEquation);
+                    return humidityEquation;
                 }
             }
             return 0.0;
