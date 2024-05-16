@@ -533,15 +533,7 @@ namespace FloraSaver.ViewModels
             CorrectlySizeTimePickerBoxes();
             // extract to its own reusable method with reflection DRY!
             GroupPickerValue = AlterPlant.PlantGroupName != null ? PlantGroups.FirstOrDefault(_ => _.GroupName == AlterPlant.PlantGroupName) : PlantGroups.FirstOrDefault(_ => _.GroupName == "Ungrouped");
-            if (AlterPlant.BaseWaterIntervalForTempAndHum is null && AlterPlant.UseWatering)
-            {
-                AlterPlant.WaterInterval = AlterPlant.FindCurrent((InitialPlant.DateOfNextWatering.Date - InitialPlant.DateOfLastWatering.Date).Days);
-            }
-
-            if (AlterPlant.BaseMistIntervalForTempAndHum is null && AlterPlant.UseMisting)
-            {
-                AlterPlant.BaseMistIntervalForTempAndHum = AlterPlant.FindCurrent((InitialPlant.DateOfNextMisting.Date - InitialPlant.DateOfLastMisting.Date).Days);
-            }
+            
 
             InitialWaterDaysFromNow = WaterDaysFromNow = AlterPlant.WaterInterval != null ? (int)AlterPlant.WaterInterval : (AlterPlant.DateOfNextWatering.Date - AlterPlant.DateOfLastWatering.Date).Days;
             WaterIntervalPickerValue = WateringInterval.FirstOrDefault(x => x.NumFromNow == WaterDaysFromNow);
@@ -569,6 +561,32 @@ namespace FloraSaver.ViewModels
             OnPropertyChanged(nameof(TemperatureIntervalPickerValueCDetails));
             HumidityIntervalPickerValueDetails = HumidityIntervals.FirstOrDefault(_ => _.HumidityLevel == (int)AlterPlant.HumidityInterval);
             OnPropertyChanged(nameof(HumidityIntervalPickerValueDetails));
+            IsInitialization = false;
+            if (AlterPlant.BaseWaterIntervalForTempAndHum is null && AlterPlant.UseWatering)
+            {
+                AlterPlant.BaseWaterIntervalForTempAndHum = (InitialPlant.DateOfNextWatering.Date - InitialPlant.DateOfLastWatering.Date).Days;
+                
+                HumidityValueChanged(HumidityIntervalPickerValueDetails);
+                TemperatureFValueChanged(TemperatureIntervalPickerValueFDetails);
+            } else if (AlterPlant.UseWatering)
+            {
+                HumidityValueChanged(HumidityIntervalPickerValueDetails);
+                TemperatureFValueChanged(TemperatureIntervalPickerValueFDetails);
+            }
+           
+            if (AlterPlant.BaseMistIntervalForTempAndHum is null && AlterPlant.UseMisting)
+            {
+                AlterPlant.BaseMistIntervalForTempAndHum = (InitialPlant.DateOfNextMisting.Date - InitialPlant.DateOfLastMisting.Date).Days;
+                HumidityValueChanged(HumidityIntervalPickerValueDetails);
+                TemperatureFValueChanged(TemperatureIntervalPickerValueFDetails);
+            }
+            else if (AlterPlant.UseMisting)
+            {
+                HumidityValueChanged(HumidityIntervalPickerValueDetails);
+                TemperatureFValueChanged(TemperatureIntervalPickerValueFDetails);
+            }
+            IsInitialization = true;
+
             if (InitialPlant == AlterPlant)
             {
                 ShouldGetNewData = false;
@@ -995,10 +1013,10 @@ namespace FloraSaver.ViewModels
 
         partial void OnHumidityIntervalPickerValueDetailsChanged(HumidityInterval value)
         {
-            value = HumidityChanged(value);
+            value = HumidityValueChanged(value);
         }
 
-        private HumidityInterval HumidityChanged(HumidityInterval value)
+        private HumidityInterval HumidityValueChanged(HumidityInterval value)
         {
             IsBeingAutoAdjusted = true;
             if (value is null) { value = HumidityIntervals.FirstOrDefault(_ => _.HumidityLevel == Preferences.Default.Get("Humidity_level", 30)); }
@@ -1024,10 +1042,10 @@ namespace FloraSaver.ViewModels
 
         partial void OnTemperatureIntervalPickerValueFDetailsChanged(TemperatureInterval value)
         {
-            value = TemperatureFChanged(value);
+            value = TemperatureFValueChanged(value);
         }
 
-        private TemperatureInterval TemperatureFChanged(TemperatureInterval value)
+        private TemperatureInterval TemperatureFValueChanged(TemperatureInterval value)
         {
             IsBeingAutoAdjusted = true;
             if (value is null) { value = TemperatureIntervalsF.FirstOrDefault(_ => _.TemperatureLevel == Preferences.Default.Get("Temperature_level", 60)); }
@@ -1055,10 +1073,10 @@ namespace FloraSaver.ViewModels
 
         partial void OnTemperatureIntervalPickerValueCDetailsChanged(TemperatureInterval value)
         {
-            value = TemperatureCChanged(value);
+            value = TemperatureCValueChanged(value);
         }
 
-        private TemperatureInterval TemperatureCChanged(TemperatureInterval value)
+        private TemperatureInterval TemperatureCValueChanged(TemperatureInterval value)
         {
             IsBeingAutoAdjusted = true;
             if (value is null) { value = TemperatureIntervalsC.FirstOrDefault(_ => _.TemperatureLevel == Preferences.Default.Get("Temperature_level", 60)); }

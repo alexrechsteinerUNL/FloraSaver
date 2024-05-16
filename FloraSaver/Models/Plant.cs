@@ -213,11 +213,11 @@ namespace FloraSaver.Models
         public double? WaterInterval { get => _waterInterval; set 
             {
                 _waterInterval = value;
-                if (value != null) 
-                {
-                    BaseWaterIntervalForTempAndHum = FindBase((double)value);
-                }
-                
+                //if (value != null)
+                //{
+                //    BaseWaterIntervalForTempAndHum = FindBase((double)value);
+                //}
+
             } 
         }
 
@@ -226,10 +226,10 @@ namespace FloraSaver.Models
         public double? MistInterval { get => _mistInterval; set 
             { 
                 _mistInterval = value;
-                if (value != null)
-                {
-                    BaseMistIntervalForTempAndHum = FindBase((double)value);
-                }
+                //if (value != null)
+                //{
+                //    BaseMistIntervalForTempAndHum = FindBase((double)value);
+                //}
             } 
         }
 
