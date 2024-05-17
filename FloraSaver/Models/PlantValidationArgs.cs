@@ -49,7 +49,7 @@ namespace FloraSaver.Models
             {
                 if (value)
                 {
-                    Message += "Plant Species cannot be empty\n";
+                    Message += "Plant Type cannot be empty\n";
                 }
                 _isSpeciesSectionInvalid = value;
             }

@@ -157,7 +157,7 @@ namespace FloraSaver.ViewModels
         protected bool speciesUndoButtonVisible = false;
         [RelayCommand]
         protected void SpeciesChanged() { SpeciesUndoButtonVisible = (!IsInitialization && !IsBeingUndone && AlterPlant.PlantSpecies != InitialPlant.PlantSpecies) ? true : false;}
-        public string SpeciesUnsavedChangesWarning => SpeciesUndoButtonVisible ? "• Plant Species\n" : "";
+        public string SpeciesUnsavedChangesWarning => SpeciesUndoButtonVisible ? "• Plant Type\n" : "";
         [RelayCommand]
         protected void SpeciesChangedSectionUndo()
         {
@@ -204,12 +204,20 @@ namespace FloraSaver.ViewModels
         [NotifyPropertyChangedFor(nameof(WaterIntervalUnsavedChangesWarning))]
         protected bool waterIntervalUndoButtonVisible = false;
         [RelayCommand]
-        protected void WaterIntervalChanged() { WaterIntervalUndoButtonVisible = (!IsInitialization && !IsBeingUndone) ? true : false; }
+        protected void WaterIntervalChanged() {
+            WaterIntervalUndoButtonVisible = (!IsInitialization && !IsBeingUndone) ? true : false;
+            if (!IsBeingAutoAdjusted && !IsInitialization && !IsBeingUndone)
+            {
+                AlterPlant.BaseWaterIntervalForTempAndHum = AlterPlant.FindBase((AlterPlant.DateOfNextWatering.Date - AlterPlant.DateOfLastWatering.Date).Days);
+            }
+        }
         public string WaterIntervalUnsavedChangesWarning => WaterIntervalUndoButtonVisible ? "• Water Interval\n" : "";
         [RelayCommand]
         protected void WaterIntervalChangedSectionUndo()
         {
             IsBeingUndone = true;
+            HumidityChangedSectionUndo();
+            TemperatureChangedSectionUndo();
             AlterPlant.WaterInterval = InitialPlant.WaterInterval;
             WaterDaysFromNow = AlterPlant.WaterInterval != null ? (int)AlterPlant.WaterInterval : (AlterPlant.DateOfNextWatering.Date - AlterPlant.DateOfLastWatering.Date).Days;
             WaterIntervalPickerValue = WateringInterval.FirstOrDefault(x => x.NumFromNow == InitialWaterDaysFromNow);
@@ -236,7 +244,8 @@ namespace FloraSaver.ViewModels
         protected void LastWateredChangedSectionUndo()
         {
             IsBeingUndone = true;
-
+            HumidityChangedSectionUndo();
+            TemperatureChangedSectionUndo();
             AlterPlant.DateOfLastWatering = InitialPlant.DateOfLastWatering;
             AlterPlant.TimeOfLastWatering = InitialPlant.TimeOfLastWatering;
             OnPropertyChanged(nameof(AlterPlant));
@@ -261,7 +270,8 @@ namespace FloraSaver.ViewModels
         protected void NextWaterChangedSectionUndo()
         {
             IsBeingUndone = true;
-
+            HumidityChangedSectionUndo();
+            TemperatureChangedSectionUndo();
             AlterPlant.DateOfNextWatering = InitialPlant.DateOfNextWatering;
             AlterPlant.TimeOfNextWatering = InitialPlant.TimeOfNextWatering;
             OnPropertyChanged(nameof(AlterPlant));
@@ -273,12 +283,21 @@ namespace FloraSaver.ViewModels
         [NotifyPropertyChangedFor(nameof(MistIntervalUnsavedChangesWarning))]
         protected bool mistIntervalUndoButtonVisible = false;
         [RelayCommand]
-        protected void MistIntervalChanged() { MistIntervalUndoButtonVisible = (!IsInitialization && !IsBeingUndone) ? true : false; } 
+        protected void MistIntervalChanged() 
+        { 
+            MistIntervalUndoButtonVisible = (!IsInitialization && !IsBeingUndone) ? true : false;
+            if (!IsBeingAutoAdjusted && !IsInitialization && !IsBeingUndone)
+            {
+                AlterPlant.BaseMistIntervalForTempAndHum = AlterPlant.FindBase((AlterPlant.DateOfNextMisting.Date - AlterPlant.DateOfLastMisting.Date).Days);
+            }
+        } 
         public string MistIntervalUnsavedChangesWarning => MistIntervalUndoButtonVisible ? "• Mist Interval\n" : "";
         [RelayCommand]
         protected void MistIntervalChangedSectionUndo()
         {
             IsBeingUndone = true;
+            HumidityChangedSectionUndo();
+            TemperatureChangedSectionUndo();
             AlterPlant.MistInterval = InitialPlant.MistInterval;
             MistDaysFromNow = AlterPlant.MistInterval != null ? (int)AlterPlant.MistInterval : (AlterPlant.DateOfNextMisting.Date - AlterPlant.DateOfLastMisting.Date).Days;
             MistIntervalPickerValue = MistingInterval.FirstOrDefault(x => x.NumFromNow == InitialMistDaysFromNow);
@@ -306,7 +325,8 @@ namespace FloraSaver.ViewModels
         protected void LastMistedChangedSectionUndo()
         {
             IsBeingUndone = true;
-
+            HumidityChangedSectionUndo();
+            TemperatureChangedSectionUndo();
             AlterPlant.DateOfLastMisting = InitialPlant.DateOfLastMisting;
             AlterPlant.TimeOfLastMisting = InitialPlant.TimeOfLastMisting;
 
@@ -332,7 +352,8 @@ namespace FloraSaver.ViewModels
         protected void NextMistChangedSectionUndo()
         {
             IsBeingUndone = true;
-
+            HumidityChangedSectionUndo();
+            TemperatureChangedSectionUndo();
             AlterPlant.DateOfNextMisting = InitialPlant.DateOfNextMisting;
             AlterPlant.TimeOfNextMisting = InitialPlant.TimeOfNextMisting;
 
@@ -420,6 +441,9 @@ namespace FloraSaver.ViewModels
             IsBeingUndone = true;
             //AlterPlant = new Plant(InitialPlant); This is causing visual bugs
             OnPropertyChanged(nameof(AlterPlant));
+
+            HumidityChangedSectionUndo();
+            TemperatureChangedSectionUndo();
             GroupSectionUndo();
             ImageChangedSectionUndo();
             SpeciesChangedSectionUndo();
@@ -427,8 +451,6 @@ namespace FloraSaver.ViewModels
             DobChangedSectionUndo();
             WaterIntervalChangedSectionUndo();
             LastWateredChangedSectionUndo();
-            HumidityChangedSectionUndo();
-            TemperatureChangedSectionUndo();
             NextWaterChangedSectionUndo();
             MistIntervalChangedSectionUndo();
             LastMistedChangedSectionUndo();
@@ -647,7 +669,12 @@ namespace FloraSaver.ViewModels
                 AlterPlant.ImageLocation = saveImageLocation;
                 AlterPlant.DateOfBirth = saveDOB;
                 AlterPlant.Id = saveId;
+                AlterPlant.BaseWaterIntervalForTempAndHum = (AlterPlant.DateOfNextWatering.Date - AlterPlant.DateOfLastWatering.Date).Days;
+                AlterPlant.BaseMistIntervalForTempAndHum = (AlterPlant.DateOfNextMisting.Date - AlterPlant.DateOfLastMisting.Date).Days;
+                HumidityValueChanged(HumidityIntervalPickerValueDetails);
+                TemperatureFValueChanged(TemperatureIntervalPickerValueFDetails);
                 OnPropertyChanged(nameof(AlterPlant));
+
                 HideSearchSuggestionBox();
             }
         }
@@ -1049,7 +1076,7 @@ namespace FloraSaver.ViewModels
         {
             IsBeingAutoAdjusted = true;
             if (value is null) { value = TemperatureIntervalsF.FirstOrDefault(_ => _.TemperatureLevel == Preferences.Default.Get("Temperature_level", 60)); }
-            if (!IsChangingCtoF && !IsInitialization)
+            if (!IsChangingCtoF && !IsInitialization && !IsBeingUndone)
             {
                 IsChangingCtoF = true;
                 if (TemperatureIntervalPickerValueFDetails is null) { TemperatureIntervalPickerValueFDetails = value; }
@@ -1080,7 +1107,7 @@ namespace FloraSaver.ViewModels
         {
             IsBeingAutoAdjusted = true;
             if (value is null) { value = TemperatureIntervalsC.FirstOrDefault(_ => _.TemperatureLevel == Preferences.Default.Get("Temperature_level", 60)); }
-            if (!IsChangingCtoF && !IsInitialization)
+            if (!IsChangingCtoF && !IsInitialization && !IsBeingUndone)
             {
                 IsChangingCtoF = true;
                 if (TemperatureIntervalPickerValueCDetails is null) { TemperatureIntervalPickerValueCDetails.IsCelsius = true; TemperatureIntervalPickerValueCDetails = value; }

@@ -97,7 +97,7 @@
                                     <RowDefinition Height="50" />
                                 </Grid.RowDefinitions>
                                 <FlexLayout Grid.Row="0">
-                                    <Label Text="*Plant Species: " TextColor="{Binding AlterPlant.Validation.SpeciesSectionColor}" />
+                                    <Label Text="*Plant Type: " TextColor="{Binding AlterPlant.Validation.SpeciesSectionColor}" />
                                     <ImageButton
                                         x:Name="_undoSpeciesChange"
                                         Grid.Column="0"

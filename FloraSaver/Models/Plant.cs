@@ -226,10 +226,6 @@ namespace FloraSaver.Models
         public double? MistInterval { get => _mistInterval; set 
             { 
                 _mistInterval = value;
-                //if (value != null)
-                //{
-                //    BaseMistIntervalForTempAndHum = FindBase((double)value);
-                //}
             } 
         }
 
@@ -273,7 +269,7 @@ namespace FloraSaver.Models
                 humiditySub = FindCurrentHumiditySubtraction((double)baseInterval, (int)HumidityInterval);
             }
             var current = (double)baseInterval - temperatureSub - humiditySub;
-            return Math.Floor(current);
+            return current > 1 ? Math.Floor(current) : 1;
         }
 
         public static double FindCurrentTemperatureSubtraction(double baseInterval, int temperatureLevel)
