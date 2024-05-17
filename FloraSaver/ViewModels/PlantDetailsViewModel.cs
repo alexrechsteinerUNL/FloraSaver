@@ -205,7 +205,7 @@ namespace FloraSaver.ViewModels
         protected bool waterIntervalUndoButtonVisible = false;
         [RelayCommand]
         protected void WaterIntervalChanged() {
-            WaterIntervalUndoButtonVisible = (!IsInitialization && !IsBeingUndone) ? true : false;
+            WaterIntervalUndoButtonVisible = (!IsInitialization && !IsBeingUndone && (AlterPlant.WaterInterval != InitialPlant.WaterInterval)) ? true : false;
             if (!IsBeingAutoAdjusted && !IsInitialization && !IsBeingUndone)
             {
                 AlterPlant.BaseWaterIntervalForTempAndHum = AlterPlant.FindBase((AlterPlant.DateOfNextWatering.Date - AlterPlant.DateOfLastWatering.Date).Days);
@@ -285,10 +285,10 @@ namespace FloraSaver.ViewModels
         [RelayCommand]
         protected void MistIntervalChanged() 
         { 
-            MistIntervalUndoButtonVisible = (!IsInitialization && !IsBeingUndone) ? true : false;
+            MistIntervalUndoButtonVisible = (!IsInitialization && !IsBeingUndone && (AlterPlant.MistInterval != InitialPlant.MistInterval)) ? true : false;
             if (!IsBeingAutoAdjusted && !IsInitialization && !IsBeingUndone)
             {
-                AlterPlant.BaseMistIntervalForTempAndHum = AlterPlant.FindBase((AlterPlant.DateOfNextMisting.Date - AlterPlant.DateOfLastMisting.Date).Days);
+                 AlterPlant.BaseMistIntervalForTempAndHum = AlterPlant.FindBase((AlterPlant.DateOfNextMisting.Date - AlterPlant.DateOfLastMisting.Date).Days);
             }
         } 
         public string MistIntervalUnsavedChangesWarning => MistIntervalUndoButtonVisible ? "• Mist Interval\n" : "";
@@ -673,6 +673,8 @@ namespace FloraSaver.ViewModels
                 AlterPlant.BaseMistIntervalForTempAndHum = (AlterPlant.DateOfNextMisting.Date - AlterPlant.DateOfLastMisting.Date).Days;
                 HumidityValueChanged(HumidityIntervalPickerValueDetails);
                 TemperatureFValueChanged(TemperatureIntervalPickerValueFDetails);
+                WaterDaysFromNowChanged(WaterDaysFromNow);
+                MistDaysFromNowChanged(MistDaysFromNow);
                 OnPropertyChanged(nameof(AlterPlant));
 
                 HideSearchSuggestionBox();
@@ -852,6 +854,11 @@ namespace FloraSaver.ViewModels
 
         partial void OnWaterDaysFromNowChanged(double value)
         {
+            WaterDaysFromNowChanged(value);
+        }
+
+        private void WaterDaysFromNowChanged(double value)
+        {
             if (!IsInitialization)
             {
                 AlterPlant.DateOfNextWatering = AlterPlant.DateOfLastWatering.AddDays(value);
@@ -875,6 +882,11 @@ namespace FloraSaver.ViewModels
         }
 
         partial void OnMistDaysFromNowChanged(double value)
+        {
+            MistDaysFromNowChanged(value);
+        }
+
+        private void MistDaysFromNowChanged(double value)
         {
             if (!IsInitialization)
             {
