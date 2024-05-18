@@ -156,124 +156,242 @@
                                 <Setter Property="IsVisible" Value="True" />
                             </DataTrigger>
                         </Frame.Triggers>
-                        <Grid
-                            x:Name="groupGrid"
-                            ColumnSpacing="5"
-                            MaximumWidthRequest="500"
-                            RowSpacing="5">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="30" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="3*" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <FlexLayout Grid.Row="0" Grid.ColumnSpan="2">
-                                <Label Text="*Plant Group: " TextColor="{Binding AlterPlant.Validation.GroupSectionColor}" />
-                                <ImageButton
-                                    x:Name="_undoGroupChange"
-                                    Grid.Column="0"
-                                    Command="{Binding GroupSectionUndoCommand}"
-                                    IsVisible="{Binding GroupUndoButtonVisible}"
-                                    Source="undo_button.png"
-                                    WidthRequest="40" />
-                            </FlexLayout>
-                            <Frame
-                                Grid.Row="1"
-                                Padding="2,2"
-                                BackgroundColor="Transparent"
-                                BorderColor="{Binding AlterPlant.GroupColor}">
+                        <ScrollView>
+                            <Grid
+                                x:Name="groupGrid"
+                                ColumnSpacing="5"
+                                MaximumWidthRequest="500"
+                                RowSpacing="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <FlexLayout Grid.Row="0" Grid.ColumnSpan="2">
+                                    <Label Text="*Plant Group: " TextColor="{Binding AlterPlant.Validation.GroupSectionColor}" />
+                                    <ImageButton
+                                        x:Name="_undoGroupChange"
+                                        Grid.Column="0"
+                                        Command="{Binding GroupSectionUndoCommand}"
+                                        IsVisible="{Binding GroupUndoButtonVisible}"
+                                        Source="undo_button.png"
+                                        WidthRequest="40" />
+                                </FlexLayout>
                                 <Frame
-                                    Padding="0,2"
+                                    Grid.Row="1"
+                                    Padding="2,2"
                                     BackgroundColor="Transparent"
-                                    BorderColor="Transparent"
-                                    HorizontalOptions="CenterAndExpand"
-                                    VerticalOptions="FillAndExpand">
-                                    <Picker
-                                        x:Name="groupPicker"
-                                        Title="Select Plant Group"
-                                        Grid.Column="1"
-                                        HorizontalTextAlignment="Center"
-                                        ItemDisplayBinding="{Binding GroupName, Mode=TwoWay}"
-                                        ItemsSource="{Binding PlantGroups, Mode=TwoWay}"
-                                        SelectedItem="{Binding GroupPickerValue, Mode=TwoWay}">
-                                        <Picker.Behaviors>
-                                            <toolkit:EventToCommandBehavior Command="{Binding GroupPickerChangedCommand}" EventName="SelectedIndexChanged" />
-                                        </Picker.Behaviors>
-                                    </Picker>
+                                    BorderColor="{Binding AlterPlant.GroupColor}">
+                                    <Frame
+                                        Padding="0,2"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Transparent"
+                                        HorizontalOptions="CenterAndExpand"
+                                        VerticalOptions="FillAndExpand">
+                                        <Picker
+                                            x:Name="groupPicker"
+                                            Title="Select Plant Group"
+                                            Grid.Column="1"
+                                            HorizontalTextAlignment="Center"
+                                            ItemDisplayBinding="{Binding GroupName, Mode=TwoWay}"
+                                            ItemsSource="{Binding PlantGroups, Mode=TwoWay}"
+                                            SelectedItem="{Binding GroupPickerValue, Mode=TwoWay}">
+                                            <Picker.Behaviors>
+                                                <toolkit:EventToCommandBehavior Command="{Binding GroupPickerChangedCommand}" EventName="SelectedIndexChanged" />
+                                            </Picker.Behaviors>
+                                        </Picker>
+                                    </Frame>
                                 </Frame>
-                            </Frame>
-                            <!--  There's no reason why we shouldn't be able to set the current group color here as well if you want that implemented here is a start  -->
-                            <Button
-                                x:Name="addGroupButton"
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                Grid.ColumnSpan="2"
-                                Command="{Binding AddGroupShowPressedCommand}"
-                                FontSize="Title"
-                                Text="{Binding AddGroupButtonText}" />
-                            <Frame
-                                Grid.Row="2"
-                                Grid.Column="0"
-                                Padding="2,2"
-                                BackgroundColor="Transparent"
-                                IsVisible="{Binding AddNewGroupGridVisible}">
-                                <Frame
-                                    Padding="0,2"
-                                    BackgroundColor="Transparent"
-                                    BorderColor="Transparent"
-                                    HorizontalOptions="FillAndExpand"
-                                    VerticalOptions="FillAndExpand">
-                                    <Entry
-                                        x:Name="_groupAdd"
-                                        Completed="Entry_Completed"
-                                        HorizontalOptions="FillAndExpand"
-                                        Placeholder="Enter new plant group"
-                                        VerticalOptions="Fill">
-                                        <Entry.Behaviors>
-                                            <toolkit:EventToCommandBehavior
-                                                x:DataType="viewmodel:PlantDetailsViewModel"
-                                                Command="{Binding ValidateCommand}"
-                                                EventName="Unfocused" />
-                                        </Entry.Behaviors>
-                                    </Entry>
-                                </Frame>
-                            </Frame>
-                            <Frame
-                                Grid.Row="2"
-                                Grid.Column="1"
-                                Padding="-10"
-                                BackgroundColor="{Binding SelectedGroupColor.Colors}"
-                                IsVisible="{Binding AddNewGroupGridVisible}"
-                                WidthRequest="50">
-                                <Picker
-                                    x:Name="NewGroupColorPicker"
-                                    Grid.Row="0"
-                                    Grid.Column="0"
+                                <!--  There's no reason why we shouldn't be able to set the current group color here as well if you want that implemented here is a start  -->
+                                <Button
+                                    x:Name="addGroupButton"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
                                     Grid.ColumnSpan="2"
-                                    BackgroundColor="{Binding SelectedGroupColor.Colors, Mode=TwoWay}"
-                                    HorizontalOptions="FillAndExpand"
+                                    Command="{Binding AddGroupShowPressedCommand}"
+                                    FontSize="Title"
+                                    Text="{Binding AddGroupButtonText}" />
+                                <Frame
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Padding="2,2"
+                                    BackgroundColor="Transparent"
+                                    IsVisible="{Binding AddNewGroupGridVisible}">
+                                    <Frame
+                                        Padding="0,2"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Transparent"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="FillAndExpand">
+                                        <Entry
+                                            x:Name="_groupAdd"
+                                            Completed="Entry_Completed"
+                                            HorizontalOptions="FillAndExpand"
+                                            Placeholder="Enter new plant group"
+                                            VerticalOptions="Fill">
+                                            <Entry.Behaviors>
+                                                <toolkit:EventToCommandBehavior
+                                                    x:DataType="viewmodel:PlantDetailsViewModel"
+                                                    Command="{Binding ValidateCommand}"
+                                                    EventName="Unfocused" />
+                                            </Entry.Behaviors>
+                                        </Entry>
+                                    </Frame>
+                                </Frame>
+                                <Frame
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Padding="-10"
+                                    BackgroundColor="{Binding SelectedGroupColor.Colors}"
                                     IsVisible="{Binding AddNewGroupGridVisible}"
-                                    ItemDisplayBinding="{Binding ColorName, Mode=TwoWay}"
-                                    ItemsSource="{Binding GroupColors, Mode=TwoWay}"
-                                    SelectedItem="{Binding SelectedGroupColor, Mode=TwoWay}"
-                                    TextColor="{Binding SelectedGroupColor.Colors, Mode=TwoWay}"
-                                    VerticalOptions="FillAndExpand" />
-                            </Frame>
-                            <Button
-                                x:Name="addNewGroupButton"
-                                Grid.Row="2"
-                                Grid.Column="2"
-                                Padding="0"
-                                Command="{Binding AddNewGroupCommand}"
-                                CommandParameter="{Binding Source={x:Reference _groupAdd}, Path=Text}"
-                                IsVisible="{Binding AddNewGroupGridVisible}"
-                                Text="✓"
-                                WidthRequest="50" />
-                        </Grid>
+                                    WidthRequest="50">
+                                    <Picker
+                                        x:Name="NewGroupColorPicker"
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{Binding SelectedGroupColor.Colors, Mode=TwoWay}"
+                                        HorizontalOptions="FillAndExpand"
+                                        IsVisible="{Binding AddNewGroupGridVisible}"
+                                        ItemDisplayBinding="{Binding ColorName, Mode=TwoWay}"
+                                        ItemsSource="{Binding GroupColors, Mode=TwoWay}"
+                                        SelectedItem="{Binding SelectedGroupColor, Mode=TwoWay}"
+                                        TextColor="{Binding SelectedGroupColor.Colors, Mode=TwoWay}"
+                                        VerticalOptions="FillAndExpand" />
+                                </Frame>
+                                <Button
+                                    x:Name="addNewGroupButton"
+                                    Grid.Row="2"
+                                    Grid.Column="2"
+                                    Padding="0"
+                                    Command="{Binding AddNewGroupCommand}"
+                                    CommandParameter="{Binding Source={x:Reference _groupAdd}, Path=Text}"
+                                    IsVisible="{Binding AddNewGroupGridVisible}"
+                                    Text="✓"
+                                    WidthRequest="50" />
+                            </Grid>
+                            <Grid
+                                x:Name="humidityGrid"
+                                ColumnDefinitions="*,*"
+                                RowSpacing="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="50" />
+                                </Grid.RowDefinitions>
+                                <FlexLayout Grid.Row="0" Grid.ColumnSpan="2">
+                                    <Label Text="*•Humidity Range: " TextColor="White" />
+                                    <ImageButton
+                                        x:Name="_undoHumidityChange"
+                                        Grid.Column="0"
+                                        Command="{Binding HumidityChangedSectionUndoCommand}"
+                                        IsVisible="{Binding HumidityUndoButtonVisible}"
+                                        Source="undo_button.png"
+                                        WidthRequest="40" />
+                                </FlexLayout>
+                                <Frame
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Padding="2,2"
+                                    BackgroundColor="Transparent">
+                                    <Frame
+                                        Padding="0,2"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Transparent"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Center">
+                                        <Grid Padding="0" RowDefinitions="*">
+                                            <Label
+                                                Grid.Row="0"
+                                                FontSize="18"
+                                                HorizontalTextAlignment="Center"
+                                                Text="{Binding HumidityIntervalPickerValueDetails.HumidityRange}"
+                                                VerticalOptions="Center" />
+                                            <Picker
+                                                x:Name="humidityToPicker"
+                                                Grid.Row="0"
+                                                BackgroundColor="Transparent"
+                                                ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
+                                                ItemsSource="{Binding HumidityIntervals, Mode=TwoWay}"
+                                                SelectedItem="{Binding HumidityIntervalPickerValueDetails, Mode=TwoWay}"
+                                                TextColor="Transparent" />
+                                        </Grid>
+                                    </Frame>
+                                </Frame>
+                            </Grid>
+
+                            <Grid
+                                x:Name="temperatureGrid"
+                                ColumnDefinitions="*,*"
+                                RowSpacing="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="50" />
+                                </Grid.RowDefinitions>
+                                <FlexLayout Grid.Row="0" Grid.ColumnSpan="2">
+                                    <Label Text="*•Temperature Range: " TextColor="White" />
+                                    <ImageButton
+                                        x:Name="_undoTemperatureChange"
+                                        Grid.Column="0"
+                                        Command="{Binding TemperatureChangedSectionUndoCommand}"
+                                        IsVisible="{Binding TemperatureUndoButtonVisible}"
+                                        Source="undo_button.png"
+                                        WidthRequest="40" />
+                                </FlexLayout>
+                                <Frame
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Padding="2,2"
+                                    BackgroundColor="Transparent">
+                                    <Frame
+                                        Padding="0,2"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Transparent"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Center">
+                                        <Grid Padding="0" RowDefinitions="*">
+                                            <Label
+                                                Grid.Row="0"
+                                                FontSize="18"
+                                                HorizontalTextAlignment="Center"
+                                                IsVisible="{Binding IsFahrenheit}"
+                                                Text="{Binding TemperatureIntervalPickerValueFDetails.TemperatureRange}"
+                                                VerticalOptions="Center" />
+                                            <Label
+                                                Grid.Row="0"
+                                                FontSize="18"
+                                                HorizontalTextAlignment="Center"
+                                                IsVisible="{Binding IsCelsius}"
+                                                Text="{Binding TemperatureIntervalPickerValueCDetails.TemperatureRange}"
+                                                VerticalOptions="Center" />
+                                            <Picker
+                                                x:Name="temperatureToPickerF"
+                                                Grid.Row="0"
+                                                BackgroundColor="Transparent"
+                                                IsVisible="{Binding IsFahrenheit}"
+                                                ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
+                                                ItemsSource="{Binding TemperatureIntervalsF, Mode=TwoWay}"
+                                                SelectedItem="{Binding TemperatureIntervalPickerValueFDetails, Mode=TwoWay}"
+                                                TextColor="Transparent" />
+                                            <Picker
+                                                x:Name="temperatureToPickerC"
+                                                Grid.Row="0"
+                                                BackgroundColor="Transparent"
+                                                IsVisible="{Binding IsCelsius}"
+                                                ItemDisplayBinding="{Binding IntervalText, Mode=TwoWay}"
+                                                ItemsSource="{Binding TemperatureIntervalsC, Mode=TwoWay}"
+                                                SelectedItem="{Binding TemperatureIntervalPickerValueCDetails, Mode=TwoWay}"
+                                                TextColor="Transparent" />
+                                        </Grid>
+                                    </Frame>
+                                </Frame>
+                            </Grid>
+                        </ScrollView>
+
                     </Frame>
                     <Frame
                         x:Name="PersonalFrame"
