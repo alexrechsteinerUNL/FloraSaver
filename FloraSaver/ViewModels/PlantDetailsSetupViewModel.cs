@@ -67,8 +67,8 @@ namespace FloraSaver.ViewModels
         //    IsInitialization = false;
         //}
 
-        [ObservableProperty]
-        private bool isInitialization;
+        //[ObservableProperty]
+        //private bool isInitialization;
 
         [ObservableProperty]
         private Plant plant;
