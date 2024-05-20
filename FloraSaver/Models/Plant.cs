@@ -9,6 +9,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using FloraSaver.Services;
 using Microsoft.Maui.Controls.Shapes;
 using Microsoft.Maui.Storage;
+using Microsoft.VisualBasic;
 using SQLite;
 
 namespace FloraSaver.Models
@@ -238,45 +239,29 @@ namespace FloraSaver.Models
         [Range(0, 365)]
         public double? BaseMistIntervalForTempAndHum { get; set; }
 
-        public double FindBase(double value)
+        public double FindBase(double currentInterval)
         {
-            var temperatureAdd = 0.0;
-            var humidityAdd = 0.0;
-            if (TemperatureInterval != null)
+            if (currentInterval > 2 && currentInterval <= 28)
             {
-                temperatureAdd = FindBaseTemperatureAddition((double)value, (int)TemperatureInterval);
+                currentInterval = (2.0 * (((double)HumidityInterval / 100.0) + 1) * (currentInterval + ((double)TemperatureInterval / 100.0))) / (1.0 + 2.0 * ((double)HumidityInterval / 100.0));
             }
-
-            if (HumidityInterval != null)
-            {
-                humidityAdd = FindBaseHumidityAddition((double)value, (int)HumidityInterval);
-            }
-            var baseAction = value + temperatureAdd + humidityAdd;
-            return Math.Ceiling(baseAction);
+            return currentInterval > 1 ? Math.Round(currentInterval) : 1;
         }
 
         public double FindCurrent(double baseInterval)
         {
-            var temperatureSub = 0.0;
-            var humiditySub = 0.0;
-            if (TemperatureInterval != null)
+            if (baseInterval > 2 && baseInterval <= 28)
             {
-                temperatureSub = FindCurrentTemperatureSubtraction((double)baseInterval, (int)TemperatureInterval);
+                baseInterval = baseInterval - (0.5 * (baseInterval / (1 + ((double)HumidityInterval / 100.0))) - ((double)TemperatureInterval / 100.0));
             }
-
-            if (HumidityInterval != null)
-            {
-                humiditySub = FindCurrentHumiditySubtraction((double)baseInterval, (int)HumidityInterval);
-            }
-            var current = (double)baseInterval - temperatureSub - humiditySub;
-            return current > 1 ? Math.Floor(current) : 1;
+            return baseInterval > 1 ? Math.Round(baseInterval) : 1;
         }
 
         public static double FindCurrentTemperatureSubtraction(double baseInterval, int temperatureLevel)
         {
-            if (baseInterval <= 28 && temperatureLevel < 100)
+            if (baseInterval <= 28 && temperatureLevel > 0)
             {
-                var temperatureEquation = 3.0 * ((double)temperatureLevel / 100.0);
+                var temperatureEquation = Math.Round((double)temperatureLevel / 100.0);
                 return temperatureEquation;
             }
             return 0;
@@ -286,7 +271,7 @@ namespace FloraSaver.Models
         {
             if (temperatureLevel < 100)
             {
-                var temperatureEquation = 3.0 * ((double)temperatureLevel / 100.0);
+                var temperatureEquation = Math.Round((double)temperatureLevel / 100.0);
                 if ((currentInterval + temperatureEquation) <= 28)
                 {
                     return temperatureEquation;
@@ -297,9 +282,9 @@ namespace FloraSaver.Models
 
         public static double FindCurrentHumiditySubtraction(double baseInterval, double humidityLevel)
         {
-            if (humidityLevel < 85 && baseInterval <= 23)
+            if (humidityLevel < 85 && baseInterval > 2 && baseInterval <= 28)
             {
-                var humidityEquation = (28.0 / (baseInterval + 5)) * (Math.Pow((double)(1.0 / 2.0), (double)((double)humidityLevel / 100.0)));
+                var humidityEquation = 0.5 * (baseInterval / (1 + ((double)humidityLevel / 100.0)));
                 return humidityEquation;
             }
             return 0.0;
@@ -307,13 +292,10 @@ namespace FloraSaver.Models
 
         public static double FindBaseHumidityAddition(double currentInterval, double humidityLevel)
         {
-            if (currentInterval <= 23 && humidityLevel < 85)
+            if (currentInterval <= 28 && currentInterval > 2 && humidityLevel < 85)
             {
-                var humidityEquation = (7.0 * Math.Pow(2.0, (2.0 - ((double)humidityLevel / 100.0)))) / (currentInterval) - 5;
-                if ((currentInterval + humidityEquation) <= 23)
-                {
-                    return humidityEquation;
-                }
+                var humidityEquation = 0.5 * (currentInterval / (1 + ((double)humidityLevel / 100.0)));
+                return humidityEquation;
             }
             return 0.0;
         }

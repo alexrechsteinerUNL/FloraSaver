@@ -220,8 +220,10 @@ namespace FloraSaver.ViewModels
             TemperatureChangedSectionUndo();
             AlterPlant.WaterInterval = InitialPlant.WaterInterval;
             WaterDaysFromNow = AlterPlant.WaterInterval != null ? (int)AlterPlant.WaterInterval : (AlterPlant.DateOfNextWatering.Date - AlterPlant.DateOfLastWatering.Date).Days;
+            IsInitialization = true;
             WaterIntervalPickerValue = WateringInterval.FirstOrDefault(x => x.NumFromNow == InitialWaterDaysFromNow);
             WaterIntervalPickerValue ??= WateringInterval.First(x => x.NumFromNow == -1);
+            IsInitialization = false;
             OnPropertyChanged(nameof(AlterPlant));
             IsBeingUndone = false;
             WaterIntervalUndoButtonVisible = false;
