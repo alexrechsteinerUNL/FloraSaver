@@ -302,9 +302,10 @@ namespace FloraSaver.ViewModels
             TemperatureChangedSectionUndo();
             AlterPlant.MistInterval = InitialPlant.MistInterval;
             MistDaysFromNow = AlterPlant.MistInterval != null ? (int)AlterPlant.MistInterval : (AlterPlant.DateOfNextMisting.Date - AlterPlant.DateOfLastMisting.Date).Days;
+            IsInitialization = true;
             MistIntervalPickerValue = MistingInterval.FirstOrDefault(x => x.NumFromNow == InitialMistDaysFromNow);
             MistIntervalPickerValue ??= MistingInterval.First(x => x.NumFromNow == -1);
-
+            IsInitialization = false;
             OnPropertyChanged(nameof(AlterPlant));
             IsBeingUndone = false;
             MistIntervalUndoButtonVisible = false;

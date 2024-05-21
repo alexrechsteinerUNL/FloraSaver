@@ -243,7 +243,7 @@ namespace FloraSaver.Models
         {
             if (currentInterval > 2 && currentInterval <= 28)
             {
-                currentInterval = (2.0 * (((double)HumidityInterval / 100.0) + 1) * (currentInterval + ((double)TemperatureInterval / 100.0))) / (1.0 + 2.0 * ((double)HumidityInterval / 100.0));
+                currentInterval = (2.0 * (((double)HumidityInterval / 100.0) + 1.0) * (currentInterval + ((double)TemperatureInterval / 100.0))) / (1.0 + 2.0 * ((double)HumidityInterval / 100.0));
             }
             return currentInterval > 1 ? Math.Round(currentInterval) : 1;
         }
@@ -252,7 +252,7 @@ namespace FloraSaver.Models
         {
             if (baseInterval > 2 && baseInterval <= 28)
             {
-                baseInterval = baseInterval - (0.5 * (baseInterval / (1 + ((double)HumidityInterval / 100.0))) - ((double)TemperatureInterval / 100.0));
+                baseInterval = baseInterval - (0.5 * (baseInterval / (1.0 + ((double)HumidityInterval / 100.0))) - ((double)TemperatureInterval / 100.0));
             }
             return baseInterval > 1 ? Math.Round(baseInterval) : 1;
         }
