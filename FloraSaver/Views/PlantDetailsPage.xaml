@@ -344,8 +344,6 @@
                             </Frame>
                         </Grid>
                         <!--  These Labels are temporary bruh  -->
-                        <Label Text="{Binding AlterPlant.BaseWaterIntervalForTempAndHum}" />
-                        <Label Text="{Binding AlterPlant.BaseMistIntervalForTempAndHum}" />
                         <Grid x:Name="plantSpeciesGrid" RowSpacing="5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="30" />

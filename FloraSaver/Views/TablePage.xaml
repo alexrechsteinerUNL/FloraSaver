@@ -317,7 +317,7 @@
                                                     Grid.ColumnSpan="3"
                                                     Padding="5,10,5,0"
                                                     ColumnDefinitions="*, 50"
-                                                    RowDefinitions="1.333333*, *, 1.2*, 5.4*">
+                                                    RowDefinitions="1.333333*, *, 1.2*,*, 5.4*">
                                                     <Label
                                                         Grid.Row="0"
                                                         Grid.Column="0"
@@ -415,8 +415,13 @@
                                                             <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToSetupDetailsGroupNameCommand}" CommandParameter="{Binding .}" />
                                                         </Label.GestureRecognizers>
                                                     </Label>
+                                                    <Grid Grid.Row="3" ColumnDefinitions="Auto,Auto">
+                                                        <Label Grid.Column="0" Text="{Binding HumidityInterval, StringFormat='☀{0}%'}" />
+                                                        <Label Grid.Column="1" Text="{Binding TemperatureInterval, StringFormat='🌡{0}°F'}" />
+                                                    </Grid>
+
                                                     <Grid
-                                                        Grid.Row="3"
+                                                        Grid.Row="4"
                                                         Grid.ColumnSpan="3"
                                                         Padding="0,15,0,0"
                                                         RowDefinitions="*,*,*"
