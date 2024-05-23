@@ -285,7 +285,7 @@ namespace FloraSaver.ViewModels
         {
             if (IsCelsius)
             {
-                IsCelsius = false;
+                 IsCelsius = false;
 
             } else
             {

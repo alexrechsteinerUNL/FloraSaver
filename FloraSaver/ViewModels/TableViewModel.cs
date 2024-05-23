@@ -37,7 +37,6 @@ namespace FloraSaver.ViewModels
             _databaseService = databaseService;
             IsPlantTypeIncluded = true;
             WaterRectangle = new Rect(0, 20, 105, 105);
-
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -69,7 +68,7 @@ namespace FloraSaver.ViewModels
                 var plantIndex = Plants.IndexOf(Plants.FirstOrDefault(_ => _.GivenName ==  scrollToSelectedPlant));
                 ScrollToValue = plantIndex > 0 ? plantIndex : 0;
             }
-            
+            IsCelsius = Preferences.Default.Get("is_Celsius", false);
             HideSearchSuggestionBox();
             IsInitialization = false;
         }

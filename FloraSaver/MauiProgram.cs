@@ -31,7 +31,7 @@ public static class MauiProgram
 #endif
 
         string dbPath = FileAccessHelper.GetLocalFilePath("plant.db3");
-
+        builder.Services.AddSingleton<BaseViewModel>();
         builder.Services.AddSingleton<TableViewModel>();
         builder.Services.AddSingleton<Base64ImageConverterService>();
         builder.Services.AddSingleton<IFileSaver>(FileSaver.Default);
