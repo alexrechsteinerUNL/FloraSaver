@@ -117,15 +117,15 @@ namespace FloraSaver.ViewModels
         [NotifyPropertyChangedFor(nameof(HumidityUnsavedChangesWarning))]
         protected bool humidityUndoButtonVisible = false;
         [RelayCommand]
-        protected void HumidityChanged() { HumidityUndoButtonVisible = (!IsInitialization && !IsBeingUndone && AlterPlant.HumidityInterval != (InitialPlant.HumidityInterval ?? Preferences.Default.Get("humidity_level", 30)) ? true : false); }
+        protected void HumidityChanged() { HumidityUndoButtonVisible = (!IsInitialization && !IsBeingUndone && AlterPlant.Humidity.HumidityLevel != (InitialPlant.Humidity.HumidityLevel ?? Preferences.Default.Get("humidity_level", 30)) ? true : false); }
         public string HumidityUnsavedChangesWarning => HumidityUndoButtonVisible ? "• Plant Humidity\n" : "";
         [RelayCommand]
         protected void HumidityChangedSectionUndo()
         {
             IsBeingUndone = true;
-            AlterPlant.HumidityInterval = InitialPlant.HumidityInterval ?? Preferences.Default.Get("humidity_level", 30);
+            AlterPlant.Humidity.HumidityLevel = InitialPlant.Humidity.HumidityLevel ?? Preferences.Default.Get("humidity_level", 30);
             OnPropertyChanged(nameof(AlterPlant));
-            HumidityIntervalPickerValueDetails = HumidityIntervals.FirstOrDefault(_ => _.HumidityLevel == AlterPlant.HumidityInterval) ?? new HumidityInterval() { HumidityLevel = 30, IntervalText = "Normal Indoor Humidity" };
+            HumidityIntervalPickerValueDetails = HumidityIntervals.FirstOrDefault(_ => _.HumidityLevel == AlterPlant.Humidity.HumidityLevel) ?? new HumidityInterval() { HumidityLevel = 30, IntervalText = "Normal Indoor Humidity" };
             OnPropertyChanged(nameof(HumidityIntervalPickerValueDetails));
 
             IsBeingUndone = false;
@@ -581,10 +581,10 @@ namespace FloraSaver.ViewModels
             TemperatureIntervalPickerValueCDetails = TemperatureIntervalsC.FirstOrDefault(_ => _.TemperatureLevel == (int)AlterPlant.TemperatureInterval);
             TemperatureIntervalPickerValueCDetails.TemperatureLevel = TemperatureIntervalPickerValueCDetails.TemperatureLevel;
             TemperatureIntervalPickerValueFDetails.TemperatureLevel = TemperatureIntervalPickerValueFDetails.TemperatureLevel;
-            AlterPlant.HumidityInterval = AlterPlant.HumidityInterval ?? HumidityIntervalPickerValueDetails.HumidityLevel;
+            AlterPlant.Humidity.HumidityLevel = AlterPlant.Humidity.HumidityLevel ?? HumidityIntervalPickerValueDetails.HumidityLevel;
             OnPropertyChanged(nameof(TemperatureIntervalPickerValueFDetails));
             OnPropertyChanged(nameof(TemperatureIntervalPickerValueCDetails));
-            HumidityIntervalPickerValueDetails = HumidityIntervals.FirstOrDefault(_ => _.HumidityLevel == (int)AlterPlant.HumidityInterval);
+            HumidityIntervalPickerValueDetails = HumidityIntervals.FirstOrDefault(_ => _.HumidityLevel == (int)AlterPlant.Humidity.HumidityLevel);
             OnPropertyChanged(nameof(HumidityIntervalPickerValueDetails));
             IsInitialization = false;
             if (AlterPlant.BaseWaterIntervalForTempAndHum is null && AlterPlant.UseWatering)
@@ -1069,7 +1069,7 @@ namespace FloraSaver.ViewModels
             if (value is null) { value = HumidityIntervals.FirstOrDefault(_ => _.HumidityLevel == Preferences.Default.Get("Humidity_level", 30)); }
             if (!IsInitialization && !IsBeingUndone)
             {
-                AlterPlant.HumidityInterval = value.HumidityLevel;
+                AlterPlant.Humidity.HumidityLevel = value.HumidityLevel;
                 HumidityChanged();
                 HumidityIntervalPickerValueDetails = value;
                 if (AlterPlant.BaseWaterIntervalForTempAndHum is not null) { AlterPlant.WaterInterval = AlterPlant.FindCurrent((double)AlterPlant.BaseWaterIntervalForTempAndHum); }

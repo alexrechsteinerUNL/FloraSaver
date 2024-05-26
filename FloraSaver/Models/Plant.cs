@@ -243,7 +243,7 @@ namespace FloraSaver.Models
         {
             if (currentInterval > 2 && currentInterval <= 28)
             {
-                currentInterval = (2.0 * (((double)HumidityInterval / 100.0) + 1.0) * (currentInterval + ((double)TemperatureInterval / 100.0))) / (1.0 + 2.0 * ((double)HumidityInterval / 100.0));
+                currentInterval = (2.0 * (((double)Humidity.HumidityLevel / 100.0) + 1.0) * (currentInterval + ((double)TemperatureInterval / 100.0))) / (1.0 + 2.0 * ((double)Humidity.HumidityLevel / 100.0));
             }
             return currentInterval > 1 ? Math.Round(currentInterval) : 1;
         }
@@ -252,7 +252,7 @@ namespace FloraSaver.Models
         {
             if (baseInterval > 2 && baseInterval <= 28)
             {
-                baseInterval = baseInterval - (0.5 * (baseInterval / (1.0 + ((double)HumidityInterval / 100.0))) - ((double)TemperatureInterval / 100.0));
+                baseInterval = baseInterval - (0.5 * (baseInterval / (1.0 + ((double)Humidity.HumidityLevel / 100.0))) - ((double)TemperatureInterval / 100.0));
             }
             return baseInterval > 1 ? Math.Round(baseInterval) : 1;
         }
@@ -300,9 +300,7 @@ namespace FloraSaver.Models
             return 0.0;
         }
 
-        //The below code is silly. Please make sure you test it out so that nothing weird happens.
-        private HumidityInterval humidityIntervalFull;
-        public HumidityInterval HumidityIntervalFull { get { return humidityIntervalFull; } private set => HumidityIntervalFull.HumidityLevel = HumidityInterval ?? 0; }
+        public HumidityInterval Humidity { get; set; } = new();
 
 
 
@@ -367,13 +365,6 @@ namespace FloraSaver.Models
                 OnPropertyChanged(nameof(SunPercent));
             }
         }
-
-        public double? TemperatureHighRange { get; set; }
-        public double? TemperatureLowRange { get; set; }
-        public double? HumidityHighRange { get; set; }
-        public double? HumidityLowRange { get; set; }
-
-        public int? HumidityInterval { get; set; }
         public int? TemperatureInterval { get; set; }
         private double TimeToNextAction(DateTime lastTime, DateTime nextTime)
         {
@@ -537,7 +528,7 @@ namespace FloraSaver.Models
             WaterInterval = _Plant.WaterInterval;
             PlantGroupName = _Plant.PlantGroupName;
             GroupColorHexString = _Plant.GroupColorHexString;
-            HumidityInterval = _Plant.HumidityInterval;
+            Humidity = _Plant.Humidity;
             TemperatureInterval = _Plant.TemperatureInterval;
             Source = _Plant.Source;
             Validation = _Plant.Validation;

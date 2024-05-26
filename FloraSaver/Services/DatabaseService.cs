@@ -180,14 +180,31 @@ namespace FloraSaver.Services
         private async Task InitAsync()
         {
             //Testing
-            if (conn != null)
+            if (conn != null && 7 == 6)
             {
+                if (conn.GetTableInfoAsync(nameof(Plant)) is null)
+                {
+                    await conn.CreateTableAsync<Plant>();
+                }
+                if (conn.GetTableInfoAsync(nameof(PlantGroup)) is null)
+                {
+                    await conn.CreateTableAsync<PlantGroup>();
+                }
+                if (conn.GetTableInfoAsync(nameof(AutoFillPlant)) is null)
+                {
+                    await conn.CreateTableAsync<AutoFillPlant>();
+                }
+                if (conn.GetTableInfoAsync(nameof(ClipetDialog)) is null)
+                {
+                    await conn.CreateTableAsync<ClipetDialog>();
+                }
+                await PopulateAutoFillPlantTableAsync();
+                await PopulateClipetDialogTableAsync();
                 return;
             }
 
 
             conn = new SQLiteAsyncConnection(_dbPath);
-
             await conn.CreateTableAsync<Plant>();
             await conn.CreateTableAsync<PlantGroup>();
             await conn.CreateTableAsync<AutoFillPlant>();

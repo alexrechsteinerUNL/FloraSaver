@@ -77,9 +77,5 @@ namespace FloraSaver.Models
         public string GroupColorHexString { get; set; } = "#A9A9A9";
         public string Source { get; set; } = "";
         public string ConnectedIcon => IsPlantExisting ? "♢" : "+";
-        public double? TemperatureHighRange { get; set; }
-        public double? TemperatureLowRange { get; set; }
-        public double? HumidityHighRange { get; set; }
-        public double? HumidityLowRange { get; set; }
     }
 }
