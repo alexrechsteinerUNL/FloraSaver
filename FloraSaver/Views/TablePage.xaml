@@ -416,7 +416,7 @@
                                                         </Label.GestureRecognizers>
                                                     </Label>
                                                     <Grid Grid.Row="3" ColumnDefinitions="Auto,Auto">
-                                                        <Label Grid.Column="0" Text="{Binding Humidity.HumidityRange, StringFormat='☀{0}%'}" />
+                                                        <Label Grid.Column="0" Text="{Binding Humidity.HumidityRange, StringFormat='☀{0}'}" />
                                                         <Label
                                                             Grid.Column="1"
                                                             IsVisible="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:BaseViewModel}}, Path=IsFahrenheit}"

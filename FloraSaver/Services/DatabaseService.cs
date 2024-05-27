@@ -186,7 +186,7 @@ namespace FloraSaver.Services
         private async Task InitAsync()
         {
             //Testing
-            if (conn != null && 7 == 6)
+            if (conn != null)
             {
                 if (conn.GetTableInfoAsync(nameof(Plant)) is null)
                 {

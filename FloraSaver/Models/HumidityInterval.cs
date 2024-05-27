@@ -10,8 +10,8 @@ namespace FloraSaver.Models
     {
         public string HumidityRange { get; private set; }
         
-        private int? _humidityLevel;
-        public int? HumidityLevel {
+        private int _humidityLevel;
+        public int HumidityLevel {
             get { return _humidityLevel; }
             set
             {

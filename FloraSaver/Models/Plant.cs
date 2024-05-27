@@ -258,9 +258,15 @@ namespace FloraSaver.Models
         }
 
         [Ignore]
-        public HumidityInterval Humidity { get; set; } = new();
+        public HumidityInterval Humidity => new() { HumidityLevel = HumanityIntervalInt ?? 0 };
+        [Ignore]
+        public TemperatureInterval TemperatureF { get; set; } = new();
+        [Ignore]
+        public TemperatureInterval TemperatureC { get; set; } = new() { IsCelsius = true };
 
+        public int? HumanityIntervalInt { get; set; }
 
+        public int? TemperatureIntervalInt => TemperatureF.TemperatureLevel;
 
 
 
@@ -486,7 +492,7 @@ namespace FloraSaver.Models
             WaterInterval = _Plant.WaterInterval;
             PlantGroupName = _Plant.PlantGroupName;
             GroupColorHexString = _Plant.GroupColorHexString;
-            Humidity = _Plant.Humidity;
+            HumanityIntervalInt = _Plant.HumanityIntervalInt;
             TemperatureInterval = _Plant.TemperatureInterval;
             Source = _Plant.Source;
             Validation = _Plant.Validation;
