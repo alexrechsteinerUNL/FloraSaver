@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace FloraSaver.Models
 {
+    [Table("AutoFillPlant")]
     public class AutoFillPlant : IPlant
     {
         [PrimaryKey, AutoIncrement]

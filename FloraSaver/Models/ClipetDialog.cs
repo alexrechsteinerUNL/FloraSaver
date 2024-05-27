@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace FloraSaver.Models
 {
+    [Table("ClipetDialog")]
     public class ClipetDialog
     {
         [PrimaryKey]

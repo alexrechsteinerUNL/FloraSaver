@@ -67,10 +67,13 @@ namespace FloraSaver.Services
                 var allDialogsTask = GetAllClipetDialogsAsync();
                 // You will need to alter this by either prepending the correct amount manually every time you update it or something smarter
                 var clipetDialogCount = Preferences.Default.Get("ClipetDialogCount", 0);
-                var currentDialogData = await conn.Table<ClipetDialog>().ToListAsync();
-                if (clipetDialogCount != 0 && clipetDialogCount == currentDialogData.Count && clipetDialogCount == ClipetDialogGeneratorUtility.ManualClipetDialogs)
+                if (clipetDialogCount > 0)
                 {
-                    return;
+                    var currentDialogData = await conn.Table<ClipetDialog>().ToListAsync();
+                    if (clipetDialogCount != 0 && clipetDialogCount == currentDialogData.Count && clipetDialogCount == ClipetDialogGeneratorUtility.ManualClipetDialogs)
+                    {
+                        return;
+                    }
                 }
                 ClipetDialogGeneratorUtility.GenerateClipetDialogs();
                 var allDialogs = await allDialogsTask;
@@ -111,11 +114,14 @@ namespace FloraSaver.Services
             try
             {
                 int autoFillPlantCount = Preferences.Default.Get("AutoFillPlantCount", 0);
-                var autoFillData = await conn.Table<AutoFillPlant>().ToListAsync();
-                if (autoFillPlantCount != 0 && autoFillPlantCount == autoFillData.Count && autoFillPlantCount == AutoFillPlantGeneratorUtility.ManualPlantCount)
-                {
-                    return;
+                if (autoFillPlantCount > 0) {
+                    var autoFillData = await conn.Table<AutoFillPlant>().ToListAsync();
+                    if (autoFillPlantCount != 0 && autoFillPlantCount == autoFillData.Count && autoFillPlantCount == AutoFillPlantGeneratorUtility.ManualPlantCount)
+                    {
+                        return;
+                    }
                 }
+                
                 AutoFillPlantGeneratorUtility.GenerateAutoFillPlants();
                 await conn.DeleteAllAsync<AutoFillPlant>();
                 await conn.InsertAllAsync(AutoFillPlantGeneratorUtility.AllAutoFillPlants, true);

@@ -257,49 +257,7 @@ namespace FloraSaver.Models
             return baseInterval > 1 ? Math.Round(baseInterval) : 1;
         }
 
-        public static double FindCurrentTemperatureSubtraction(double baseInterval, int temperatureLevel)
-        {
-            if (baseInterval <= 28 && temperatureLevel > 0)
-            {
-                var temperatureEquation = Math.Round((double)temperatureLevel / 100.0);
-                return temperatureEquation;
-            }
-            return 0;
-        }
-
-        public static double FindBaseTemperatureAddition(double currentInterval, int temperatureLevel)
-        {
-            if (temperatureLevel < 100)
-            {
-                var temperatureEquation = Math.Round((double)temperatureLevel / 100.0);
-                if ((currentInterval + temperatureEquation) <= 28)
-                {
-                    return temperatureEquation;
-                }
-            }
-            return 0;
-        }
-
-        public static double FindCurrentHumiditySubtraction(double baseInterval, double humidityLevel)
-        {
-            if (humidityLevel < 85 && baseInterval > 2 && baseInterval <= 28)
-            {
-                var humidityEquation = 0.5 * (baseInterval / (1 + ((double)humidityLevel / 100.0)));
-                return humidityEquation;
-            }
-            return 0.0;
-        }
-
-        public static double FindBaseHumidityAddition(double currentInterval, double humidityLevel)
-        {
-            if (currentInterval <= 28 && currentInterval > 2 && humidityLevel < 85)
-            {
-                var humidityEquation = 0.5 * (currentInterval / (1 + ((double)humidityLevel / 100.0)));
-                return humidityEquation;
-            }
-            return 0.0;
-        }
-
+        [Ignore]
         public HumidityInterval Humidity { get; set; } = new();
 
 
