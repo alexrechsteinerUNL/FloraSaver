@@ -74,11 +74,11 @@ namespace FloraSaver.Services
         {
             return new List<HumidityInterval>
             {
-                new HumidityInterval(){IntervalText ="85%-100%: I live in the sauna", HumidityLevel =  85 },
-                new HumidityInterval(){IntervalText ="60%-84%: My windows are crying",HumidityLevel =  60},
-                new HumidityInterval(){IntervalText ="45%-59% The air feels like a hug",HumidityLevel =  45  },
-                new HumidityInterval(){IntervalText ="30%-44% Normal Indoor Humidity",HumidityLevel =  30  },
-                new HumidityInterval(){IntervalText = "0%-29% My lips chapped on impact",HumidityLevel =  0 },
+                new HumidityInterval(){IntervalText ="85%-100%: I live in the sauna", HumidityLevel =  100 },
+                new HumidityInterval(){IntervalText ="60%-84%: My windows are crying",HumidityLevel =  84},
+                new HumidityInterval(){IntervalText ="45%-59% The air feels like a hug",HumidityLevel =  59  },
+                new HumidityInterval(){IntervalText ="30%-44% Normal Indoor Humidity",HumidityLevel =  44  },
+                new HumidityInterval(){IntervalText = "0%-29% My lips chapped on impact",HumidityLevel =  29 },
             };
         }
 

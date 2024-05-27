@@ -161,7 +161,7 @@ namespace FloraSaver.ViewModels
             OverduePlantsPickerValue = OverduePlantsInterval.FirstOrDefault(_ => _.NumFromNow == double.Parse(Preferences.Default.Get("overdue_plants_time_to", "1"))) ?? new Interval() { IntervalText = "1 Hour", NumFromNow = 1 };
             OverduePlantsMultiPickerValue = OverduePlantsMultiInterval.FirstOrDefault(_ => _.NumFromNow == double.Parse(Preferences.Default.Get("overdue_plants_multi_time_to", "24"))) ?? new Interval() { IntervalText = "1 Day", NumFromNow = 24 };
             
-            HumidityIntervalPickerValue = HumidityIntervals.FirstOrDefault(_ => _.HumidityLevel == Preferences.Default.Get("humidity_level", 30)) ?? new HumidityInterval() { HumidityLevel = 30, IntervalText = "Normal Indoor Humidity" };
+            HumidityIntervalPickerValue = HumidityIntervals.FirstOrDefault(_ => _.HumidityLevel == Preferences.Default.Get("humidity_level", 44)) ?? new HumidityInterval() { HumidityLevel = 30, IntervalText = "Normal Indoor Humidity" };
             
             IsCelsius = Preferences.Default.Get("is_Celsius", false);
             TemperatureIntervalPickerValueC = TemperatureIntervalsC.FirstOrDefault(_ => _.TemperatureLevel == Preferences.Default.Get("temperature_level", 60)) ?? new TemperatureInterval() { TemperatureLevel = 60, IntervalText = "Normal Indoor Temperatures", IsCelsius = true };

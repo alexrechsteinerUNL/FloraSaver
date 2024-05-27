@@ -420,11 +420,11 @@
                                                         <Label
                                                             Grid.Column="1"
                                                             IsVisible="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:BaseViewModel}}, Path=IsFahrenheit}"
-                                                            Text="{Binding TemperatureInterval, StringFormat='🌡{0}°F'}" />
+                                                            Text="{Binding TemperatureF.TemperatureRange, StringFormat='🌡{0}F'}" />
                                                         <Label
                                                             Grid.Column="1"
                                                             IsVisible="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:BaseViewModel}}, Path=IsCelsius}"
-                                                            Text="{Binding TemperatureInterval, StringFormat='🌡{0}°C'}" />
+                                                            Text="{Binding TemperatureC.TemperatureRange, StringFormat='🌡{0}C'}" />
                                                     </Grid>
 
                                                     <Grid

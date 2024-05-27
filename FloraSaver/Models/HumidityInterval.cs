@@ -18,19 +18,19 @@ namespace FloraSaver.Models
                 _humidityLevel = value;
                 switch (value) 
                 {
-                    case 85:
+                    case 100:
                         HumidityRange = "85%-100%";
                         break;
-                    case 60:
+                    case 84:
                         HumidityRange = "60%-84%";
                         break;
-                    case 45:
+                    case 59:
                         HumidityRange = "45%-59%";
                         break;
-                    case 30:
+                    case 44:
                         HumidityRange = "30%-44%";
                         break;
-                    case 0:
+                    case 29:
                         HumidityRange = "0%-29%";
                         break;
                     default:

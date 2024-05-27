@@ -243,7 +243,10 @@ namespace FloraSaver.Models
         {
             if (currentInterval > 2 && currentInterval <= 28)
             {
-                currentInterval = (2.0 * (((double)Humidity.HumidityLevel / 100.0) + 1.0) * (currentInterval + ((double)TemperatureInterval / 100.0))) / (1.0 + 2.0 * ((double)Humidity.HumidityLevel / 100.0));
+                if (HumanityIntervalInt < 100 && TemperatureIntervalInt < 100)
+                {
+                    currentInterval = (2.0 * (((double)HumanityIntervalInt / 100.0) + 1.0) * (currentInterval + ((double)TemperatureIntervalInt / 100.0))) / (1.0 + 2.0 * ((double)HumanityIntervalInt / 100.0));
+                }   
             }
             return currentInterval > 1 ? Math.Round(currentInterval) : 1;
         }
@@ -252,21 +255,25 @@ namespace FloraSaver.Models
         {
             if (baseInterval > 2 && baseInterval <= 28)
             {
-                baseInterval = baseInterval - (0.5 * (baseInterval / (1.0 + ((double)Humidity.HumidityLevel / 100.0))) - ((double)TemperatureInterval / 100.0));
+                if (HumanityIntervalInt < 100 && TemperatureIntervalInt < 100)
+                {
+                    baseInterval = baseInterval - (0.5 * (baseInterval / (1.0 + ((double)HumanityIntervalInt / 100.0))) - ((double)TemperatureIntervalInt / 100.0));
+                }
             }
+
             return baseInterval > 1 ? Math.Round(baseInterval) : 1;
         }
 
         [Ignore]
         public HumidityInterval Humidity => new() { HumidityLevel = HumanityIntervalInt ?? 0 };
         [Ignore]
-        public TemperatureInterval TemperatureF { get; set; } = new();
+        public TemperatureInterval TemperatureF => new() { TemperatureLevel = TemperatureIntervalInt ?? 0 };
         [Ignore]
-        public TemperatureInterval TemperatureC { get; set; } = new() { IsCelsius = true };
+        public TemperatureInterval TemperatureC => new() { IsCelsius = true, TemperatureLevel = TemperatureIntervalInt ?? 0 };
 
         public int? HumanityIntervalInt { get; set; }
 
-        public int? TemperatureIntervalInt => TemperatureF.TemperatureLevel;
+        public int? TemperatureIntervalInt { get; set; }
 
 
 
@@ -329,7 +336,7 @@ namespace FloraSaver.Models
                 OnPropertyChanged(nameof(SunPercent));
             }
         }
-        public int? TemperatureInterval { get; set; }
+        
         private double TimeToNextAction(DateTime lastTime, DateTime nextTime)
         {
             if (nextTime > DateTime.Now && lastTime < DateTime.Now)
@@ -493,7 +500,7 @@ namespace FloraSaver.Models
             PlantGroupName = _Plant.PlantGroupName;
             GroupColorHexString = _Plant.GroupColorHexString;
             HumanityIntervalInt = _Plant.HumanityIntervalInt;
-            TemperatureInterval = _Plant.TemperatureInterval;
+            TemperatureIntervalInt = _Plant.TemperatureIntervalInt;
             Source = _Plant.Source;
             Validation = _Plant.Validation;
         }
