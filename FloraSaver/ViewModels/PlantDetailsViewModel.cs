@@ -953,6 +953,29 @@ namespace FloraSaver.ViewModels
         }
 
         [RelayCommand]
+        public async Task SyncWaterAndMistAsync()
+        {
+            if (!IsInitialization && AlterPlant.UseMisting && AlterPlant.UseWatering)
+            {
+                var shouldSync = await Application.Current.MainPage.DisplayAlert("OH HOLD ON!", $"This will make watering and misting occur at the same date and time.", "Do it!", "DECLINE");
+                if (shouldSync)
+                {
+                    AlterPlant.BaseMistIntervalForTempAndHum = AlterPlant.BaseWaterIntervalForTempAndHum;
+                    AlterPlant.DateOfLastMisting = AlterPlant.DateOfLastWatering;
+                    AlterPlant.TimeOfLastMisting = AlterPlant.TimeOfLastWatering;
+                    AlterPlant.MistInterval = AlterPlant.WaterInterval;
+                    MistDaysFromNow = WaterDaysFromNow;
+                    IsInitialization = true;
+                    MistIntervalPickerValue = WaterIntervalPickerValue;
+                    MistIntervalPickerValue ??= MistingInterval.First(x => x.NumFromNow == -1);
+                    IsInitialization = false;
+                    AlterPlant.DateOfNextMisting = AlterPlant.DateOfNextWatering;
+                    AlterPlant.TimeOfNextMisting = AlterPlant.TimeOfNextWatering;
+                }
+            }
+        }
+
+        [RelayCommand]
         protected void AddGroupShowPressed()
         {
             AddNewGroupGridVisible = !AddNewGroupGridVisible;

@@ -23,6 +23,7 @@
         <BackButtonBehavior Command="{Binding GoToTableCommand}" />
     </Shell.BackButtonBehavior>
     <Grid>
+
         <Grid
             x:Name="_FullMode"
             HorizontalOptions="FillAndExpand"
@@ -544,6 +545,7 @@
                                             WidthRequest="40" />
                                     </Grid>
                                 </Grid>
+                                <Button Command="{Binding SyncWaterAndMistCommand}" Text="Sync Water and Mist Times" />
                                 <Label
                                     FontSize="12"
                                     IsVisible="{Binding AlterPlant.IsPlantSource}"

@@ -36,24 +36,31 @@
             BorderColor="Black"
             CornerRadius="0"
             HeightRequest="180">
-            <Entry
-                x:Name="searchBar"
-                Grid.Column="1"
-                Completed="Entry_Completed"
-                FontSize="25"
-                HorizontalTextAlignment="Start"
-                Placeholder="Search Plants..."
-                VerticalOptions="CenterAndExpand"
-                VerticalTextAlignment="Center">
-                <Entry.Behaviors>
-                    <toolkit:EventToCommandBehavior
-                        x:DataType="viewmodel:TableViewModel"
-                        Command="{Binding StandardActionsCommand}"
-                        CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
-                        EventName="TextChanged" />
-                    <toolkit:EventToCommandBehavior Command="{Binding ShowSearchSuggestionBoxCommand}" EventName="Focused" />
-                </Entry.Behaviors>
-            </Entry>
+            <Grid Grid.Column="1" ColumnDefinitions="*,Auto">
+                <Entry
+                    x:Name="searchBar"
+                    Grid.Column="0"
+                    Completed="Entry_Completed"
+                    FontSize="25"
+                    HorizontalTextAlignment="Start"
+                    Placeholder="Search Plants..."
+                    VerticalOptions="CenterAndExpand"
+                    VerticalTextAlignment="Center">
+                    <Entry.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                            x:DataType="viewmodel:TableViewModel"
+                            Command="{Binding StandardActionsCommand}"
+                            CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
+                            EventName="TextChanged" />
+                        <toolkit:EventToCommandBehavior Command="{Binding ShowSearchSuggestionBoxCommand}" EventName="Focused" />
+                    </Entry.Behaviors>
+                </Entry>
+                <ImageButton
+                    Grid.Column="1"
+                    Source="help_button.png"
+                    WidthRequest="30" />
+            </Grid>
+
         </Frame>
         <Image
             Grid.Row="1"

@@ -397,7 +397,7 @@
                         </Grid>
                         <Grid
                             x:Name="_SuggestionZone"
-                            RowDefinitions="*,*,*"
+                            RowDefinitions="*,*,*,*"
                             RowSpacing="10">
                             <Grid
                                 x:Name="givenNameGrid"
@@ -494,6 +494,10 @@
                             </Grid>
                             <Button
                                 Grid.Row="2"
+                                Command="{Binding SyncWaterAndMistCommand}"
+                                Text="Sync Water and Mist Times" />
+                            <Button
+                                Grid.Row="3"
                                 Command="{Binding ShowHideAdvancedOptionsCommand}"
                                 Text="{Binding EditActionsButtonText}" />
 
@@ -1555,7 +1559,6 @@
 
             </Grid>
         </Frame>
-
 
 
 

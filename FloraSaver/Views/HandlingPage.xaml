@@ -34,24 +34,30 @@
             BackgroundColor="Black"
             BorderColor="Black"
             CornerRadius="0">
-            <Entry
-                x:Name="searchBar"
-                Grid.Column="1"
-                Completed="Entry_Completed"
-                Focused="searchBar_Focused"
-                FontSize="25"
-                HeightRequest="180"
-                HorizontalTextAlignment="Start"
-                Placeholder="Filter Plants..."
-                VerticalOptions="Center"
-                VerticalTextAlignment="Center">
-                <Entry.Behaviors>
-                    <toolkit:EventToCommandBehavior
-                        Command="{Binding StandardActionsHandlingCommand}"
-                        CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
-                        EventName="TextChanged" />
-                </Entry.Behaviors>
-            </Entry>
+            <Grid Grid.Column="1" ColumnDefinitions="*,Auto">
+                <Entry
+                    x:Name="searchBar"
+                    Grid.Column="0"
+                    Completed="Entry_Completed"
+                    Focused="searchBar_Focused"
+                    FontSize="25"
+                    HeightRequest="180"
+                    HorizontalTextAlignment="Start"
+                    Placeholder="Filter Plants..."
+                    VerticalOptions="Center"
+                    VerticalTextAlignment="Center">
+                    <Entry.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                            Command="{Binding StandardActionsHandlingCommand}"
+                            CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
+                            EventName="TextChanged" />
+                    </Entry.Behaviors>
+                </Entry>
+                <ImageButton
+                    Grid.Column="1"
+                    Source="help_button.png"
+                    WidthRequest="30" />
+            </Grid>
         </Frame>
         <Image
             Grid.Row="1"
