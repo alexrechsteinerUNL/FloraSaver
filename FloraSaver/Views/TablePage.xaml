@@ -57,6 +57,9 @@
                 </Entry>
                 <ImageButton
                     Grid.Column="1"
+                    Command="{Binding HelpMessageAlertCommand}"
+                    CommandParameter="bloop"
+                    IsVisible="{Binding ShowTutorial}"
                     Source="help_button.png"
                     WidthRequest="30" />
             </Grid>

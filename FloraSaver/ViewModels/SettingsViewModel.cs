@@ -36,6 +36,8 @@ namespace FloraSaver.ViewModels
             }
         }
 
+        public string ShowTutorialButtonText => ShowTutorial ? "Hide Tutorials" : "Show Tutorials";
+
         [ObservableProperty]
         protected List<Interval> overduePlantsInterval;
         [ObservableProperty]
@@ -203,6 +205,7 @@ namespace FloraSaver.ViewModels
             MiddayTime = middayDate.TimeOfDay;
             var nightDate = DateTime.FromBinary(Preferences.Default.Get("night_time_date", new DateTime(1, 1, 1, 16, 0, 0).ToBinary()));
             NightTime = nightDate.TimeOfDay;
+            ShowTutorial = Preferences.Default.Get("show_tutorial", true);
             IsInitialization = false;
         }
 
@@ -214,6 +217,14 @@ namespace FloraSaver.ViewModels
 
         [ObservableProperty]
         private TimeSpan nightTime;
+
+        [RelayCommand]
+        private void ToggleTutorials()
+        {
+            ShowTutorial = !ShowTutorial;
+            Preferences.Default.Set("show_tutorial", ShowTutorial);
+            OnPropertyChanged(nameof(ShowTutorialButtonText)); 
+        }
 
         [RelayCommand]
         public async Task ValidateGroupAsync(int includedGroupId = -1)

@@ -69,6 +69,7 @@ namespace FloraSaver.ViewModels
                 ScrollToValue = plantIndex > 0 ? plantIndex : 0;
             }
             IsCelsius = Preferences.Default.Get("is_Celsius", false);
+            ShowTutorial = Preferences.Default.Get("show_tutorial", true);
             HideSearchSuggestionBox();
             IsInitialization = false;
         }

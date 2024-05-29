@@ -55,6 +55,7 @@
                 </Entry>
                 <ImageButton
                     Grid.Column="1"
+                    IsVisible="{Binding ShowTutorial}"
                     Source="help_button.png"
                     WidthRequest="30" />
             </Grid>

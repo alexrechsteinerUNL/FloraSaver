@@ -350,6 +350,13 @@
                 </Frame>
 
                 <Button
+                    x:Name="TutorialToggle"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Command="{Binding ToggleTutorialsCommand}"
+                    Text="{Binding ShowTutorialButtonText}" />
+
+                <Button
                     x:Name="BackupPlants"
                     Grid.Row="1"
                     Grid.Column="0"

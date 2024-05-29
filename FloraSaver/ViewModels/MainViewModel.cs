@@ -80,6 +80,7 @@ namespace FloraSaver.ViewModels
             {
                 AreNoPlants = true;
             }
+            ShowTutorial = Preferences.Default.Get("show_tutorial", true);
             SetNextPlant();
         }
 

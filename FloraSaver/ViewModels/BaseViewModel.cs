@@ -72,6 +72,9 @@ namespace FloraSaver.ViewModels
         public string TemperatureButtonText => IsCelsius ? "C" : "F";
         public bool IsFahrenheit => !IsCelsius;
 
+        [ObservableProperty]
+        public bool showTutorial = true;
+
         public bool IsChangingCtoF = false;
 
         [ObservableProperty]
@@ -159,6 +162,12 @@ namespace FloraSaver.ViewModels
                 friendlyLabel = value;
                 OnPropertyChanged();
             }
+        }
+
+        [RelayCommand]
+        public async Task HelpMessageAlertAsync(string message)
+        {
+            await Application.Current.MainPage.DisplayAlert("Page Info!", $"{message}", "Sounds Good");
         }
 
         public async Task FriendlyLabelToastAsync()

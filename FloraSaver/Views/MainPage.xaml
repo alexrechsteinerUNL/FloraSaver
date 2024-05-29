@@ -387,10 +387,11 @@
 
         </Grid>
         <ImageButton
-            Padding="10,10"
+            Margin="10,12"
             Aspect="AspectFill"
             HeightRequest="30"
             HorizontalOptions="End"
+            IsVisible="{Binding ShowTutorial}"
             Source="help_button.png"
             VerticalOptions="Start"
             WidthRequest="30" />
