@@ -438,7 +438,7 @@
                                                 BackgroundColor="Black"
                                                 BorderColor="{Binding GroupColor}">
                                                 <Grid
-                                                    ColumnDefinitions="65, 140, 50, 50"
+                                                    ColumnDefinitions="65, 140, 50, 70"
                                                     HorizontalOptions="Start"
                                                     RowDefinitions="35, 60, 30, 40"
                                                     RowSpacing="1">
@@ -529,7 +529,7 @@
                                                         x:Name="groupChangesSave"
                                                         Grid.Row="3"
                                                         Grid.Column="3"
-                                                        Padding="10,5"
+                                                        Padding="15,5"
                                                         Clicked="ScrollTo_Button_Clicked"
                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SettingsViewModel}}, Path=SaveGroupChangeCommand}"
                                                         CommandParameter="{Binding .}"
@@ -542,7 +542,8 @@
                                                         Grid.Row="0"
                                                         Grid.RowSpan="1"
                                                         Grid.Column="3"
-                                                        Padding="10,5"
+                                                        Grid.ColumnSpan="2"
+                                                        Padding="15,5"
                                                         BackgroundColor="Black"
                                                         BorderColor="White"
                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SettingsViewModel}}, Path=DeletePlantGroupCommand}"
