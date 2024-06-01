@@ -397,9 +397,5 @@
             Source="help_button.png"
             VerticalOptions="Start"
             WidthRequest="30" />
-        <!--<custom_components:ClipetOverlay
-            x:Name="Clipet"
-            IsVisible="false"
-            isClipetEnabled="False" />-->
     </Grid>
 </ContentPage>
