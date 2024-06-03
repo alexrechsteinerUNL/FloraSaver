@@ -243,25 +243,25 @@ namespace FloraSaver.Models
         {
             if (currentInterval > 2 && currentInterval <= 28)
             {
-                if (HumanityIntervalInt < 100 && TemperatureIntervalInt < 100)
+                if (HumanityIntervalInt < 100 || TemperatureIntervalInt < 100)
                 {
                     currentInterval = (2.0 * (((double)HumanityIntervalInt / 100.0) + 1.0) * (currentInterval + ((double)TemperatureIntervalInt / 100.0))) / (1.0 + 2.0 * ((double)HumanityIntervalInt / 100.0));
                 }   
             }
-            return currentInterval > 1 ? Math.Round(currentInterval) : 1;
+            return currentInterval > 1 ? Math.Ceiling(currentInterval) : 1;
         }
 
         public double FindCurrent(double baseInterval)
         {
             if (baseInterval > 2 && baseInterval <= 28)
             {
-                if (HumanityIntervalInt < 100 && TemperatureIntervalInt < 100)
+                if (HumanityIntervalInt < 100 || TemperatureIntervalInt < 100)
                 {
                     baseInterval = baseInterval - (0.5 * (baseInterval / (1.0 + ((double)HumanityIntervalInt / 100.0))) - ((double)TemperatureIntervalInt / 100.0));
                 }
             }
 
-            return baseInterval > 1 ? Math.Round(baseInterval) : 1;
+            return baseInterval > 1 ? Math.Floor(baseInterval) : 1;
         }
 
         [Ignore]
