@@ -1239,19 +1239,23 @@ namespace FloraSaver.ViewModels
         {
             if (isSetup)
             {
-                await Shell.Current.GoToAsync(nameof(PlantDetailsPage), true, new Dictionary<string, object>
+                var remove = Shell.Current.Navigation.PopAsync();
+                await Shell.Current.GoToAsync($"{nameof(PlantDetailsPage)}", true, new Dictionary<string, object>
                 {
                     {"Plant", AlterPlant },
                     {"PlantGroup", await _databaseService.GetAllPlantGroupAsync() }
                 });
+                await remove;
             }
             else
             {
-                await Shell.Current.GoToAsync(nameof(PlantDetailsSetupPage), true, new Dictionary<string, object>
+                var remove = Shell.Current.Navigation.PopAsync();
+                await Shell.Current.GoToAsync($"{nameof(PlantDetailsSetupPage)}", true, new Dictionary<string, object>
                 {
                     {"Plant", AlterPlant },
                     {"PlantGroup", await _databaseService.GetAllPlantGroupAsync() }
                 });
+                await remove;
             }
             return;
         }
