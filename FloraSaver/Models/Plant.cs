@@ -464,7 +464,8 @@ namespace FloraSaver.Models
 
         [Ignore]
         public PlantValidationArgs Validation { get; set; } = new PlantValidationArgs();
-
+        [Ignore]
+        public bool IsPlantExisting { get; set; } = false;
         public void Validate(List<string> unsafePlantNames)
         {
             Validation.Validate(this, unsafePlantNames);
@@ -519,9 +520,15 @@ namespace FloraSaver.Models
             DateOfBirth = DateTime.Now;
             WaterInterval = _SearchedPlants.WaterInterval;
             Source = _SearchedPlants.Source;
+            IsPlantExisting = _SearchedPlants.IsPlantExisting;
+            
 
             if (WaterInterval != null)
             {
+                if (_SearchedPlants.IsPlantExisting)
+                {
+                    BaseWaterIntervalForTempAndHum = FindBase((double)WaterInterval);
+                }
                 DateOfNextWatering = DateOfLastWatering.AddDays((double)WaterInterval);
                 TimeOfNextWatering = DateOfNextWatering.TimeOfDay;
             } 
@@ -533,6 +540,10 @@ namespace FloraSaver.Models
 
             if (MistInterval != null)
             {
+                if (_SearchedPlants.IsPlantExisting)
+                {
+                    BaseMistIntervalForTempAndHum = FindBase((double)MistInterval);
+                }
                 DateOfNextMisting = DateOfLastMisting.AddDays((double)MistInterval);
                 TimeOfNextMisting = DateOfNextMisting.TimeOfDay;
             }

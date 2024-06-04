@@ -587,33 +587,41 @@ namespace FloraSaver.ViewModels
             HumidityIntervalPickerValueDetails = HumidityIntervals.FirstOrDefault(_ => _.HumidityLevel == (int)AlterPlant.HumanityIntervalInt);
             OnPropertyChanged(nameof(HumidityIntervalPickerValueDetails));
             IsInitialization = false;
-            if (AlterPlant.BaseWaterIntervalForTempAndHum is null && AlterPlant.UseWatering)
+            if (!AlterPlant.IsPlantExisting)
             {
-                AlterPlant.BaseWaterIntervalForTempAndHum = (InitialPlant.DateOfNextWatering.Date - InitialPlant.DateOfLastWatering.Date).Days;
-                
-                HumidityValueChanged(HumidityIntervalPickerValueDetails);
-                TemperatureFValueChanged(TemperatureIntervalPickerValueFDetails);
-                TemperatureCValueChanged(TemperatureIntervalPickerValueCDetails);
-            } else if (AlterPlant.UseWatering)
+                if (AlterPlant.BaseWaterIntervalForTempAndHum is null && AlterPlant.UseWatering)
+                {
+                    AlterPlant.BaseWaterIntervalForTempAndHum = (InitialPlant.DateOfNextWatering.Date - InitialPlant.DateOfLastWatering.Date).Days;
+
+                    HumidityValueChanged(HumidityIntervalPickerValueDetails);
+                    TemperatureFValueChanged(TemperatureIntervalPickerValueFDetails);
+                    TemperatureCValueChanged(TemperatureIntervalPickerValueCDetails);
+                }
+                else if (AlterPlant.UseWatering)
+                {
+                    HumidityValueChanged(HumidityIntervalPickerValueDetails);
+                    TemperatureFValueChanged(TemperatureIntervalPickerValueFDetails);
+                    TemperatureCValueChanged(TemperatureIntervalPickerValueCDetails);
+                }
+
+                if (AlterPlant.BaseMistIntervalForTempAndHum is null && AlterPlant.UseMisting)
+                {
+                    AlterPlant.BaseMistIntervalForTempAndHum = (InitialPlant.DateOfNextMisting.Date - InitialPlant.DateOfLastMisting.Date).Days;
+                    HumidityValueChanged(HumidityIntervalPickerValueDetails);
+                    TemperatureFValueChanged(TemperatureIntervalPickerValueFDetails);
+                    TemperatureCValueChanged(TemperatureIntervalPickerValueCDetails);
+                }
+                else if (AlterPlant.UseMisting)
+                {
+                    HumidityValueChanged(HumidityIntervalPickerValueDetails);
+                    TemperatureFValueChanged(TemperatureIntervalPickerValueFDetails);
+                    TemperatureCValueChanged(TemperatureIntervalPickerValueCDetails);
+                }
+            } else
             {
-                HumidityValueChanged(HumidityIntervalPickerValueDetails);
-                TemperatureFValueChanged(TemperatureIntervalPickerValueFDetails);
-                TemperatureCValueChanged(TemperatureIntervalPickerValueCDetails);
+                AlterPlant.IsPlantExisting = false;
             }
-           
-            if (AlterPlant.BaseMistIntervalForTempAndHum is null && AlterPlant.UseMisting)
-            {
-                AlterPlant.BaseMistIntervalForTempAndHum = (InitialPlant.DateOfNextMisting.Date - InitialPlant.DateOfLastMisting.Date).Days;
-                HumidityValueChanged(HumidityIntervalPickerValueDetails);
-                TemperatureFValueChanged(TemperatureIntervalPickerValueFDetails);
-                TemperatureCValueChanged(TemperatureIntervalPickerValueCDetails);
-            }
-            else if (AlterPlant.UseMisting)
-            {
-                HumidityValueChanged(HumidityIntervalPickerValueDetails);
-                TemperatureFValueChanged(TemperatureIntervalPickerValueFDetails);
-                TemperatureCValueChanged(TemperatureIntervalPickerValueCDetails);
-            }
+            
             IsInitialization = true;
 
             if (InitialPlant == AlterPlant)
@@ -678,9 +686,17 @@ namespace FloraSaver.ViewModels
                 AlterPlant.Id = saveId;
                 AlterPlant.BaseWaterIntervalForTempAndHum = (AlterPlant.DateOfNextWatering.Date - AlterPlant.DateOfLastWatering.Date).Days;
                 AlterPlant.BaseMistIntervalForTempAndHum = (AlterPlant.DateOfNextMisting.Date - AlterPlant.DateOfLastMisting.Date).Days;
-                HumidityValueChanged(HumidityIntervalPickerValueDetails);
-                TemperatureFValueChanged(TemperatureIntervalPickerValueFDetails);
-                TemperatureCValueChanged(TemperatureIntervalPickerValueCDetails);
+                AlterPlant.HumanityIntervalInt = HumidityIntervalPickerValueDetails.HumidityLevel;
+                AlterPlant.TemperatureIntervalInt = TemperatureIntervalPickerValueFDetails.TemperatureLevel;
+                if (!AlterPlant.IsPlantExisting)
+                {
+                    HumidityValueChanged(HumidityIntervalPickerValueDetails);
+                    TemperatureFValueChanged(TemperatureIntervalPickerValueFDetails);
+                    TemperatureCValueChanged(TemperatureIntervalPickerValueCDetails);
+                } else
+                {
+                    AlterPlant.IsPlantExisting = false;
+                }
                 WaterDaysFromNowChanged(WaterDaysFromNow);
                 MistDaysFromNowChanged(MistDaysFromNow);
                 OnPropertyChanged(nameof(AlterPlant));
@@ -1093,6 +1109,7 @@ namespace FloraSaver.ViewModels
             if (!IsInitialization && !IsBeingUndone)
             {
                 AlterPlant.HumanityIntervalInt = value.HumidityLevel;
+                AlterPlant.TemperatureIntervalInt = TemperatureIntervalPickerValueFDetails.TemperatureLevel;
                 HumidityChanged();
                 HumidityIntervalPickerValueDetails = value;
                 if (AlterPlant.BaseWaterIntervalForTempAndHum is not null) { AlterPlant.WaterInterval = AlterPlant.FindCurrent((double)AlterPlant.BaseWaterIntervalForTempAndHum); }

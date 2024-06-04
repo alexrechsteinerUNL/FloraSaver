@@ -411,6 +411,7 @@
                                                         Grid.Row="1"
                                                         Grid.ColumnSpan="2"
                                                         FontAttributes="Italic"
+                                                        FontSize="20"
                                                         Text="{Binding PlantSpecies}">
                                                         <Label.GestureRecognizers>
                                                             <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TableViewModel}}, Path=GoToSetupDetailsPlantNameCommand}" CommandParameter="{Binding .}" />

@@ -79,3 +79,4 @@ namespace FloraSaver.Models
         public string ConnectedIcon => IsPlantExisting ? "♢" : "+";
     }
 }
+ 
