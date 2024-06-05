@@ -161,6 +161,7 @@ namespace FloraSaver.ViewModels
             foreach (var plant in plantList)
             {
                 plant.PlantImageSource = plant.ImageLocation is not null ? Base64ImageConverterService.Base64ToImage(plant.ImageLocation) : null;
+                plant.IsPlantExisting = true;
                 Plants.Add(plant);
             }
             if (DataPlants.Count > 0)
