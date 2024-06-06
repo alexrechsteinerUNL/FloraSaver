@@ -65,6 +65,7 @@
 		<MauiImage Update="Resources\Images\spaced_background.jpg" BaseSize="1000,1000" />
 		<MauiImage Update="Resources\Images\frosted_shade_green.jpg" BaseSize="500,500" />
 		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+		<MauiImage Update="Resources\Images\card_background_fix.svg" BaseSize="350,350" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
