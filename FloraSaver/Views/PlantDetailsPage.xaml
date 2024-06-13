@@ -48,14 +48,22 @@
 
 
                 <Grid Grid.Row="0" RowDefinitions="Auto">
-                    <Button
-                        x:Name="goBack"
-                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=GoToTableCommand}"
+                    <Frame
+                        Padding="3"
+                        BackgroundColor="Black"
                         HorizontalOptions="Start"
-                        IsEnabled="{Binding IsNotBusy}"
                         MaximumHeightRequest="60"
-                        Text="{Binding BackText}"
-                        WidthRequest="100" />
+                        WidthRequest="100">
+                        <Button
+                            x:Name="goBack"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=GoToTableCommand}"
+                            HorizontalOptions="Center"
+                            IsEnabled="{Binding IsNotBusy}"
+                            MaximumHeightRequest="60"
+                            Text="{Binding BackText}"
+                            VerticalOptions="Center"
+                            WidthRequest="95" />
+                    </Frame>
                     <Button
                         x:Name="deletePlants"
                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=DeleteCommand}"
@@ -1538,14 +1546,23 @@
                         MaximumHeightRequest="60"
                         Text="Reset"
                         WidthRequest="100" />
-                    <Button
-                        x:Name="addUpdate"
-                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=AddUpdateCommand}"
-                        CommandParameter="{Binding Plant}"
-                        IsEnabled="{Binding IsNotBusy}"
+                    <Frame
+                        Padding="3"
+                        BackgroundColor="Black"
                         MaximumHeightRequest="60"
-                        Text="{Binding SaveText}"
-                        WidthRequest="100" />
+                        WidthRequest="100">
+                        <Button
+                            x:Name="addUpdate"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=AddUpdateCommand}"
+                            CommandParameter="{Binding Plant}"
+                            HorizontalOptions="Center"
+                            IsEnabled="{Binding IsNotBusy}"
+                            MaximumHeightRequest="60"
+                            Text="{Binding SaveText}"
+                            VerticalOptions="Center"
+                            WidthRequest="95" />
+                    </Frame>
+
                     <Button
                         x:Name="switchToSetup"
                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PlantDetailsViewModel}}, Path=SwitchDetailsCommand}"
